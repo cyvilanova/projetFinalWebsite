@@ -3,41 +3,38 @@
 body{
 	margin:0;
 	color: #292323;
+	background-color: #F8F9FA !important;
 	font-family: 'Raleway', sans-serif;
+	overflow-x: hidden;
 }
 
 /* Nav bar */
-
-.nav-bar{
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
+.navbar{
+	padding-bottom: 0;
 }
 
-.nav-bar a{
-	color:#292323;
-	text-decoration: none;
+.navbar-light {
+  background-color: #fff !important;
 }
 
-.nav-bar li{
-	display: inline-block;
-	margin-right:40px;
-	margin-left:40px;
+.navbar-nav {
+  margin-right: 100px;
+  padding:0;
 }
 
-.nav-bar img{
-	margin-left:40px;
+.navbar-light .navbar-nav .nav-link {
+  margin-right: 50px;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
 }
-
-.nav-bar nav{
-	align-self: right;
-}
-
 
 /* Title bar */
 .title-bar{
 	padding-top:40px;
 	padding-bottom:40px;
+	margin-top:0px;
 	margin-bottom: 10px;
 
 	text-align: center;
@@ -46,13 +43,10 @@ body{
 	background-color:#292323;
 }
 
+
 /* Search section */
 .search-section{
 	text-align: center;
-}
-
-.search-section p,.search-section div{
-	display: inline-block;
 }
 
 .search-section input,.search-section select{
@@ -60,15 +54,42 @@ body{
 	height:25px;
 }
 .search-section input{
+	font-family: "Raleway";
+	font-size:25px;
+	width:30%;
+	min-width:250px;
+	height:45px;
 	border-radius:40px;
-	padding-left: 30px;
+	border:1px solid black;
+	padding-left: 5px;
 	outline:0;
 
 	background-image: url("../icons/magnifying.png");
 	background-repeat: no-repeat;
 	background-size: contain;
-	background-position: 2% center;
+	background-position: 99% center;
 }
+
+.search-section input:focus{
+	transition-duration: 1s;
+
+	color:white;
+	caret-color:white;
+	border:1px solid white;
+	background-color: #292323;
+	background-image: none;
+}
+
+.search-section p{
+	font-size: 22px;
+}
+
+.search-section select{
+	font-size: 20px;
+	width:220px;
+	height:30px;
+}
+
 
 /* Product section */
 .product-section{
@@ -78,6 +99,7 @@ body{
 	display: flex;
 	justify-content: space-evenly;
 	flex-wrap: wrap;
+	box-sizing: content-box;
 }
 
 .product-section .product{
@@ -88,10 +110,11 @@ body{
 	padding-right:1%;
 	padding-left: 1%;
 	border:2px solid #292323;
+	box-sizing: content-box;
 }
 
 .product-section .product img{
-	width:200px;
+	width:170px;
 	height:150px;
 }
 
@@ -100,6 +123,7 @@ body{
 	justify-content: space-between;
 	width:100%;
 }
+
 
 /* Footer section */
 .classic-footer{
@@ -113,4 +137,49 @@ body{
 	margin:0;
 	padding-top:40px;
 	padding-bottom:40px;
+}
+
+
+
+
+
+@media screen and (max-width: 991px) {
+	/* start of large tablet styles */
+
+	/* Product changes */
+	.product-section .product{
+		width:25%;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	/* start of medium tablet styles */
+
+	/* Product changes */
+	.product-section .product{
+		width:45%;
+	}
+
+	/* Search section changes */
+	.search-section p{
+		display: block;
+	}
+
+}
+
+@media screen and (max-width: 479px) {
+	/* start of phone styles */
+	body{
+		background-color: green;
+	}
+
+	/* Product section changes */
+	.product-section{
+		width:100%;
+	}
+
+	.product-section .product{
+		width:70%;
+	}
+
 }

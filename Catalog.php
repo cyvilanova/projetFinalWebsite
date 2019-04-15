@@ -19,17 +19,36 @@
 	<title>Quintessentiel</title>
 	<meta charset="utf-8"/>
 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	  <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  	<!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
 <body>
 	<header class="nav-bar"> <!-- Page header -->
-		<img src="images/logo.png" alt="Logo" />
-		<nav>
-			<ul>
-				<li><a href="#" title="Accueil">ACCUEIL</a></li>
-				<li><a href="#" title="Produits">PRODUITS</a></li>
-				<li><a href="#" title="Nous joindre">NOUS JOINDRE</a></li>
-			</ul>
-		</nav>
+		<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	    	<a class="navbar-brand" href="#">
+	      		<img src="images/logo.png" alt="Quintessentiel logo" class="img-logo-nav" />
+	    	</a>
+	    	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+	      	aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	      		<span class="navbar-toggler-icon"></span>
+	    	</button>
+		    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNavDropdown">
+		      	<ul class="navbar-nav ml-auto">
+		        	<li class="nav-item active">
+		          		<a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+		        	</li>
+		        	<li class="nav-item">
+		          		<a class="nav-link" href="#">Produits</a>
+		        	</li>
+			        <li class="nav-item">
+			          	<a class="nav-link" href="#">Nous joindre</a>
+			        </li>
+		      </ul>
+		    </div>
+	  </nav>
 	</header>
 	<section> <!-- Page section -->
 		<h1 class="title-bar">Produits</h1>
@@ -85,6 +104,11 @@
 	<footer class="classic-footer">
 		<p>Insérez du texte ici</p>
 	</footer>
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 </body>
 </html>
