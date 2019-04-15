@@ -31,9 +31,10 @@ body{
 }
 
 /* Title bar */
-.title-bar{
-	padding-top:40px;
-	padding-bottom:40px;
+
+.page-title-bar{
+	padding-top:30px;
+	padding-bottom:30px;
 	margin-top:0px;
 	margin-bottom: 10px;
 

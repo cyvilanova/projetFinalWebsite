@@ -27,31 +27,47 @@
 </head>
 <body>
 	<header class="nav-bar"> <!-- Page header -->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	    	<a class="navbar-brand" href="#">
-	      		<img src="images/logo.png" alt="Quintessentiel logo" class="img-logo-nav" />
-	    	</a>
-	    	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-	      	aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-	      		<span class="navbar-toggler-icon"></span>
-	    	</button>
-		    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNavDropdown">
-		      	<ul class="navbar-nav ml-auto">
-		        	<li class="nav-item active">
-		          		<a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
-		        	</li>
-		        	<li class="nav-item">
-		          		<a class="nav-link" href="#">Produits</a>
-		        	</li>
-			        <li class="nav-item">
-			          	<a class="nav-link" href="#">Nous joindre</a>
-			        </li>
-		      </ul>
-		    </div>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+	    <a class="navbar-brand" href="#">
+	      <img src="images/logo.png" alt="Quintessentiel logo" class="img-logo-nav" />
+	    </a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+	      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+	      <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNavDropdown">
+	      <ul class="navbar-nav ml-auto">
+	        <li class="nav-item active">
+	          <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">Produits</a>
+	        </li>
+	        <li class="nav-item dropdown">
+	          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+	            aria-haspopup="true" aria-expanded="false">
+	            Gestion
+	          </a>
+	          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+	            <a class="dropdown-item" href="#">Recettes</a>
+	            <a class="dropdown-item" href="#">Inventaire</a>
+	            <a class="dropdown-item" href="#">Commandes</a>
+	            <a class="dropdown-item" href="#">Livraisons</a>
+	          </div>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">Déconnexion</a>
+	        </li>
+	      </ul>
+	    </div>
 	  </nav>
+
+
 	</header>
 	<section> <!-- Page section -->
-		<h1 class="title-bar">Produits</h1>
+		  <div class="page-title-bar">
+		    <h1>Produits</h1>
+		  </div>
 
 		<section class="search-section"> <!-- search section -->
 			<div>	<!-- search bar -->
