@@ -1,0 +1,116 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body{
+	margin:0;
+	color: #292323;
+	font-family: 'Raleway', sans-serif;
+}
+
+/* Nav bar */
+
+.nav-bar{
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.nav-bar a{
+	color:#292323;
+	text-decoration: none;
+}
+
+.nav-bar li{
+	display: inline-block;
+	margin-right:40px;
+	margin-left:40px;
+}
+
+.nav-bar img{
+	margin-left:40px;
+}
+
+.nav-bar nav{
+	align-self: right;
+}
+
+
+/* Title bar */
+.title-bar{
+	padding-top:40px;
+	padding-bottom:40px;
+	margin-bottom: 10px;
+
+	text-align: center;
+	font-size: 50px;
+	color:white;
+	background-color:#292323;
+}
+
+/* Search section */
+.search-section{
+	text-align: center;
+}
+
+.search-section p,.search-section div{
+	display: inline-block;
+}
+
+.search-section input,.search-section select{
+	width:200px;
+	height:25px;
+}
+.search-section input{
+	border-radius:40px;
+	padding-left: 30px;
+	outline:0;
+
+	background-image: url("../icons/magnifying.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: 2% center;
+}
+
+/* Product section */
+.product-section{
+	width:90%;
+
+	margin:auto;
+	display: flex;
+	justify-content: space-evenly;
+	flex-wrap: wrap;
+}
+
+.product-section .product{
+	text-align: center;
+	width:20%;
+	padding-top:20px;
+	margin-top:20px;
+	padding-right:1%;
+	padding-left: 1%;
+	border:2px solid #292323;
+}
+
+.product-section .product img{
+	width:200px;
+	height:150px;
+}
+
+.product-section .bottom-text{
+	display: flex;
+	justify-content: space-between;
+	width:100%;
+}
+
+/* Footer section */
+.classic-footer{
+	margin-top:50px;
+	background-color: #292323;
+}
+
+.classic-footer p{
+	text-align: center;
+	color:white;
+	margin:0;
+	padding-top:40px;
+	padding-bottom:40px;
+}
