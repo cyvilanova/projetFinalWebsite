@@ -2,8 +2,7 @@
 
 body{
 	margin:0;
-	color: #292323;
-	background-color: #F8F9FA !important;
+	padding:0;
 	font-family: 'Raleway', sans-serif;
 	overflow-x: hidden;
 }
@@ -11,6 +10,15 @@ body{
 /* Nav bar */
 .navbar{
 	padding-bottom: 0;
+}
+
+/* CSS style navigation bar + links */
+.img-logo-nav {
+  width: 350px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 5px 30px;
 }
 
 .navbar-light {
@@ -24,6 +32,10 @@ body{
 
 .navbar-light .navbar-nav .nav-link {
   margin-right: 50px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  padding-right: 25px;
   color: #000;
   text-transform: uppercase;
   letter-spacing: 1px;
@@ -31,23 +43,36 @@ body{
 }
 
 /* Title bar */
-
-.page-title-bar{
-	padding-top:30px;
-	padding-bottom:30px;
-	margin-top:0px;
-	margin-bottom: 10px;
-
-	text-align: center;
-	font-size: 50px;
-	color:white;
-	background-color:#292323;
+.page-title-bar {
+  background-color: #342c2c;
+  padding: 17px 20px;
 }
 
+.page-title-bar h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 28px;
+  margin: 0;
+}
+
+.dropdown-menu {
+  border: 1px solid #7c8c34;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #7c8c34;
+
+}
+
+/* ===== <Catalogue>  =====*/
 
 /* Search section */
 .search-section{
 	text-align: center;
+	margin-top:15px;
 }
 
 .search-section input,.search-section select{
@@ -140,7 +165,7 @@ body{
 	padding-bottom:40px;
 }
 
-
+/* === </Catalogue> === */
 
 
 
@@ -184,3 +209,4 @@ body{
 	}
 
 }
+
