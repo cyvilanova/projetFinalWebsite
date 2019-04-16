@@ -43,20 +43,8 @@
 	        <li class="nav-item">
 	          <a class="nav-link" href="#">Produits</a>
 	        </li>
-	        <li class="nav-item dropdown">
-	          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
-	            aria-haspopup="true" aria-expanded="false">
-	            Gestion
-	          </a>
-	          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-	            <a class="dropdown-item" href="#">Recettes</a>
-	            <a class="dropdown-item" href="#">Inventaire</a>
-	            <a class="dropdown-item" href="#">Commandes</a>
-	            <a class="dropdown-item" href="#">Livraisons</a>
-	          </div>
-	        </li>
 	        <li class="nav-item">
-	          <a class="nav-link" href="#">Déconnexion</a>
+	        	<a class="nav-link" href="#">Nous joindre</a>
 	        </li>
 	      </ul>
 	    </div>
