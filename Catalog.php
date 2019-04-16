@@ -11,6 +11,10 @@
 	 Date Nom Description
 	 =========================================================
 	****************************************/
+	include_once("phpScripts/QueryEngine.php");
+
+	$ob = new QueryEngine();
+	$ob->test();
 ?>
 
 <!DOCTYPE html>
