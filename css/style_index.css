@@ -90,6 +90,12 @@ body {
     flex: 1 1 auto;
 }
 
+.default {
+    color: black;
+    background-color: #bdc3c7;
+    border: 2px solid #7f8c8d;
+}
+
 .delete {
     color: white;
     background-color: #e74c3c;
@@ -177,9 +183,9 @@ body {
 
 .modals.open {
     position: relative;
-    display: block;
-    top:30%;
-    width: 475px;
+    display: flex;
+    top:5%;
+    max-width: 475px;
 }
 
 .modal-container{
@@ -200,11 +206,59 @@ body {
 }
 
 .modals input {
-    margin-bottom: 8px;
+    margin-bottom: 12px;
+    padding-right: 1px;
+    padding-left: 1px;
+    display: block;
 }
 
 .modals textarea {
     resize: none;
+    padding-right: 1px;
+    padding-left: 1px;
+    margin-bottom: 12px;
+}
+
+.modals select{
+    height: 30px;
+    margin-bottom: 8px;
+    padding-right: 1px;
+    padding-left: 1px;
+}
+
+.modals input[type="checkbox"]{
+    display: inline-block;
+    margin-left: 15px;
+}
+
+a.file-btn{
+    display: inline-block;
+    background-color: #bdc3c7;
+    padding: 3px;
+    float:right;
+    text-align: center;
+}
+
+a.addProd-btn{
+    padding: 5px;
+    font-size: 19px;
+    color: white !important;
+    text-align: center;
+    float:right;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+a.cancel-btn{
+    padding: 5px;
+    font-size: 19px;
+    float: right;
+    margin-right: 5px;
+    margin-left: 5px;
+}
+
+a[class*="-btn"]:hover{
+    cursor: pointer;
 }
 
 img {
@@ -257,7 +311,7 @@ img {
     .modals.open {
         position: relative;
         display: block;
-        top:10%;
+        top:5%;
         margin: 0 auto;
         width: 98%;
         max-width: 475px;

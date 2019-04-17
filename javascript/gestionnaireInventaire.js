@@ -1,42 +1,46 @@
-var document;
+let addBtn = document.getElementById("add");
+let editBtn = document.getElementById("edit");
+let deleteBtn = document.getElementById("delete");
 
-var addBtn = document.getElementById("add");
-var editBtn = document.getElementById("edit");
-var deleteBtn = document.getElementById("delete");
+let cancelBtn = document.getElementsByClassName("cancel-btn default");
 
-var openedModal;
+let openedModal;
 
-var modals_container = document.getElementById("modals-window");
+let modals_container = document.getElementById("modals-window");
 
-var addModal = document.getElementById("modal-add");
-var editModal = document.getElementById("modal-edit");
-var deleteModal = document.getElementById("modal-delete");
+let addModal = document.getElementById("modal-add");
+let editModal = document.getElementById("modal-edit");
+let deleteModal = document.getElementById("modal-delete");
 
-addBtn.addEventListener("click", function(){openModal(this.id)});
-editBtn.addEventListener("click", function(){openModal(this.id)});
-deleteBtn.addEventListener("click", function(){openModal(this.id)});
+addBtn.addEventListener("click", function(){openModal(this.id);});
+editBtn.addEventListener("click", function(){openModal(this.id);});
+deleteBtn.addEventListener("click", function(){openModal(this.id);});
+
+for(let i = 0; i < cancelBtn.length; i++)
+{
+    cancelBtn[i].addEventListener("click", function(){closeModals();});
+}
 
 modals_container.addEventListener("click", function(){
 
-    //modals_container.classList.toggle("open");
+    let min_x = openedModal.offsetLeft;
+    let max_x = openedModal.offsetLeft + openedModal.offsetWidth;
+    let min_y = openedModal.offsetTop;
+    let max_y = openedModal.offsetTop + openedModal.offsetHeight;
 
-    var min_x = openedModal.offsetLeft;
-    var max_x = openedModal.offsetLeft + openedModal.offsetWidth;
-    var min_y = openedModal.offsetTop;
-    var max_y = openedModal.offsetTop + openedModal.offsetHeight;
-
-    var x = event.clientX;
-    var y = event.clientY;
+    let x = event.clientX;
+    let y = event.clientY;
 
     if((x < min_x || x > max_x) || (y < min_y || y > max_y))
     {
+        closeModals();
         modals_container.classList.toggle("open", false);
+
     }
 
 })
 
 function openModal(btnId){
-    console.log(btnId);
     switch(btnId){
         case "add":
             closeModals();

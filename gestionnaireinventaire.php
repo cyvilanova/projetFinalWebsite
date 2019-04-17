@@ -15,14 +15,44 @@
                     <h3>Ajouter un produit</h3>
                 </div>
 
-                <div class="panel-body">
-                    <label for="product_name">Produit</label>
-                    <br />
-                    <input type="text" id="product_name">
-                    <br />
-                    <label for="product_desc">Description</label>
-                    <br />
-                    <textarea rows=4 cols="21" id="product_desc"></textarea>
+                <div class="panel-body col-12">
+                    <div class="col-xs-12 col-sm-6">
+                        <label for="product_name">Produit</label>
+                        <br />
+                        <input type="text" class="col-12" id="product_name">
+                        <br />
+                        <label for="product_desc">Description</label>
+                        <br />
+                        <textarea rows=4 cols="22" class="col-12" id="product_desc"></textarea>
+                        <br />
+                        <label for="product_image">Image</label>
+                        <br />
+                        <input class="col-8" type="text" disabled id="product_image">
+                        <a class="file-btn col-4">Choisir</a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <label for="product_category">Catégorie</label>
+                        <br />
+                        <select class="col-12" id="product_category">
+
+                        </select>
+                        <br />
+                        <label for="product_qty">Quantité</label>
+                        <br />
+                        <input type="number" min="0" step="1" class="col-12" id="product_qty">
+                        <br />
+                        <label for="product_price">Prix</label>
+                        <br />
+                        <input type="number" step="0.01" min="0" class="col-12" id="product_price">
+                        <br />
+                        <label for="product_visible">Visible</label>
+                        <input type="checkbox" id="product_visible">
+                    </div>
+                    <div class="col-sm-12">
+                        <br />
+                        <a class="addProd-btn add">Ajouter</a>
+                        <a class="cancel-btn default">Annuler</a>
+                    </div>
                 </div>
             </div>
 
@@ -32,8 +62,44 @@
                     <h3>Modifier un produit</h3>
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body col-12">
+                    <div class="col-xs-12 col-sm-6">
+                        <label for="product_name">Produit</label>
+                        <br />
+                        <input type="text" class="col-12" id="product_name">
+                        <br />
+                        <label for="product_desc">Description</label>
+                        <br />
+                        <textarea rows=4 cols="22" class="col-12" id="product_desc"></textarea>
+                        <br />
+                        <label for="product_image">Image</label>
+                        <br />
+                        <input class="col-8" type="text" disabled id="product_image">
+                        <a class="file-btn col-4">Choisir</a>
+                    </div>
+                    <div class="col-xs-12 col-sm-6">
+                        <label for="product_category">Catégorie</label>
+                        <br />
+                        <select class="col-12" id="product_category">
 
+                        </select>
+                        <br />
+                        <label for="product_qty">Quantité</label>
+                        <br />
+                        <input type="number" min="0" step="1" class="col-12" id="product_qty">
+                        <br />
+                        <label for="product_price">Prix</label>
+                        <br />
+                        <input type="number" step="0.01" min="0" class="col-12" id="product_price">
+                        <br />
+                        <label for="product_visible">Visible</label>
+                        <input type="checkbox" id="product_visible">
+                    </div>
+                    <div class="col-sm-12">
+                        <br />
+                        <a class="addProd-btn edit">Modifier</a>
+                        <a class="cancel-btn default">Annuler</a>
+                    </div>
                 </div>
             </div>
 
@@ -53,7 +119,7 @@
 
         <div class="center">
 
-            <div class="panel col-12 col-m-12 col-t-12 col-lt-12 full">
+            <div class="panel col-12 col-mb-12 col-lg-12 full">
 
                 <div class="panel-header">
                     <h3>Gestionnaire d'inventaire</h3>
