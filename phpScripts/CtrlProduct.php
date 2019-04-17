@@ -54,7 +54,7 @@ class CtrlProduct
             while ($product = $list->fetch()) {
 
                 $html .= "<div class='product'>";
-                $html .= "<img src='image/produitTest.png'/>";
+                $html .= "<img src='".$product["image_path"]."'/>";
                 $html .= "<h2>" . $product["name"] . "</h2>";
                 $html .= "<p>" . $product["description"] . "</p>";
                 $html .= "<p class='bottom-text'><span class='stock'>" . $product["quantity"] . " en stock</span><span class='prix'>" . $product["price"] . "</span></p>";
