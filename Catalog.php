@@ -76,7 +76,7 @@ include_once "phpScripts/MgrProduct.php";
 	 	<section class="product-section"> <!-- products section -->
 	 		<?php
 				$ctrl = new CtrlProduct();
-				$ctrl->loadProductsByName("b");
+				$ctrl->loadProductsByName("a");
 			?>
 	 	</section>
 	 	<footer class="classic-footer">

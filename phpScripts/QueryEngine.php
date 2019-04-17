@@ -95,16 +95,15 @@ class QueryEngine
     }
 
     public function getProductsByName($name)
-    {
+    {   
         $conn = $this->db->getDbConn();
 
-        $loading = $conn->prepare("SELECT * FROM Product WHERE name LIKE '%b%'");
-       //$loading->bindValue(":name", $name);
+        $loading = $conn->prepare("SELECT * FROM Product WHERE name LIKE :name");
+        $loading->bindValue(":name", '%'.$name.'%');
 
         if (!$loading->execute()) {
             throw new Exception("Error trying load products by name");
         } else {
-            var_dump($loading);
             return $loading;
         }
     }

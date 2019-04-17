@@ -54,6 +54,8 @@ class MgrProduct
     {
         $load = new QueryEngine();
         $resultSet = $load->getProductsByName($name);
+
+        return $resultSet;
     }
 
     //gets all the products from the db et returns it

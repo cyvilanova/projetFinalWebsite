@@ -47,8 +47,8 @@ class CtrlProduct
 
     //Displays the products on the page
     private function displayProduct($list)
-    {
-        if ($list != null) {
+    {   
+        if ($list -> rowCount()) {
             while ($product = $list->fetch()) {
 
                 echo "<div class='product'>";
