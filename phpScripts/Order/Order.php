@@ -56,18 +56,52 @@
 		/**
 		* @return the client of the order
 		*/
-		function getclient() {
+		function getClient() {
 			return $this->client;
 		}
 
 		/**
 		* @param new client
 		*/
-		function setclient($client) {
+		function setClient($client) {
 			$this->client = $client;
 		}
 
 
+
+		public function getUser()
+		{
+		    return $this->user;
+		}
+		 
+		public function setUser($user)
+		{
+		    $this->user = $user;
+		    return $this;
+		}
+
+
+		public function getUser()
+		{
+		    return $this->user;
+		}
+		 
+		public function setUser($user)
+		{
+		    $this->user = $user;
+		    return $this;
+		}
+
+		public function getUser()
+		{
+		    return $this->user;
+		}
+		 
+		public function setUser($user)
+		{
+		    $this->user = $user;
+		    return $this;
+		}
 	}
 
 ?>
