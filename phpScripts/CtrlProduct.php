@@ -25,9 +25,9 @@ class CtrlProduct
     }
 
     //loads all the products from the db
-    public function loadAllProducts()
+    public function loadAllProducts($filter)
     {
-        $productList = $this->mgrProduct->getAllProducts();
+        $productList = $this->mgrProduct->getAllProducts($filter);
         $this->displayProduct($productList);
     }
 
@@ -39,26 +39,30 @@ class CtrlProduct
     }
 
     //Loads all products by name
-    public function loadProductsByName($name)
+    public function loadProductsByName($name,$filter)
     {
-        $productList = $this->mgrProduct->getProductsByName($name);
+        $productList = $this->mgrProduct->getProductsByName($name,$filter);
         $this->displayProduct($productList);
     }
 
     //Displays the products on the page
     private function displayProduct($list)
     {   
+        $html = "";
+
         if ($list -> rowCount()) {
             while ($product = $list->fetch()) {
 
-                echo "<div class='product'>";
-                echo "<img src='image/produitTest.png'/>";
-                echo "<h2>" . $product["name"] . "</h2>";
-                echo "<p>" . $product["description"] . "</p>";
-                echo "<p class='bottom-text'><span class='stock'>" . $product["quantity"] . " en stock</span><span class='prix'>" . $product["price"] . "</span></p>";
-                echo "</div>";
+                $html .= "<div class='product'>";
+                $html .= "<img src='image/produitTest.png'/>";
+                $html .= "<h2>" . $product["name"] . "</h2>";
+                $html .= "<p>" . $product["description"] . "</p>";
+                $html .= "<p class='bottom-text'><span class='stock'>" . $product["quantity"] . " en stock</span><span class='prix'>" . $product["price"] . "</span></p>";
+                $html .= "</div>";
 
             }
+
+            echo $html;
         }
         else{
             echo "<p>Aucun item ne correspond!</p>";

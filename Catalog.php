@@ -54,8 +54,6 @@ include_once "phpScripts/MgrProduct.php";
 	 			</ul>
 	 		</div>
 	 	</nav>
-
-
 	 </header>
 	 <section> <!-- Page section -->
 	 	<div class="page-title-bar">
@@ -64,25 +62,69 @@ include_once "phpScripts/MgrProduct.php";
 
 	 	<section class="search-section"> <!-- search section -->
 	 		<div>	<!-- search bar -->
-	 			<input type="text" name="search" placeholder="Rechercher ..." />
+	 			<input type="text" name="search" placeholder="Rechercher ..." id="searchBar"/>
 	 		</div>
 	 		<p>Filtrer par: </p>
-	 		<select>
-	 			<option value="category">Catégories</option>
+	 		<select name="filter" id="filter">
+	 			<option disabled selected value>sélectionner un filtre</option>
 	 			<option value="name">Nom</option>
 	 			<option value="price">Prix</option>
+	 			<option value="quantity">Quantité</option>
 	 		</select>
 	 	</section>
 	 	<section class="product-section"> <!-- products section -->
 	 		<?php
 				$ctrl = new CtrlProduct();
-				$ctrl->loadProductsByName("a");
+				$ctrl->loadAllProducts(null);
 			?>
 	 	</section>
 	 	<footer class="classic-footer">
 	 		<p>Insérez du texte ici</p>
 	 	</footer>
 
+	 	<script>
+	 		let searchBar = document.getElementById("searchBar");
+	 		let filterSelect = document.getElementById("filter");
+	 		let productSection = document.getElementsByClassName("product-section")[0];
+
+	 		let selectedFilter = null;
+	 		let searchText = "";
+
+	 		//Ajax for the search bar
+	 		searchBar.addEventListener("keyup",function(){
+	 			loadProducts();
+	 		},false);
+
+	 		filterSelect.addEventListener("change",function(){
+	 			loadProducts();
+	 		},false);
+
+	 		//Calls the script via Ajax
+	 		function loadProducts(){
+	 			changeSelectedFilter();
+	 			changeSelectedText();
+
+	 			$.ajax({
+	 				type: "POST",
+	 				url: "phpScripts/methodCall/scriptCallProductGetByName.php",
+	 				data: {name: searchText,
+	 					   filter: selectedFilter},
+	 				success: function(output) {
+                      productSection.innerHTML = output;
+                  	}
+	 			});
+	 		}
+
+	 		//Changes the selected filter variable
+	 		function changeSelectedFilter(){
+	 			selectedFilter = filter[filter.selectedIndex].value;
+	 		}
+
+	 		//Changes the selected text variable
+	 		function changeSelectedText(){
+	 			searchText = searchBar.value;
+	 		}
+	 	</script>
 	 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
 	 	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 	 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
