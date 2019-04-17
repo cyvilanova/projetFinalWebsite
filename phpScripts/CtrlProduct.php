@@ -38,21 +38,31 @@ class CtrlProduct
         $this->displayProduct($sellableProductList);
     }
 
+    //Loads all products by name
+    public function loadProductsByName($name)
+    {
+        $productList = $this->mgrProduct->getProductsByName($name);
+        $this->displayProduct($productList);
+    }
+
     //Displays the products on the page
     private function displayProduct($list)
     {
+        if ($list != null) {
+            while ($product = $list->fetch()) {
 
-        while ($product = $list->fetch()) {
+                echo "<div class='product'>";
+                echo "<img src='image/produitTest.png'/>";
+                echo "<h2>" . $product["name"] . "</h2>";
+                echo "<p>" . $product["description"] . "</p>";
+                echo "<p class='bottom-text'><span class='stock'>" . $product["quantity"] . " en stock</span><span class='prix'>" . $product["price"] . "</span></p>";
+                echo "</div>";
 
-            echo "<div class='product'>";
-            echo "<img src='image/produitTest.png'/>";
-            echo "<h2>" . $product["name"] . "</h2>";
-            echo "<p>" . $product["description"] . "</p>";
-            echo "<p class='bottom-text'><span class='stock'>" . $product["quantity"] . " en stock</span><span class='prix'>" . $product["price"] . "</span></p>";
-            echo "</div>";
-
+            }
         }
-
+        else{
+            echo "<p>Aucun item ne correspond!</p>";
+        }
     }
 
     /**

@@ -50,6 +50,12 @@ class MgrProduct
         return $resultSet;
     }
 
+    public function getProductsByName($name)
+    {
+        $load = new QueryEngine();
+        $resultSet = $load->getProductsByName($name);
+    }
+
     //gets all the products from the db et returns it
     public function getAllProducts()
     {

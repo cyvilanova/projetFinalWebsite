@@ -76,36 +76,8 @@ include_once "phpScripts/MgrProduct.php";
 	 	<section class="product-section"> <!-- products section -->
 	 		<?php
 				$ctrl = new CtrlProduct();
-				$ctrl->loadAllSellables();
+				$ctrl->loadProductsByName("b");
 			?>
-	 		<div class="product">
-	 			<img src="images/produitTest.png"/>
-	 			<h2>Baume à la lavande</h2>
-	 			<p>Un joli baume dans une jolie bouteille qui émane une fragrance douce</p>
-	 			<p class="bottom-text"><span class="stock">En stock</span><span class="prix">12,99$</span></p>
-	 		</div>
-
-	 		<div class="product">
-	 			<img src="images/produitTest.png"/>
-	 			<h2>Baume à la lavande</h2>
-	 			<p>Un joli baume dans une jolie bouteille qui émane une fragrance douce</p>
-	 			<p class="bottom-text"><span class="stock">En stock</span><span class="prix">12,99$</span></p>
-	 		</div>
-
-	 		<div class="product">
-	 			<img src="images/produitTest.png"/>
-	 			<h2>Baume à la lavande</h2>
-	 			<p>Un joli baume dans une jolie bouteille qui émane une fragrance douce</p>
-	 			<p class="bottom-text"><span class="stock">En stock</span><span class="prix">12,99$</span></p>
-	 		</div>
-
-	 		<div class="product">
-	 			<img src="images/produitTest.png"/>
-	 			<h2>Baume à la lavande</h2>
-	 			<p>Un joli baume dans une jolie bouteille qui émane une fragrance douce</p>
-	 			<p class="bottom-text"><span class="stock">En stock</span><span class="prix">12,99$</span></p>
-	 		</div>
-
 	 	</section>
 	 	<footer class="classic-footer">
 	 		<p>Insérez du texte ici</p>
