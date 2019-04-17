@@ -39,18 +39,18 @@ class CtrlProduct
     }
 
     //Loads all products by name
-    public function loadProductsByName($name,$filter)
+    public function loadProductsByName($name, $filter)
     {
-        $productList = $this->mgrProduct->getProductsByName($name,$filter);
+        $productList = $this->mgrProduct->getProductsByName($name, $filter);
         $this->displayProduct($productList);
     }
 
     //Displays the products on the page
     private function displayProduct($list)
-    {   
+    {
         $html = "";
 
-        if ($list -> rowCount()) {
+        if ($list->rowCount()) {
             while ($product = $list->fetch()) {
 
                 $html .= "<div class='product'>";
@@ -63,8 +63,7 @@ class CtrlProduct
             }
 
             echo $html;
-        }
-        else{
+        } else {
             echo "<p>Aucun item ne correspond!</p>";
         }
     }

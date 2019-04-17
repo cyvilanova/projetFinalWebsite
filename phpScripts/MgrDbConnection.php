@@ -21,7 +21,7 @@ class MgrDbConnection
     {
 
         try {
-            $this->dbConn = new PDO("mysql:host=localhost;dbname=" . $dbname, $username, $password);
+            $this->dbConn = new PDO("mysql:host=localhost;dbname=" . $dbname. ";charset=utf8", $username, $password);
 
             if ($err) {
                 //Used for debuging

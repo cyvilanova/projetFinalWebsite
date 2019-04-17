@@ -74,9 +74,9 @@ include_once "phpScripts/MgrProduct.php";
 	 	</section>
 	 	<section class="product-section"> <!-- products section -->
 	 		<?php
-				$ctrl = new CtrlProduct();
-				$ctrl->loadAllProducts(null);
-			?>
+$ctrl = new CtrlProduct();
+$ctrl->loadAllProducts(null);
+?>
 	 	</section>
 	 	<footer class="classic-footer">
 	 		<p>Insérez du texte ici</p>
