@@ -15,15 +15,6 @@
 	include_once("phpScripts/CtrlProduct.php");
 	include_once("phpScripts/Product.php");
 
-/*
-	$p = new Product("wasabi",false,0,25.00,"Une description",3);
-
-	$ctrl = new CtrlProduct();
-	$mgr = $ctrl->getMgrProduct();
-	$mgr -> insertProduct($p);
-*/
-
-
 
 ?>
 
@@ -108,13 +99,6 @@
 				<p class="bottom-text"><span class="stock">En stock</span><span class="prix">12,99$</span></p>
 			</div>
 
-			<div class="product">
-				<img src="images/produitTest.png"/>
-				<h2>Baume à la lavande</h2>
-				<p>Un joli baume dans une jolie bouteille qui émane une fragrance douce</p>
-				<p class="bottom-text"><span class="stock">En stock</span><span class="prix">12,99$</span></p>
-			</div>
-			
 			<div class="product">
 				<img src="images/produitTest.png"/>
 				<h2>Baume à la lavande</h2>
