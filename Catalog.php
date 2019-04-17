@@ -11,10 +11,20 @@
 	 Date Nom Description
 	 =========================================================
 	****************************************/
-	include_once("phpScripts/QueryEngine.php");
 
-	$ob = new QueryEngine();
-	$ob->test();
+	include_once("phpScripts/CtrlProduct.php");
+	include_once("phpScripts/Product.php");
+
+/*
+	$p = new Product("wasabi",false,0,25.00,"Une description",3);
+
+	$ctrl = new CtrlProduct();
+	$mgr = $ctrl->getMgrProduct();
+	$mgr -> insertProduct($p);
+*/
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -73,6 +83,10 @@
 			</select>
 		</section>
 		<section class="product-section"> <!-- products section -->
+			<?php
+				$ctrl = new CtrlProduct();
+				$ctrl -> loadAllProducts();
+			?>
 			<div class="product">
 				<img src="images/produitTest.png"/>
 				<h2>Baume à la lavande</h2>
