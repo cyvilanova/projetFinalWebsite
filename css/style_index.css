@@ -1,0 +1,275 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+margin: 0;
+padding: 0;
+border: 0;
+vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+display: block;
+}
+body {
+line-height: 1;
+}
+ol, ul {
+list-style: none;
+}
+blockquote, q {
+quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+content: '';
+content: none;
+}
+table {
+border-collapse: collapse;
+border-spacing: 0;
+}
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Quicksand');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+  font-family: 'Quicksand', sans-serif;
+}
+
+.center {
+  max-width: 1300px;
+  margin: 0 auto;
+}
+
+.panel {
+    display: flex;
+    flex-flow: column;
+}
+
+
+.panel-header {
+    flex: 0 1 40px;
+    background-color: #ecf0f1;
+    border: 2px solid #bdc3c7;
+    color: black;
+    padding: 8px;
+}
+
+.panel-header h1,h2,h3,h4,h5,h6 {
+    text-align:center;
+    padding: 0;
+    margin: 0;
+    font-weight: bold;
+}
+
+.panel-body {
+    background-color: #fbfbfb;
+    border: 2px solid #bdc3c7;
+    border-top: none;
+    padding: 10px;
+}
+
+.full .panel-body{
+    flex: 1 1 auto;
+}
+
+.delete {
+    color: white;
+    background-color: #e74c3c;
+    border: 2px solid #c0392b;
+}
+
+.edit {
+    color: white;
+    background-color: #3498db;
+    border: 2px solid #2980b9;
+}
+
+.add {
+    color: white;
+    background-color: #2ecc71;
+    border: 2px solid #27ae60;
+}
+
+.manager-button.delete:hover {
+    background-color: #c0392b;
+}
+
+.manager-button.edit:hover {
+    background-color: #2980b9;
+}
+
+.manager-button.add:hover {
+    background-color: #27ae60;
+}
+
+
+.manager-buttons-div{
+    min-height: 50px;
+    display: block;
+    width: 100%;
+}
+
+.manager-button {
+    width: 45px;
+    height: 45px;
+    padding: 5px;
+    display: inline-block;
+    float: right;
+    margin-right: 2px;
+    margin-left: 2px;
+}
+
+.manager-button:hover{
+    cursor: pointer;
+}
+
+.manager-button img{
+    display: block;
+    margin: auto;
+}
+
+.inventory-manager-table{
+    display: block;
+    overflow: scroll;
+    overflow-y: hidden;
+}
+
+.inventory-manager-table table{
+    width: 100%;
+    margin-top: 10px;
+}
+
+.inventory-manager-table thead{
+    background-color: #ececec;
+    font-weight: bold;
+}
+
+.inventory-manager-table td{
+    padding:5px;
+    text-align: center;
+    border:1px solid black;
+}
+
+.modal {
+    max-width: 475px;
+    display: none;
+    margin: 0 auto;
+}
+
+.modal.open {
+    display: block;
+    margin: 0 auto;
+}
+
+img {
+	/* évite que l'image ne s'agrandisse plus que sa taille maximale*/
+    max-width: 100%;
+    height: auto;
+}
+
+/* For mobile phones: */
+[class*="col-"] {
+    width: 100%;
+    float: left;
+}
+
+@media only screen and (min-width: 600px) {
+
+    /* For tablets: */
+    .col-t-1 {width: 8.33%;}
+    .col-t-2 {width: 16.66%;}
+    .col-t-3 {width: 25%;}
+    .col-t-4 {width: 33.33%;}
+    .col-t-5 {width: 41.66%;}
+    .col-t-6 {width: 50%;}
+    .col-t-7 {width: 58.33%;}
+    .col-t-8 {width: 66.66%;}
+    .col-t-9 {width: 75%;}
+    .col-t-10 {width: 83.33%;}
+    .col-t-11 {width: 91.66%;}
+    .col-t-12 {width: 100%;}
+
+}
+
+
+/* start of desktop styles */
+
+    .col-1 {width: 8.33%;}
+    .col-2 {width: 16.66%;}
+    .col-3 {width: 25%;}
+    .col-4 {width: 33.33%;}
+    .col-5 {width: 41.66%;}
+    .col-6 {width: 50%;}
+    .col-7 {width: 58.33%;}
+    .col-8 {width: 66.66%;}
+    .col-9 {width: 75%;}
+    .col-10 {width: 83.33%;}
+    .col-11 {width: 91.66%;}
+    .col-12 {width: 100%;}
+
+@media screen and (max-width: 991px) {
+/* start of large tablet styles */
+
+    .col-lt-1 {width: 8.33%;}
+    .col-lt-2 {width: 16.66%;}
+    .col-lt-3 {width: 25%;}
+    .col-lt-4 {width: 33.33%;}
+    .col-lt-5 {width: 41.66%;}
+    .col-lt-6 {width: 50%;}
+    .col-lt-7 {width: 58.33%;}
+    .col-lt-8 {width: 66.66%;}
+    .col-lt-9 {width: 75%;}
+    .col-lt-10 {width: 83.33%;}
+    .col-lt-11 {width: 91.66%;}
+    .col-lt-12 {width: 100%;}
+
+}
+
+@media screen and (max-width: 767px) {
+/* start of medium tablet styles */
+    .col-t-1 {width: 8.33%;}
+    .col-t-2 {width: 16.66%;}
+    .col-t-3 {width: 25%;}
+    .col-t-4 {width: 33.33%;}
+    .col-t-5 {width: 41.66%;}
+    .col-t-6 {width: 50%;}
+    .col-t-7 {width: 58.33%;}
+    .col-t-8 {width: 66.66%;}
+    .col-t-9 {width: 75%;}
+    .col-t-10 {width: 83.33%;}
+    .col-t-11 {width: 91.66%;}
+    .col-t-12 {width: 100%;}
+}
+
+@media screen and (max-width: 479px) {
+/* start of phone styles */
+    .col-m-1 {width: 8.33%;}
+    .col-m-2 {width: 16.66%;}
+    .col-m-3 {width: 25%;}
+    .col-m-4 {width: 33.33%;}
+    .col-m-5 {width: 41.66%;}
+    .col-m-6 {width: 50%;}
+    .col-m-7 {width: 58.33%;}
+    .col-m-8 {width: 66.66%;}
+    .col-m-9 {width: 75%;}
+    .col-m-10 {width: 83.33%;}
+    .col-m-11 {width: 91.66%;}
+    .col-m-12 {width: 100%;}
+}
