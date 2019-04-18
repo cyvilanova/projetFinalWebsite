@@ -1,3 +1,9 @@
+<?php
+    include_once "phpScripts/CtrlProduct.php";
+    include_once "phpScripts/Product.php";
+    include_once "phpScripts/MgrProduct.php";
+?>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -146,16 +152,10 @@
                                 <td>Visible</td>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td><input type="radio" class="select"></td>
-                                    <td>Nom Produit</td>
-                                    <td>Description Produit</td>
-                                    <td>Image Produit</td>
-                                    <td>Catégorie Produit</td>
-                                    <td>Qté Produit</td>
-                                    <td>Prix Produit</td>
-                                    <td><input disabled type="checkbox"></td>
-                                </tr>
+                                <?php
+                                    $ctrl = new CtrlProduct();
+                                    $ctrl->loadAllProductsTable();
+                                ?>
                             </tbody>
                         </table>
                     </div>
