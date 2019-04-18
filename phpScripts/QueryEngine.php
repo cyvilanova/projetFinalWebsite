@@ -24,8 +24,10 @@ class QueryEngine
         $this->db = new MgrDbConnection("quintessentieldb", "root", "", true);
     }
 
-    public function executeQuery($queryString, $parametersMap = [])
-    {
+
+    public function executeQuery($queryString, $parametersMap=[])
+    {   
+
         $conn = $this->db->getDbConn();
 
         $query = $queryString;
