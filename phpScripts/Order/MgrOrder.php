@@ -1,6 +1,4 @@
 <?php
-
-	include_once "..\\MgrProduct.php";
 	/**
 	 * 
 	 */
@@ -8,7 +6,7 @@
 	{
 		
 
-
+		
 		function __construct(argument)
 		{
 			# code...
