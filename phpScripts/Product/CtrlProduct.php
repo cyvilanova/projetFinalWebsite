@@ -24,12 +24,13 @@ class CtrlProduct
     {
         $this->mgrProduct = new MgrProduct();
         $this->pageNumber = 0;
-        $this->itemPerPage = 10;
+        $this->itemPerPage = 5;
     }
 
     //loads all the products from the db
     public function loadAllProductsTable()
     {
+        $this->pageNumber = 0;
         $productList = $this->mgrProduct->getAllProducts();
         $this->displayProductRows();
     }
@@ -37,6 +38,7 @@ class CtrlProduct
     //loads all the products from the db
     public function loadAllProducts($filter = null)
     {
+        $this->pageNumber = 0;
         $productList = $this->mgrProduct->getAllProducts($filter);
         $this->displayProduct();
     }
@@ -44,6 +46,7 @@ class CtrlProduct
     //Loads all the sellable products
     public function loadAllSellables()
     {
+        $this->pageNumber = 0;
         $sellableProductList = $this->mgrProduct->getAllSellables();
         $this->displayProduct();
     }
@@ -51,6 +54,7 @@ class CtrlProduct
     //Loads all products by name
     public function loadProductsByName($name, $filter = null)
     {
+        $this->pageNumber = 0;
         $productList = $this->mgrProduct->getProductsByName($name, $filter);
         $this->displayProduct();
     }
@@ -60,10 +64,9 @@ class CtrlProduct
     {
         $products = $this->mgrProduct->getProduct();
 
-        $itemPerPage = 10; //Number of item to display
-        $from = $itemPerPage * $this->pageNumber; //Number of item skipped
-        $to = (sizeof($products) - $from >= $itemPerPage ? $from + $itemPerPage : sizeof($products)); //Number of item to display
-        $maxNumberOfPage = round(sizeof($products)/$itemPerPage);
+        $from = $this->itemPerPage * $this->pageNumber; //Number of item skipped
+        $to = (sizeof($products) - $from >= $this->itemPerPage ? $from + $this->itemPerPage : sizeof($products)); //Number of item to display
+        $maxNumberOfPage = round(sizeof($products)/$this->itemPerPage);
 
         $html = "";
 
@@ -83,16 +86,23 @@ class CtrlProduct
             $html .= "<div class='link-page-box'>";
 
             //Page buttons
-            if($this->pageNumber > 0){
+            if($this->pageNumber > 0){  //Previous button
                 $html .= "<a href='#' title='page précédente' onclick='changePage(".($this->pageNumber - 1).")'>Précédent</a>";
             }
             
 
             for ($j=0; $j < $maxNumberOfPage; $j++) { 
-                $html .= "<a href='#' title='autre page' onclick='changePage(".$j.")'>".($j + 1)."</a>"; 
+
+                if($this->pageNumber == $j){    //Currently on this page
+                    $html .= "<a href='#' title='autre page' style='color:black;' onclick='changePage(".$j.")'>".($j + 1)."</a>"; 
+                }
+                else{   //Other pages
+                    $html .= "<a href='#' title='autre page' onclick='changePage(".$j.")'>".($j + 1)."</a>";
+                }
+                
             }
 
-            if($this->pageNumber < $maxNumberOfPage - 1){
+            if($this->pageNumber < $maxNumberOfPage - 1){   //Next button
                 $html .= "<a href='#' title='page suivante' onclick='changePage(".($this->pageNumber + 1).")'>Suivant</a>";
             }
             
