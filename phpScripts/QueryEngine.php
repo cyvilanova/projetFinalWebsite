@@ -128,8 +128,8 @@ class QueryEngine
         }
     }
 
-    public function executeQuery($queryString, $parametersMap)
-    {
+    public function executeQuery($queryString, $parametersMap=[])
+    {   
         $conn = $this->db->getDbConn();
 
         $query = $queryString;

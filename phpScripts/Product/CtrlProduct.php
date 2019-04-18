@@ -25,10 +25,6 @@ class CtrlProduct
     }
 
     //loads all the products from the db
-<<<<<<< HEAD
-    public function loadAllProducts($filter)
-    {
-=======
     public function loadAllProductsTable()
     {
         $productList = $this->mgrProduct->getAllProducts();
@@ -38,7 +34,6 @@ class CtrlProduct
     //loads all the products from the db
     public function loadAllProducts($filter)
     {
->>>>>>> master
         $productList = $this->mgrProduct->getAllProducts($filter);
         $this->displayProduct($productList);
     }

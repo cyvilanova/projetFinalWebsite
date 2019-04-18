@@ -13,7 +13,7 @@ Date Nom Description
  ****************************************/
 
 include_once "Product.php";
-include_once "QueryEngine.php";
+require __DIR__ . '/../QueryEngine.php';
 //include_once("Category.php"); manque la class de cath
 
 class MgrProduct
@@ -21,12 +21,14 @@ class MgrProduct
 
     private $product; //Product object list array
     private $mgrCategory; //MgrCategory object
+    private $queryEngine;
 
     public function __construct()
     {
         #$mgrCategory = new MgrCategory(); manque la classe de cath
+        $this->queryEngine = new QueryEngine();
     }
-
+    /*
     public function insertProduct($product)
     {
         $add = new QueryEngine();
@@ -45,23 +47,36 @@ class MgrProduct
         return $resultSet;
     }
 
-    public function getProductsByName($name,$filter)
+    public function getProductsByName($name, $filter)
     {
         $load = new QueryEngine();
-        $resultSet = $load->getProductsByName($name,$filter);
+        $resultSet = $load->getProductsByName($name, $filter);
 
         return $resultSet;
     }
-
+    */
     //gets all the products from the db et returns it
     public function getAllProducts($filter)
     {
-        $load = new QueryEngine();
-        $resultSet = $load->getAllProducts($filter);
+        $query = "SELECT * FROM Product";
 
-        return $resultSet;
+        if($filter != null){    //Adds the filter
+            $query .= " ORDER BY ".$filter;
+        }
+
+        $resultSet = $this->queryEngine->executeQuery($query,[]);
+
+        if (!$resultSet) {
+            echo "Error while trying to load all products";
+        } else {
+
+            while ($test = $resultSet->fetch()) {
+                var_dump($test);
+            }
+
+        }
     }
-
+    /*
     public function getIngredients($receipeId)
     {
         $load = new QueryEngine();
@@ -69,6 +84,7 @@ class MgrProduct
 
         return $resultSet;
     }
+    */
 
     /**
      * @return mixed

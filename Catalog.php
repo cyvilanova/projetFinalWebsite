@@ -12,9 +12,9 @@ Date Nom Description
 =========================================================
  ****************************************/
 
-include_once "phpScripts/CtrlProduct.php";
-include_once "phpScripts/Product.php";
-include_once "phpScripts/MgrProduct.php";
+include_once "phpScripts/Product/CtrlProduct.php";
+include_once "phpScripts/Product/Product.php";
+include_once "phpScripts/Product/MgrProduct.php";
 
 ?>
 
