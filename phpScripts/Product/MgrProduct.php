@@ -160,6 +160,8 @@ class MgrProduct
                 $result["quantity"],
                 $result["image_path"]);
 
+            $product -> setId($result["id_product"]);
+
             array_push($this->product, $product);
         }
     }

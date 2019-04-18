@@ -17,94 +17,130 @@ class CtrlProduct
 {
 
     private $mgrProduct;
+    private $pageNumber;
+    private $itemPerPage;
 
     public function __construct()
     {
         $this->mgrProduct = new MgrProduct();
-
+        $this->pageNumber = 0;
+        $this->itemPerPage = 10;
     }
 
     //loads all the products from the db
     public function loadAllProductsTable()
     {
         $productList = $this->mgrProduct->getAllProducts();
-        $this->displayProductRows($productList);
+        $this->displayProductRows();
     }
 
     //loads all the products from the db
-    public function loadAllProducts($filter=null)
+    public function loadAllProducts($filter = null)
     {
         $productList = $this->mgrProduct->getAllProducts($filter);
-        $this->displayProduct($productList);
+        $this->displayProduct();
     }
 
     //Loads all the sellable products
     public function loadAllSellables()
     {
         $sellableProductList = $this->mgrProduct->getAllSellables();
-        $this->displayProduct($sellableProductList);
+        $this->displayProduct();
     }
 
     //Loads all products by name
-    public function loadProductsByName($name, $filter=null)
+    public function loadProductsByName($name, $filter = null)
     {
         $productList = $this->mgrProduct->getProductsByName($name, $filter);
-        $this->displayProduct($productList);
+        $this->displayProduct();
     }
 
     //Displays the products on the page
-    private function displayProduct($list)
+    private function displayProduct()
     {
         $products = $this->mgrProduct->getProduct();
+
+        $itemPerPage = 10; //Number of item to display
+        $from = $itemPerPage * $this->pageNumber; //Number of item skipped
+        $to = (sizeof($products) - $from >= $itemPerPage ? $from + $itemPerPage : sizeof($products)); //Number of item to display
+        $maxNumberOfPage = round(sizeof($products)/$itemPerPage);
+
         $html = "";
 
-        if(!empty($products)){
+        if (!empty($products)) {
 
-            foreach ($products as $product) {
-                
+            for ($i = $from; $i < $to; $i++) {
+
                 $html .= "<div class='product'>";
-                $html .= "<img src='".$product->getImagePath()."' alt='un produit'/>";
-                $html .= "<h2>".$product->getName()."</h2>";
-                $html .= "<p>".$product->getDescription()."</p>";
-                $html .= "<p class='bottom-text'><span class='stock'>".$product->getQuantity()." en stock</span>";
-                $html .= "<span class='prix'>".$product->getPrice()."</span></p>";
+                $html .= "<img src='" . $products[$i]->getImagePath() . "' alt='un produit'/>";
+                $html .= "<h2>" . $products[$i]->getName() . "</h2>";
+                $html .= "<p>" . $products[$i]->getDescription() . "</p>";
+                $html .= "<p class='bottom-text'><span class='stock'>" . $products[$i]->getQuantity() . " en stock</span>";
+                $html .= "<span class='prix'>" . $products[$i]->getPrice() . "</span></p>";
                 $html .= "</div>";
             }
 
-        }
-        else{
+            $html .= "<div class='link-page-box'>";
+
+            //Page buttons
+            if($this->pageNumber > 0){
+                $html .= "<a href='#' title='page précédente' onclick='changePage(".($this->pageNumber - 1).")'>Précédent</a>";
+            }
+            
+
+            for ($j=0; $j < $maxNumberOfPage; $j++) { 
+                $html .= "<a href='#' title='autre page' onclick='changePage(".$j.")'>".($j + 1)."</a>"; 
+            }
+
+            if($this->pageNumber < $maxNumberOfPage - 1){
+                $html .= "<a href='#' title='page suivante' onclick='changePage(".($this->pageNumber + 1).")'>Suivant</a>";
+            }
+            
+
+            $html .= "</div>";
+
+        } else {
             $html .= "<p>Aucun item ne correspond!</p>";
         }
 
         echo $html;
     }
 
+    //Displays the next products
+    public function changePage($pageNumber)
+    {
+        $this->pageNumber = $pageNumber;
+        $this->displayProduct();
+    }
+
     //Displays the products in rows on the page
-    private function displayProductRows($list)
+    private function displayProductRows()
     {
 
-        while ($product = $list->fetch()) {
+        $products = $this->mgrProduct->getProduct();
+        $html = "";
 
-            echo "<tr id=" . $product["id_product"] . ">";
-            echo "<td><input type='checkbox' class='select'></td>";
-            echo "<td>" . $product["name"] . "</td>";
-            echo "<td>" . $product["description"] . "</td>";
-            echo "<td><img src='" . $product["image_path"] . "'/></td>";
-            echo "<td>Catégorie Produit</td>";
-            echo "<td>" . $product["quantity"] . "</td>";
-            echo "<td>" . $product["price"] . "$</td>";
+        foreach ($products as $product) {
 
-            if($product["is_sellable"] == 1)
-            {
-                echo "<td><input disabled checked type='checkbox'></td>";
+            $html .= "<tr id=" . $product->getId() . ">";
+            $html .= "<td><input type='checkbox' class='select'/></td>";
+            $html .= "<td>" . $product->getName() . "</td>";
+            $html .= "<td>" . $product->getDescription() . "</td>";
+            $html .= "<td><img src='" . $product->getImagePath() . "'/></td>";
+            $html .= "<td>Catégorie Produit</td>";
+            $html .= "<td>" . $product->getQuantity() . "</td>";
+            $html .= "<td>" . $product->getPrice() . "$</td>";
+
+            if ($product->getIsSellable() == 1) {
+                $html .= "<td><input disabled checked type='checkbox'></td>";
+            } else {
+                $html .= "<td><input disabled type='checkbox'></td>";
             }
-            else
-            {
-                echo "<td><input disabled type='checkbox'></td>";
-            }
-            echo "</tr>";
+
+            $html .= "</tr>";
         }
 
+        echo $html;
     }
     /**
      * @return mixed
@@ -122,5 +158,23 @@ class CtrlProduct
     public function setMgrProduct($mgrProduct)
     {
         $this->mgrProduct = $mgrProduct;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getItemPerPage()
+    {
+        return $this->itemPerPage;
+    }
+
+    /**
+     * @param mixed $mgrProduct
+     *
+     * @return self
+     */
+    public function setItemPerPage($itemPerPage)
+    {
+        $this->itemPerPage = $itemPerPage;
     }
 }

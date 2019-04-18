@@ -1,11 +1,11 @@
 <?php
-	session_start();
+session_start();
 
-	include_once "phpScripts/Product/CtrlProduct.php";
+include_once "phpScripts/Product/CtrlProduct.php";
 
-	$ctrl = new CtrlProduct();
+$ctrl = new CtrlProduct();
 
-	$_SESSION["ctrlProduct"] = serialize($ctrl);
+
 /****************************************
 Fichier : Catalog.php
 Auteur : David Gaulin
@@ -76,8 +76,9 @@ Date Nom Description
 	 	</section>
 	 	<section class="product-section"> <!-- products section -->
 	 		<?php
-				
-				$ctrl->loadAllProducts();
+
+			$ctrl->loadAllProducts();
+			$_SESSION["ctrlProduct"] = serialize($ctrl);
 			?>
 	 	</section>
 	 	<footer class="classic-footer">
@@ -85,6 +86,7 @@ Date Nom Description
 	 	</footer>
 
 	 	<script>
+
 	 		let searchBar = document.getElementById("searchBar");
 	 		let filterSelect = document.getElementById("filter");
 	 		let productSection = document.getElementsByClassName("product-section")[0];
@@ -110,6 +112,19 @@ Date Nom Description
 	 				url: "phpScripts/methodCall/scriptCallProductGetByName.php",
 	 				data: {name: searchText,
 	 					   filter: selectedFilter,
+	 					},
+	 				success: function(output) {
+                      productSection.innerHTML = output;
+                  	}
+	 			});
+	 		}
+
+	 		function changePage(pageNumber){
+	 			console.log("ici.....")
+	 			$.ajax({
+	 				type: "POST",
+	 				url: "phpScripts/methodCall/scriptCallProductGetByName.php",
+	 				data: {changePage: pageNumber
 	 					},
 	 				success: function(output) {
                       productSection.innerHTML = output;
