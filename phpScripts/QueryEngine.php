@@ -12,7 +12,7 @@ Date Nom Description
 =========================================================
  ****************************************/
 
-include_once "MgrDbConnection.php";
+require_once 'MgrDbConnection.php';
 
 class QueryEngine
 {
@@ -59,8 +59,8 @@ class QueryEngine
 
         $query = "SELECT * FROM Product ";
 
-        if($filter != null){
-            $query .= "ORDER BY ".$filter;
+        if ($filter != null) {
+            $query .= "ORDER BY " . $filter;
         }
 
         if (!$loading = $conn->query($query)) {
@@ -77,8 +77,8 @@ class QueryEngine
         $loading;
         $query = "SELECT * FROM Product WHERE is_sellable = 1";
 
-        if($filter != null){
-            $query .= "ORDER BY ".$filter;
+        if ($filter != null) {
+            $query .= "ORDER BY " . $filter;
         }
 
         if (!$loading = $conn->query($query)) {
@@ -86,7 +86,6 @@ class QueryEngine
         } else {
             return $loading;
         }
-
     }
 
     //Gets every ingredients (products) from a recipe
@@ -106,23 +105,47 @@ class QueryEngine
         }
     }
 
-    public function getProductsByName($name,$filter)
-    {   
+    public function getProductsByName($name, $filter)
+    {
         $conn = $this->db->getDbConn();
 
         $query = "SELECT * FROM Product WHERE name LIKE :name ";
 
-        if($filter != null){
-            $query .= "ORDER BY ".$filter;
+        if ($filter != null) {
+            $query .= "ORDER BY " . $filter;
         }
 
         $loading = $conn->prepare($query);
-        $loading->bindValue(":name", '%'.$name.'%');
+        $loading->bindValue(":name", '%' . $name . '%');
 
         if (!$loading->execute()) {
             throw new Exception("Error trying load products by name");
         } else {
             return $loading;
         }
+    }
+
+    public function executeQuery($queryString, $parametersMap)
+    {
+        $conn = $this->db->getDbConn();
+
+        $query = $queryString;
+
+        $loading = $conn->prepare($query);
+
+        foreach ($parametersMap as $key => $value) {
+            $loading->bindValue($key, $value);
+        }
+
+        try {
+            if (!$loading->execute()) {
+                throw new Exception("Error");
+            } else {
+                return $loading;
+            }
+        } catch (Exception $e) {
+            return false;
+        }
+        $conn->close();
     }
 }
