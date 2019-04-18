@@ -1,7 +1,7 @@
 <?php
 	/****************************************
 	 Fichier : Order.php
-	 Auteur : Catherine Bronsard
+	 Auteure : Catherine Bronsard
 	 Fonctionnalité : Commandes clients
 	 Date : 2019-04-17
 	 Vérification :
@@ -12,96 +12,114 @@
 	 =========================================================
 	****************************************/
 
+	include_once "..\Product.php"; // Changer pour le bon chemin
+
 	/**
 	 *
 	 */
 	class Order
 	{
 		private $id;
-		private $client;
-		private $user;
-		private $state;
-		private $shipping;
-		private $tps;
-		private $tvq;
+
+		private $quantities = []; // Quantities of the products
+		private $price;
 		private $total;
+		private $products = []; // ArrayList of products
 
-		function __construct($id, $client, $user, $state, $shipping, $tps, $tvq, $total)
+		function __construct($id, $price, $total, $products)
 		{
 			$this->id = $id;
-			$this->client = $client;
-			$this->user = $user;
-			$this->state = $state;
-			$this->shipping = $shipping;
-			$this->tps = $tps;
-			$this->tvq = $tvq;
+			$this->price = $price;
 			$this->total = $total;
-		}
-
-		/**
-		* @return the id of the order
-		*/
-		function getId() {
-			return $this->id;
-		}
-
-		/**
-		* @param new Id
-		*/
-		function setId($id) {
-			$this->id = $id;
-		}
-
-
-		/**
-		* @return the client of the order
-		*/
-		function getClient() {
-			return $this->client;
-		}
-
-		/**
-		* @param new client
-		*/
-		function setClient($client) {
-			$this->client = $client;
+			$this->products = $products;
 		}
 
 
 
-		public function getUser()
+		public function addProduct($product)
 		{
-		    return $this->user;
+			array_push($this->products, $product);
+		}
+
+
+		public function deleteProduct($product_name)
+		{
+			foreach ($this->products as $key => $product) {
+				if ($key->getName() == $product_name) 
+				{
+					unset($this->products[$key]);
+				}
+			}
+		}
+
+
+		public function changeQuantity($product_name, $new_qty)
+		{
+			foreach ($this->products as $key => $product) {
+				if ($product->getName() == $product_name) 
+				{
+					$product->setQuantity($new_qty);
+				}
+			}
+		}
+
+
+		public function calculateTaxes()
+		{
+			$tps = ($this->price * 0,05);
+			$tvq = ($this->price * 0,09975);
+			$this->total = ($this->price + $tps + $tvq);
+		}
+
+
+
+
+		public function getId()
+		{
+		    return $this->id;
 		}
 		 
-		public function setUser($user)
+		public function setId($id)
 		{
-		    $this->user = $user;
+		    $this->id = $id;
 		    return $this;
 		}
 
 
-		public function getUser()
+		public function getPrice()
 		{
-		    return $this->user;
+		    return $this->price;
 		}
 		 
-		public function setUser($user)
+		public function setPrice($price)
 		{
-		    $this->user = $user;
+		    $this->price = $price;
 		    return $this;
 		}
 
-		public function getUser()
+
+		public function getTotal()
 		{
-		    return $this->user;
+		    return $this->total;
 		}
 		 
-		public function setUser($user)
+		public function setTotal($total)
 		{
-		    $this->user = $user;
+		    $this->total = $total;
+		    return $this;
+		}
+
+
+		public function getProducts()
+		{
+		    return $this->products;
+		}
+		 
+		public function setProducts($products)
+		{
+		    $this->products = $products;
 		    return $this;
 		}
 	}
-
+	
 ?>
