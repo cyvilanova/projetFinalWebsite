@@ -1,4 +1,11 @@
 <?php
+	session_start();
+
+	include_once "phpScripts/Product/CtrlProduct.php";
+
+	$ctrl = new CtrlProduct();
+
+	$_SESSION["ctrlProduct"] = serialize($ctrl);
 /****************************************
 Fichier : Catalog.php
 Auteur : David Gaulin
@@ -11,11 +18,6 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
-
-include_once "phpScripts/Product/CtrlProduct.php";
-include_once "phpScripts/Product/Product.php";
-include_once "phpScripts/Product/MgrProduct.php";
-
 ?>
 
 	 <!DOCTYPE html>
@@ -74,9 +76,9 @@ include_once "phpScripts/Product/MgrProduct.php";
 	 	</section>
 	 	<section class="product-section"> <!-- products section -->
 	 		<?php
-$ctrl = new CtrlProduct();
-$ctrl->loadAllProducts(null);
-?>
+				
+				$ctrl->loadAllProducts();
+			?>
 	 	</section>
 	 	<footer class="classic-footer">
 	 		<p>Insérez du texte ici</p>
@@ -86,7 +88,6 @@ $ctrl->loadAllProducts(null);
 	 		let searchBar = document.getElementById("searchBar");
 	 		let filterSelect = document.getElementById("filter");
 	 		let productSection = document.getElementsByClassName("product-section")[0];
-
 	 		let selectedFilter = null;
 	 		let searchText = "";
 
@@ -108,7 +109,8 @@ $ctrl->loadAllProducts(null);
 	 				type: "POST",
 	 				url: "phpScripts/methodCall/scriptCallProductGetByName.php",
 	 				data: {name: searchText,
-	 					   filter: selectedFilter},
+	 					   filter: selectedFilter,
+	 					},
 	 				success: function(output) {
                       productSection.innerHTML = output;
                   	}

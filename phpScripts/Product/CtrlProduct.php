@@ -32,7 +32,7 @@ class CtrlProduct
     }
 
     //loads all the products from the db
-    public function loadAllProducts($filter)
+    public function loadAllProducts($filter=null)
     {
         $productList = $this->mgrProduct->getAllProducts($filter);
         $this->displayProduct($productList);
@@ -46,7 +46,7 @@ class CtrlProduct
     }
 
     //Loads all products by name
-    public function loadProductsByName($name, $filter)
+    public function loadProductsByName($name, $filter=null)
     {
         $productList = $this->mgrProduct->getProductsByName($name, $filter);
         $this->displayProduct($productList);
@@ -55,24 +55,28 @@ class CtrlProduct
     //Displays the products on the page
     private function displayProduct($list)
     {
+        $products = $this->mgrProduct->getProduct();
         $html = "";
 
-        if ($list->rowCount()) {
-            while ($product = $list->fetch()) {
+        if(!empty($products)){
 
+            foreach ($products as $product) {
+                
                 $html .= "<div class='product'>";
-                $html .= "<img src='".$product["image_path"]."'/>";
-                $html .= "<h2>" . $product["name"] . "</h2>";
-                $html .= "<p>" . $product["description"] . "</p>";
-                $html .= "<p class='bottom-text'><span class='stock'>" . $product["quantity"] . " en stock</span><span class='prix'>" . $product["price"] . "</span></p>";
+                $html .= "<img src='".$product->getImagePath()."' alt='un produit'/>";
+                $html .= "<h2>".$product->getName()."</h2>";
+                $html .= "<p>".$product->getDescription()."</p>";
+                $html .= "<p class='bottom-text'><span class='stock'>".$product->getQuantity()." en stock</span>";
+                $html .= "<span class='prix'>".$product->getPrice()."</span></p>";
                 $html .= "</div>";
-
             }
 
-            echo $html;
-        } else {
-            echo "<p>Aucun item ne correspond!</p>";
         }
+        else{
+            $html .= "<p>Aucun item ne correspond!</p>";
+        }
+
+        echo $html;
     }
 
     //Displays the products in rows on the page
@@ -80,6 +84,7 @@ class CtrlProduct
     {
 
         while ($product = $list->fetch()) {
+
             echo "<tr id=" . $product["id_product"] . ">";
             echo "<td><input type='checkbox' class='select'></td>";
             echo "<td>" . $product["name"] . "</td>";
@@ -88,6 +93,7 @@ class CtrlProduct
             echo "<td>Catégorie Produit</td>";
             echo "<td>" . $product["quantity"] . "</td>";
             echo "<td>" . $product["price"] . "$</td>";
+
             if($product["is_sellable"] == 1)
             {
                 echo "<td><input disabled checked type='checkbox'></td>";

@@ -1,15 +1,20 @@
 <?php
-	include_once "../CtrlProduct.php";
+	session_start();
 
-	if(isset($_POST["name"]) && isset($_POST["filter"]))
+	include_once "../Product/CtrlProduct.php";
+	
+	if(isset($_POST["name"]) && isset($_POST["filter"]) && !empty($_SESSION["ctrlProduct"]))
 	{	
-		$ctrlProduct = new CtrlProduct();
+		$ctrl = unserialize($_SESSION["ctrlProduct"]);
+		
 
 		if($_POST["name"] == ""){
-			$ctrlProduct->loadAllProducts($_POST["filter"]);	
+			$ctrl->loadAllProducts($_POST["filter"]);	
 		}
 		else{
-			$ctrlProduct->loadProductsByName($_POST["name"],$_POST["filter"]);	
+			$ctrl->loadProductsByName($_POST["name"],$_POST["filter"]);	
 		}
+
+		$_SESSION["ctrlProduct"] = serialize($ctrl);
 	}
 ?>
