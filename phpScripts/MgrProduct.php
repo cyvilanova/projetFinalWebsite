@@ -37,11 +37,6 @@ class MgrProduct
             $product->getQuantity());
     }
 
-    public function getProductInfo()
-    {
-
-    }
-
     public function getAllSellables()
     {
         $load = new QueryEngine();
@@ -50,11 +45,19 @@ class MgrProduct
         return $resultSet;
     }
 
-    //gets all the products from the db et returns it
-    public function getAllProducts()
+    public function getProductsByName($name,$filter)
     {
         $load = new QueryEngine();
-        $resultSet = $load->getAllProducts();
+        $resultSet = $load->getProductsByName($name,$filter);
+
+        return $resultSet;
+    }
+
+    //gets all the products from the db et returns it
+    public function getAllProducts($filter)
+    {
+        $load = new QueryEngine();
+        $resultSet = $load->getAllProducts($filter);
 
         return $resultSet;
     }

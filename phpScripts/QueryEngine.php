@@ -51,12 +51,19 @@ class QueryEngine
     }
 
     //Gets every product from the DB
-    public function getAllProducts()
+    public function getAllProducts($filter)
     {
+
         $conn = $this->db->getDbConn();
         $loading;
 
-        if (!$loading = $conn->query("SELECT * FROM Product")) {
+        $query = "SELECT * FROM Product ";
+
+        if($filter != null){
+            $query .= "ORDER BY ".$filter;
+        }
+
+        if (!$loading = $conn->query($query)) {
             throw new Exception("Error trying to load the product list");
         } else {
             return $loading;
@@ -64,12 +71,17 @@ class QueryEngine
     }
 
     //Gets every sellable products from the DB
-    public function getAllSellables()
+    public function getAllSellables($filter)
     {
         $conn = $this->db->getDbConn();
         $loading;
+        $query = "SELECT * FROM Product WHERE is_sellable = 1";
 
-        if (!$loading = $conn->query("SELECT * FROM Product WHERE is_sellable = 1")) {
+        if($filter != null){
+            $query .= "ORDER BY ".$filter;
+        }
+
+        if (!$loading = $conn->query($query)) {
             throw new Exception("Error trying to load the product list");
         } else {
             return $loading;
@@ -89,6 +101,26 @@ class QueryEngine
 
         if (!$loading->execute()) {
             throw new Exception("Error trying to add a new product");
+        } else {
+            return $loading;
+        }
+    }
+
+    public function getProductsByName($name,$filter)
+    {   
+        $conn = $this->db->getDbConn();
+
+        $query = "SELECT * FROM Product WHERE name LIKE :name ";
+
+        if($filter != null){
+            $query .= "ORDER BY ".$filter;
+        }
+
+        $loading = $conn->prepare($query);
+        $loading->bindValue(":name", '%'.$name.'%');
+
+        if (!$loading->execute()) {
+            throw new Exception("Error trying load products by name");
         } else {
             return $loading;
         }
