@@ -59,6 +59,7 @@ class QueryEngine
 
         $query = "SELECT * FROM Product ";
 
+
         if ($filter != null) {
             $query .= "ORDER BY " . $filter;
         }
@@ -105,8 +106,10 @@ class QueryEngine
         }
     }
 
+
     public function getProductsByName($name, $filter)
     {
+
         $conn = $this->db->getDbConn();
 
         $query = "SELECT * FROM Product WHERE name LIKE :name ";
@@ -125,8 +128,8 @@ class QueryEngine
         }
     }
 
-    public function executeQuery($queryString, $parametersMap)
-    {
+    public function executeQuery($queryString, $parametersMap=[])
+    {   
         $conn = $this->db->getDbConn();
 
         $query = $queryString;
@@ -148,4 +151,5 @@ class QueryEngine
         }
         $conn->close();
     }
+
 }
