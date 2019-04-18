@@ -24,7 +24,7 @@ class CtrlProduct
     {
         $this->mgrProduct = new MgrProduct();
         $this->pageNumber = 0;
-        $this->itemPerPage = 5;
+        $this->itemPerPage = 10;
     }
 
     //loads all the products from the db
