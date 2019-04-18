@@ -68,7 +68,7 @@ class CtrlProduct
 
         while ($product = $list->fetch()) {
             echo "<tr id=" . $product["id_product"] . ">";
-            echo "<td><input type='radio' class='select'></td>";
+            echo "<td><input type='checkbox' class='select'></td>";
             echo "<td>" . $product["name"] . "</td>";
             echo "<td>" . $product["description"] . "</td>";
             echo "<td><img src='" . $product["image_path"] . "'/></td>";

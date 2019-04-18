@@ -143,6 +143,14 @@ body {
     margin-left: 2px;
 }
 
+.manager-button.disabled {
+    opacity: 0.5;
+}
+
+.manager-button.disabled:hover {
+    cursor: default;
+}
+
 .manager-button:hover{
     cursor: pointer;
 }
@@ -172,6 +180,11 @@ body {
     padding:5px;
     text-align: center;
     border:1px solid black;
+}
+
+.inventory-manager-table td img{
+    width: 60px;
+    height: 60px;
 }
 
 .modals {

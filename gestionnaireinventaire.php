@@ -135,7 +135,7 @@
 
                     <div class="manager-buttons-div">
                         <a class="manager-button add" id="add"><img src="images/add.png"></a>
-                        <a class="manager-button edit" id="edit"><img src="images/edit.png"></a>
+                        <a class="manager-button edit disabled" id="edit"><img src="images/edit.png"></a>
                         <a class="manager-button delete" id="delete"><img src="images/delete.png"></a>
                     </div>
 
@@ -151,7 +151,7 @@
                                 <td>Prix</td>
                                 <td>Visible</td>
                             </thead>
-                            <tbody>
+                            <tbody id="products">
                                 <?php
                                     $ctrl = new CtrlProduct();
                                     $ctrl->loadAllProductsTable();
