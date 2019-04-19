@@ -21,8 +21,9 @@ class Product
     private $price;
     private $description;
     private $quantity;
+    private $imagePath;
 
-    public function __construct($name, $categories, $isSellable, $price, $description, $quantity)
+    public function __construct($name, $categories, $isSellable, $price, $description, $quantity,$imagePath)
     {
         $this->name = $name;
         $this->categories = $categories;
@@ -30,6 +31,7 @@ class Product
         $this->price = $price;
         $this->description = $description;
         $this->quantity = $quantity;
+        $this->imagePath = $imagePath;
     }
 
     public function getId()
@@ -155,5 +157,24 @@ class Product
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getImagePath()
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param mixed $quantity
+     *
+     * @return self
+     */
+    public function setImagePath($imagePath)
+    {
+        $this->imagePath = $imagePath;
     }
 }

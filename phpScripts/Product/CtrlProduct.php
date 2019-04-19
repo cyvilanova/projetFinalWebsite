@@ -17,88 +17,140 @@ class CtrlProduct
 {
 
     private $mgrProduct;
+    private $pageNumber;
+    private $itemPerPage;
 
     public function __construct()
     {
         $this->mgrProduct = new MgrProduct();
-
+        $this->pageNumber = 0;
+        $this->itemPerPage = 10;
     }
 
     //loads all the products from the db
     public function loadAllProductsTable()
     {
+        $this->pageNumber = 0;
         $productList = $this->mgrProduct->getAllProducts();
-        $this->displayProductRows($productList);
+        $this->displayProductRows();
     }
 
     //loads all the products from the db
-    public function loadAllProducts($filter)
+    public function loadAllProducts($filter = null)
     {
+        $this->pageNumber = 0;
         $productList = $this->mgrProduct->getAllProducts($filter);
-        $this->displayProduct($productList);
+        $this->displayProduct();
     }
 
     //Loads all the sellable products
     public function loadAllSellables()
     {
+        $this->pageNumber = 0;
         $sellableProductList = $this->mgrProduct->getAllSellables();
-        $this->displayProduct($sellableProductList);
+        $this->displayProduct();
     }
 
     //Loads all products by name
-    public function loadProductsByName($name, $filter)
+    public function loadProductsByName($name, $filter = null)
     {
+        $this->pageNumber = 0;
         $productList = $this->mgrProduct->getProductsByName($name, $filter);
-        $this->displayProduct($productList);
+        $this->displayProduct();
     }
 
     //Displays the products on the page
-    private function displayProduct($list)
+    private function displayProduct()
     {
+        $products = $this->mgrProduct->getProduct();
+
+        $from = $this->itemPerPage * $this->pageNumber; //Number of item skipped
+        $to = (sizeof($products) - $from >= $this->itemPerPage ? $from + $this->itemPerPage : sizeof($products)); //Number of item to display
+        $maxNumberOfPage = round(sizeof($products)/$this->itemPerPage);
+
         $html = "";
 
-        if ($list->rowCount()) {
-            while ($product = $list->fetch()) {
+        if (!empty($products)) {
+
+            for ($i = $from; $i < $to; $i++) {
 
                 $html .= "<div class='product'>";
-                $html .= "<img src='".$product["image_path"]."'/>";
-                $html .= "<h2>" . $product["name"] . "</h2>";
-                $html .= "<p>" . $product["description"] . "</p>";
-                $html .= "<p class='bottom-text'><span class='stock'>" . $product["quantity"] . " en stock</span><span class='prix'>" . $product["price"] . "</span></p>";
+                $html .= "<img src='" . $products[$i]->getImagePath() . "' alt='un produit'/>";
+                $html .= "<h2>" . $products[$i]->getName() . "</h2>";
+                $html .= "<p>" . $products[$i]->getDescription() . "</p>";
+                $html .= "<p class='bottom-text'><span class='stock'>" . $products[$i]->getQuantity() . " en stock</span>";
+                $html .= "<span class='prix'>" . $products[$i]->getPrice() . "</span></p>";
                 $html .= "</div>";
-
             }
 
-            echo $html;
+            $html .= "<div class='link-page-box'>";
+
+            //Page buttons
+            if($this->pageNumber > 0){  //Previous button
+                $html .= "<a href='#' title='page précédente' onclick='changePage(".($this->pageNumber - 1).")'>Précédent</a>";
+            }
+            
+
+            for ($j=0; $j < $maxNumberOfPage; $j++) { 
+
+                if($this->pageNumber == $j){    //Currently on this page
+                    $html .= "<a href='#' title='autre page' style='color:black;' onclick='changePage(".$j.")'>".($j + 1)."</a>"; 
+                }
+                else{   //Other pages
+                    $html .= "<a href='#' title='autre page' onclick='changePage(".$j.")'>".($j + 1)."</a>";
+                }
+                
+            }
+
+            if($this->pageNumber < $maxNumberOfPage - 1){   //Next button
+                $html .= "<a href='#' title='page suivante' onclick='changePage(".($this->pageNumber + 1).")'>Suivant</a>";
+            }
+            
+
+            $html .= "</div>";
+
         } else {
-            echo "<p>Aucun item ne correspond!</p>";
+            $html .= "<p>Aucun item ne correspond!</p>";
         }
+
+        echo $html;
+    }
+
+    //Displays the next products
+    public function changePage($pageNumber)
+    {
+        $this->pageNumber = $pageNumber;
+        $this->displayProduct();
     }
 
     //Displays the products in rows on the page
-    private function displayProductRows($list)
+    private function displayProductRows()
     {
 
-        while ($product = $list->fetch()) {
-            echo "<tr id=" . $product["id_product"] . ">";
-            echo "<td><input type='checkbox' class='select'></td>";
-            echo "<td>" . $product["name"] . "</td>";
-            echo "<td>" . $product["description"] . "</td>";
-            echo "<td><img src='" . $product["image_path"] . "'/></td>";
-            echo "<td>Catégorie Produit</td>";
-            echo "<td>" . $product["quantity"] . "</td>";
-            echo "<td>" . $product["price"] . "$</td>";
-            if($product["is_sellable"] == 1)
-            {
-                echo "<td><input disabled checked type='checkbox'></td>";
+        $products = $this->mgrProduct->getProduct();
+        $html = "";
+
+        foreach ($products as $product) {
+
+            $html .= "<tr id=" . $product->getId() . ">";
+            $html .= "<td><input type='checkbox' class='select'/></td>";
+            $html .= "<td>" . $product->getName() . "</td>";
+            $html .= "<td>" . $product->getDescription() . "</td>";
+            $html .= "<td><img src='" . $product->getImagePath() . "'/></td>";
+            $html .= "<td>Catégorie Produit</td>";
+            $html .= "<td>" . $product->getQuantity() . "</td>";
+            $html .= "<td>" . $product->getPrice() . "$</td>";
+
+            if ($product->getIsSellable() == 1) {
+                $html .= "<td><input disabled checked type='checkbox'></td>";
+            } else {
+                $html .= "<td><input disabled type='checkbox'></td>";
             }
-            else
-            {
-                echo "<td><input disabled type='checkbox'></td>";
-            }
-            echo "</tr>";
+
+            $html .= "</tr>";
         }
 
+        echo $html;
     }
     /**
      * @return mixed
@@ -116,5 +168,23 @@ class CtrlProduct
     public function setMgrProduct($mgrProduct)
     {
         $this->mgrProduct = $mgrProduct;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getItemPerPage()
+    {
+        return $this->itemPerPage;
+    }
+
+    /**
+     * @param mixed $mgrProduct
+     *
+     * @return self
+     */
+    public function setItemPerPage($itemPerPage)
+    {
+        $this->itemPerPage = $itemPerPage;
     }
 }

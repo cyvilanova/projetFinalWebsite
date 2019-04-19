@@ -122,7 +122,7 @@ body{
 
 	margin:auto;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: center;
 	flex-wrap: wrap;
 	box-sizing: content-box;
 }
@@ -132,6 +132,8 @@ body{
 	width:20%;
 	padding-top:20px;
 	margin-top:20px;
+	margin-right:10px;
+	margin-left:10px;
 	padding-right:1%;
 	padding-left: 1%;
 	border:2px solid #292323;
@@ -156,6 +158,19 @@ body{
 	cursor:pointer;
 }
 
+/* Link Section */
+.link-page-box{
+	display: block;
+	width:100%;
+	text-align: center;
+	padding-top:20px;
+}
+
+.link-page-box a{
+	margin-right:5px;
+	margin-left:5px;
+	font-size:25px;
+}
 
 /* Footer section */
 .classic-footer{
