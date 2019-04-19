@@ -86,6 +86,29 @@ class MgrProduct
 
     /**
      * Send to the QueryEngine a prepared statement in string form
+     * along with its parameters as a map to select the product by its id.
+     *
+     */
+    public function getProductById($id_product)
+    {
+        $queryEngine = new QueryEngine();
+        $query = "SELECT * FROM Product WHERE id_product LIKE :id";
+        $parameters =
+            [
+            ":id" => "%" . $id_product . "%",
+        ];
+
+        $resultSet = $queryEngine->executeQuery($query, $parameters);
+
+        if (!$resultSet) {
+            echo "Error while trying to load products by name";
+        } else {
+            $this->resultToArray($resultSet);
+        }
+    }
+
+    /**
+     * Send to the QueryEngine a prepared statement in string form
      * along with its parameters as a map.
      *
      */
