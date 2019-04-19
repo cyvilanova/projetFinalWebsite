@@ -13,7 +13,7 @@ Date Nom Description
  ****************************************/
 
 include_once "Product.php";
-require __DIR__ . '/../QueryEngine.php';
+require_once __DIR__ . '/../QueryEngine.php';
 //include_once("Category.php"); manque la class de cath
 
 class MgrProduct
