@@ -152,4 +152,13 @@ class QueryEngine
         $conn->close();
     }
 
+    public function executeSelect($queryString, $parametersMap=[])
+    {
+        $conn = $this->db->getDbConn();
+
+        $query = $queryString;
+
+        return ($conn->query($query));
+    }
+
 }
