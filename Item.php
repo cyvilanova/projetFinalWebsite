@@ -1,16 +1,9 @@
 <?php
-session_start();
-
-include_once "phpScripts/Product/CtrlProduct.php";
-
-$ctrl = new CtrlProduct();
-
-
 /****************************************
-Fichier : Catalog.php
+Fichier : Item.php
 Auteur : David Gaulin
 Fonctionnalité : W7 - Consultation d'un catalogue de produit
-Date : 2019-04-15
+Date : 2019-04-19
 Vérification :
 Date Nom Approuvé
 =========================================================
@@ -18,6 +11,12 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
+
+session_start();
+
+include_once "phpScripts/Product/CtrlProduct.php";
+
+$ctrl = new CtrlProduct();
 
 ?>
 

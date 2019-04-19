@@ -68,7 +68,7 @@ Date Nom Description
 		 		<div>	<!-- search bar -->
 		 			<input type="text" name="search" placeholder="Rechercher ..." id="searchBar"/>
 		 		</div>
-		 		<p>Filtrer par: </p>
+		 		<p>Trier par: </p>
 		 		<select name="filter" id="filter">
 		 			<option disabled selected value>sélectionner un filtre</option>
 		 			<option value="name">Nom</option>

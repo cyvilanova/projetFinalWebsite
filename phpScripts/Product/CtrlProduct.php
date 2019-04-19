@@ -107,8 +107,8 @@ class CtrlProduct
                 $dots = (sizeof($description) > 1 ? "..." : ""); //if description is more than 50 chars
                 $description = (!empty($description) ? $description[0] : $description);
 
-                $html .= "<a class='product' href='Item.php?productId=".$products[$i]->getId()."' title='plus dinfo'>";
-                $html .= "<img src='" . $products[$i]->getImagePath() . "' alt='un produit'/>";
+                $html .= "<a class='product' href='Item.php?productId=".$products[$i]->getId()."' title='plus d info'>";
+                $html .= "<img src='" . $products[$i]->getImagePath() . "' alt='".$products[$i]->getName()."'/>";
                 $html .= "<h2>" . $products[$i]->getName() . "</h2>";
                 $html .= "<p>" .  $description . $dots ."</p>";
                 $html .= "<p class='bottom-text'><span class='stock'>" . $products[$i]->getQuantity() . " en stock</span>";
@@ -120,7 +120,7 @@ class CtrlProduct
             $html .= "<p>Aucun item ne correspond!</p>";
         }
 
-        $html .= $this->genertePageButton($maxNumberOfPage);
+        $html .= $this->generatePageButton($maxNumberOfPage);
 
         echo $html;
     }
@@ -143,7 +143,7 @@ class CtrlProduct
         if(!empty($product)) {
 
                 $html .= "<div class='single-product'>";
-                $html .= "<img src='" . $product->getImagePath() . "' alt='un produit'/>";
+                $html .= "<img src='" . $product->getImagePath() . "' alt='".$product->getName()."'/>";
                 $html .= "<h2>" . $product->getName() . "</h2>";
                 $html .= "<p class='desc'>" .  $product->getDescription() . "</p>";
                 $html .= "<p class='bottom-text'><span class='stock'>" . $product->getQuantity() . " en stock</span>";
@@ -168,7 +168,7 @@ class CtrlProduct
      * $maxNumberOfPage: total number of pages
      * number of elements to load divided by elements per page
      * */
-    private function genertePageButton($maxNumberOfPage)
+    private function generatePageButton($maxNumberOfPage)
     {
         $html = "<div class='link-page-box'>";
 
