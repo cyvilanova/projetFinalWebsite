@@ -92,16 +92,16 @@ class MgrProduct
     public function getProductById($id_product)
     {
         $queryEngine = new QueryEngine();
-        $query = "SELECT * FROM Product WHERE id_product LIKE :id";
+        $query = "SELECT * FROM Product WHERE id_product = :id";
         $parameters =
-            [
-            ":id" => "%" . $id_product . "%",
+        [
+            ":id" => $id_product
         ];
 
         $resultSet = $queryEngine->executeQuery($query, $parameters);
 
         if (!$resultSet) {
-            echo "Error while trying to load products by name";
+            echo "Error while trying to load products by id";
         } else {
             $this->resultToArray($resultSet);
         }
