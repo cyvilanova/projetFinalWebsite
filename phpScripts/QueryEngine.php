@@ -4,7 +4,7 @@
 	 Auteur : David Gaulin
 	 Fonctionnalité : Moteur de requête DB
 	 Date : 2019-04-16
-	 Vérification : 
+	 Vérification :
 	 Date Nom Approuvé
 	 =========================================================
 	 Historique de modifications :
@@ -26,5 +26,7 @@
 		public function test(){	//Use this function to test if the connection works
 			$add = $this->db->getDbConn()-> query("INSERT INTO category VALUES (DEFAULT,'test',true,'Tessst')");
 		}
+
+		
 	}
 ?>

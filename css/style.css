@@ -214,5 +214,29 @@ body{
 		width:70%;
 	}
 
-}
+	/* ========Login========*/
 
+	.connect{
+	  margin-top:40px;
+		margin-right:auto;
+		margin-bottom:0;
+		margin-left:auto;
+	  padding-top: 40px;
+	  background-color: #fff6c9;
+	  text-align: center;
+	  width: 50%;
+	  height: 300px;
+	  border: solid 1px black;
+	}
+
+	input{
+	  width:75%;
+	  max-width:250px;
+	}
+
+	input[type=submit]{
+	  width:75%;
+	  max-width:150px;
+	}
+
+}
