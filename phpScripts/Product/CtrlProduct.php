@@ -36,7 +36,7 @@ class CtrlProduct
     {
         $this->setPageNumber(0);
         $productList = $this->getMgrProduct()->getAllProducts();
-        $this->displayProductRows();
+        $this->displayProductsRows();
     }
 
     
@@ -49,7 +49,7 @@ class CtrlProduct
     {
         $this->pageNumber = 0;
         $productList = $this->getMgrProduct()->getAllProducts($filter);
-        $this->displayProduct();
+        $this->displayProducts();
     }
 
     
@@ -60,7 +60,16 @@ class CtrlProduct
     {
         $this->pageNumber = 0;
         $sellableProductList = $this->getMgrProduct()->getAllSellables();
-        $this->displayProduct();
+        $this->displayProducts();
+    }
+
+    /**
+     * Loads a product by it's id
+     * */
+    public function loadProductById($id)
+    {
+        $product = $this->getMgrProduct()->getProductById($id);
+        $this->displaySingleProduct();
     }
 
     /**
@@ -74,13 +83,13 @@ class CtrlProduct
     {
         $this->pageNumber = 0;
         $productList = $this->getMgrProduct()->getProductsByName($name, $filter);
-        $this->displayProduct();
+        $this->displayProducts();
     }
 
     /**
      * Displays the list of product
      * */
-    private function displayProduct()
+    private function displayProducts()
     {
         $products = $this->getMgrProduct()->getProduct();
 
@@ -93,17 +102,18 @@ class CtrlProduct
         if(!empty($products)) {
 
             for ($i = $from; $i < $to; $i++) {
+
                 $description = str_split($products[$i]->getDescription(),50);
                 $dots = (sizeof($description) > 1 ? "..." : ""); //if description is more than 50 chars
                 $description = (!empty($description) ? $description[0] : $description);
 
-                $html .= "<div class='product'>";
+                $html .= "<a class='product' href='Item.php?productId=".$products[$i]->getId()."' title='plus dinfo'>";
                 $html .= "<img src='" . $products[$i]->getImagePath() . "' alt='un produit'/>";
                 $html .= "<h2>" . $products[$i]->getName() . "</h2>";
                 $html .= "<p>" .  $description . $dots ."</p>";
                 $html .= "<p class='bottom-text'><span class='stock'>" . $products[$i]->getQuantity() . " en stock</span>";
-                $html .= "<span class='prix'>" . $products[$i]->getPrice() . "</span></p>";
-                $html .= "</div>";
+                $html .= "<span class='prix'>" . $products[$i]->getPrice() . "$</span></p>";
+                $html .= "</a>";
             }
 
         } else {
@@ -114,6 +124,41 @@ class CtrlProduct
 
         echo $html;
     }
+
+    #Cette function ne serait pas nécéssaire si on pouvait avoir plusieurs fichiers css..
+    /**
+     * Displays a single product
+     * */
+    private function displaySingleProduct()
+    {
+        $product = $this->getMgrProduct()->getProduct()[0];
+
+        $html = "";
+
+        $html .= "<div class='page-title-bar'>";
+        $html .= "<h1>".$product->getName()."</h1>";
+        $html .= "</div>";
+
+
+        if(!empty($product)) {
+
+                $html .= "<div class='single-product'>";
+                $html .= "<img src='" . $product->getImagePath() . "' alt='un produit'/>";
+                $html .= "<h2>" . $product->getName() . "</h2>";
+                $html .= "<p class='desc'>" .  $product->getDescription() . "</p>";
+                $html .= "<p class='bottom-text'><span class='stock'>" . $product->getQuantity() . " en stock</span>";
+                $html .= "<span class='prix'>" . $product->getPrice() . "$</span></p>";
+                $html .= "</div>";
+        }
+        else {
+            $html .= "<p>Aucun item ne correspond!</p>";
+        }
+
+        $html .= "<p class='align-center'><a href='catalog.php' title='Page précédente'>Revenir au catalogue</a></p>";
+
+        echo $html;
+    }
+
 
     /**
      * Generates the 1,2,3,previous,next, etc buttons
@@ -162,13 +207,13 @@ class CtrlProduct
     public function changePage($pageNumber)
     {
         $this->setPageNumber($pageNumber);
-        $this->displayProduct();
+        $this->displayProducts();
     }
 
     /**
      * Displays the product list in rows
      * */
-    private function displayProductRows()
+    private function displayProductsRows()
     {
 
         $products = $this->mgrProduct->getProduct();

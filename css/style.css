@@ -150,6 +150,8 @@ body{
 	border:2px solid #292323;
 	box-sizing: content-box;
 	transition-duration: 1s;
+	text-decoration: none;
+	color: black;
 }
 
 .product-section .product h2{
@@ -174,6 +176,37 @@ body{
 	color:white;
 	background-color: #342c2c;
 	cursor:pointer;
+}
+
+
+.single-product{
+	width:50%;
+	margin:auto;
+	text-align: center;
+	margin-top:30px;
+}
+
+.single-product img{
+	width:40%;
+}
+
+.single-product .desc{
+	width:80%;
+	margin:auto;
+	font-size:22px;
+}
+
+.single-product .bottom-text{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: 35px;
+}
+
+.align-center{
+	text-align:center;
+	margin-top: 50px;
+	font-size: 25px;
 }
 
 /* Link Section */
