@@ -100,7 +100,7 @@ class Recipe {
 	 * @return string $idFinalProduct the name of the final product
 	 * 
 	 */
-	public function getidFinalProduct() {
+	public function getIdFinalProduct() {
 		return $this->idFinalProduct;
 	}
 
@@ -109,7 +109,7 @@ class Recipe {
 	 * @param string $idFinalProduct the name of the final product
 	 * 
 	 */
-	public function setidFinalProduct($idFinalProduct) {
+	public function setIdFinalProduct($idFinalProduct) {
 		$this->idFinalProduct = $idFinalProduct;
 	}
 
