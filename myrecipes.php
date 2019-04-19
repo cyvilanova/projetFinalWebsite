@@ -28,7 +28,7 @@ Date Nom Description
 
     <body>
 
-    <?php include("navbar.html"); ?>
+    <?php include("nav_admin.html"); ?>
 
         <div class="modal-container" id="modals-window">
             <div class="modals panel" id="modal-add">
