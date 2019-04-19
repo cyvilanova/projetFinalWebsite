@@ -115,11 +115,16 @@ body{
 	height:30px;
 }
 
+.search-section #filter{
+	font-family: 'Raleway',sans-serif;
+}
+
 
 /* Product section */
 .page{
 	position: relative;
 	min-height:100vh;
+	background-color: #F8F9FA;
 }
 
 .main-section{
@@ -151,9 +156,11 @@ body{
 	box-sizing: content-box;
 	transition-duration: 1s;
 	text-decoration: none;
-	color: black;
-}
+	background-color: #342c2c;
+	color: white;
 
+}
+	
 .product-section .product h2{
 	word-wrap: break-word;
 }
@@ -173,34 +180,63 @@ body{
 }
 
 .product:hover{
-	color:white;
-	background-color: #342c2c;
+	color:black;
+	background-color: white;	
 	cursor:pointer;
 }
 
 
 .single-product{
-	width:50%;
+	width:70%;
 	margin:auto;
-	text-align: center;
+	text-align: left;
 	margin-top:30px;
+	background-color: #F8F9FA;
+	border:5px groove #F8F9FA;
 }
 
 .single-product img{
-	width:40%;
+	width:30%;
+	min-width: 200px;
+	display: inline-block;
+	vertical-align: top;
+	border:5px solid #292323;
+	margin-left:5%;
+	margin-top:5%;
 }
 
 .single-product .desc{
-	width:80%;
-	margin:auto;
+	width:70%;
 	font-size:22px;
+	display: inline-block;
+	vertical-align: middle;
+	padding-top:50px;
+	margin-left:5%;
+	padding-bottom:50px;
 }
 
-.single-product .bottom-text{
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-	font-size: 35px;
+.single-product .side-text{
+	margin-left:20%;
+	margin-top:150px;
+	min-width:20%;
+	display: inline-block;
+	background-color: #342C2C;
+	color:white;
+	padding:20px;
+	font-size: 30px;
+}
+
+.single-product .side-text span{
+	text-align: left;
+	display: block;
+}
+
+.align-center a{
+	color:#bcd13f;
+}
+
+.align-center a:hover{
+	color:#bcd13f;
 }
 
 .align-center{
@@ -221,6 +257,11 @@ body{
 	margin-right:5px;
 	margin-left:5px;
 	font-size:25px;
+	color:#bcd13f;
+}
+
+.link-page-box:hover a{
+	color:#bcd13f;
 }
 
 /* Footer section */
@@ -245,7 +286,21 @@ body{
 
 @media screen and (max-width: 991px) {
 	/* start of large tablet styles */
+	.single-product{
+		text-align: center;
+	}
 
+	.single-product .side-text{
+		display: block;
+		width:50%;
+		margin:auto;
+		margin-top:100px;
+		font-size: 20px;
+	}
+
+	.single-product .desc{
+		margin-top:50px;
+	}
 
 	/* Product changes */
 	.product-section .product{
@@ -272,6 +327,27 @@ body{
 	/* start of phone styles */
 	body{
 		background-color: green;
+	}
+
+	.single-product{
+		text-align: center;
+		width:95%;
+	}
+
+	.single-product .side-text{
+		display: block;
+		width:80%;
+		margin:auto;
+		margin-top:100px;
+		font-size: 20px;
+	}
+
+	.single-product .desc{
+		text-align: left;
+		padding:0;
+		margin:0;
+		padding-bottom: 50px;
+		margin-top:50px;
 	}
 
 	/* Product section changes */

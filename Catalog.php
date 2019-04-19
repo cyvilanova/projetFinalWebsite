@@ -1,10 +1,4 @@
 <?php
-session_start();
-
-include_once "phpScripts/Product/CtrlProduct.php";
-
-$ctrl = new CtrlProduct();
-
 
 /****************************************
 Fichier : Catalog.php
@@ -18,6 +12,12 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
+ 
+session_start();
+
+include_once "phpScripts/Product/CtrlProduct.php";
+
+$ctrl = new CtrlProduct();
 
 ?>
 
@@ -70,7 +70,7 @@ Date Nom Description
 		 		</div>
 		 		<p>Trier par: </p>
 		 		<select name="filter" id="filter">
-		 			<option disabled selected value>sélectionner un filtre</option>
+		 			<option disabled selected value>Sélectionner un filtre</option>
 		 			<option value="name">Nom</option>
 		 			<option value="price">Prix</option>
 		 			<option value="quantity">Quantité</option>
