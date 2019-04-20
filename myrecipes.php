@@ -1,5 +1,20 @@
 <?php
-    include_once "phpScripts/Product/CtrlProduct.php";
+/****************************************
+Fichier : recipe.php
+Auteur : Cynthia Vilanova
+Fonctionnalité : W7 - Consultation d'un catalogue de produit
+Date : 2019-04-17
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
+?>
+
+<?php
+    include_once "phpScripts/Recipe/CtrlRecipe.php";
 ?>
 
 <!DOCTYPE html>
@@ -8,15 +23,18 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width = device-width, initial-scale = 1.0">
         <link href="css/style_index.css" rel=stylesheet>
-        <title>Gestionnaire d'inventaire </title>
+        <title>Mes recettes</title>
     </head>
 
     <body>
+
+    <?php include("nav_admin.html"); ?>
+
         <div class="modal-container" id="modals-window">
             <div class="modals panel" id="modal-add">
 
                 <div class="panel-header add">
-                    <h3>Ajouter un produit</h3>
+                    <h3>Ajouter une recette</h3>
                 </div>
 
                 <div class="panel-body col-12">
@@ -63,7 +81,7 @@
             <div class="modals panel" id="modal-edit">
 
                 <div class="panel-header edit">
-                    <h3>Modifier un produit</h3>
+                    <h3>Modifier une recette</h3>
                 </div>
 
                 <div class="panel-body col-12">
@@ -110,7 +128,7 @@
             <div class="modals panel" id="modal-delete">
 
                 <div class="panel-header delete">
-                    <h3>Supprimer un produit</h3>
+                    <h3>Supprimer une recette</h3>
                 </div>
 
                 <div class="panel-body">
@@ -119,14 +137,12 @@
             </div>
         </div>
 
-        <?php include("nav_admin.html"); ?>
-
         <div class="center">
 
             <div class="panel col-12 col-mb-12 col-lg-12 full">
 
                 <div class="panel-header">
-                    <h3>Gestionnaire d'inventaire</h3>
+                    <h3>Mes recettes</h3>
                 </div>
 
                 <div class="panel-body">
@@ -141,18 +157,16 @@
                         <table>
                             <thead>
                                 <td></td>
+                                <td>Nom</td>
                                 <td>Produit</td>
                                 <td>Description</td>
-                                <td>Image</td>
-                                <td>Catégorie</td>
-                                <td>Qté</td>
                                 <td>Prix</td>
-                                <td>Visible</td>
+                                <td>Personnalisée</td>
                             </thead>
                             <tbody id="products">
                                 <?php
-                                    $ctrl = new CtrlProduct();
-                                    $ctrl->loadAllProductsTable();
+                                    $ctrl = new CtrlRecipe();
+                                    $ctrl->loadAllRecipesTable();
                                 ?>
                             </tbody>
                         </table>
