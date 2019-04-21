@@ -160,7 +160,7 @@ body{
 	color: white;
 
 }
-	
+
 .product-section .product h2{
 	word-wrap: break-word;
 }
@@ -301,6 +301,7 @@ body{
 	.single-product .desc{
 		margin-top:50px;
 	}
+
 
 	/* Product changes */
 	.product-section .product{

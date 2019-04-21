@@ -13,7 +13,7 @@ Date Nom Description
  ****************************************/
 
 include_once "Product.php";
-require __DIR__ . '/../QueryEngine.php';
+require_once __DIR__ . '/../QueryEngine.php';
 //include_once("Category.php"); manque la class de cath
 
 class MgrProduct
@@ -86,16 +86,16 @@ class MgrProduct
 
     /**
      * Send to the QueryEngine a prepared statement in string form
-     * along with its parameters as a map
+     * along with its parameters as a map to select the product by its id.
      *
      */
-    public function getProductById($id)
+    public function getProductById($id_product)
     {
         $queryEngine = new QueryEngine();
         $query = "SELECT * FROM Product WHERE id_product = :id";
         $parameters =
-            [
-            ":id" => $id,
+        [
+            ":id" => $id_product
         ];
 
         $resultSet = $queryEngine->executeQuery($query, $parameters);

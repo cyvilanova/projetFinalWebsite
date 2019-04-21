@@ -65,7 +65,6 @@ $ctrl = new CtrlProduct();
 		 		}
 		 	?>
 
-
 		 </section>
 		 <footer class="classic-footer">
 		 		<p>Insérez du texte ici</p>
