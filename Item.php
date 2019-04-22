@@ -65,9 +65,10 @@ $ctrl = new CtrlProduct();
 		 		}
 		 	?>
 
-		 	<section class="search-section"> <!-- search section -->
-
 		 </section>
+		 <footer class="classic-footer">
+		 		<p>Insérez du texte ici</p>
+		 </footer>
 		</div>
 
 	 	<script>
