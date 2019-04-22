@@ -55,6 +55,8 @@ body{
 	overflow-x: hidden;
 }
 
+
+/* Inventory page CSS */
 .center {
   max-width: 1300px;
   margin: 0 auto;
@@ -65,7 +67,6 @@ body{
     flex-flow: column;
     margin-top: 50px;
 }
-
 
 .panel-header {
     flex: 0 1 40px;
@@ -129,7 +130,6 @@ body{
     background-color: #27ae60;
 }
 
-
 .manager-buttons-div{
     min-height: 50px;
     display: block;
@@ -169,23 +169,23 @@ body{
     overflow-y: hidden;
 }
 
-.inventory-manager-table table{
+.inventory-manager-table table {
     width: 100%;
     margin-top: 10px;
 }
 
-.inventory-manager-table thead{
+.inventory-manager-table thead {
     background-color: #ececec;
     font-weight: bold;
 }
 
-.inventory-manager-table td{
+.inventory-manager-table td {
     padding:5px;
     text-align: center;
     border:1px solid black;
 }
 
-.inventory-manager-table td img{
+.inventory-manager-table td img {
     width: 60px;
     height: 60px;
 }
@@ -333,7 +333,73 @@ img {
     }
 }
 
-/* CSS style navigation bar + links */
+
+/************** My recipes page style **************/
+
+.recipes-wrapper {
+    max-width: 90% !important;
+    margin: 30px auto;
+    padding: 15px 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.recipes-wrapper a {
+    text-decoration: none;
+    color: #000;
+}
+
+.thead-light {
+    font-weight: 600;
+}
+
+.table td:hover {
+    cursor: pointer;
+}
+
+.recipes-wrapper .btn {
+    margin-bottom: 20px;
+}
+
+.recipes-wrapper .btn-add-recipe {
+    color: #fff;
+    background-color: #bcd13f;
+    border-color: #bcd13f;
+}
+
+.recipes-wrapper .btn-add-recipe.focus,
+.recipes-wrapper .btn-add-recipe:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(41, 35, 35,.25);
+}
+
+/************** CSS style edit recipe modal ********************/
+.ingredients-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.ingredient-item {
+    display: flex;
+    flex-direction: row;
+    margin-top: 2px;
+}
+
+.label-volume {
+    width: 25%;
+    padding-left: 10px;
+}
+
+.input-volume {
+    width: 25%;
+}
+
+.btn-remove {
+    align-self: flex-end;
+}
+
+/************** CSS style navigation bar + links **************/
+
 .img-logo-nav {
   width: 350px;
   max-width: 100%;
@@ -440,7 +506,6 @@ img {
 /* Product section */
 .product-section{
 	width:90%;
-
 	margin:auto;
 	display: flex;
 	justify-content: center;
@@ -534,14 +599,25 @@ img {
 	.search-section p{
 		display: block;
     }
-    
+
+    /* Recipes list display changes (myrecipes) */
+    .recipes-wrapper {
+        align-items: flex-start;
+        max-width: 100%;
+    }
+    .recipes-wrapper .btn {
+        position: absolute;
+        align-self: flex-start;
+    }
+
+    .recipes-wrapper .table {
+        margin-top: 50px;
+    }
+    /**/
 }
 
 @media screen and (max-width: 425px) {
 	/* start of phone styles */
-	body{
-		background-color: green;
-	}
 
 	/* Product section changes */
 	.product-section{

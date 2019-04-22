@@ -66,7 +66,7 @@ class CtrlProduct
 
         $from = $this->itemPerPage * $this->pageNumber; //Number of item skipped
         $to = (sizeof($products) - $from >= $this->itemPerPage ? $from + $this->itemPerPage : sizeof($products)); //Number of item to display
-        $maxNumberOfPage = round(sizeof($products)/$this->itemPerPage);
+        $maxNumberOfPage = round(sizeof($products) / $this->itemPerPage);
 
         $html = "";
 
@@ -86,29 +86,26 @@ class CtrlProduct
             $html .= "<div class='link-page-box'>";
 
             //Page buttons
-            if($this->pageNumber > 0){  //Previous button
-                $html .= "<a href='#' title='page précédente' onclick='changePage(".($this->pageNumber - 1).")'>Précédent</a>";
+            if ($this->pageNumber > 0) {  //Previous button
+                $html .= "<a href='#' title='page précédente' onclick='changePage(" . ($this->pageNumber - 1) . ")'>Précédent</a>";
             }
-            
 
-            for ($j=0; $j < $maxNumberOfPage; $j++) { 
 
-                if($this->pageNumber == $j){    //Currently on this page
-                    $html .= "<a href='#' title='autre page' style='color:black;' onclick='changePage(".$j.")'>".($j + 1)."</a>"; 
+            for ($j = 0; $j < $maxNumberOfPage; $j++) {
+
+                if ($this->pageNumber == $j) {    //Currently on this page
+                    $html .= "<a href='#' title='autre page' style='color:black;' onclick='changePage(" . $j . ")'>" . ($j + 1) . "</a>";
+                } else {   //Other pages
+                    $html .= "<a href='#' title='autre page' onclick='changePage(" . $j . ")'>" . ($j + 1) . "</a>";
                 }
-                else{   //Other pages
-                    $html .= "<a href='#' title='autre page' onclick='changePage(".$j.")'>".($j + 1)."</a>";
-                }
-                
             }
 
-            if($this->pageNumber < $maxNumberOfPage - 1){   //Next button
-                $html .= "<a href='#' title='page suivante' onclick='changePage(".($this->pageNumber + 1).")'>Suivant</a>";
+            if ($this->pageNumber < $maxNumberOfPage - 1) {   //Next button
+                $html .= "<a href='#' title='page suivante' onclick='changePage(" . ($this->pageNumber + 1) . ")'>Suivant</a>";
             }
-            
+
 
             $html .= "</div>";
-
         } else {
             $html .= "<p>Aucun item ne correspond!</p>";
         }
@@ -152,6 +149,27 @@ class CtrlProduct
 
         echo $html;
     }
+
+    /**
+     * Populate multiselect list of ingredients when creating a recipe.
+     * 
+     */
+    public function loadAllIngredients() {
+        $this->mgrProduct->getAllProducts();
+        $products = $this->mgrProduct->getProduct();
+        $html = "";
+
+        foreach ($products as $product) {
+            
+            $html .= "<option ";
+            $html .= "id=\"" . $product->getId() . "\" ";
+            $html .= "value=\"" . $product->getName() . "\">";
+            $html .= $product->getName() . "</div>";
+        }
+
+        echo $html;
+    }
+
     /**
      * @return mixed
      */
