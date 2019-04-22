@@ -9,6 +9,7 @@ Date Nom Approuvé
 =========================================================
 Historique de modifications :
 Date Nom Description
+2019-04-22 CV Changer array product pour products
 =========================================================
  ****************************************/
 
@@ -19,13 +20,13 @@ require_once __DIR__ . '/../QueryEngine.php';
 class MgrProduct
 {
 
-    private $product; //Product object list array
+    private $products; //Product object list array
     private $mgrCategory; //MgrCategory object
 
     public function __construct()
     {
         #$mgrCategory = new MgrCategory(); manque la classe de cath
-        $this->product = array();
+        $this->products = array();
     }
 
     /**
@@ -136,7 +137,7 @@ class MgrProduct
      * along with its parameters as a map.
      *
      */
-    public function getIngredients($receipeId)
+    public function getIngredients($recipeId)
     {
         $queryEngine = new QueryEngine();
         $query = "SELECT * FROM Product
@@ -145,19 +146,14 @@ class MgrProduct
             WHERE ta_recipe_product.id_recipe = :idRecipe";
 
         $parameters =
-            [
-            "idRecipe" => $receipeId,
+        [
+            "idRecipe" => $recipeId,
         ];
-
-        if ($filter != null) {
-            //Adds the filter
-            $query .= " ORDER BY " . $filter;
-        }
 
         $resultSet = $queryEngine->executeQuery($query, $parameters);
 
         if (!$resultSet) {
-            echo "Error while trying to load the ingredients";
+            echo "Error while trying to load the ingredients.";
         } else {
             $this->resultToArray($resultSet);
         }
@@ -170,7 +166,7 @@ class MgrProduct
      */
     private function resultToArray($resultSet)
     {
-        $this->product = array();
+        $this->products = array();
 
         while ($result = $resultSet->fetch()) {
 
@@ -185,7 +181,7 @@ class MgrProduct
 
             $product -> setId($result["id_product"]);
 
-            array_push($this->product, $product);
+            array_push($this->products, $product);
         }
     }
 
@@ -194,7 +190,7 @@ class MgrProduct
      */
     public function getProduct()
     {
-        return $this->product;
+        return $this->products;
     }
 
     /**
@@ -204,7 +200,7 @@ class MgrProduct
      */
     public function setProduct($product)
     {
-        $this->product = $product;
+        $this->products = $product;
     }
 
     /**
