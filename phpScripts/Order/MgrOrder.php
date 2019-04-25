@@ -2,7 +2,7 @@
 
 	require_once __DIR__ . '/../QueryEngine.php';
 	require_once __DIR__ . '/../Shipping/MgrShipping.php';
-	require_once __DIR__ . '/../Order/Order.php';
+	require_once __DIR__ . '/Order.php';
 	require_once __DIR__ . '/../Product/Product.php';
 	/**
 	 * 
@@ -36,11 +36,11 @@
 
 			$parametersOrders = 
 			[
-				":client" => $id_client;
-				":method" => $id_method;
-				":tps" => $order->calculateTPS();
-				":tvq" => $order->calculateTVQ();
-				":total" => $order->getTotal();
+				":client" => $id_client,
+				":method" => $id_method,
+				":tps" => $order->calculateTPS(),
+				":tvq" => $order->calculateTVQ(),
+				":total" => $order->getTotal(),
 			];
 
 
@@ -56,10 +56,11 @@
 			foreach ($order->getProducts() as $product) {
 				$parametersProductOrder = 
 				[
-					":id_order" => $last_id;
-					":id_product" => $product;
-				]
-				if(!$this->query_engine->executeQuery($insertProductOrders, $parametersProductOrder)) {
+					":id_order" => $last_id,
+					":id_product" => $product,
+				];
+
+				if (!$this->query_engine->executeQuery($insertProductOrders, $parametersProductOrder)) {
 					echo "Erreur lors de l'ajout des produits de la commande";
 				}
 
@@ -76,7 +77,7 @@
 
 		public function updateOrder($order = "", $id_order)
 		{
-			# code...
+			$query = "";
 		}
 	}	
 ?>

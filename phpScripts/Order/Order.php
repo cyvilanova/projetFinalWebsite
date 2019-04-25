@@ -12,7 +12,7 @@
 	 =========================================================
 	****************************************/
 
-	include_once "..\Product\Product.php";
+	require_once __DIR__ . '/../Product/Product.php';
 
 	/**
 	 *
@@ -67,21 +67,21 @@
 
 		public function calculateTaxes()
 		{
-			$tps = ($this->price * 0,05);
-			$tvq = ($this->price * 0,09975);
+			$tps = ($this->price * 0.05);
+			$tvq = ($this->price * 0.09975);
 			$this->total = ($this->price + $tps + $tvq);
 		}
 
 
 		public function calculateTPS()
 		{
-			return ($this->price * 0,05);
+			return ($this->price * 0.05);
 		}
 
 
 		public function calculateTVQ()
 		{
-			return ($this->price * 0,09975);
+			return ($this->price * 0.09975);
 		}
 
 
