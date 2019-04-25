@@ -21,12 +21,14 @@ class MgrProduct
 {
 
     private $products; //Product object list array
+    private $ingredientsQuantities; //Product object list array
     private $mgrCategory; //MgrCategory object
 
     public function __construct()
     {
         #$mgrCategory = new MgrCategory(); manque la classe de cath
         $this->products = array();
+        $this->ingredientsQuantities = array();
     }
 
     /**
@@ -140,10 +142,18 @@ class MgrProduct
     public function getIngredients($recipeId)
     {
         $queryEngine = new QueryEngine();
-        $query = "SELECT * FROM Product
-            INNER JOIN ta_recipe_product
-            ON Product.id_product = ta_recipe_product.id_product
-            WHERE ta_recipe_product.id_recipe = :idRecipe";
+        $query = "SELECT product.id_product AS id_product, 
+                product.name AS name,
+                product.is_sellable AS is_sellable, 
+                product.price AS price,
+                product.description AS description, 
+                product.quantity AS quantity,
+                product.image_path AS image_path, 
+                ta_recipe_product.qty_ml AS qty_ml 
+                FROM product
+                INNER JOIN ta_recipe_product
+                ON product.id_product = ta_recipe_product.id_product
+                WHERE id_recipe = :idRecipe";
 
         $parameters =
         [
@@ -161,26 +171,31 @@ class MgrProduct
 
     /**
      * Takes a resultSet as parameter and
-     * adds every row into the Product array
+     * adds every row into the Products array
      *
      */
     private function resultToArray($resultSet)
     {
         $this->products = array();
 
-        while ($result = $resultSet->fetch()) {
+        foreach($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
 
             $product = new Product(
-                $result["name"],
+                $result[1], // name
                 [],
-                $result["is_sellable"],
-                $result["price"],
-                $result["description"],
-                $result["quantity"],
-                $result["image_path"]);
+                $result[2], // is_sellable
+                $result[3], // price
+                $result[4], // description
+                $result[5], // quantity
+                $result[6] // image_path
+            );
 
-            $product -> setId($result["id_product"]);
+            $product->setId($result[0]); // id
 
+            if(isset($result[7])) {
+                $product->setVolumeUsed($result[7]); // qty_ml
+            }
+            
             array_push($this->products, $product);
         }
     }

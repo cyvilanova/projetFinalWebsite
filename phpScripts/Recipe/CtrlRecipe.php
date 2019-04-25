@@ -53,7 +53,7 @@ class CtrlRecipe
 		$html = "";
 
 		foreach ($recipes as $recipe) {
-
+			
 			$this->mgrRecipe->getMgrProduct()->getProductById($recipe->getidFinalProduct());
 			$finalProduct = $this->mgrRecipe->getMgrProduct()->getProduct();			
 		
