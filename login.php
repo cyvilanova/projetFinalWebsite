@@ -10,11 +10,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
-<<<<<<< HEAD
   <title>Quintessentiel</title>
-=======
-  <title>Navigation bar admin</title>
->>>>>>> f1e8decdf04c6746859c9f58fd54558f1eeb8eab
 </head>
 
 <body>
@@ -56,6 +52,18 @@
     <h1>Bobépine</h1>
   </div>
 
+  <div class="loginConnect">
+    <form action="phpScripts/MgrLogin.php" method="post">
+      nom d'utilisateur: <br>
+      <input type="text" name="uname" required="required" pattern="[A-Za-z0-9]{1,20}"><br>
+      Mot de passe: <br>
+      <input type="password" name="pwd" required="required" pattern="[A-Za-z0-9]{1,20}"><br>
+      <a href="#" title="reset Password" id="pwdReset">Oublié votre mot de passe?</a>
+      <br><br>
+      <input type="submit" value="Se connecter">
+    </form>
+
+  </div>
 </body>
 
 <!-- Optional JavaScript -->

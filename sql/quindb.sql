@@ -8,6 +8,7 @@ USE quintessentieldb;
 CREATE TABLE product (
 	id_product INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(128) NOT NULL,
+	image_path VARCHAR(255),
 	is_sellable BOOLEAN NOT NULL DEFAULT 0,
 	description TEXT,
 	price DECIMAL(7,2) NOT NULL DEFAULT 0.00,
