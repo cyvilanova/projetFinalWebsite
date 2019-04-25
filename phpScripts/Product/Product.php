@@ -12,7 +12,7 @@ Date Nom Description
 =========================================================
  ****************************************/
 
-class Product
+class Product implements JsonSerializable
 {
     private $id;
     private $name;
@@ -21,8 +21,10 @@ class Product
     private $price;
     private $description;
     private $quantity;
+    private $imagePath;
+    private $volumeUsed; // Quantity of product used in recipe in mL
 
-    public function __construct($name, $categories, $isSellable, $price, $description, $quantity)
+    public function __construct($name, $categories, $isSellable, $price, $description, $quantity, $imagePath, $volumeUsed = 0)
     {
         $this->name = $name;
         $this->categories = $categories;
@@ -30,8 +32,28 @@ class Product
         $this->price = $price;
         $this->description = $description;
         $this->quantity = $quantity;
+        $this->imagePath = $imagePath;
+        $this->volumeUsed = $volumeUsed;
     }
 
+    /**
+     * Makes an array with all the properties of the object 
+     * and returns it for the js to use.
+     * @return array of all the properties of the object
+     * 
+     */
+    public function jsonSerialize() {
+        return array(
+            'id' => $this->id,
+            'name' => $this->name,
+            'isSellable' => $this->isSellable,
+            'price' => $this->price,
+            'description' => $this->description,
+            'quantity' => $this->quantity,
+            'imagePath' => $this->imagePath,
+            'volumeUsed' => $this->volumeUsed
+        );
+    }
     public function getId()
     {
         return $this->id;
@@ -155,5 +177,34 @@ class Product
     public function setQuantity($quantity)
     {
         $this->quantity = $quantity;
+    }
+
+
+    /**
+     * @return mixed
+     */
+    public function getImagePath()
+    {
+        return $this->imagePath;
+    }
+
+    /**
+     * @param mixed $quantity
+     *
+     * @return self
+     */
+    public function setImagePath($imagePath)
+    {
+        $this->imagePath = $imagePath;
+    }
+
+    /**
+     * Sets the quantity of product used in a recipe in mL
+     * @param int $volume
+     *
+     */
+    public function setVolumeUsed($volume)
+    {
+        $this->volumeUsed = $volume;
     }
 }

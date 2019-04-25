@@ -9,14 +9,17 @@
 	 =========================================================
 	 Historique de modifications :
 	 Date Nom Description
+	 2019-04-19 CV Added Id
 	 =========================================================
  ****************************************/
 
-class Recipe {
+class Recipe implements JsonSerializable {
 
+	private $id; // Recipe's id
 	private $name; // Recipe's name
 	private $ingredients; // Array of products used for the recipe
-	private $finalProduct; // Product the recipe creates
+	private $quantities; // Array of quantities of product used for the recipe
+	private $idFinalProduct; // Id of the product the recipe creates
 	private $custom; // If it's a custom or standard recipe
 	private $steps; // All the steps of the recipe
 	private $description; // Description of the recipe
@@ -24,20 +27,56 @@ class Recipe {
 	/**
 	 * Recipe constructor with parameters.
 	 * @param  mixed $name the name of the recipe
-	 * @param  mixed $ingredients an array of products used in the recipe
-	 * @param  mixed $finalProduct the final product of the recipe
+	 * @param  mixed $idFinalProduct the final product of the recipe
 	 * @param  mixed $custom if it's a custom or standard recipe
 	 * @param  mixed $steps steps of the recipe
 	 * @param  mixed $description description of the recipe
 	 *
 	 */
-	public function __construct($name, $ingredients, $finalProduct, $custom, $steps, $description) {
+	public function __construct($name, $idFinalProduct, $custom, $steps, $description) {
 		$this->name = $name;
-		$this->ingredients = $ingredients;
-		$this->finalProduct = $finalProduct;
+		$this->idFinalProduct = $idFinalProduct;
 		$this->custom = $custom;
 		$this->steps = $steps;
 		$this->description = $description;
+	}
+
+	/**
+	 * Makes an array with all the properties of the object 
+	 * and returns it for the js to use.
+	 * @return array of all the properties of the object
+	 * 
+	 */
+	public function jsonSerialize () {
+		return array(
+				'id'=>$this->id,
+				'name'=>$this->name,
+				'ingredients'=>$this->ingredients,
+				'quantities'=>$this->quantities,
+				'idFinalProduct'=>$this->idFinalProduct,
+				'custom'=>$this->custom,
+				'steps'=>$this->steps,
+				'description'=>$this->description
+		);
+}
+
+	/**
+	 * Gets the id of the recipe
+	 * @return int $id the id of the recipe
+	 */
+	public function getId()
+	{
+		return $this->id;
+	}
+
+	/**
+	 * Sets the id of the recipe
+	 * @param  mixed $id
+	 *
+	 */
+	public function setId($id)
+	{
+		$this->id = $id;
 	}
 
 	/**
@@ -77,21 +116,30 @@ class Recipe {
 	}
 
 	/**
-	 * Gets the name of the final product
-	 * @return string $finalProduct the name of the final product
+	 * Sets the array of quantities of products used in the recipe
+	 * @param  array $quantities a list of the quantities used
 	 * 
 	 */
-	public function getFinalProduct() {
-		return $this->finalProduct;
+	public function setQuantities($quantities) {
+		$this->quantities = $quantities;
+	}
+
+	/**
+	 * Gets the name of the final product
+	 * @return string $idFinalProduct the name of the final product
+	 * 
+	 */
+	public function getIdFinalProduct() {
+		return $this->idFinalProduct;
 	}
 
 	/**
 	 * Sets the name of the final product
-	 * @param string $finalProduct the name of the final product
+	 * @param string $idFinalProduct the name of the final product
 	 * 
 	 */
-	public function setFinalProduct($finalProduct) {
-		$this->finalProduct = $finalProduct;
+	public function setIdFinalProduct($idFinalProduct) {
+		$this->idFinalProduct = $idFinalProduct;
 	}
 
 	/**
@@ -149,5 +197,4 @@ class Recipe {
 		$this->description = $description;
 	}
 }
-
 ?>
