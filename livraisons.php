@@ -61,10 +61,5 @@
   </div>
 
 
-  <?php 
-    $mm = new MgrShipping();
-    $mm->insertShippingMethod(1, "tostitos23", 12.33);
-  ?>
-
 </body>
 </html>

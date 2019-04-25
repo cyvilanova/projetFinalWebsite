@@ -12,7 +12,7 @@
 	 =========================================================
 	****************************************/
 
-	include_once "..\Product.php"; // Changer pour le bon chemin
+	include_once "..\Product\Product.php";
 
 	/**
 	 *
@@ -32,6 +32,7 @@
 			$this->price = $price;
 			$this->total = $total;
 			$this->products = $products;
+			calculateTaxes();
 		}
 
 
@@ -72,6 +73,16 @@
 		}
 
 
+		public function calculateTPS()
+		{
+			return ($this->price * 0,05);
+		}
+
+
+		public function calculateTVQ()
+		{
+			return ($this->price * 0,09975);
+		}
 
 
 		public function getId()

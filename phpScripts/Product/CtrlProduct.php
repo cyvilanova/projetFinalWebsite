@@ -27,7 +27,7 @@ class CtrlProduct
     //loads all the products from the db
     public function loadAllProductsTable()
     {
-        $productList = $this->mgrProduct->getAllProducts();
+        $productList = $this->mgrProduct->getAllProducts($filter);
         $this->displayProductRows($productList);
     }
 

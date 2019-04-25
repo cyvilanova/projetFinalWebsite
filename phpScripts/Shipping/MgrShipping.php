@@ -1,7 +1,7 @@
 <?php
 
 	include_once "Shipping.php";
-	require __DIR__ . '/../QueryEngine.php';
+	require_once __DIR__ . '/../QueryEngine.php';
 	/**
 	 * 
 	 */

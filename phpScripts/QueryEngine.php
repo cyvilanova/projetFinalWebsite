@@ -161,4 +161,12 @@ class QueryEngine
         return ($conn->query($query));
     }
 
+    public function getLastInsertedId($value='')
+    {
+        $conn = $this->db->getDbConn();
+        $last_id = $conn->lastInsertId();
+        return $last_id;
+    }
+
 }
+

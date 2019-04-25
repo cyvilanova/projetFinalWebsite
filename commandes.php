@@ -1,3 +1,9 @@
+<?php
+
+  include_once ("phpScripts/Order/CtrlOrder.php");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -79,29 +85,16 @@
     			</tr>
     		</thead>
     		<tbody>
-    			<tr>
-    				<td class="cases"><input type="radio" name="id" value="1"></td>
-    				<td class="cases">1</td>
-    				<td class="cases">Jonathan Blanchet</td>
-    				<td class="cases">123 rue des Canards</td>
-    				<td class="cases">Huile de lavande</td>
-    				<td class="cases">12</td>
-    			</tr>
-
-  				<tr>
-    				<td class="cases"><input type="radio" name="id" value="2"></td>
-    				<td class="cases">2</td>
-    				<td class="cases">Jonathan Blanchet</td>
-    				<td class="cases">123 rue des Canards</td>
-    				<td class="cases">Huile de lavande</td>
-    				<td class="cases">12</td>
-    			</tr>
-
+				<?php 
+					$m = new CtrlOrder();
+					$m->loadAllOrders();
+				?>
     		</tbody>
 
     	</table>
     </div>
 </div>
+
 
 
 </body>
