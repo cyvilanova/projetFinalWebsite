@@ -9,39 +9,137 @@
 	 =========================================================
 	 Historique de modifications :
 	 Date Nom Description
+	 2019-04-18 CV Requêtes
+	 2019-04-19 CV Affichage
 	 =========================================================
  ****************************************/
 
 require_once 'Recipe.php';
-require(__DIR__.'/../QueryEngine.php');
+require_once __DIR__ . '/../QueryEngine.php';
+require_once __DIR__ . '/../Product/MgrProduct.php';
 
-class MgrRecipe {
+class MgrRecipe
+{
+	private $mgrProduct; // 
+	private $recipes; // Array of recipes
+	private $queryEngine;
 
-	private $recipe;		// Recipe object
-	private $queryEngine; // QueryEngine instance
-
-	public function __construct(){ 
+	public function __construct()
+	{
+		$this->mgrProduct = new MgrProduct();
 		$this->queryEngine = new QueryEngine();
 	}
 
-	
 	/**
 	 * Send to the QueryEngine a prepared statement in string form
-	 * along with its parameters as a map. 
+	 * along with its parameters as a map to insert a new recipe. 
 	 *
 	 */
-	public function addNewRecipe() {
+	public function addNewRecipe()
+	{
 		$query = "INSERT INTO recipe(name, is_custom) VALUES (:name, :is_custom)";
-		$parameters = 
-		[
-			":name" => "Test2",
-			":is_custom" => "1",
-		];
+		$parameters =
+			[
+				":name" => "Test2",
+				":is_custom" => "1",
+			];
 
-		if(!$this->queryEngine->executeQuery($query, $parameters)) {
+		if (!$this->queryEngine->executeQuery($query, $parameters)) {
 			echo "Error in the query";
 		}
 	}
-}
 
+	/**
+	 * Send to the QueryEngine a prepared statement in string form
+	 * along with its parameters as a map to select the recipes needed. 
+	 *
+	 * @param string $filter 
+	 * @return array of all the recipes found in the database
+	 * 
+	 */
+	public function selectAllRecipes($filter = NULL)
+	{
+		$query = "SELECT * FROM recipe";
+
+		if ($filter != NULL) {
+			//Adds the filter
+			$query .= " ORDER BY " . $filter;
+		}
+
+		$resultSet = 	$this->queryEngine->executeQuery($query);
+
+		if (!$resultSet) {
+			echo "Error while trying to load all recipes";
+		} else {
+			$this->resultToArray($resultSet);
+		}
+	}
+
+	/**
+	 * Takes a resultSet as parameter and
+	 * adds every row into the Recipes array
+	 *
+	 */
+	private function resultToArray($resultSet)
+	{
+		$this->recipes = array();
+
+		while ($result = $resultSet->fetch()) {
+
+			$recipe = new Recipe(
+				$result["name"],
+				$result["id_product"],
+				$result["is_custom"],
+				$result["steps"],
+				$result["description"]
+			);
+
+			$recipe->setId($result["id_recipe"]);
+			$recipe->setIngredients($this->getIngredientsArray($result["id_recipe"]));
+			array_push($this->recipes, $recipe);
+		}
+	}
+
+	/**
+	 * Gets the array of recipes
+	 * @return recipe $recipes
+	 * 
+	 */
+	public function getRecipesArray()
+	{
+		return $this->recipes;
+	}
+
+	/**
+	 * setRecipe
+	 * @param recipe $recipe
+	 * 
+	 */
+	public function setRecipe($recipe)
+	{
+		$this->recipe = $recipe;
+	}
+
+	/**
+	 * Gets the list of ingredients used in the recipe
+	 * @param int $recipeId the id of the recipe
+	 * @return array of products
+	 * 
+	 */
+	public function getIngredientsArray($recipeId) {
+		$this->mgrProduct->getIngredients($recipeId);
+		$ingredients = $this->mgrProduct->getProduct();
+		return $ingredients;
+	}
+
+		/**
+	 * Gets the product manager to access the products linked to the recipe
+	 * @return MgrProduct $mgrProduct
+	 * 
+	 */
+	public function getMgrProduct()
+	{
+		return $this->mgrProduct;
+	}
+}
 ?>

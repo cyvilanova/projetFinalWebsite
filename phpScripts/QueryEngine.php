@@ -47,7 +47,6 @@ class QueryEngine
         } catch (Exception $e) {
             return false;
         }
-        $conn->close();
     }
 
 }

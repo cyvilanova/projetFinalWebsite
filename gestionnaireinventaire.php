@@ -119,7 +119,7 @@
             </div>
         </div>
 
-        <?php include("navbar.html"); ?>
+        <?php include("nav_admin.html"); ?>
 
         <div class="center">
 
