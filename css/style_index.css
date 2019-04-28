@@ -55,6 +55,19 @@ body{
 	overflow-x: hidden;
 }
 
+/* Custom colored button */
+.btn-quintessentiel {
+    color: #fff;
+    background-color: #bcd13f;
+    border-color: #bcd13f;
+}
+
+.btn-quintessentiel.focus,
+.btn-quintessentiel:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(41, 35, 35,.25);
+}
+
 /* Inventory page CSS */
 .center {
   max-width: 1300px;
@@ -358,18 +371,6 @@ img {
 
 .recipes-wrapper .btn {
     margin-bottom: 20px;
-}
-
-.recipes-wrapper .btn-add-recipe {
-    color: #fff;
-    background-color: #bcd13f;
-    border-color: #bcd13f;
-}
-
-.recipes-wrapper .btn-add-recipe.focus,
-.recipes-wrapper .btn-add-recipe:focus {
-    outline: 0;
-    box-shadow: 0 0 0 0.2rem rgba(41, 35, 35,.25);
 }
 
 /************** CSS style edit recipe modal ********************/
