@@ -23,7 +23,7 @@ include_once "phpScripts/Recipe/CtrlRecipe.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1.0">
-    <link href="css/style.css" rel=stylesheet>
+    <link href="css/style_index.css" rel=stylesheet>
     <title>Modifier une recette</title>
 </head>
 

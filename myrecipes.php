@@ -9,7 +9,6 @@ Date Nom Approuvé
 =========================================================
 Historique de modifications :
 Date Nom Description
-2019-04-26 CV 
 =========================================================
  ****************************************/
 ?>
@@ -25,7 +24,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1.0">
-    <link href="css/style.css" rel=stylesheet>
+    <link href="css/style_index.css" rel=stylesheet>
     <title>Mes recettes</title>
 </head>
 
@@ -37,7 +36,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
     </div>
 
     <div class="recipes-wrapper table-responsive">
-        <button type="button" class="btn btn-add-recipe">Ajouter une recette</button>
+        <button type="button" class="btn btn-add-recipe" data-toggle="modal" data-target="#editModal" data-whatever="@addRecipe">Ajouter une recette</button>
 
         <table class="table table-bordered table-hover">
             <thead class="thead-light">

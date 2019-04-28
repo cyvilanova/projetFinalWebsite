@@ -7,7 +7,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width = device-width, initial-scale = 1.0">
-        <link href="css/style.css" rel=stylesheet>
+        <link href="css/style_index.css" rel=stylesheet>
         <title>Gestionnaire d'inventaire </title>
     </head>
 
