@@ -677,6 +677,8 @@ img {
 /* === <Payment> === */
 
 .payment-form{
+    display: flex;
+    flex-direction: column;
     border:1px solid black;
     width:30%;
     min-width:320px;
@@ -684,6 +686,7 @@ img {
     text-align: center;
     padding-top:50px;
     padding-bottom:50px;
+    font-size:20px;
 }
 
 .payment-form input,.payment-form select{
@@ -695,16 +698,41 @@ img {
     border:0;
     border-bottom:2px solid black;
     outline:0;
+    transition-duration: 1s;
+    order:2;
 }
+
 
 .payment-form #province{    
     border-radius: 1px; /* hides the border */
 }
 
+.payment-form label:nth-child(1){
+    display: none;
+}
+
 .payment-form label{
+    position: relative;
+    top:25px;
     width:100%;
     display: block;
     margin-top:10px;
+    color:grey;
+    font-style: italic;
+    order:1;
+    animation: animLabel 0.5s;
+    animation-fill-mode: forwards;
+    animation-play-state: paused;
+}
+
+.payment-form input:focus + label{
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+}
+
+.payment-form select:focus + label{
+    animation-fill-mode: forwards;
+    animation-play-state: running;
 }
 
 .payment-form button{
@@ -724,11 +752,26 @@ img {
     border-bottom:2px solid black;
 }
 
+#card-errors{
+    width:100%;
+    margin-top:5px;
+}
+
+@keyframes animLabel{
+
+    0%{
+        top:25px;
+    }
+
+    100%{
+        top:0;
+    }
+}
+
 /* === </Payment> === */
 
 
 @media screen and (max-width: 991px) {
-	/* start of large tablet styles */
     /* start of large tablet styles */
     .single-product{
         text-align: center;

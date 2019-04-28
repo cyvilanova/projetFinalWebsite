@@ -28,34 +28,32 @@
 		 		<div id="card-errors" role="alert"></div>
 		 	</div>
 		 	<div class="form-row">
+		 		<input type="text" name="firstName" id="firstName"/>
 		 		<label for="firstName">
 		 			Prénom
 		 		</label>
-		 		<input type="text" name="firstName" id="firstName"/>
 		 	</div>
 		 	<div class="form-row">
+		 		<input type="text" name="lastName" id="lastName"/>
 		 		<label for="lastName">
 		 			Nom de famille
 		 		</label>
-		 		<input type="text" name="lastName" id="lastName"/>
 		 	</div>
 		 	<div class="form-row">
+		 		<input type="text" name="address" id="address"/>
 		 		<label for="address">
 		 			Adresse
 		 		</label>
-		 		<input type="text" name="address" id="address"/>
 		 	</div>
 		 	<div class="form-row">
+		 		<input type="text" name="city" id="city"/>
 		 		<label for="city">
 		 			Ville
 		 		</label>
-		 		<input type="text" name="city" id="city"/>
 		 	</div>
 		 	<div class="form-row">
-		 		<label for="province">
-		 			Province
-		 		</label>
 		 		<select id="province">
+		 			<option selected disabled hidden></option>
 		 			<option value="qc">Québec</option>
 		 			<option value="on">Ontario</option>
 		 			<option value="ma">Manitoba</option>
@@ -63,12 +61,15 @@
 		 			<option value="al">Alberta</option>
 		 			<option value="cb">Colombie Britanique</option>
 		 		</select>
+		 		<label for="province">
+		 			Province
+		 		</label>
 		 	</div>
 		 	<div class="form-row">
+		 		<input type="text" id="postalCode"/>
 		 		<label for="postalCode">
 		 			Code postal
 		 		</label>
-		 		<input type="text" id="postalCode"/>
 		 	</div>
 
 
