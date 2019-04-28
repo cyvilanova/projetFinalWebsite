@@ -55,7 +55,6 @@ body{
 	overflow-x: hidden;
 }
 
-
 /* Inventory page CSS */
 .center {
   max-width: 1300px;
@@ -473,11 +472,9 @@ img {
     width:30%;
     min-width:250px;
     height:45px;
-
     border:1px solid black;
     padding-left: 5px;
     outline:0;
-
     background-image: url("../icons/magnifying.png");
     background-repeat: no-repeat;
     background-size: contain;
@@ -508,6 +505,9 @@ img {
     font-family: 'Raleway',sans-serif;
 }
 
+.search-section #filter{
+	font-family: 'Raleway',sans-serif;
+}
 
 /* Product section */
 .page{
@@ -633,6 +633,65 @@ img {
     text-align:center;
     margin-top: 50px;
     font-size: 25px;
+}
+
+.single-product {
+	width:70%;
+	margin:auto;
+	text-align: left;
+	margin-top:30px;
+	background-color: #F8F9FA;
+	border:5px groove #F8F9FA;
+}
+
+.single-product img {
+	width:30%;
+	min-width: 200px;
+	display: inline-block;
+	vertical-align: top;
+	border:5px solid #292323;
+	margin-left:5%;
+	margin-top:5%;
+}
+
+.single-product .desc {
+	width:70%;
+	font-size:22px;
+	display: inline-block;
+	vertical-align: middle;
+	padding-top:50px;
+	margin-left:5%;
+	padding-bottom:50px;
+}
+
+.single-product .side-text {
+	margin-left:20%;
+	margin-top:150px;
+	min-width:20%;
+	display: inline-block;
+	background-color: #342C2C;
+	color:white;
+	padding:20px;
+	font-size: 30px;
+}
+
+.single-product .side-text span {
+	text-align: left;
+	display: block;
+}
+
+.align-center a {
+	color:#bcd13f;
+}
+
+.align-center a:hover {
+	color:#bcd13f;
+}
+
+.align-center {
+	text-align:center;
+	margin-top: 50px;
+	font-size: 25px;
 }
 
 /* Link Section */
@@ -772,6 +831,7 @@ img {
 
 
 @media screen and (max-width: 991px) {
+
     /* start of large tablet styles */
     .single-product{
         text-align: center;
@@ -826,8 +886,9 @@ img {
     .recipes-wrapper .table {
         margin-top: 50px;
     }
-    /**/
+
 }
+
 
 @media screen and (max-width: 425px) {
     /* start of phone styles */
@@ -865,5 +926,24 @@ img {
         width:70%;
     }
 
+
+	/* ========Login========*/
+	.loginConnect {
+		display: flex;
+		justify-content: center;
+	  width: 400px;
+	  height: 300px;
+	  border: solid 1px black;
+	}
+
+	input {
+	  width:75%;
+	  max-width:250px;
+	}
+
+	input[type=submit] {
+	  width:75%;
+	  max-width:150px;
+	}
 
 }
