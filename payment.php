@@ -3,7 +3,7 @@
 <head>
 	<title>Paiement</title>
 	<meta charset="utf-8"/>
-	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="css/style_index.css"/>
 	<script src="https://js.stripe.com/v3/"></script>
 </head>
 <body>
