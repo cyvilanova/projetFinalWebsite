@@ -13,11 +13,12 @@
 	 =========================================================
  ****************************************/
 
-class Recipe {
+class Recipe implements JsonSerializable {
 
 	private $id; // Recipe's id
 	private $name; // Recipe's name
 	private $ingredients; // Array of products used for the recipe
+	private $quantities; // Array of quantities of product used for the recipe
 	private $idFinalProduct; // Id of the product the recipe creates
 	private $custom; // If it's a custom or standard recipe
 	private $steps; // All the steps of the recipe
@@ -39,6 +40,25 @@ class Recipe {
 		$this->steps = $steps;
 		$this->description = $description;
 	}
+
+	/**
+	 * Makes an array with all the properties of the object 
+	 * and returns it for the js to use.
+	 * @return array of all the properties of the object
+	 * 
+	 */
+	public function jsonSerialize () {
+		return array(
+				'id'=>$this->id,
+				'name'=>$this->name,
+				'ingredients'=>$this->ingredients,
+				'quantities'=>$this->quantities,
+				'idFinalProduct'=>$this->idFinalProduct,
+				'custom'=>$this->custom,
+				'steps'=>$this->steps,
+				'description'=>$this->description
+		);
+}
 
 	/**
 	 * Gets the id of the recipe
@@ -93,6 +113,15 @@ class Recipe {
 	 */
 	public function setIngredients($ingredients) {
 		$this->ingredients = $ingredients;
+	}
+
+	/**
+	 * Sets the array of quantities of products used in the recipe
+	 * @param  array $quantities a list of the quantities used
+	 * 
+	 */
+	public function setQuantities($quantities) {
+		$this->quantities = $quantities;
 	}
 
 	/**

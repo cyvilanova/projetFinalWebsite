@@ -120,6 +120,7 @@ class CtrlProduct
             $html .= "<p>Aucun item ne correspond!</p>";
         }
 
+
         $html .= $this->generatePageButton($maxNumberOfPage);
 
         echo $html;
@@ -135,7 +136,6 @@ class CtrlProduct
 
         if(!empty($this->getMgrProduct()->getProduct()))
         {
-
             $product = $this->getMgrProduct()->getProduct()[0];
 
             $html .= "<div class='page-title-bar'>";
@@ -148,9 +148,6 @@ class CtrlProduct
             $html .= "<span class='stock'>Quantité: " . $product->getQuantity() . " en stock</span></p>";
             $html .= "<p class='desc'>" .  $product->getDescription() . "</p>";
             $html .= "</div>";
-
-
-
             $html .= "<p class='align-center'><a href='catalog.php' title='Page précédente'>Revenir au catalogue</a></p>";
         }
         else {
@@ -237,6 +234,27 @@ class CtrlProduct
             }
 
             $html .= "</tr>";
+        }
+
+        echo $html;
+    }
+
+
+    /**
+     * Populate multiselect list of ingredients when creating a recipe.
+     * 
+     */
+    public function loadAllIngredients() {
+        $this->mgrProduct->getAllProducts();
+        $products = $this->mgrProduct->getProduct();
+        $html = "";
+
+        foreach ($products as $product) {
+            
+            $html .= "<option ";
+            $html .= "id=\"" . $product->getId() . "\" ";
+            $html .= "value=\"" . $product->getName() . "\">";
+            $html .= $product->getName() . "</div>";
         }
 
         echo $html;

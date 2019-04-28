@@ -54,8 +54,8 @@ class MgrRecipe
 	 * along with its parameters as a map to select the recipes needed. 
 	 *
 	 * @param string $filter 
-	 *
 	 * @return array of all the recipes found in the database
+	 * 
 	 */
 	public function selectAllRecipes($filter = NULL)
 	{
@@ -95,7 +95,7 @@ class MgrRecipe
 			);
 
 			$recipe->setId($result["id_recipe"]);
-
+			$recipe->setIngredients($this->getIngredientsArray($result["id_recipe"]));
 			array_push($this->recipes, $recipe);
 		}
 	}
@@ -118,6 +118,28 @@ class MgrRecipe
 	public function setRecipe($recipe)
 	{
 		$this->recipe = $recipe;
+	}
+
+	/**
+	 * Gets the list of ingredients used in the recipe
+	 * @param int $recipeId the id of the recipe
+	 * @return array of products
+	 * 
+	 */
+	public function getIngredientsArray($recipeId) {
+		$this->mgrProduct->getIngredients($recipeId);
+		$ingredients = $this->mgrProduct->getProduct();
+		return $ingredients;
+	}
+
+		/**
+	 * Gets the product manager to access the products linked to the recipe
+	 * @return MgrProduct $mgrProduct
+	 * 
+	 */
+	public function getMgrProduct()
+	{
+		return $this->mgrProduct;
 	}
 }
 ?>
