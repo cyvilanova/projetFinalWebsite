@@ -9,6 +9,7 @@
 <body>
 	<header>
 		<!-- La nav bar n'est pas la temporairement puisque son style brise le form de Stripe.. -->
+		<?php include("nav_inv.html"); ?>
 	</header>
 	<section>
 		<div class="page-title-bar">

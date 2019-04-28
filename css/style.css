@@ -286,20 +286,19 @@ body{
 
 /* Payment page */
 .payment-form{
-	display: flex;
-	align-items: center;
 	border:1px solid black;
 	width:30%;
+	min-width:320px;
 	margin:auto;
-	flex-direction: column;
 	text-align: center;
 	padding-top:50px;
 	padding-bottom:50px;
 }
 
-.payment-form input{
+.payment-form input,.payment-form select{
 	width:300px;
 	height:30px;
+	margin:auto;
 	font-size:25px;
 	font-family: 'Raleway', sans-serif;
 	border:0;
@@ -307,7 +306,12 @@ body{
 	outline:0;
 }
 
+.payment-form #province{	
+	border-radius: 1px; /* hides the border */
+}
+
 .payment-form label{
+	width:100%;
 	display: block;
 	margin-top:10px;
 }
