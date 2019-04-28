@@ -87,7 +87,8 @@
 		  hidePostalCode: true,
 		  style: {
 		    base: {
-		      fontSize: '15px',
+		      fontSize: '20px',
+
 		    },
 		  }
 		});
@@ -130,9 +131,8 @@
 				postalCode: document.getElementById("postalCode").value
 			};
 
-			stripe.createToken(card,options).then(test)
+			stripe.createToken(card,options).then(tokenCreated)
 		});
-
 	</script>
 </body>
 </html>

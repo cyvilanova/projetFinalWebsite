@@ -323,6 +323,14 @@ body{
 }
 
 
+.__PrivateStripeElement-input{
+	position: static !important;
+}
+
+#card-element{
+	width:300px;
+	margin:auto;
+}
 
 @media screen and (max-width: 991px) {
 	/* start of large tablet styles */
