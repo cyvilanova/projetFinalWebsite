@@ -53,7 +53,7 @@
   </div>
 
   <div class="loginConnect">
-    <form action="phpScripts/MgrLogin.php" method="post">
+    <form action="phpScripts/User/MgrLogin.php" method="post">
       nom d'utilisateur: <br>
       <input type="text" name="uname" required="required" pattern="[A-Za-z0-9]{1,20}"><br>
       Mot de passe: <br>

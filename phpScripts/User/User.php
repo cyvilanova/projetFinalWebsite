@@ -78,9 +78,7 @@ class User{
         $this->secretQuestion = $idQuestion;
     }
 
-    /**
-     * @return mixed
-     */
+
     public function getSecretAnswer(){
         return $this->secretAnswer;
     }
@@ -98,27 +96,7 @@ class User{
       $this->id = $newId;
     }
 
-//Connection de l'utilisateur
-    public function connection(){
 
-      $parameters =
-      [
-        ":username"=>$this->getUsername(),
-        ":password"=>$this->getPassword(),
-      ];
-
-      $stmt = "SELECT * FROM user WHERE username =':username'AND password =':password'";
-      $rs = $qe->executeQuery($stmt, $parameters);
-
-      $row = $rs->fetch();
-
-      if($row["username"]==$usrname && $row["password"]==$pwd){
-				return true;
-			}
-			else{
-				return false;
-			}
-    }
 /*
     public function resetPassword($username,$email){
       $parameters =
