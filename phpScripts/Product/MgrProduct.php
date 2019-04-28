@@ -15,7 +15,7 @@ Date Nom Description
 
 include_once "Product.php";
 require_once __DIR__ . '/../QueryEngine.php';
-//include_once("Category.php"); manque la class de cath
+//include_once("Category.php"); manque la class de phil
 
 class MgrProduct
 {
@@ -26,7 +26,7 @@ class MgrProduct
 
     public function __construct()
     {
-        #$mgrCategory = new MgrCategory(); manque la classe de cath
+        #$mgrCategory = new MgrCategory(); manque la classe de phil
         $this->products = array();
         $this->ingredientsQuantities = array();
     }
