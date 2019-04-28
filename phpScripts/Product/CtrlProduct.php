@@ -105,7 +105,7 @@ class CtrlProduct
                 $description = (!empty($description) ? $description[0] : $description);
 
                 $html .= "<a class='product' href='Item.php?productId=".$products[$i]->getId()."' title='plus d info'>";
-                $html .= "<img src='.\images\imgProducts\\" . $products[$i]->getImagePath() . "' alt='".$products[$i]->getName()."'/>";
+                $html .= "<img src='" . $products[$i]->getImagePath() . "' alt='".$products[$i]->getName()."'/>";
                 $html .= "<h2>" . $products[$i]->getName() . "</h2>";
                 $html .= "<p>" .  $description . $dots ."</p>";
                 $html .= "<p class='bottom-text'><span class='stock'>" . $products[$i]->getQuantity() . " en stock</span>";
@@ -116,6 +116,7 @@ class CtrlProduct
         } else {
             $html .= "<p>Aucun item ne correspond!</p>";
         }
+
 
         $html .= $this->generatePageButton($maxNumberOfPage);
 
@@ -132,7 +133,6 @@ class CtrlProduct
 
         if(!empty($this->getMgrProduct()->getProduct()))
         {
-
             $product = $this->getMgrProduct()->getProduct()[0];
 
             $html .= "<div class='page-title-bar'>";
@@ -235,6 +235,7 @@ class CtrlProduct
 
         echo $html;
     }
+
 
     /**
      * Populate multiselect list of ingredients when creating a recipe.
