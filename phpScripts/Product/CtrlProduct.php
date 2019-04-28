@@ -117,6 +117,7 @@ class CtrlProduct
             $html .= "<p>Aucun item ne correspond!</p>";
         }
 
+
         $html .= $this->generatePageButton($maxNumberOfPage);
 
         echo $html;
@@ -132,7 +133,6 @@ class CtrlProduct
 
         if(!empty($this->getMgrProduct()->getProduct()))
         {
-
             $product = $this->getMgrProduct()->getProduct()[0];
 
             $html .= "<div class='page-title-bar'>";
@@ -235,6 +235,7 @@ class CtrlProduct
 
         echo $html;
     }
+
 
     /**
      * Populate multiselect list of ingredients when creating a recipe.

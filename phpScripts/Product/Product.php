@@ -62,7 +62,6 @@ class Product implements JsonSerializable
     /**
      * @param mixed $id
      *
-     * @return self
      */
     public function setId($id)
     {
@@ -82,7 +81,6 @@ class Product implements JsonSerializable
     /**
      * @param mixed $name
      *
-     * @return self
      */
     public function setName($name)
     {
@@ -100,7 +98,6 @@ class Product implements JsonSerializable
     /**
      * @param mixed $categories
      *
-     * @return self
      */
     public function setCategories($categories)
     {
@@ -118,7 +115,6 @@ class Product implements JsonSerializable
     /**
      * @param mixed $isSellable
      *
-     * @return self
      */
     public function setIsSellable($isSellable)
     {
@@ -136,7 +132,6 @@ class Product implements JsonSerializable
     /**
      * @param mixed $price
      *
-     * @return self
      */
     public function setPrice($price)
     {
@@ -154,7 +149,6 @@ class Product implements JsonSerializable
     /**
      * @param mixed $description
      *
-     * @return self
      */
     public function setDescription($description)
     {
@@ -172,7 +166,6 @@ class Product implements JsonSerializable
     /**
      * @param mixed $quantity
      *
-     * @return self
      */
     public function setQuantity($quantity)
     {
@@ -191,7 +184,6 @@ class Product implements JsonSerializable
     /**
      * @param mixed $quantity
      *
-     * @return self
      */
     public function setImagePath($imagePath)
     {
