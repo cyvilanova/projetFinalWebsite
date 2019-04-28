@@ -36,7 +36,7 @@
 		 	<div class="form-row">
 		 		<input type="text" name="lastName" id="lastName"/>
 		 		<label for="lastName">
-		 			Nom de famille
+		 			Nom
 		 		</label>
 		 	</div>
 		 	<div class="form-row">
