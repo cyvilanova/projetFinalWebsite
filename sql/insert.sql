@@ -96,7 +96,7 @@ Lors de cet atelier de 2 heures, vous apprendrez à  :
 -Découvrir ce qu'est la dermocosmétique naturelle et quels sont les bons ingrédients à choisir pour prendre soin de votre peau. ",25.00,30),
 
 
-(DEFAULT,"Forfait Consultation en dermocosmétique naturelle + Sérum personnalisé","images/imgProducts/img2.jpg",1,"Vos problèmes de peau (couperose, dermatite atopique, eczema...) vous empoisonnent la vie? Vous avez essayé tous les traitements possibles mais cherchez une solution naturelle? Vous etes prets a changer votre routine de soins et cherchez une solution efficace, naturelle, juste pour vous? 
+(DEFAULT,"Forfait Consultation en dermocosmétique naturelle + Sérum personnalisé","img2.jpg",1,"Vos problèmes de peau (couperose, dermatite atopique, eczema...) vous empoisonnent la vie? Vous avez essayé tous les traitements possibles mais cherchez une solution naturelle? Vous etes prets a changer votre routine de soins et cherchez une solution efficace, naturelle, juste pour vous? 
 
 Prenez rendez-vous pour une consultation et un sérum personnalisé. Nous établirons ensemble un protocole de soins simple et efficace, a base d'ingrédients naturels pour vous aider à rééquilibrer votre peau.",120.00,30),
 
