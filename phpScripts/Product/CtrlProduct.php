@@ -34,14 +34,13 @@ class CtrlProduct
      * */
     public function loadAllProductsTable()
     {
-<<<<<<< HEAD
+
         $productList = $this->mgrProduct->getAllProducts($filter);
         $this->displayProductRows($productList);
-=======
+
         $this->setPageNumber(0);
         $productList = $this->getMgrProduct()->getAllProducts();
         $this->displayProductsRows();
->>>>>>> 95be467f0af4a58ab749ec269c4126f11c8ae19e
     }
 
     

@@ -69,15 +69,15 @@ body{
   margin: 0;
 }
 
-.boutons {
+.buttons {
   padding: 15px;
 }
 
-.gauche {
+.left {
   float: left;
 }
 
-.droite {
+.right {
   float: right;
 }
 
@@ -87,6 +87,10 @@ body{
 
 .tableau {
  /* border: 1px solid #342c2c;*/
+}
+
+.add-order {
+	margin: 15px!important;
 }
 
 .tab-header {
