@@ -84,18 +84,17 @@ class MgrRecipe
 	{
 		$this->recipes = array();
 
-		while ($result = $resultSet->fetch()) {
+		foreach($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
 
 			$recipe = new Recipe(
-				$result["name"],
-				$result["id_product"],
-				$result["is_custom"],
-				$result["steps"],
-				$result["description"]
+				$result[2], // name
+				$result[1], // id_product
+				$result[3], // is_custom
+				$result[4] // steps
 			);
 
-			$recipe->setId($result["id_recipe"]);
-			$recipe->setIngredients($this->getIngredientsArray($result["id_recipe"]));
+			$recipe->setId($result[0]);
+			$recipe->setIngredients($this->getIngredientsArray($result[0]));
 			array_push($this->recipes, $recipe);
 		}
 	}

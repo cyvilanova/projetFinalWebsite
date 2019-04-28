@@ -11,11 +11,11 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
+
 include_once "MgrProduct.php";
 
 class CtrlProduct
 {
-
     private $mgrProduct;
     private $pageNumber;
     private $itemPerPage;
@@ -27,7 +27,6 @@ class CtrlProduct
         $this->itemPerPage = 10;
     }
 
-    
     /**
      * Loads all the products and
      * displays it in tables
@@ -39,7 +38,6 @@ class CtrlProduct
         $this->displayProductsRows();
     }
 
-    
     /**
      * Loads every products and 
      * displys it as a product
@@ -52,7 +50,6 @@ class CtrlProduct
         $this->displayProducts();
     }
 
-    
     /**
      * Loads all the sellables products
      * */
@@ -120,6 +117,7 @@ class CtrlProduct
             $html .= "<p>Aucun item ne correspond!</p>";
         }
 
+
         $html .= $this->generatePageButton($maxNumberOfPage);
 
         echo $html;
@@ -135,7 +133,6 @@ class CtrlProduct
 
         if(!empty($this->getMgrProduct()->getProduct()))
         {
-
             $product = $this->getMgrProduct()->getProduct()[0];
 
             $html .= "<div class='page-title-bar'>";
@@ -238,6 +235,7 @@ class CtrlProduct
 
         echo $html;
     }
+
 
     /**
      * Populate multiselect list of ingredients when creating a recipe.
