@@ -140,7 +140,7 @@ class CtrlProduct
             $html .= "</div>";
 
             $html .= "<div class='single-product'>";
-            $html .= "<img src='" . $product->getImagePath() . "' alt='".$product->getName()."'/>";
+            $html .= "<img src='.\images\imgProducts\\" . $product->getImagePath() . "' alt='".$product->getName()."'/>";
             $html .= "<p class='side-text'><span class='prix'>Prix: " . $product->getPrice() . "$</span>";
             $html .= "<span class='stock'>Quantité: " . $product->getQuantity() . " en stock</span></p>";
             $html .= "<p class='desc'>" .  $product->getDescription() . "</p>";
