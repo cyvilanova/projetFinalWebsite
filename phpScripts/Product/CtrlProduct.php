@@ -11,11 +11,11 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
+
 include_once "MgrProduct.php";
 
 class CtrlProduct
 {
-
     private $mgrProduct;
     private $pageNumber;
     private $itemPerPage;
@@ -27,7 +27,6 @@ class CtrlProduct
         $this->itemPerPage = 10;
     }
 
-    
     /**
      * Loads all the products and
      * displays it in tables
@@ -39,7 +38,6 @@ class CtrlProduct
         $this->displayProductsRows();
     }
 
-    
     /**
      * Loads every products and 
      * displys it as a product
@@ -52,7 +50,6 @@ class CtrlProduct
         $this->displayProducts();
     }
 
-    
     /**
      * Loads all the sellables products
      * */
@@ -108,7 +105,7 @@ class CtrlProduct
                 $description = (!empty($description) ? $description[0] : $description);
 
                 $html .= "<a class='product' href='Item.php?productId=".$products[$i]->getId()."' title='plus d info'>";
-                $html .= "<img src='" . $products[$i]->getImagePath() . "' alt='".$products[$i]->getName()."'/>";
+                $html .= "<img src='.\images\imgProducts\\" . $products[$i]->getImagePath() . "' alt='".$products[$i]->getName()."'/>";
                 $html .= "<h2>" . $products[$i]->getName() . "</h2>";
                 $html .= "<p>" .  $description . $dots ."</p>";
                 $html .= "<p class='bottom-text'><span class='stock'>" . $products[$i]->getQuantity() . " en stock</span>";

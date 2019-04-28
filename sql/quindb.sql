@@ -8,11 +8,11 @@ USE quintessentieldb;
 CREATE TABLE product (
 	id_product INT NOT NULL AUTO_INCREMENT,
 	name VARCHAR(128) NOT NULL,
-	image_path VARCHAR(255),
 	is_sellable BOOLEAN NOT NULL DEFAULT 0,
 	description TEXT,
 	price DECIMAL(7,2) NOT NULL DEFAULT 0.00,
 	quantity INT NOT NULL DEFAULT 0,
+	image_path VARCHAR(255),
 	PRIMARY KEY (id_product)
 );
 
@@ -23,7 +23,6 @@ CREATE TABLE recipe (
 	name VARCHAR(255) NOT NULL,
 	is_custom BOOLEAN NOT NULL DEFAULT 0,
 	steps TEXT,
-	description TEXT,
 	PRIMARY KEY (id_recipe),
 	FOREIGN KEY (id_product) REFERENCES product(id_product)
 );
@@ -33,8 +32,6 @@ CREATE TABLE ta_recipe_product (
 	id_recipe INT NOT NULL,
 	id_product INT NOT NULL,
 	qty_ml INT,
-	qty_drops INT,
-	qty_percent INT,
 	PRIMARY KEY (id_recipe, id_product),
 	FOREIGN KEY (id_recipe) REFERENCES recipe(id_recipe),
 	FOREIGN KEY (id_product) REFERENCES product(id_product)

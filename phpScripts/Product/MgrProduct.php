@@ -50,7 +50,7 @@ class MgrProduct
             ":is_sellable" => $product->getIsSellable(),
             ":description" => $product->getDescription(),
             ":price" => $product->getPrice(),
-            ":quantity" => $product->getQuantity(),
+            ":quantity" => $product->getQuantity()
         ];
 
         if (!$queryEngine->executeQuery($query, $parameters)) {
@@ -69,7 +69,7 @@ class MgrProduct
         $queryEngine = new QueryEngine();
         $query = "SELECT * FROM Product WHERE name LIKE :name";
         $parameters =
-            [
+        [
             ":name" => "%" . $name . "%",
         ];
 
