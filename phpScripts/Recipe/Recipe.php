@@ -22,7 +22,6 @@ class Recipe implements JsonSerializable {
 	private $idFinalProduct; // Id of the product the recipe creates
 	private $custom; // If it's a custom or standard recipe
 	private $steps; // All the steps of the recipe
-	private $description; // Description of the recipe
 
 	/**
 	 * Recipe constructor with parameters.
@@ -30,15 +29,13 @@ class Recipe implements JsonSerializable {
 	 * @param  mixed $idFinalProduct the final product of the recipe
 	 * @param  mixed $custom if it's a custom or standard recipe
 	 * @param  mixed $steps steps of the recipe
-	 * @param  mixed $description description of the recipe
 	 *
 	 */
-	public function __construct($name, $idFinalProduct, $custom, $steps, $description) {
+	public function __construct($name, $idFinalProduct, $custom, $steps) {
 		$this->name = $name;
 		$this->idFinalProduct = $idFinalProduct;
 		$this->custom = $custom;
 		$this->steps = $steps;
-		$this->description = $description;
 	}
 
 	/**
@@ -55,8 +52,7 @@ class Recipe implements JsonSerializable {
 				'quantities'=>$this->quantities,
 				'idFinalProduct'=>$this->idFinalProduct,
 				'custom'=>$this->custom,
-				'steps'=>$this->steps,
-				'description'=>$this->description
+				'steps'=>$this->steps
 		);
 }
 
@@ -179,22 +175,5 @@ class Recipe implements JsonSerializable {
 		$this->steps = $steps;
 	}
 
-	/**
-	 * Gets the description of the recipe
-	 * @return string $description
-	 * 
-	 */
-	public function getDescription() {
-		return $this->description;
-	}
-
-	/**
-	 * Sets the description of the recipe
-	 * @param string $description
-	 * 
-	 */
-	public function setDescription($description) {
-		$this->description = $description;
-	}
 }
 ?>

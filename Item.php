@@ -25,7 +25,7 @@ $ctrl = new CtrlProduct();
 	 <head>
 	 	<title>Quintessentiel</title>
 	 	<meta charset="utf-8"/>
-	 	<link rel="stylesheet" type="text/css" href="css/style.css"/>
+	 	<link rel="stylesheet" type="text/css" href="css/style_index.css"/>
 	 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	 	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
 	 	<!-- Bootstrap CSS -->
@@ -35,40 +35,19 @@ $ctrl = new CtrlProduct();
 	 <body>
 	 	<div class="page">
 		 	<header class="nav-bar"> <!-- Page header -->
-		 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		 			<a class="navbar-brand" href="#">
-		 				<img src="images/logo.png" alt="Quintessentiel logo" class="img-logo-nav" />
-		 			</a>
-		 			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
-		 			aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-		 			<span class="navbar-toggler-icon"></span>
-		 		</button>
-		 		<div class="navbar-collapse collapse w-100 order-3 dual-collapse2" id="navbarNavDropdown">
-		 			<ul class="navbar-nav ml-auto">
-		 				<li class="nav-item active">
-		 					<a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
-		 				</li>
-		 				<li class="nav-item">
-		 					<a class="nav-link" href="#">Produits</a>
-		 				</li>
-		 				<li class="nav-item">
-		 					<a class="nav-link" href="#">Nous joindre</a>
-		 				</li>
-		 			</ul>
-		 		</div>
-		 	</nav>
-		 </header>
-		 <section class="main-section"> <!-- Page section -->
-		 	<?php
-		 		if(!empty($_GET["productId"])){
-		 			$ctrl -> loadProductById($_GET["productId"]);
-		 		}
-		 	?>
+				<?php include("nav_inv.html"); ?>
+		 	</header>
+			 <section class="main-section"> <!-- Page section -->
+			 	<?php
+			 		if(!empty($_GET["productId"])){
+			 			$ctrl -> loadProductById($_GET["productId"]);
+			 		}
+			 	?>
 
-		 </section>
-		 <footer class="classic-footer">
-		 		<p>Insérez du texte ici</p>
-		 </footer>
+			 </section>
+			 <footer class="classic-footer">
+			 		<p>Insérez du texte ici</p>
+			 </footer>
 		</div>
 
 	 	<script>

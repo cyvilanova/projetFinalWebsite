@@ -15,7 +15,7 @@ Date Nom Description
 
 include_once "Product.php";
 require_once __DIR__ . '/../QueryEngine.php';
-//include_once("Category.php"); manque la class de cath
+//include_once("Category.php"); manque la class de phil
 
 class MgrProduct
 {
@@ -26,7 +26,7 @@ class MgrProduct
 
     public function __construct()
     {
-        #$mgrCategory = new MgrCategory(); manque la classe de cath
+        #$mgrCategory = new MgrCategory(); manque la classe de phil
         $this->products = array();
         $this->ingredientsQuantities = array();
     }
@@ -50,7 +50,7 @@ class MgrProduct
             ":is_sellable" => $product->getIsSellable(),
             ":description" => $product->getDescription(),
             ":price" => $product->getPrice(),
-            ":quantity" => $product->getQuantity(),
+            ":quantity" => $product->getQuantity()
         ];
 
         if (!$queryEngine->executeQuery($query, $parameters)) {
@@ -69,7 +69,7 @@ class MgrProduct
         $queryEngine = new QueryEngine();
         $query = "SELECT * FROM Product WHERE name LIKE :name";
         $parameters =
-            [
+        [
             ":name" => "%" . $name . "%",
         ];
 
@@ -179,15 +179,14 @@ class MgrProduct
         $this->products = array();
 
         foreach($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
-
             $product = new Product(
                 $result[1], // name
-                [],
-                $result[2], // is_sellable
-                $result[3], // price
+                [],        // Categories
+                $result[3], // is_sellable
+                $result[5], // price
                 $result[4], // description
-                $result[5], // quantity
-                $result[6] // image_path
+                $result[6], // quantity
+                $result[2] //path
             );
 
             $product->setId($result[0]); // id

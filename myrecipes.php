@@ -36,7 +36,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
     </div>
 
     <div class="recipes-wrapper table-responsive">
-        <button type="button" class="btn btn-add-recipe">Ajouter une recette</button>
+        <button type="button" class="btn btn-add-recipe" data-toggle="modal" data-target="#editModal">Ajouter une recette</button>
 
         <table class="table table-bordered table-hover">
             <thead class="thead-light">
