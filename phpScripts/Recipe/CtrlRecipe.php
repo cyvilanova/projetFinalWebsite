@@ -61,7 +61,7 @@ class CtrlRecipe
 			$html .= "<td>" . $recipe->getId() . "</td>";
 			$html .= "<td>" . $recipe->getName() . "</td>";
 			$html .= "<td>" . $finalProduct[0]->getName() . "</td>";
-			$html .= "<td>" . $recipe->getDescription() . "</td>";
+			$html .= "<td>" . $finalProduct[0]->getDescription() . "</td>";
 			$html .= "<td>" . $finalProduct[0]->getPrice() . "</td>";
 
 			if ($recipe->isCustom() == 1) {
