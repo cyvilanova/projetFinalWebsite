@@ -46,10 +46,6 @@ class CtrlProduct
      * */
     public function loadAllProductsTable()
     {
-
-        $productList = $this->mgrProduct->getAllProducts($filter);
-        $this->displayProductRows($productList);
-
         $this->setPageNumber(0);
         $productList = $this->getMgrProduct()->getAllProducts();
         $this->displayProductsRows();

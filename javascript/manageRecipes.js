@@ -40,7 +40,7 @@ function addIngredient(select, modalId) {
   const html2 = '<label for=\"ingredient\" class=\"col-form-label\">' + $('#recipe-ingredients').val() + '</label>';
   const html4 = '<input type=\"number\" step=\"0.01\" min=\"0\" lang=\"en\" class=\"form-control input-volume\" id=\"recipe-ingredient\" value=0>';
   const html5 = '<label class=\"col-form-label label-volume\"> mL </label>';
-  const deleteBtn = '<button type="button" class="btn btn-light btn-remove" id="removeIng" onclick="removeIngredient(' + ingredientId +')" disabled>X</button>';
+  const deleteBtn = '<button type="button" class="btn btn-light btn-remove" id="removeIng" onclick="removeIngredient(' + ingredientId +')">X</button>';
 
   html1 = $(html1).append(html2, html4, html5, deleteBtn);
   $(modalId).find('#ingredients').append(html1);
@@ -60,7 +60,7 @@ function displayIngredients(ingredients) {
     const html4 = '<input type=\"number\" step=\"0.01\" min=\"0\" lang=\"en\" class=\"form-control input-volume\"' +
                   'id=\"recipe-ingredient\" value=\"' + Number(ingredients[i].volumeUsed) + '\" disabled>';
     const html5 = '<label class=\"col-form-label label-volume\"> mL </label>';
-    const deleteBtn = '<button type="button" class="btn btn-light btn-remove" onclick="removeIngredient(' + ingredients[i].id +')" disabled>X</button>';
+    const deleteBtn = '<button type="button" class="btn btn-light btn-remove" onclick="removeIngredient(' + ingredients[i].id +')">X</button>';
   
     html1 = $(html1).append(html2, html4, html5, deleteBtn);
     $('#editModal').find('#ingredients').append(html1);
