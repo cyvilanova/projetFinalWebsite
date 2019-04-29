@@ -72,7 +72,7 @@ VALUES(5,5,22);
 
 
 /* Table Produit */
-INSERT INTO Product VALUES 
+INSERT INTO Product (id_product, name, image_path, is_sellable, description, price, quantity) VALUES
 (DEFAULT,"Atelier comment décoder les étiquettes","img1.jpg",1,"Cancer, baisse de la fertilité, Alzheimer… Et si nos produits de beauté nous empoisonnaient ?
 
  Vous souhaitez apprendre à décrypter les étiquettes des produits cosmétiques conventionnels afin de connaitre les ingrédients nocifs pour votre peau et votre santé?

@@ -2,6 +2,8 @@ let addBtn = document.getElementById("add");
 let editBtn = document.getElementById("edit");
 let deleteBtn = document.getElementById("delete");
 
+let body = document.getElementById("body");
+
 let products_container = document.getElementById("products");
 
 //All the loaded products
@@ -23,7 +25,18 @@ let addModal = document.getElementById("modal-add");
 let editModal = document.getElementById("modal-edit");
 let deleteModal = document.getElementById("modal-delete");
 
-addBtn.addEventListener("click", function(){openModal(this.id);});
+
+addBtn.addEventListener("click", function(){
+    openModal(this.id);
+
+    let image_input = $(addModal).find("#product_image")[0];
+
+    image_input.addEventListener("change", function(){
+        let txt_image = $(addModal).find("#product_image_text")[0];
+        txt_image.value = this.value;
+    });
+
+});
 
 editBtn.addEventListener("click", function(){
     if(this.classList.contains("disabled") == false)
@@ -31,13 +44,25 @@ editBtn.addEventListener("click", function(){
         openModal(this.id);
 
         //Get the fields to fill
+        let selected_prod_id = $(editModal).find("#selected_prod_id")[0];
+
+        selected_prod_id.value = selected_prod.id;
+        console.log(selected_prod_id);
+
         let txt_name = $(editModal).find("#product_name")[0];
         let txt_des = $(editModal).find("#product_desc")[0];
-        let txt_image = $(editModal).find("#product_image")[0];
+        let txt_image = $(editModal).find("#product_image_text")[0];
         let txt_category = $(editModal).find("#product_category")[0];
         let txt_qty = $(editModal).find("#product_qty")[0];
         let txt_price = $(editModal).find("#product_price")[0];
         let check_visible = $(editModal).find("#product_visible")[0];
+
+        let image_input = $(editModal).find("#product_image")[0];
+
+        image_input.addEventListener("change", function(){
+           let txt_image = $(editModal).find("#product_image_text")[0];
+            txt_image.value = this.value;
+        });
 
         //Fill the fields
         txt_name.value = selected_prod['name'];
@@ -50,7 +75,19 @@ editBtn.addEventListener("click", function(){
     }
 });
 
-deleteBtn.addEventListener("click", function(){openModal(this.id);});
+deleteBtn.addEventListener("click", function(){
+    if(this.classList.contains("disabled") == false)
+    {
+        openModal(this.id);
+
+        let selected_prod_id = $(deleteModal).find("#selected_prod_id")[0];
+
+        selected_prod_id.value = selected_prod.id;
+
+        deleteModal.innerHTML = deleteModal.innerHTML.replace("|*|", selected_prod.name);
+    }
+
+});
 
 //Get all loaded products in the array
 for(let i = 0; i < products_container.childElementCount; i++)
@@ -74,6 +111,7 @@ for(let i = 0; i < products_container.childElementCount; i++)
 for(i = 0; i < cancelBtn.length; i++)
 {
     cancelBtn[i].addEventListener("click", function(){closeModals();});
+    $(deleteModal).find(".cancel-btn")[0].addEventListener("click", function(){closeModals();});
 }
 
 
@@ -86,7 +124,7 @@ for(i = 0; i < selectBtn.length; i++)
             unselectAll();
             this.checked = true;
             editBtn.classList.toggle("disabled", false);
-
+            deleteBtn.classList.toggle("disabled", false);
             for(i = 0; i < products.length; i++)
             {
                 if(products[i]["id"] == this.parentNode.parentNode.id)
@@ -101,6 +139,7 @@ for(i = 0; i < selectBtn.length; i++)
         {
             unselectAll();
             editBtn.classList.toggle("disabled", true);
+            deleteBtn.classList.toggle("disabled", true);
         }
     });
 }
@@ -147,12 +186,15 @@ function closeModals(){
     addModal.classList.toggle("open", false);
     editModal.classList.toggle("open", false);
     deleteModal.classList.toggle("open", false);
+    body.style.overflow = "auto";
 }
 
 //Toggles on the selected modal
 function showModal(m){
     m.classList.toggle("open", true);
     openedModal = m;
+    body.style.overflow = "hidden";
+    window.scrollTo(0,0);
 }
 
 

@@ -265,9 +265,20 @@ a.file-btn{
     padding: 3px;
     float:right;
     text-align: center;
+    height:28px;
 }
 
-a.addProd-btn{
+/* Actual File Input. Hidden */
+#product_image{
+    height:28px;
+    opacity: 0;
+    z-index: 9999;
+    position: absolute;
+    right:7px;
+}
+
+
+.addProd-btn{
     padding: 5px;
     font-size: 19px;
     color: white !important;

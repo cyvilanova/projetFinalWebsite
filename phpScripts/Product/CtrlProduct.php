@@ -210,7 +210,7 @@ class CtrlProduct
     private function displayProductsRows()
     {
 
-        $products = $this->mgrProduct->getProduct();
+        $products = $this->getMgrProduct()->getProduct();
         $html = "";
 
         foreach ($products as $product) {

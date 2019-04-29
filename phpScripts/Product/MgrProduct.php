@@ -61,6 +61,58 @@ class MgrProduct
 
     /**
      * Send to the QueryEngine a prepared statement in string form
+     * along with its parameters as a map.
+     *
+     */
+    public function updateProduct($product)
+    {
+        $queryEngine = new QueryEngine();
+
+        $query = "UPDATE Product SET name= :name, image_path= :image_path, is_sellable = :is_sellable, description = :description, price= :price, quantity= :quantity WHERE id_product= :id";
+
+
+        $parameters =
+            [
+            ":name" => $product->getName(),
+            ":image_path" => $product->getImagePath(),
+            ":is_sellable" => $product->getIsSellable(),
+            ":description" => $product->getDescription(),
+            ":price" => $product->getPrice(),
+            ":quantity" => $product->getQuantity(),
+            ":id" => $product->getId()
+        ];
+
+        if (!$queryEngine->executeQuery($query, $parameters)) {
+            echo "Error while trying to add a product";
+        }
+
+    }
+
+    /**
+     * Send to the QueryEngine a prepared statement in string form
+     * along with its parameters as a map.
+     *
+     */
+    public function removeProduct($id)
+    {
+        $queryEngine = new QueryEngine();
+
+        $query = "DELETE FROM Product WHERE id_product= :id";
+
+
+        $parameters =
+            [
+            ":id" => $id
+        ];
+
+        if (!$queryEngine->executeQuery($query, $parameters)) {
+            echo "Error while trying to add a product";
+        }
+
+    }
+
+    /**
+     * Send to the QueryEngine a prepared statement in string form
      * along with its parameters as a map
      *
      */
@@ -182,13 +234,12 @@ class MgrProduct
             $product = new Product(
                 $result[1], // name
                 [],        // Categories
-                $result[3], // is_sellable
-                $result[5], // price
-                $result[4], // description
-                $result[6], // quantity
-                $result[2] //path
+                $result[2], // is_sellable
+                $result[4], // price
+                $result[3], // description
+                $result[5], // quantity
+                $result[6] //path
             );
-
 
             $product->setId($result[0]); // id
 
