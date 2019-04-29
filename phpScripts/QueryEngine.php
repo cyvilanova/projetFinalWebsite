@@ -26,7 +26,7 @@ class QueryEngine
 
 
     public function executeQuery($queryString, $parametersMap=[])
-    {   
+    {
 
         $conn = $this->db->getDbConn();
 

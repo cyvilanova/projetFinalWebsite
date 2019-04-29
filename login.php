@@ -2,25 +2,18 @@
 <html lang="en">
 
 <head>
-
   <!-- Required meta tags -->
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
     integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <link rel="stylesheet" href="css/style.css">
   <title>Quintessentiel</title>
-  <link rel="stylesheet" href="css/style_index.css">
-  <title>Navigation bar admin</title>
-
-
 </head>
 
 <body>
-
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
       <img src="images/logo_h.png" alt="Quintessentiel logo" class="img-logo-nav" />
@@ -35,7 +28,7 @@
           <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="catalog.php">Produits</a>
+          <a class="nav-link" href="#">Produits</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
@@ -43,8 +36,8 @@
             Gestion
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="myrecipes.php">Recettes</a>
-            <a class="dropdown-item" href="gestionnaireinventaire.php">Inventaire</a>
+            <a class="dropdown-item" href="#">Recettes</a>
+            <a class="dropdown-item" href="#">Inventaire</a>
             <a class="dropdown-item" href="#">Commandes</a>
             <a class="dropdown-item" href="#">Livraisons</a>
           </div>
@@ -55,7 +48,22 @@
       </ul>
     </div>
   </nav>
+  <div class="page-title-bar">
+    <h1>Bobépine</h1>
+  </div>
 
+  <div class="loginConnect">
+    <form action="phpScripts/User/MgrLogin.php" method="post">
+      nom d'utilisateur: <br>
+      <input type="text" name="uname" required="required" pattern="[A-Za-z0-9]{1,20}"><br>
+      Mot de passe: <br>
+      <input type="password" name="pwd" required="required" pattern="[A-Za-z0-9]{1,20}"><br>
+      <a href="#" title="reset Password" id="pwdReset">Oublié votre mot de passe?</a>
+      <br><br>
+      <input type="submit" value="Se connecter">
+    </form>
+
+  </div>
 </body>
 
 <!-- Optional JavaScript -->
