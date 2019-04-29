@@ -1,11 +1,21 @@
 <?php
+/****************************************
+Fichier : CtrlShipping.php
+Auteur : Catherine Bronsard
+Fonctionnalité : W9 - Gestion livraisons
+Date : 2019-04-19
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
 
 	require_once __DIR__ . '/Shipping.php';
 	require_once __DIR__ . '/MgrShipping.php';
 	require_once __DIR__ . '/../QueryEngine.php';
-	/**
-	 * 
-	 */
+
 	/**
 	 * 
 	 */
@@ -15,8 +25,6 @@
 		
 		/**
 		 * __construct
-		 *
-		 * @return void
 		 */
 		function __construct()
 		{
@@ -24,13 +32,11 @@
 		}
 
 		/**
-		 * addShipping
+		 * Add a shipping company and a shipping method
 		 *
-		 * @param  mixed $shipping_name
-		 * @param  mixed $method_name
-		 * @param  mixed $price
-		 *
-		 * @return void
+		 * @param  string $shipping_name
+		 * @param  string $method_name
+		 * @param  double $price
 		 */
 		public function addShipping($shipping_name, $method_name, $price)
 		{
@@ -41,6 +47,8 @@
 
 			$mgrshipping->insertShippingMethod($id, $method_name, $price);
 		}
+
 	}
 
 ?>
+

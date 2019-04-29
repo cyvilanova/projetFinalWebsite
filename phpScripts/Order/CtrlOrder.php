@@ -1,7 +1,16 @@
 <?php
-	/**
-	 * 
-	 */
+	/****************************************
+	 Fichier : MgrOrder.php
+	 Auteure : Catherine Bronsard
+	 Fonctionnalité : Commandes clients
+	 Date : 2019-04-20
+	 Vérification :
+	 Date Nom Approuvé
+	 =========================================================
+	 Historique de modifications :
+	 Date Nom Description
+	 =========================================================
+	****************************************/
 	require_once __DIR__ . '/MgrOrder.php';
 	require_once __DIR__ . '/Order.php';
 	class CtrlOrder
@@ -11,8 +20,6 @@
 
 		/**
 		 * __construct
-		 *
-		 * @return void
 		 */
 		function __construct()
 		{
@@ -20,15 +27,14 @@
 		}
 
 		/**
-		 * loadAllOrders
-		 *
-		 * @return void
+		 * Load all the orders on the gestionnaire
 		 */
 		public function loadAllOrders()
 		{
 			$orders = $this->mgrOrder->getAllOrders();
-			#var_dump($orders);
+			
 			foreach ($orders as $row) {
+
 				$element = "<tr>";
 				$element .= "<td class=\"cases\"><input type=\"radio\" name=\"id\" value=\"" . $row['id_order'] . "\"> </td>";
 				$element .= "<td class=\"cases\">" . $row['id_order'] . "</td>";
@@ -43,14 +49,12 @@
 		}
 
 		/**
-		 * addOrder
+		 * Add an order to the database
 		 *
-		 * @param  mixed $price
-		 * @param  mixed $products
-		 * @param  mixed $quantities
-		 * @param  mixed $id_client
-		 *
-		 * @return void
+		 * @param  double $price
+		 * @param  ArrayList of Products $products
+		 * @param  ArrayList of int $quantities
+		 * @param  int $id_client
 		 */
 		public function addOrder($price, $products, $quantities, $id_client)
 		{
@@ -59,13 +63,13 @@
 		}
 
 		/**
-		 * editOrder
+		 * Update an order in the data base
 		 *
-		 * @param  mixed $id_order
-		 * @param  mixed $id_client
-		 * @param  mixed $product
-		 * @param  mixed $quantity
-		 * @param  mixed $adress
+		 * @param  int $id_order
+		 * @param  int $id_client
+		 * @param  ArrayList of Products $product
+		 * @param  ArrayList of int $quantity
+		 * @param  string $adress
 		 *
 		 * @return void
 		 */
@@ -76,11 +80,9 @@
 		}
 
 		/**
-		 * deleteOrder
+		 * Delete an order from the database
 		 *
-		 * @param  mixed $id_order
-		 *
-		 * @return void
+		 * @param  int $id_order
 		 */
 		public function deleteOrder($id_order)
 		{
@@ -88,3 +90,4 @@
 		}
 	}
 ?>
+

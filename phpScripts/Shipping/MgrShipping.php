@@ -1,19 +1,28 @@
 <?php
+/****************************************
+Fichier : MgrShipping.php
+Auteur : Catherine Bronsard
+Fonctionnalité : W9 - Gestion livraisons
+Date : 2019-04-17
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
 
 	require_once __DIR__ . '/Shipping.php';
 	require_once __DIR__ . '/../QueryEngine.php';
-	/**
-	 * 
-	 */
+
 	class MgrShipping
 	{
 		
 		private $query_engine;
 
 		/**
-		 * __construct
+		 * Constructor 
 		 *
-		 * @return void
 		 */
 		function __construct()
 		{
@@ -21,36 +30,62 @@
 		}
 
 		/**
-		 * getShippingId
+		 * Returns shipping id from the method name
 		 *
-		 * @param  mixed $method_name
+		 * @param  string $method_name
 		 *
-		 * @return void
+		 * @return shipping id
 		 */
 		public function getShippingId($method_name)
 		{
-			$query = "SELECT shipping_method.id_method FROM shipping_method WHERE shipping_method.name = '" . $method_name . "'";
+			$query = "SELECT shipping_method.id_method FROM shipping_method WHERE shipping_method.name = :name";
 
-			$resultSet = $this->query_engine->executeSelect($query,[]);
+			$parameters = [
+				":name" => $method_name,
+			];
+
+			$resultSet = $this->query_engine->executeQuery($query,$parameters);
 			
-			foreach ($resultSet as $row) {
-				echo $row['id_method'];
+			$shipping = resultToArray($resultSet, "id_method");
+
+			foreach ($shipping as $row) {
+				return $row['id_method'];
 			}
 		}
+		/**
+		* Takes a ResultSet and turns it into an array with all the shippings id
+		*
+		* @param ResultSet $resultSet
+		*
+		* @return array of id
+		*/
+	    private function resultToArray($resultSet, $column)
+	    {
+	        $array = array();
 
+	        foreach($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
+	            $element = $result[$column];
+
+	            array_push($array, $element);
+	        }
+	        return $array;
+	    }
 
 		/**
-		 * insertShippingCompany
+		 * Adds a shipping company to the data base
 		 *
-		 * @param  mixed $shipping
+		 * @param  string $shipping
 		 *
-		 * @return void
 		 */
 		public function insertShippingCompany($shipping)
 		{
-			$query = "INSERT INTO shipping_company (`id_company`, `name`) VALUES (DEFAULT, '" . $name . "')";
+			$query = "INSERT INTO shipping_company (`id_company`, `name`) VALUES (DEFAULT, :name)";
 
-			$result = $this->query_engine->executeQuery($query,[]);
+			$parameters = [
+				":name" => $shipping,
+			];
+
+			$result = $this->query_engine->executeQuery($query, $parameters);
 
 			if (!$result) {
 				echo "Erreur durant l'ajout de la compagnie de livraison.";
@@ -59,19 +94,23 @@
 
 
 		/**
-		 * insertShippingMethod
+		 * Add a shipping method to a company
 		 *
-		 * @param  mixed $id_company
-		 * @param  mixed $method_name
-		 * @param  mixed $price
-		 *
-		 * @return void
+		 * @param  int $id_company
+		 * @param  string $method_name
+		 * @param  double $price
 		 */
 		public function insertShippingMethod($id_company, $method_name, $price)
 		{
-			$query = "INSERT INTO shipping_method (id_method, id_company, name, price) VALUES (DEFAULT, '" . $id_company . "', '" . $method_name . "', " . $price . ")";
-			var_dump($query);
-			$result = $this->query_engine->executeQuery($query,[]);
+			$query = "INSERT INTO shipping_method (id_method, id_company, name, price) VALUES (DEFAULT, :id_company, :method_name, :price)";
+			
+			$parameters = [
+				":id_company" => $id_company,
+				":method_name" => $method_name,
+				":price" => $price,
+			];
+
+			$result = $this->query_engine->executeQuery($query, $parameters);
 
 			if (!$result) {
 				echo "Erreur durant l'ajout de la méthode de livraison.";
@@ -80,23 +119,29 @@
 
 
 		/**
-		 * getCompanyId
+		 * Returns the company id from the name
 		 *
-		 * @param  mixed $name
+		 * @param  string $name
 		 *
-		 * @return void
+		 * @return company id
 		 */
 		public function getCompanyId($name)
 		{
-			$query = "SELECT shipping_company.id_company FROM shipping_company WHERE shipping_company.name = '" . $name . "'";
-			#var_dump($query);
-			$resultSet = $this->query_engine->executeSelect($query,[]);
-			#var_dump($resultSet);
+			$query = "SELECT shipping_company.id_company FROM shipping_company WHERE shipping_company.name = :company_name";
 
-			foreach ($resultSet as $row) {
+			$parameters = [
+				":company_name" => $name,
+			];
+
+			$resultSet = $this->query_engine->executeQuery($query,[]);
+
+			$result = resultToArray($resultSet, "id_company");
+
+			foreach ($result as $row) {
 				return $row['id_company'];
 			}
 		}
 	}
 
 ?>
+

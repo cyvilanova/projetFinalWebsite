@@ -19,21 +19,20 @@
 	 */
 	class Order
 	{
-		private $id;
-
+		private $id; // Id of the order
 		private $quantities = []; // Quantities of the products
-		private $price;
-		private $total;
+		private $price; // price of the order
+		private $total; // total (price + taxes)
 		private $products = []; // ArrayList of products
 
 		/**
 		 * __construct
 		 *
-		 * @param  mixed $id
-		 * @param  mixed $price
-		 * @param  mixed $total
-		 * @param  mixed $products
-		 * @param  mixed $quantities
+		 * @param  int $id
+		 * @param  double $price
+		 * @param  double $total
+		 * @param  array of Products $products
+		 * @param  arrayList of int of the $quantities
 		 *
 		 * @return void
 		 */
@@ -44,18 +43,15 @@
 			$this->total = $total;
 			$this->products = $products;
 			$this->quantities = $quantities;
-			calculatePrice();
-			calculateTaxes();
 		}
 
 
 		/**
-		 * editProduct
+		 * Edit the product
 		 *
-		 * @param  mixed $new_product Nouveau Produit
-		 * @param  mixed $old_product Ancien Produit
+		 * @param  Product $new_product New Produit
+		 * @param  Product $old_product Old Produit
 		 *
-		 * @return void
 		 */
 		public function editProduct($new_product, $old_product)
 		{
@@ -68,11 +64,10 @@
 		}
 
 		/**
-		 * addProduct
+		 * Add a product to the arraylist of products
 		 *
-		 * @param  mixed $product to add
+		 * @param  Product $product to add
 		 *
-		 * @return void
 		 */
 		public function addProduct($product)
 		{
@@ -81,11 +76,9 @@
 
 
 		/**
-		 * deleteProduct
+		 * Delete a product from the arraylist of products
 		 *
-		 * @param  mixed $product_name
-		 *
-		 * @return void
+		 * @param  string $product_name
 		 */
 		public function deleteProduct($product_name)
 		{
@@ -98,12 +91,10 @@
 		}
 
 		/**
-		 * changeQuantity of a product
+		 * Change the quantity of a product
 		 *
-		 * @param  mixed $product_name
-		 * @param  mixed $new_qty 
-		 *
-		 * @return void
+		 * @param  string $product_name
+		 * @param  int $new_qty 
 		 */
 		public function changeQuantity($product_name, $new_qty)
 		{
@@ -131,44 +122,9 @@
 		}
 
 		/**
-		 * calculateTaxes (including TPS and TVQ)
-		 *
-		 * @return void
-		 */
-		public function calculateTaxes()
-		{
-			calculateTPS();
-			calculateTVQ();
-			$this->total = ($this->price + $tps + $tvq);
-		}
-
-
-		/**
-		 * calculateTPS
-		 *
-		 * @return TPS
-		 */
-		public function calculateTPS()
-		{
-			return ($this->price * 0.05);
-		}
-
-
-		/**
-		 * calculateTVQ 
-		 *
-		 * @return TVQ
-		 */
-		public function calculateTVQ()
-		{
-			return ($this->price * 0.09975);
-		}
-
-
-		/**
 		 * getId
 		 *
-		 * @return void
+		 * @return int
 		 */
 		public function getId()
 		{
@@ -178,21 +134,18 @@
 		/**
 		 * setId
 		 *
-		 * @param  mixed $id
-		 *
-		 * @return void
+		 * @param  int $id
 		 */
 		public function setId($id)
 		{
 		    $this->id = $id;
-		    return $this;
 		}
 
 
 		/**
 		 * getPrice
 		 *
-		 * @return void
+		 * @return double
 		 */
 		public function getPrice()
 		{
@@ -202,21 +155,18 @@
 		/**
 		 * setPrice
 		 *
-		 * @param  mixed $price
-		 *
-		 * @return void
+		 * @param  double $price
 		 */
 		public function setPrice($price)
 		{
 		    $this->price = $price;
-		    return $this;
 		}
 
 
 		/**
 		 * getTotal
 		 *
-		 * @return void
+		 * @return double
 		 */
 		public function getTotal()
 		{
@@ -226,21 +176,18 @@
 		/**
 		 * setTotal
 		 *
-		 * @param  mixed $total
-		 *
-		 * @return void
+		 * @param  double $total
 		 */
 		public function setTotal($total)
 		{
 		    $this->total = $total;
-		    return $this;
 		}
 
 
 		/**
 		 * getProducts
 		 *
-		 * @return void
+		 * @return arraylisy of Products
 		 */
 		public function getProducts()
 		{
@@ -250,15 +197,13 @@
 		/**
 		 * setProducts
 		 *
-		 * @param  mixed $products
-		 *
-		 * @return void
+		 * @param  arraylisy of Products $products
 		 */
 		public function setProducts($products)
 		{
 		    $this->products = $products;
-		    return $this;
 		}
 	}
 	
 ?>
+

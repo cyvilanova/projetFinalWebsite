@@ -1,7 +1,7 @@
 <?php
 
   include_once ("phpScripts/Order/CtrlOrder.php");
-
+  include_once ("phpScripts/Product/CtrlProduct.php");
 ?>
 
 <!DOCTYPE html>
@@ -40,9 +40,10 @@
             <input type="text" name="address">
             <br>
             <label for="product">Produit</label>
-            <select>
+            <select name="product">
               <?php
-                
+                $ctrlP = new CtrlProduct();
+                $ctrlP->loadAllProductsSelect();
               ?>
             </select>
           

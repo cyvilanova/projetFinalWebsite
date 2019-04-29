@@ -20,7 +20,10 @@
   <div class="page-title-bar">
     <h1>Livraisons</h1>
   </div>
-
+  <?php 
+  	$ctrl = new CtrlShipping();
+  	
+  ?>
 
 </body>
 </html>

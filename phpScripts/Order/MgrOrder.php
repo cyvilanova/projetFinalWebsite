@@ -1,9 +1,22 @@
 <?php
+	/****************************************
+	 Fichier : MgrOrder.php
+	 Auteure : Catherine Bronsard
+	 Fonctionnalité : Commandes clients
+	 Date : 2019-04-18
+	 Vérification :
+	 Date Nom Approuvé
+	 =========================================================
+	 Historique de modifications :
+	 Date Nom Description
+	 =========================================================
+	****************************************/
 
 	require_once __DIR__ . '/../QueryEngine.php';
 	require_once __DIR__ . '/../Shipping/MgrShipping.php';
 	require_once __DIR__ . '/Order.php';
 	require_once __DIR__ . '/../Product/Product.php';
+	require_once __DIR__ . '/../Product/CtrlProduct.php';
 	/**
 	 * 
 	 */
@@ -25,29 +38,33 @@
 		}
 
 		/**
-		 * getAllOrders
+		 * Get All Orders in an ArrayList
 		 *
 		 * @return void
 		 */
 		public function getAllOrders()
 		{
-			$query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `product`.`name` AS 'product_name', `product`.`quantity` FROM `order` INNER JOIN `state` ON `order`.id_state = `state`.id_state INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client` INNER JOIN `ta_order_product` ON `ta_order_product`.`id_order` = `order`.`id_order` INNER JOIN `product` ON `product`.`id_product` = `ta_order_product`.`id_product` WHERE `state`.name != 'closed'";
+			// TODO -> à refaire, pas pratique /!\
+			$query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `product`.`name` AS 'product_name', `ta_order_product`.`quantity`
+			FROM `order` INNER JOIN `state` ON `order`.id_state = `state`.id_state 
+			INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client` 
+			INNER JOIN `ta_order_product` ON `ta_order_product`.`id_order` = `order`.`id_order` 
+			INNER JOIN `product` ON `product`.`id_product` = `ta_order_product`.`id_product` 
+			WHERE `state`.name != 'closed'";
 
-			$resultSet = $this->query_engine->executeSelect($query,[]);
-
-			#var_dump($resultSet);
+			$resultSet = $this->query_engine->executeQuery($query,[]);
 
 			return $resultSet;
 		}
 
+
+
 		/**
-		 * insertOrder
+		 * Add an order to the database
 		 *
-		 * @param  mixed $order
-		 * @param  mixed $id_client
-		 * @param  mixed $id_method
-		 *
-		 * @return void
+		 * @param  Order $order
+		 * @param  int $id_client
+		 * @param  int $id_method
 		 */
 		public function insertOrder($order, $id_client, $id_method)
 		{
@@ -71,16 +88,13 @@
 		}
 
 		/**
-		 * insertProducts
+		 * Add products to an order in the database
 		 *
-		 * @param  mixed $order
-		 *
-		 * @return void
+		 * @param Order $order
 		 */
 		private function insertProducts($order)
 		{
 			$insertProductOrders = "INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) VALUES (:id_order, id_product, :quantity)";
-
 
 			$last_id = $this->query_engine->getLastInsertedId();
 
@@ -95,20 +109,16 @@
 				if (!$this->query_engine->executeQuery($insertProductOrders, $parametersProductOrder)) {
 					echo "Erreur lors de l'ajout des produits de la commande";
 				}
-
 			}			
 		}
 
 		/**
-		 * deleteOrder
+		 * Delete an order from the database
 		 *
-		 * @param  mixed $id_order
-		 *
-		 * @return void
+		 * @param  int $id_order
 		 */
 		public function deleteOrder($id_order)
 		{
-
 			deleteProducts();
 
 			$deleteOrder = "DELETE FROM order WHERE `id_order` = :id_order";
@@ -122,11 +132,9 @@
 		}
 
 		/**
-		 * deleteProducts
+		 * Delete the products related to an order
 		 *
-		 * @param  mixed $id_order
-		 *
-		 * @return void
+		 * @param  int $id_order
 		 */
 		private function deleteProducts($id_order)
 		{
@@ -142,12 +150,10 @@
 		}
 
 		/**
-		 * updateOrder
+		 * Update an order to the data base
 		 *
-		 * @param  mixed $order
-		 * @param  mixed $id_client
-		 *
-		 * @return void
+		 * @param  Order $order
+		 * @param  int $id_client
 		 */
 		public function updateOrder($order, $id_client)
 		{
@@ -167,5 +173,56 @@
 			}
 			insertProducts($order);
 		}
+
+
+		/**
+		 * Calculate the price of an order (via the products' prices)
+		 *
+		 * @param  Order $order
+		 */
+		public function calculatePrice($order)
+		{
+			$order->setPrice(0);
+			$total = 0;
+			foreach ($order->getProducts() as $p) {
+				$total .= $p->getPrice();
+			}
+			$order->setPrice($total);
+			calculateTaxes();
+		}
+
+		/**
+		 * Calculate the taxes of an order with the price
+		 *
+		 * @param  Order $order
+		 */
+		public function calculateTaxes($order)
+		{
+			$taxes = calculateTPS($order);
+			$taxes .= calculateTVQ($order);
+			$order->setTotal($order->getPrice() + $taxes);
+			return $taxes;
+		}
+
+		/**
+		 * Calculate the TPS of an order with the price
+		 *
+		 * @param  Order $order
+		 */
+		public function calculateTPS($order)
+		{
+			return $order->getPrice() *  0.05;
+		}
+
+		/**
+		 * Calculate the TVQ of an order with the price
+		 *
+		 * @param  Order $order
+		 */
+		public function calculateTVQ($order)
+		{
+			return $order->getPrice() * 0.09975;
+		}
 	}	
 ?>
+

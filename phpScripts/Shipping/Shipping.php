@@ -1,8 +1,16 @@
 <?php
-
-	/**
-	 * 
-	 */
+/****************************************
+Fichier : Shipping.php
+Auteur : Catherine Bronsard
+Fonctionnalité : W9 - Gestion livraisons
+Date : 2019-04-17
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
 	class Shipping
 	{
 		
@@ -12,13 +20,12 @@
 		
 	
 		/**
-		 * __construct
+		 * Constructor
 		 *
-		 * @param  mixed $company name
-		 * @param  mixed $method name
-		 * @param  mixed $price of the method
+		 * @param  string $company name
+		 * @param  string $method name
+		 * @param  double $price of the method
 		 *
-		 * @return void
 		 */
 		function __construct($company, $method, $price)
 		{
@@ -29,9 +36,9 @@
 
 
 		/**
-		 * getCompany
+		 * Returns the name of the shipping company
 		 *
-		 * @return void
+		 * @return company name (string $name)
 		 */
 		public function getCompany()
 		{
@@ -39,23 +46,21 @@
 		}
 		 
 		/**
-		 * setCompany
+		 * Sets the name of the shipping company
 		 *
-		 * @param  mixed $company
-		 *
-		 * @return void
+		 * @param  String $company
+
 		 */
 		public function setCompany($company)
 		{
 		    $this->company = $company;
-		    return $this;
 		}
 
 
 		/**
-		 * getMethod
+		 * Returns the name of the shipping method
 		 *
-		 * @return void
+		 * @return the name of the shipping method
 		 */
 		public function getMethod()
 		{
@@ -63,23 +68,21 @@
 		}
 		 
 		/**
-		 * setMethod
+		 * Sets the name of the shipping method
 		 *
-		 * @param  mixed $method
+		 * @param  string $method
 		 *
-		 * @return void
 		 */
 		public function setMethod($method)
 		{
 		    $this->method = $method;
-		    return $this;
 		}
 
 
 		/**
-		 * getPrice
+		 * Returns the price of the shipping method
 		 *
-		 * @return void
+		 * @return double
 		 */
 		public function getPrice()
 		{
@@ -87,17 +90,16 @@
 		}
 		 
 		/**
-		 * setPrice
+		 * Sets the price of the shipping method
 		 *
-		 * @param  mixed $price
+		 * @param  double $price
 		 *
-		 * @return void
 		 */
 		public function setPrice($price)
 		{
 		    $this->price = $price;
-		    return $this;
 		}
 	}
 
 ?>
+
