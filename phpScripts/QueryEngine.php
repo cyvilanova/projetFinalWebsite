@@ -26,7 +26,7 @@ class QueryEngine
 
 
     public function executeQuery($queryString, $parametersMap=[])
-    {   
+    {
 
         $conn = $this->db->getDbConn();
 
@@ -49,4 +49,21 @@ class QueryEngine
         }
     }
 
+    public function executeSelect($queryString, $parametersMap=[])
+    {
+        $conn = $this->db->getDbConn();
+
+        $query = $queryString;
+
+        return ($conn->query($query));
+    }
+
+    public function getLastInsertedId($value='')
+    {
+        $conn = $this->db->getDbConn();
+        $last_id = $conn->lastInsertId();
+        return $last_id;
+    }
+
 }
+

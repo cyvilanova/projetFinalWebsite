@@ -27,6 +27,19 @@ class CtrlProduct
         $this->itemPerPage = 10;
     }
 
+    public function loadAllProductsSelect()
+    {
+        $productList = $this->mgrProduct->getAllProducts($filter);
+
+        $products = $this->mgrProduct->getProduct();
+        $html = "";
+
+        foreach ($products as $product) {
+            $html .= "<option value=\"" . $product->getName() . "\">" . $product->getName() . "</option>";
+        }
+        echo $html;
+    }
+
     /**
      * Loads all the products and
      * displays it in tables
