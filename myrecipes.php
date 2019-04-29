@@ -36,7 +36,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
     </div>
 
     <div class="recipes-wrapper table-responsive">
-        <button type="button" class="btn btn-add-recipe" data-toggle="modal" data-target="#editModal">Ajouter une recette</button>
+        <button type="button" class="btn btn-quintessentiel" data-toggle="modal" data-target="#addModal">Ajouter une recette</button>
 
         <table class="table table-bordered table-hover">
             <thead class="thead-light">
@@ -56,7 +56,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
         </table>
     </div>
 
-
+    <!-- Edit a recipe modal -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editRecipeModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -74,7 +74,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                         </div>
                         <div class="form-group">
                             <label for="recipe-ingredients" class="col-form-label">Ingrédients</label>
-                            <select class="form-control selectpicker" data-live-search="true" onchange="addIngredient(this)" id="recipe-ingredients" data-live-search="true" disabled>
+                            <select class="form-control selectpicker" data-live-search="true" onchange="editRecipeAddIngredientModal(this)" id="recipe-ingredients" data-live-search="true" disabled>
                                 <?php
                                 $ctrlP = new CtrlProduct();
                                 $ctrlP->loadAllIngredients();
@@ -97,7 +97,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                         </div>
                         <div class="form-group">
                             <label for="product-categories" class="col-form-label">Catégories du produit final</label>
-                            <select class="form-control selectpicker" multiple data-live-search="true" id="product-categories" data-live-search="true" disabled>
+                            <select class="form-control selectpicker" multiple data-live-search="true" id="product-categories" disabled>
                                 <option>Mustard</option>
                                 <option>Ketchup</option>
                                 <option>Relish</option>
@@ -107,8 +107,65 @@ include_once "phpScripts/Product/CtrlProduct.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-primary" onclick="enableEditing()">Modifier</button>
-                    <button type="button" class="btn btn-primary">Sauvegarder</button>
+                    <button type="button" class="btn btn-quintessentiel" onclick="enableEditing()">Modifier</button>
+                    <button type="button" class="btn btn-quintessentiel">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- New recipe modal -->
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addRecipeModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addRecipeModal">Ajouter une nouvelle recette</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipe-name" class="col-form-label">Nom de la recette</label>
+                            <input type="text" class="form-control" id="recipe-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipe-ingredients" class="col-form-label">Ingrédients</label>
+                            <select class="form-control selectpicker" data-live-search="true" onchange="addRecipeAddIngredientModal(this)" id="recipe-ingredients">
+                                <?php
+                                $ctrlP = new CtrlProduct();
+                                $ctrlP->loadAllIngredients();
+                                ?>
+                            </select>
+                            <div id="ingredients" class="ingredients-list">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipe-steps" class="col-form-label">Étapes de préparation</label>
+                            <textarea class="form-control" id="recipe-steps"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="recipe-product" class="col-form-label">Produit final</label>
+                            <input type="text" class="form-control" id="recipe-product">
+                        </div>
+                        <div class="form-group">
+                            <label for="recipe-description" class="col-form-label">Description du produit final</label>
+                            <input type="text" class="form-control" id="recipe-description">
+                        </div>
+                        <div class="form-group">
+                            <label for="product-categories" class="col-form-label">Catégories du produit final</label>
+                            <select class="form-control selectpicker" multiple data-live-search="true" id="product-categories" data-live-search="true">
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-quintessentiel">Sauvegarder</button>
                 </div>
             </div>
         </div>

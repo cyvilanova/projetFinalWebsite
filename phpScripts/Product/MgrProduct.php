@@ -182,11 +182,11 @@ class MgrProduct
             $product = new Product(
                 $result[1], // name
                 [],        // Categories
-                $result[3], // is_sellable
-                $result[5], // price
-                $result[4], // description
-                $result[6], // quantity
-                $result[2] //path
+                $result[2], // is_sellable
+                $result[4], // price
+                $result[3], // description
+                $result[5], // quantity
+                $result[6] //path
             );
 
 
