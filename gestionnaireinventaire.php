@@ -1,5 +1,9 @@
 <?php
     include_once "phpScripts/Product/CtrlProduct.php";
+
+    include_once "phpScripts/Product/Product.php";
+    include_once "phpScripts/Product/MgrProduct.php";
+
 ?>
 
 <!DOCTYPE html>

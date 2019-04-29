@@ -68,6 +68,48 @@ body{
     box-shadow: 0 0 0 0.2rem rgba(41, 35, 35,.25);
 }
 
+/* Order CSS */
+
+.buttons {
+  padding: 15px;
+}
+
+.left {
+  float: left;
+}
+
+.right {
+  float: right;
+}
+
+.btn-img {
+  max-width: 20px;
+}
+
+.add-order {
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+.add-order label {
+    padding-bottom: 10px;
+    padding-top: 10px;
+}
+
+.add-order input {
+    border: none;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.tab-header {
+  background-color: #bcd13f;
+}
+
+.cases {
+  border: 1px solid #342c2c;
+  text-align: center;
+}
+
 /* Inventory page CSS */
 .center {
   max-width: 1300px;
@@ -189,6 +231,7 @@ body{
 .inventory-manager-table thead {
     background-color: #ececec;
     font-weight: bold;
+    text-align: center;
 }
 
 .inventory-manager-table td {
