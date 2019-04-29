@@ -1,15 +1,36 @@
 <?php
+/****************************************
+	 Fichier : Client.php
+	 Auteur : Philippe Audit-Allaire
+	 Fonctionnalité : W - Gestion de commande
+	 Date : 2019-04-24
+	 Vérification :
+	 Date Nom Approuvé
+	 =========================================================
+	 Historique de modifications :
+	 Date Nom Description
+	 =========================================================
+ ****************************************/
+
 class Client{
 
-  private $address;
-  private $city;
-  private $name;
-  private $postalCode;
-  private $province;
-  private $id;
+  private $address; //Client's street address
+  private $city;  //Client's city name
+  private $name; //Client's name
+  private $postalCode; //Client's postal code
+  private $province; //Client's province
+  private $id;  //Client's identification number
 
 
-
+  /**
+   * Client constructor with parameters.
+   * @param  mixed $address the street address of the client
+   * @param  mixed $city the name of the city of the client
+   * @param  mixed $name the name of the client
+   * @param  mixed $postalCode the postal code of the client
+   * @param  mixed $province the province of the client
+   * @param  mixed $id the identification number of the client
+   */
   public function __construct($address,$city,$name,$postalCode,$province,$id){
       $this->address = $address;
       $this->city = $city;
@@ -20,82 +41,100 @@ class Client{
   }
 
 
-/**
- * @return mixed
- */
-public function getAddress(){
-    return $this->address;
-}
+  /**
+   * Gets the street address of the client
+   * @return string $address the address of the client
+   */
+  public function getAddress(){
+      return $this->address;
+  }
 
-/**
- * @return mixed
- */
-public function setAddress($newAddress){
-    $this->address = $newAddress;
-}
+  /**
+   * Sets the street address of the client
+   * @param  mixed $newAddress
+   */
+  public function setAddress($newAddress){
+      $this->address = $newAddress;
+  }
 
-/**
- * @return mixed
- */
-public function getCity(){
-    return $this->city;
-}
+  /**
+   * Gets the city of the client
+   * @return string $city the city of the client
+   */
+  public function getCity(){
+      return $this->city;
+  }
 
-/**
- * @return mixed
- */
-public function setCity($newCity){
-    $this->city = $newCity;
-}
+  /**
+   * Sets the city of the client
+   * @param  mixed $neCity
+   */
+  public function setCity($newCity){
+      $this->city = $newCity;
+  }
 
-/**
- * @return mixed
- */
-public function getName(){
-    return $this->name;
-}
+  /**
+   * Gets the name of the client
+   * @return string $name the name of the client
+   */
+  public function getName(){
+      return $this->name;
+  }
 
-/**
- * @return mixed
- */
-public function setName($newName){
-    $this->name = $newName;
-}
+  /**
+   * Sets the name of the client
+   * @param  mixed $newName
+   */
+  public function setName($newName){
+      $this->name = $newName;
+  }
 
-/**
- * @return mixed
- */
-public function getPostalCode(){
-    return $this->postalCode;
-}
+  /**
+   * Gets the postal code of the client
+   * @return string $postalCode the postal code of the client
+   */
+  public function getPostalCode(){
+      return $this->postalCode;
+  }
 
-/**
- * @return mixed
- */
-public function setPostalCode($newPostalCode){
-    $this->postalCode = $newPostalCode;
-}
+  /**
+   * Sets the postal code of the client
+   * @param  mixed $newPostalCode
+   */
+  public function setPostalCode($newPostalCode){
+      $this->postalCode = $newPostalCode;
+  }
 
-/**
- * @return mixed
- */
-public function getProvince(){
-    return $this->province;
-}
+  /**
+   * Gets the province of the client
+   * @return string $province the province of the client
+   */
+  public function getProvince(){
+      return $this->province;
+  }
 
-/**
- * @return mixed
- */
-public function setProvince($newProvince){
-    $this->province = $newProvince;
-}
+  /**
+   * Sets the province of the client
+   * @param  mixed $newProvince
+   */
+  public function setProvince($newProvince){
+      $this->province = $newProvince;
+  }
 
-public function getId(){
-  return $this->id;
-}
+  /**
+   * Gets the id of the client
+   * @return string $id the id of the client
+   */
+  public function getId(){
+    return $this->id;
+  }
 
-public function setId($newId){
-  $this->id = $newId;
-}
+  /**
+   * Sets the id of the client
+   * @param  mixed $newId
+   */
+  public function setId($newId){
+    $this->id = $newId;
+  }
 
 ?>
