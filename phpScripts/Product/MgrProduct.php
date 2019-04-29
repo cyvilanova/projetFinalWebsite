@@ -196,12 +196,14 @@ class MgrProduct
             $product = new Product(
                 $result[1], // name
                 [],        // Categories
-                $result[2], // is_sellable
-                $result[4], // price
-                $result[3], // description
-                $result[5], // quantity
-                $result[6] //path
+                $result[3], // is_sellable
+                $result[5], // price
+                $result[4], // description
+                $result[6], // quantity
+                $result[2] //path
+
             );
+
             $product->setId($result[0]); // id
             if(isset($result[7])) {
                 $product->setVolumeUsed($result[7]); // qty_ml
