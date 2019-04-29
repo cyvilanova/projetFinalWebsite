@@ -302,15 +302,25 @@ body{
     margin-left: 15px;
 }
 
-a.file-btn{
+.file-btn{
     display: inline-block;
     background-color: #bdc3c7;
     padding: 3px;
     float:right;
     text-align: center;
+    height:28px;
 }
 
-a.addProd-btn{
+/* Actual File Input. Hidden */
+#product_image{
+    height:28px;
+    opacity: 0;
+    z-index: 9999;
+    position: absolute;
+    right:7px;
+}
+
+.addProd-btn{
     padding: 5px;
     font-size: 19px;
     color: white !important;
