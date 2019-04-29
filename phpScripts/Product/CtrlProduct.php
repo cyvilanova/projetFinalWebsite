@@ -105,7 +105,7 @@ class CtrlProduct
                 $description = (!empty($description) ? $description[0] : $description);
 
                 $html .= "<a class='product' href='Item.php?productId=".$products[$i]->getId()."' title='plus d info'>";
-                $html .= "<img src='.\images\imgProducts\\" . $products[$i]->getImagePath() . "' alt='".$products[$i]->getName()."'/>";
+                $html .= "<img src='images/imgProducts/" . $products[$i]->getImagePath() . "' alt='".$products[$i]->getName()."'/>";
                 $html .= "<h2>" . $products[$i]->getName() . "</h2>";
                 $html .= "<p>" .  $description . $dots ."</p>";
                 $html .= "<p class='bottom-text'><span class='stock'>" . $products[$i]->getQuantity() . " en stock</span>";
@@ -140,7 +140,7 @@ class CtrlProduct
             $html .= "</div>";
 
             $html .= "<div class='single-product'>";
-            $html .= "<img src='.\images\imgProducts\\" . $product->getImagePath() . "' alt='".$product->getName()."'/>";
+            $html .= "<img src='images/imgProducts/" . $product->getImagePath() . "' alt='".$product->getName()."'/>";
             $html .= "<p class='side-text'><span class='prix'>Prix: " . $product->getPrice() . "$</span>";
             $html .= "<span class='stock'>Quantité: " . $product->getQuantity() . " en stock</span></p>";
             $html .= "<p class='desc'>" .  $product->getDescription() . "</p>";
@@ -219,7 +219,7 @@ class CtrlProduct
             $html .= "<td><input type='checkbox' class='select'/></td>";
             $html .= "<td>" . $product->getName() . "</td>";
             $html .= "<td>" . $product->getDescription() . "</td>";
-            $html .= "<td><img src='" . $product->getImagePath() . "'/></td>";
+            $html .= "<td><img src='images/imgProducts/" . $product->getImagePath() . "'/></td>";
             $html .= "<td>Catégorie Produit</td>";
             $html .= "<td>" . $product->getQuantity() . "</td>";
             $html .= "<td>" . $product->getPrice() . "$</td>";
