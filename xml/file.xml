@@ -41,7 +41,7 @@
 		<idQuestion>1</idQuestion>
 		<username>Testing</username>
 		<password>abc123</password>
-		<email>quebecoisepic@gmail.com</email>
+		<email>testmail@gmail.com</email>
 		<secretAnswer>Un chat</secretAnswer>
 	</user>
 

@@ -36,7 +36,7 @@
               <xs:element type="xs:positiveInteger" name="idQuestion"/>
               <xs:element type="xs:string" name="username"/>
               <xs:element type="xs:string" name="password"/>
-              <xs:element type="xs:string" name="email"/>
+              <xs:element name="email" type="emailAddress"/>
               <xs:element type="xs:string" name="secretAnswer"/>
             </xs:sequence>
           </xs:complexType>
@@ -64,11 +64,16 @@
             <xs:sequence>
               <xs:element type="xs:integer" name="idCompany"/>
               <xs:element type="xs:string" name="name"/>
-              <xs:element type="xs:double" name="price"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
       </xs:sequence>
     </xs:complexType>
   </xs:element>
+
+  <xs:simpleType name="emailAddress"> 
+    <xs:restriction base="xs:string"> 
+      <xs:pattern value="[^@]+@[^\.]+\..+"/> 
+    </xs:restriction> 
+  </xs:simpleType> 
 </xs:schema>
