@@ -12,25 +12,20 @@ Date Nom Description
 2019-04-22 CV Changer array product pour products
 =========================================================
  ****************************************/
-
 include_once "Product.php";
 require_once __DIR__ . '/../QueryEngine.php';
 //include_once("Category.php"); manque la class de phil
-
 class MgrProduct
 {
-
     private $products; //Product object list array
     private $ingredientsQuantities; //Product object list array
     private $mgrCategory; //MgrCategory object
-
     public function __construct()
     {
         #$mgrCategory = new MgrCategory(); manque la classe de phil
         $this->products = array();
         $this->ingredientsQuantities = array();
     }
-
     /**
      * Send to the QueryEngine a prepared statement in string form
      * along with its parameters as a map.
@@ -39,10 +34,8 @@ class MgrProduct
     public function insertProduct($product)
     {
         $queryEngine = new QueryEngine();
-
         $query = "INSERT INTO Product(name,image_path,is_sellable,description,price,quantity)
         VALUES(:name,:image_path,:is_sellable,:description,:price,:quantity)";
-
         $parameters =
             [
             ":name" => $product->getName(),
@@ -52,13 +45,50 @@ class MgrProduct
             ":price" => $product->getPrice(),
             ":quantity" => $product->getQuantity()
         ];
-
         if (!$queryEngine->executeQuery($query, $parameters)) {
             echo "Error while trying to add a product";
         }
-
     }
-
+    /**
+     * Send to the QueryEngine a prepared statement in string form
+     * along with its parameters as a map.
+     *
+     */
+    public function updateProduct($product)
+    {
+        $queryEngine = new QueryEngine();
+        $query = "UPDATE Product SET name= :name, image_path= :image_path, is_sellable = :is_sellable, description = :description, price= :price, quantity= :quantity WHERE id_product= :id";
+        $parameters =
+            [
+            ":name" => $product->getName(),
+            ":image_path" => $product->getImagePath(),
+            ":is_sellable" => $product->getIsSellable(),
+            ":description" => $product->getDescription(),
+            ":price" => $product->getPrice(),
+            ":quantity" => $product->getQuantity(),
+            ":id" => $product->getId()
+        ];
+        if (!$queryEngine->executeQuery($query, $parameters)) {
+            echo "Error while trying to add a product";
+        }
+    }
+    /**
+     * Send to the QueryEngine a prepared statement in string form
+     * along with its parameters as a map.
+     *
+     */
+    public function removeProduct($id)
+    {
+        $queryEngine = new QueryEngine();
+        $query = "DELETE FROM Product WHERE id_product= :id";
+        $parameters =
+            [
+            ":id" => $id
+        ];
+        if (!$queryEngine->executeQuery($query, $parameters)) {
+            echo "Error while trying to add a product";
+        }
+    }
     /**
      * Send to the QueryEngine a prepared statement in string form
      * along with its parameters as a map
@@ -72,21 +102,17 @@ class MgrProduct
         [
             ":name" => "%" . $name . "%",
         ];
-
         if ($filter != null) {
             //Adds the filter
             $query .= " ORDER BY " . $filter;
         }
-
         $resultSet = $queryEngine->executeQuery($query, $parameters);
-
         if (!$resultSet) {
             echo "Error while trying to load products by name";
         } else {
             $this->resultToArray($resultSet);
         }
     }
-
     /**
      * Send to the QueryEngine a prepared statement in string form
      * along with its parameters as a map to select the product by its id.
@@ -100,16 +126,13 @@ class MgrProduct
         [
             ":id" => $id_product
         ];
-
         $resultSet = $queryEngine->executeQuery($query, $parameters);
-
         if (!$resultSet) {
             echo "Error while trying to load products by id";
         } else {
             $this->resultToArray($resultSet);
         }
     }
-
     /**
      * Send to the QueryEngine a prepared statement in string form
      * along with its parameters as a map.
@@ -119,21 +142,17 @@ class MgrProduct
     {
         $queryEngine = new QueryEngine();
         $query = "SELECT * FROM Product";
-
         if ($filter != null) {
             //Adds the filter
             $query .= " ORDER BY " . $filter;
         }
-
         $resultSet = $queryEngine->executeQuery($query);
-
         if (!$resultSet) {
             echo "Error while trying to load all products";
         } else {
             $this->resultToArray($resultSet);
         }
     }
-
     /**
      * Send to the QueryEngine a prepared statement in string form
      * along with its parameters as a map.
@@ -154,21 +173,17 @@ class MgrProduct
                 INNER JOIN ta_recipe_product
                 ON product.id_product = ta_recipe_product.id_product
                 WHERE id_recipe = :idRecipe";
-
         $parameters =
         [
             "idRecipe" => $recipeId,
         ];
-
         $resultSet = $queryEngine->executeQuery($query, $parameters);
-
         if (!$resultSet) {
             echo "Error while trying to load the ingredients.";
         } else {
             $this->resultToArray($resultSet);
         }
     }
-
     /**
      * Takes a resultSet as parameter and
      * adds every row into the Products array
@@ -177,21 +192,17 @@ class MgrProduct
     private function resultToArray($resultSet)
     {
         $this->products = array();
-
         foreach($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
             $product = new Product(
                 $result[1], // name
                 [],        // Categories
-                $result[3], // is_sellable
-                $result[5], // price
-                $result[4], // description
-                $result[6], // quantity
-                $result[2] //path
+                $result[2], // is_sellable
+                $result[4], // price
+                $result[3], // description
+                $result[5], // quantity
+                $result[6] //path
             );
-
-
             $product->setId($result[0]); // id
-
             if(isset($result[7])) {
                 $product->setVolumeUsed($result[7]); // qty_ml
             }
@@ -199,7 +210,6 @@ class MgrProduct
             array_push($this->products, $product);
         }
     }
-
     /**
      * @return mixed
      */
@@ -207,7 +217,6 @@ class MgrProduct
     {
         return $this->products;
     }
-
     /**
      * @param mixed $product
      *
@@ -217,7 +226,6 @@ class MgrProduct
     {
         $this->products = $product;
     }
-
     /**
      * @return mixed
      */
@@ -225,7 +233,6 @@ class MgrProduct
     {
         return $this->category;
     }
-
     /**
      * @param mixed $category
      *

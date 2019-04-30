@@ -302,15 +302,25 @@ body{
     margin-left: 15px;
 }
 
-a.file-btn{
+.file-btn{
     display: inline-block;
     background-color: #bdc3c7;
     padding: 3px;
     float:right;
     text-align: center;
+    height:28px;
 }
 
-a.addProd-btn{
+/* Actual File Input. Hidden */
+#product_image{
+    height:28px;
+    opacity: 0;
+    z-index: 9999;
+    position: absolute;
+    right:7px;
+}
+
+.addProd-btn{
     padding: 5px;
     font-size: 19px;
     color: white !important;
@@ -615,7 +625,7 @@ img {
 
 .product:hover{
     color:black;
-    background-color: white;    
+    background-color: white;
     cursor:pointer;
 }
 
@@ -806,7 +816,7 @@ img {
 }
 
 
-.payment-form #province{    
+.payment-form #province{
     border-radius: 1px; /* hides the border */
 }
 
@@ -898,7 +908,7 @@ img {
     .product-section .product{
         width:35%;
     }
-    
+
     .navbar-light .navbar-nav .nav-link {
         margin-right: 0;
     }
@@ -970,24 +980,31 @@ img {
         width:70%;
     }
 
-
+}
 	/* ========Login========*/
-	.loginConnect {
-		display: flex;
-		justify-content: center;
+.login-container{
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+  .loginConnect {
 	  width: 400px;
 	  height: 300px;
 	  border: solid 1px black;
 	}
 
-	input {
+	.loginConnect .input {
 	  width:75%;
 	  max-width:250px;
 	}
 
-	input[type=submit] {
+	.loginConnect .input[type=submit] {
 	  width:75%;
 	  max-width:150px;
 	}
 
-}
+  .loginConnect .label ::before{
+    content: "\a";
+    white-space: pre;
+  }
