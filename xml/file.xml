@@ -1,21 +1,4 @@
-<!--
-
-/****************************************
-Fichier : file.xml
-Auteur : David Gaulin
-Fonctionnalité : Intitialisation BD via XML
-Date : 2019-04-30
-Vérification :
-Date Nom Approuvé
-=========================================================
-Historique de modifications :
-Date Nom Description
-=========================================================
- ****************************************/
-
--->
-
-<?php xmlversion = "1.0"encoding = "UTF-8";?>
+<?xml version="1.0" encoding="UTF-8"?>
 <tableContent>
 
 	<!-- Product -->
@@ -61,6 +44,32 @@ Date Nom Description
 		<email>quebecoisepic@gmail.com</email>
 		<secretAnswer>Un chat</secretAnswer>
 	</user>
+
+	<!-- Client -->
+	<client>
+		<name>Pier Huot</name>
+		<address>4125 cool st.</address>
+		<city>Sherbrooke</city>
+		<province>Québec</province>
+		<postalCode>J1H 8Y5</postalCode>
+	</client>
+
+	<!-- Shipping Company-->
+	<shippingCompany>
+		<name>FEDEX</name>
+	</shippingCompany>
+
+	<shippingMethod>
+		<idCompany>1</idCompany>
+		<name>Express</name>
+		<price>50.00</price>
+	</shippingMethod>
+
+	<shippingMethod>
+		<idCompany>1</idCompany>
+		<name>Basic</name>
+		<price>20.00</price>
+	</shippingMethod>
 
 
 

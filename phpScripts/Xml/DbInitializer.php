@@ -120,9 +120,11 @@ class DbInitializer
     {
         $allErrors = $this->xmlValidator->displayErrors();
         echo "Errors in the XML file <br>";
-
-        foreach ($allErrors as $key => $value) {
-            echo $value . "<br>";
+        if($allErrors != null)
+        {
+            foreach ($allErrors as $key => $value) {
+                echo $value . "<br>";
+            }   
         }
     }
 }
