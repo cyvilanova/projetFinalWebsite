@@ -35,7 +35,6 @@
 	<secretQuestion>
 		<question>Quel a été votre premier animal de compagnie?</question>
 	</secretQuestion>
-	<!-- user 
 	<user>
 		<idQuestion>1</idQuestion>
 		<username>Testing</username>
@@ -43,8 +42,6 @@
 		<email>quebecoisepic@gmail.com</email>
 		<secretAnswer>Un chat</secretAnswer>
 	</user>
-
-	-->
 
 
 

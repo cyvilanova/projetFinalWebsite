@@ -27,9 +27,12 @@
 
 					$tableName = $this->unCamelCase($key);
 
+					if(!is_array($value)){
+						$value = Array($value);
+					}
+
 					foreach ($value as $key => $values) { //values == each bloc as individual
 						$insertContent = $values;
-						var_dump($values);
 						$this->insertInDb($tableName,$values);
 					}
 
