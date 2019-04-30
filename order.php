@@ -1,5 +1,4 @@
 <?php
-
   include_once ("phpScripts/Order/CtrlOrder.php");
   include_once ("phpScripts/Product/CtrlProduct.php");
 ?>
@@ -8,14 +7,17 @@
 <html lang="en">
 
 <head>
-  <?php include("nav_admin.html"); ?>
-  <script type="text/javascript" src="javascript/order.js"></script>
   <title>Quintessentiel - Gestion des commandes clients</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+  <link href="css/style_index.css" rel=stylesheet>
+  <script type="text/javascript" src="javascript/order.js"></script>
+  
 </head>
 
 <body onload="commandesOnLoad()">
 
-
+<?php include("nav_admin.html"); ?>
   
 
 <div class="modal fade" id="modal-add" role="dialog">

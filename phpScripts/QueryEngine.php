@@ -48,16 +48,7 @@ class QueryEngine
             return false;
         }
     }
-
-    public function executeSelect($queryString, $parametersMap=[])
-    {
-        $conn = $this->db->getDbConn();
-
-        $query = $queryString;
-
-        return ($conn->query($query));
-    }
-
+    
     public function getLastInsertedId($value='')
     {
         $conn = $this->db->getDbConn();
