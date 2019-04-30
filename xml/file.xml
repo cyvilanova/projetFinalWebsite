@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tableContent>
+
+	<!-- Product -->
+	<product>
+		<name>Nom du produit</name>
+		<sellable>1</sellable>
+		<description>Une description</description>
+		<price>15.00</price>
+		<quantity>10</quantity>
+		<imgPath>img5.jpg</imgPath>
+	</product>
+	<product>
+		<name>Nom du second produit</name>
+		<sellable>1</sellable>
+		<description>Une autre description</description>
+		<price>25.00</price>
+		<quantity>12</quantity>
+		<imgPath>img2.jpg</imgPath>
+	</product>
+
+	<!-- Category -->
+	<category>
+		<name>Category name 1</name>
+		<isActive>1</isActive>
+		<description>A category description</description>
+	</category>
+	<category>
+		<name>Category name 2</name>
+		<isActive>0</isActive>
+		<description>A second category description</description>
+	</category>
+
+	<!-- secret Question -->
+	<secretQuestion>
+		<question>Quel a été votre premier animal de compagnie?</question>
+	</secretQuestion>
+	<!-- user 
+	<user>
+		<idQuestion>1</idQuestion>
+		<username>Testing</username>
+		<password>abc123</password>
+		<email>quebecoisepic@gmail.com</email>
+		<secretAnswer>Un chat</secretAnswer>
+	</user>
+
+	-->
+
+
+
+</tableContent>

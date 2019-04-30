@@ -1,0 +1,56 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="tableContent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="product" maxOccurs="unbounded" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Product</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="name"/>
+              <xs:element type="xs:boolean" name="sellable"/>
+              <xs:element type="xs:string" name="description"/>
+              <xs:element type="xs:double" name="price"/>
+              <xs:element type="xs:positiveInteger" name="quantity"/>
+              <xs:element type="xs:string" name="imgPath"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="category" maxOccurs="unbounded" minOccurs="0">
+          <xs:annotation>
+            <xs:documentation>Category</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:boolean" name="isActive"/>
+              <xs:element type="xs:string" name="name"/>
+              <xs:element type="xs:string" name="description"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="secretQuestion">
+          <xs:annotation>
+            <xs:documentation>secret Question</xs:documentation>
+          </xs:annotation>
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="question"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="user">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:positiveInteger" name="idQuestion"/>
+              <xs:element type="xs:string" name="username"/>
+              <xs:element type="xs:string" name="password"/>
+              <xs:element type="xs:string" name="email"/>
+              <xs:element type="xs:string" name="secretAnswer"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
