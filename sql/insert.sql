@@ -28,7 +28,6 @@ INSERT INTO product(name, image_path, is_sellable, description, price)
 VALUES("Gant de crain", "img4.jpg", 1, "Action reparatrice", 2.78);
 
 
-
 /* recipe */
 INSERT INTO recipe(id_product, name, is_custom, steps) 
 VALUES(1, "B barbe lavande", 0, "1- Melanger la farine 2- Ajouter les herbes");
@@ -66,3 +65,74 @@ VALUES(5,4,0.1);
 
 INSERT INTO ta_recipe_product(id_recipe, id_product, qty_ml)
 VALUES(5,5,22);
+
+/* Insert into state */
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("Fermée", "Commande fermée");
+
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("Ouverte", "Commande ouverte");
+
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("Transit", "Commande en transit");
+
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("En magasin", "Commande en magasin");
+
+
+/* Insert into shipping_company*/
+INSERT INTO `shipping_company` (`name`) 
+VALUES ("UPS");
+
+INSERT INTO `shipping_company` (`name`) 
+VALUES ("Fedex");
+
+INSERT INTO `shipping_company` (`name`) 
+VALUES ("CanadaPost");
+
+
+/* INSERT into shipping_method*/
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
+VALUES (1, "Très rapide", '20.00');
+
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
+VALUES (1, "Normal", '10.00');
+
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
+VALUES (2, "Rapide", '15.00');
+
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
+VALUES (3, "Normal", '12.00');
+  
+ 
+/* Insert into client */
+INSERT INTO `client` (`name`, `address`, `city`, `province`, `postal_code`) 
+VALUES ("Edith Piaf", '14 Rue Alexandre', 'Sherbrooke', 'Québec', 'J2H4I9');
+
+INSERT INTO `client` (`name`, `address`, `city`, `province`, `postal_code`) 
+VALUES ("Céline Dion", '1 Rue Chanteuse', 'Sherbrooke', 'Québec', 'J2H4I9');
+
+INSERT INTO `client` (`name`, `address`, `city`, `province`, `postal_code`) 
+VALUES ("Éric Lapointe", '333 Boulevard Rock', 'Sherbrooke', 'Québec', 'J2H4I9');
+  
+  
+/* Insert into order */
+INSERT INTO `order` (`id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) 
+VALUES (1, 1, 1, 1, '10.00', '20.00', '50.00');
+
+INSERT INTO `order` (`id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) 
+VALUES (2, 1, 2, 4, '20.00', '20.00', '60.00');
+  
+  
+/* Insert into table association order - product */
+INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) 
+VALUES (1, 1, 2);
+
+INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) 
+VALUES (1, 5, 4);
+
+INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) 
+VALUES (1, 2, 1);
+
+INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) 
+VALUES (2, 1, 1);
