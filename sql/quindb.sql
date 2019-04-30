@@ -148,7 +148,11 @@ CREATE TABLE `order` (
 CREATE TABLE ta_order_product (
 	id_order INT NOT NULL,
 	id_product INT NOT NULL,
+<<<<<<< HEAD
   quantity INT NOT NULL,
+=======
+	quantity INT NOT NULL DEFAULT 1,
+>>>>>>> 273514d3512568993dd0c4b30df66c7cf2d5b79d
 	PRIMARY KEY (id_order, id_product),
 	FOREIGN KEY (id_order) REFERENCES `order`(id_order),
 	FOREIGN KEY (id_product) REFERENCES product(id_product)

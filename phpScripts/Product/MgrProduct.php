@@ -189,6 +189,7 @@ class MgrProduct
                 $result[2] //path
             );
 
+
             $product->setId($result[0]); // id
 
             if(isset($result[7])) {

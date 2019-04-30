@@ -106,21 +106,6 @@
 			}
 		}
 
-
-		/**
-		 * calculatePrice (and recalculating Taxes)
-		 *
-		 * @return void
-		 */
-		public function calculatePrice()
-		{
-			$this->price = 0;
-			foreach ($this->products as $p) {
-				$this->price .= $p->getPrice();
-			}
-			calculateTaxes();
-		}
-
 		/**
 		 * getId
 		 *
