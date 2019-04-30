@@ -1,4 +1,21 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+/****************************************
+Fichier : file.xml
+Auteur : David Gaulin
+Fonctionnalité : Intitialisation BD via XML
+Date : 2019-04-30
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
+
+-->
+
+<?php xmlversion = "1.0"encoding = "UTF-8";?>
 <tableContent>
 
 	<!-- Product -->
@@ -35,6 +52,8 @@
 	<secretQuestion>
 		<question>Quel a été votre premier animal de compagnie?</question>
 	</secretQuestion>
+
+	<!-- User -->
 	<user>
 		<idQuestion>1</idQuestion>
 		<username>Testing</username>

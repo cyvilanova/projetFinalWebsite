@@ -62,8 +62,8 @@ class XmlValidator
 
     /**
      *  Validates the xml file with the xsd
-     *  @xmlFile  path to the file
-     *    @return boolean
+     *  @param xmlFile path to the file
+     *  @return boolean
      */
     public function validate($xmlFile)
     {
@@ -79,7 +79,6 @@ class XmlValidator
 
         while ($this->reader->read()) {
             if (!$this->reader->isValid()) {
-
                 $this->errorDetails = $this->libxmlDisplayErrors();
             } else {
                 return true;

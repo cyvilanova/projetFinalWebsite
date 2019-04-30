@@ -1,11 +1,24 @@
+<!--
+
+/****************************************
+Fichier : verification.xsd
+Auteur : David Gaulin
+Fonctionnalité : Intitialisation BD via XML
+Date : 2019-04-30
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
+
+-->
 <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="tableContent">
     <xs:complexType>
       <xs:sequence>
         <xs:element name="product" maxOccurs="unbounded" minOccurs="0">
-          <xs:annotation>
-            <xs:documentation>Product</xs:documentation>
-          </xs:annotation>
           <xs:complexType>
             <xs:sequence>
               <xs:element type="xs:string" name="name"/>
@@ -18,9 +31,6 @@
           </xs:complexType>
         </xs:element>
         <xs:element name="category" maxOccurs="unbounded" minOccurs="0">
-          <xs:annotation>
-            <xs:documentation>Category</xs:documentation>
-          </xs:annotation>
           <xs:complexType>
             <xs:sequence>
               <xs:element type="xs:boolean" name="isActive"/>
@@ -30,9 +40,6 @@
           </xs:complexType>
         </xs:element>
         <xs:element name="secretQuestion">
-          <xs:annotation>
-            <xs:documentation>secret Question</xs:documentation>
-          </xs:annotation>
           <xs:complexType>
             <xs:sequence>
               <xs:element type="xs:string" name="question"/>
