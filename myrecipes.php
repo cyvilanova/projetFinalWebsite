@@ -88,19 +88,19 @@ include_once "phpScripts/Product/CtrlProduct.php";
                             <textarea class="form-control" id="recipe-steps" disabled></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="recipe-product" class="col-form-label">Produit final</label>
+                            <label for="recipe-product" class="col-form-label">Nom du produit final</label>
                             <input type="text" class="form-control" id="recipe-product" disabled>
                         </div>
                         <div class="form-group">
-                            <label for="recipe-description" class="col-form-label">Description du produit final</label>
-                            <input type="text" class="form-control" id="recipe-description" disabled>
+                            <label for="product-description" class="col-form-label">Description du produit final</label>
+                            <textarea type="text" class="form-control" id="product-description" disabled></textarea>
                         </div>
                         <div class="form-group">
                             <label for="product-categories" class="col-form-label">Catégories du produit final</label>
                             <select class="form-control selectpicker" multiple data-live-search="true" id="product-categories" disabled>
-                                <option>Mustard</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
+                                <option value="1">Mustard</option>
+                                <option value="2">Ketchup</option>
+                                <option value="3">Relish</option>
                             </select>
                         </div>
                     </form>
@@ -108,7 +108,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     <button type="button" class="btn btn-quintessentiel" onclick="enableEditing()">Modifier</button>
-                    <button type="button" class="btn btn-quintessentiel">Sauvegarder</button>
+                    <button type="button" class="btn btn-quintessentiel" onclick="getRecipeInformations('#editModal')">Sauvegarder</button>
                 </div>
             </div>
         </div>
@@ -146,12 +146,12 @@ include_once "phpScripts/Product/CtrlProduct.php";
                             <textarea class="form-control" id="recipe-steps"></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="recipe-product" class="col-form-label">Produit final</label>
+                            <label for="recipe-product" class="col-form-label">Nom du produit final</label>
                             <input type="text" class="form-control" id="recipe-product">
                         </div>
                         <div class="form-group">
-                            <label for="recipe-description" class="col-form-label">Description du produit final</label>
-                            <input type="text" class="form-control" id="recipe-description">
+                            <label for="product-description" class="col-form-label">Description du produit final</label>
+                            <textarea type="text" class="form-control" id="product-description"></textarea>
                         </div>
                         <div class="form-group">
                             <label for="product-categories" class="col-form-label">Catégories du produit final</label>
@@ -165,7 +165,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-quintessentiel">Sauvegarder</button>
+                    <button type="button" class="btn btn-quintessentiel" onclick="getRecipeInformations('#addModal')">Sauvegarder</button>
                 </div>
             </div>
         </div>
