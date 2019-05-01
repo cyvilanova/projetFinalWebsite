@@ -983,28 +983,42 @@ img {
 }
 	/* ========Login========*/
 .login-container{
+  padding-top: 10%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
 }
   .loginConnect {
-	  width: 400px;
-	  height: 300px;
-	  border: solid 1px black;
+	  max-width: 350px;
+	  height: 150px;
 	}
+  .loginConnect form{
+    text-align:center;
+  }
 
-	.loginConnect .input {
+	.loginConnect .loginlbl {
 	  width:75%;
 	  max-width:250px;
 	}
+  .loginConnect .loginlbl:after {
+    display:block;
+    white-space: pre;
+    content: "\a";
+	}
 
-	.loginConnect .input[type=submit] {
+  .loginConnect .loginInput {
+	  width:75%;
+	  max-width:200px;
+	}
+
+  .loginConnect .loginInput:after {
+    display:block;
+    white-space: pre;
+    content: "\a";
+	}
+
+	.loginConnect .loginSub {
 	  width:75%;
 	  max-width:150px;
 	}
-
-  .loginConnect .label ::before{
-    content: "\a";
-    white-space: pre;
-  }
