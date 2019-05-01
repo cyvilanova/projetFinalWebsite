@@ -943,12 +943,8 @@ img {
 
 }
 
-
 @media screen and (max-width: 425px) {
     /* start of phone styles */
-    body{
-        background-color: green;
-    }
 
     .single-product{
         text-align: center;
