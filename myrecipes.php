@@ -72,6 +72,13 @@ include_once "phpScripts/Product/CtrlProduct.php";
                             <label for="recipe-name" class="col-form-label">Nom de la recette</label>
                             <input type="text" class="form-control" id="recipe-name" disabled>
                         </div>
+                        <div class="switch-wrapper">
+                            <label class="switch">
+                                <input type="checkbox" id="switch-custom-recipe" onchange="changeLabelCheckBox('#editModal')">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="switch-custom-recipe" class="custom-recipe" id="custom-recipe-title"></label>
+                        </div>
                         <div class="form-group">
                             <label for="recipe-ingredients" class="col-form-label">Ingrédients</label>
                             <select class="form-control selectpicker" data-live-search="true" onchange="editRecipeAddIngredientModal(this)" id="recipe-ingredients" data-live-search="true" disabled>
@@ -129,6 +136,13 @@ include_once "phpScripts/Product/CtrlProduct.php";
                         <div class="form-group">
                             <label for="recipe-name" class="col-form-label">Nom de la recette</label>
                             <input type="text" class="form-control" id="recipe-name">
+                        </div>
+                        <div class="switch-wrapper">
+                            <label class="switch">
+                                <input type="checkbox" id="switch-custom-recipe" onchange="changeLabelCheckBox('#addModal')">
+                                <span class="slider round"></span>
+                            </label>
+                            <label for="switch-custom-recipe" class="custom-recipe" id="custom-recipe-title">Standard</label>
                         </div>
                         <div class="form-group">
                             <label for="recipe-ingredients" class="col-form-label">Ingrédients</label>

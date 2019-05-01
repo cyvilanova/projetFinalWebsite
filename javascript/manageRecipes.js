@@ -11,6 +11,15 @@ function editRecipe(recipe) {
   $('#recipe-product').val(recipe.finalProduct.name);
   $('#product-description').val(recipe.finalProduct.description);
 
+  if(recipe.custom == 1) {
+    $('#switch-custom-recipe').prop('checked', true);  // Checks the box
+    $('#custom-recipe-title').html('Personnalisée');
+  }
+  else {
+    $('#switch-custom-recipe').prop('checked', false); // Unchecks the box
+    $('#custom-recipe-title').html('Standard');
+  }
+
   displayIngredients(recipe.ingredients);
 }
 
@@ -78,6 +87,7 @@ function getRecipeInformations(modalId) {
     data: {
       id: currentRecipe ? currentRecipe.id : 0,
       name: $(modalId).find('#recipe-name').val(),
+      isCustom: isCustomRecipeChecked(modalId) ? 1 : 0,
       steps: $(modalId).find('#recipe-steps').val(),
       ingredients: getIngredients(modalId),
       productName: $(modalId).find('#recipe-product').val(),
@@ -103,4 +113,19 @@ function getIngredients(modalId) {
   });
 
   return JSON.stringify(ingredients);
+}
+
+/** Changes the label of the toggle */
+function changeLabelCheckBox(modalId) {
+  if(isCustomRecipeChecked(modalId)) {
+    $(modalId).find('#custom-recipe-title').html('Personnalisée');
+  }
+  else {
+    $(modalId).find('#custom-recipe-title').html('Standard');
+  }
+}
+
+/** Checks if the toggle is checked or not */
+function isCustomRecipeChecked(modalId) {
+  return $(modalId).find('#switch-custom-recipe').is(':checked');
 }
