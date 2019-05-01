@@ -10,14 +10,14 @@
               <xs:element type="xs:string" name="description"/>
               <xs:element type="xs:double" name="price"/>
               <xs:element type="xs:positiveInteger" name="quantity"/>
-              <xs:element type="xs:string" name="imgPath"/>
+              <xs:element name="imgPath" type="LimitBigString"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
         <xs:element name="category" maxOccurs="unbounded" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element type="xs:string" name="name"/>
+              <xs:element name="name" type="LimitBigString"/>
               <xs:element type="xs:boolean" name="isActive"/>
               <xs:element type="xs:string" name="description"/>
             </xs:sequence>
@@ -34,18 +34,18 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element type="xs:positiveInteger" name="idQuestion"/>
-              <xs:element type="xs:string" name="username"/>
-              <xs:element type="xs:string" name="password"/>
+              <xs:element name="username" type="LimitBigString"/>
+              <xs:element name="password" type="LimitBigString"/>
               <xs:element name="email" type="emailAddress"/>
-              <xs:element type="xs:string" name="secretAnswer"/>
+              <xs:element name="secretAnswer" type="LimitBigString"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
           <xs:element name="client" maxOccurs="unbounded" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element type="xs:string" name="name"/>
-              <xs:element type="xs:string" name="address"/>
+              <xs:element name="name" type="LimitBigString"/>
+              <xs:element name="address" type="LimitBigString"/>
               <xs:element type="xs:string" name="city"/>
               <xs:element type="xs:string" name="province"/>
               <xs:element type="xs:string" name="postalCode"/>
@@ -55,7 +55,7 @@
         <xs:element name="shippingCompany" maxOccurs="unbounded" minOccurs="0">
           <xs:complexType>
             <xs:sequence>
-              <xs:element type="xs:string" name="name"/>
+              <xs:element name="name" type="LimitBigString"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -63,7 +63,7 @@
           <xs:complexType>
             <xs:sequence>
               <xs:element type="xs:integer" name="idCompany"/>
-              <xs:element type="xs:string" name="name"/>
+              <xs:element name="name" type="LimitBigString"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -75,5 +75,11 @@
     <xs:restriction base="xs:string"> 
       <xs:pattern value="[^@]+@[^\.]+\..+"/> 
     </xs:restriction> 
-  </xs:simpleType> 
+  </xs:simpleType>
+
+   <xs:simpleType name="LimitBigString">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
 </xs:schema>
