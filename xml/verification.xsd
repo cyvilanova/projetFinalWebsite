@@ -48,7 +48,7 @@
               <xs:element name="address" type="LimitBigString"/>
               <xs:element type="xs:string" name="city"/>
               <xs:element type="xs:string" name="province"/>
-              <xs:element type="xs:string" name="postalCode"/>
+              <xs:element name="postalCode" type="postalCodeFormat"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -64,6 +64,7 @@
             <xs:sequence>
               <xs:element type="xs:integer" name="idCompany"/>
               <xs:element name="name" type="LimitBigString"/>
+              <xs:element name="price" type="xs:double"/>
             </xs:sequence>
           </xs:complexType>
         </xs:element>
@@ -80,6 +81,13 @@
    <xs:simpleType name="LimitBigString">
     <xs:restriction base="xs:string">
       <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="postalCodeFormat">
+    <xs:restriction base="xs:string">
+      <xs:pattern  value="[A-Z][0-9][A-Z] [0-9][A-Z][0-9]" />
+      <xs:pattern  value="[A-Z][0-9][A-Z][0-9][A-Z][0-9]" />
     </xs:restriction>
   </xs:simpleType>
 </xs:schema>

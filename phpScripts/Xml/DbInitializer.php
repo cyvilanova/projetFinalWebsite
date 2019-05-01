@@ -118,12 +118,12 @@ class DbInitializer
      */
     private function showErrors()
     {
-        $allErrors = $this->xmlValidator->displayErrors();
+        $allErrors = $this->xmlValidator->getErrors();
         echo "Errors in the XML file <br>";
         if($allErrors != null)
         {
             foreach ($allErrors as $key => $value) {
-                echo $value . "<br>";
+               echo $value->message . " on line ".$value->line." of the file ".$value->file . "<br>";
             }   
         }
     }

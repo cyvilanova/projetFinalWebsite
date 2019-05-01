@@ -15,39 +15,13 @@ Date Nom Description
 
 class XmlValidator
 {
-
+    private $validator;
     private $xsd;
-    private $reader;
-    private $errorDetails;
 
     public function __construct($xsdPath)
-    {
+    {   
+        $this->validator =  new DOMDocument();
         $this->xsd = $xsdPath;
-        $this->reader = new XMLReader();
-    }
-
-    /**
-     * Formats the xml error in a string
-     * @return a new error string
-     */
-    private function libxmlDisplayError($error)
-    {
-        $errorString = "Error $error->code in $error->file (Line:{$error->line}):";
-        $errorString .= trim($error->message);
-        return $errorString;
-    }
-
-    /**
-     * @return array
-     */
-    private function libxmlDisplayErrors()
-    {
-        $errors = libxml_get_errors();
-        $result = [];
-        foreach ($errors as $error) {
-            $result[] = $this->libxmlDisplayError($error);
-        }
-        return $result;
     }
 
     /**
@@ -55,9 +29,9 @@ class XmlValidator
      *
      * @return array
      */
-    public function displayErrors()
+    public function getErrors()
     {
-        return $this->errorDetails;
+        return libxml_get_errors();
     }
 
     /**
@@ -67,23 +41,41 @@ class XmlValidator
      */
     public function validate($xmlFile)
     {
-        if (!file_exists($this->xsd)) {
+        libxml_use_internal_errors(true); //Doesnt show the errors automatically
+
+        if (!file_exists($this->getXsd())) {
             throw new Exception("XSD missing");
             return false;
         }
 
-        $this->reader->open($xmlFile);
-        $this->reader->setSchema($this->xsd);
+        $this->validator->load($xmlFile, LIBXML_NOBLANKS);
 
-        libxml_use_internal_errors(true);
-
-        while ($this->reader->read()) {
-            if (!$this->reader->isValid()) {
-                $this->errorDetails = $this->libxmlDisplayErrors();
-            } else {
-                return true;
-            }
+        if (!$this->validator->schemaValidate($this->getXsd())) //Errors in the xml file
+        {
+           return false;
         }
+        else{              //No errors
+            return true;
+        }
+    }
+
+
+
+    /**
+     * @return mixed
+     */
+    public function getValidator()
+    {
+        return $this->validator;
+    }
+
+    /**
+     * @param mixed $validator
+     *
+     */
+    public function setValidator($validator)
+    {
+        $this->validator = $validator;
     }
 
     /**
@@ -101,39 +93,5 @@ class XmlValidator
     public function setXsd($xsd)
     {
         $this->xsd = $xsd;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getReader()
-    {
-        return $this->reader;
-    }
-
-    /**
-     * @param mixed $reader
-     *
-     */
-    public function setReader($reader)
-    {
-        $this->reader = $reader;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getErrorDetails()
-    {
-        return $this->errorDetails;
-    }
-
-    /**
-     * @param mixed $errorDetails
-     *
-     */
-    public function setErrorDetails($errorDetails)
-    {
-        $this->errorDetails = $errorDetails;
     }
 }
