@@ -34,7 +34,7 @@
 			$orders = $this->mgrOrder->getAllOrders();
 			
 			foreach ($orders as $row) {
-
+				
 				$element = "<tr>";
 				$element .= "<td class=\"cases\"><input type=\"radio\" name=\"id\" value=\"" . $row['id_order'] . "\"> </td>";
 				$element .= "<td class=\"cases\">" . $row['id_order'] . "</td>";
@@ -43,7 +43,7 @@
 				$element .= "<td class=\"cases\">" . $row['product_name'] . "</td>";
 				$element .= "<td class=\"cases\">" . $row['quantity'] . "</td>";
 				$element .= "</tr>";
-				#var_dump($element);
+				
 				echo $element;
 			}
 		}

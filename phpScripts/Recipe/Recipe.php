@@ -19,7 +19,7 @@ class Recipe implements JsonSerializable {
 	private $name; // Recipe's name
 	private $ingredients; // Array of products used for the recipe
 	private $quantities; // Array of quantities of product used for the recipe
-	private $idFinalProduct; // Id of the product the recipe creates
+	private $finalProduct; // Id of the product the recipe creates
 	private $custom; // If it's a custom or standard recipe
 	private $steps; // All the steps of the recipe
 
@@ -31,9 +31,9 @@ class Recipe implements JsonSerializable {
 	 * @param  mixed $steps steps of the recipe
 	 *
 	 */
-	public function __construct($name, $idFinalProduct, $custom, $steps) {
+	public function __construct($name, $finalProduct, $custom, $steps) {
 		$this->name = $name;
-		$this->idFinalProduct = $idFinalProduct;
+		$this->finalProduct = $finalProduct;
 		$this->custom = $custom;
 		$this->steps = $steps;
 	}
@@ -50,7 +50,7 @@ class Recipe implements JsonSerializable {
 				'name'=>$this->name,
 				'ingredients'=>$this->ingredients,
 				'quantities'=>$this->quantities,
-				'idFinalProduct'=>$this->idFinalProduct,
+				'finalProduct'=>$this->finalProduct,
 				'custom'=>$this->custom,
 				'steps'=>$this->steps
 		);
@@ -125,8 +125,8 @@ class Recipe implements JsonSerializable {
 	 * @return string $idFinalProduct the name of the final product
 	 * 
 	 */
-	public function getIdFinalProduct() {
-		return $this->idFinalProduct;
+	public function getFinalProduct() {
+		return $this->finalProduct;
 	}
 
 	/**
@@ -134,8 +134,8 @@ class Recipe implements JsonSerializable {
 	 * @param string $idFinalProduct the name of the final product
 	 * 
 	 */
-	public function setIdFinalProduct($idFinalProduct) {
-		$this->idFinalProduct = $idFinalProduct;
+	public function setFinalProduct($finalProduct) {
+		$this->finalProduct = $finalProduct;
 	}
 
 	/**
