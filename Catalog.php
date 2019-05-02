@@ -12,7 +12,7 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
- 
+
 session_start();
 
 include_once "phpScripts/Product/CtrlProduct.php";
@@ -30,7 +30,14 @@ $ctrl = new CtrlProduct();
 	 <body>
 	 	<div class="page">
 		<header>
-			<?php include("nav_inv.html"); ?>
+			<?php
+      if(!isset($_SESSION["username"])||$_SESSION["username"]!="admin"){
+          include("nav_inv.html");
+      }
+      else{
+        include("nav_admin.html");
+      }
+      ?>
 		</header>
 
 		 <section class="main-section"> <!-- Page section -->
@@ -98,7 +105,7 @@ $ctrl = new CtrlProduct();
 	 		}
 
 	 		function changePage(pageNumber){
-	 			
+
 	 			$.ajax({
 	 				type: "POST",
 	 				url: "phpScripts/methodCall/scriptCatalog.php",

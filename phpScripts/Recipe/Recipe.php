@@ -18,17 +18,16 @@ class Recipe implements JsonSerializable {
 	private $id; // Recipe's id
 	private $name; // Recipe's name
 	private $ingredients; // Array of products used for the recipe
-	private $quantities; // Array of quantities of product used for the recipe
 	private $finalProduct; // Id of the product the recipe creates
 	private $custom; // If it's a custom or standard recipe
 	private $steps; // All the steps of the recipe
 
 	/**
 	 * Recipe constructor with parameters.
-	 * @param  mixed $name the name of the recipe
-	 * @param  mixed $idFinalProduct the final product of the recipe
-	 * @param  mixed $custom if it's a custom or standard recipe
-	 * @param  mixed $steps steps of the recipe
+	 * @param  string $name the name of the recipe
+	 * @param  Product $finalProduct the final product of the recipe
+	 * @param  boolean $custom if it's a custom or standard recipe
+	 * @param  string $steps steps of the recipe
 	 *
 	 */
 	public function __construct($name, $finalProduct, $custom, $steps) {
@@ -44,12 +43,11 @@ class Recipe implements JsonSerializable {
 	 * @return array of all the properties of the object
 	 * 
 	 */
-	public function jsonSerialize () {
+	public function jsonSerialize() {
 		return array(
 				'id'=>$this->id,
 				'name'=>$this->name,
 				'ingredients'=>$this->ingredients,
-				'quantities'=>$this->quantities,
 				'finalProduct'=>$this->finalProduct,
 				'custom'=>$this->custom,
 				'steps'=>$this->steps
@@ -67,7 +65,7 @@ class Recipe implements JsonSerializable {
 
 	/**
 	 * Sets the id of the recipe
-	 * @param  mixed $id
+	 * @param int $id
 	 *
 	 */
 	public function setId($id)
@@ -112,17 +110,8 @@ class Recipe implements JsonSerializable {
 	}
 
 	/**
-	 * Sets the array of quantities of products used in the recipe
-	 * @param  array $quantities a list of the quantities used
-	 * 
-	 */
-	public function setQuantities($quantities) {
-		$this->quantities = $quantities;
-	}
-
-	/**
 	 * Gets the name of the final product
-	 * @return string $idFinalProduct the name of the final product
+	 * @return Product $finalProduct the name of the final product
 	 * 
 	 */
 	public function getFinalProduct() {
@@ -131,7 +120,7 @@ class Recipe implements JsonSerializable {
 
 	/**
 	 * Sets the name of the final product
-	 * @param string $idFinalProduct the name of the final product
+	 * @param Product $finalProduct the name of the final product
 	 * 
 	 */
 	public function setFinalProduct($finalProduct) {
