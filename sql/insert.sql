@@ -28,25 +28,25 @@ INSERT INTO product(name, image_path, is_sellable, description, price)
 VALUES("Gant de crain", "img4.jpg", 1, "Action reparatrice", 2.78);
 
 
-
 /* recipe */
-INSERT INTO recipe(id_product, name, is_custom, steps) 
+INSERT INTO recipe(id_product, name, is_custom, steps)
 VALUES(1, "B barbe lavande", 0, "1- Melanger la farine 2- Ajouter les herbes");
 
-INSERT INTO recipe(id_product, name, is_custom, steps) 
+INSERT INTO recipe(id_product, name, is_custom, steps)
 VALUES(2, "B barbe sapin", 0, "1- Melanger la farine 2- Ajouter les herbes");
 
-INSERT INTO recipe(id_product, name, is_custom, steps) 
+INSERT INTO recipe(id_product, name, is_custom, steps)
 VALUES(3, "Parfum rose", 1, "1- Melanger la farine 2- Ajouter les herbes 3- Sentir");
 
-INSERT INTO recipe(id_product, name, is_custom, steps) 
+INSERT INTO recipe(id_product, name, is_custom, steps)
 VALUES(4, "Beurre mercure", 0, "1- Melanger la farine 2- Ajouter les herbes");
 
-INSERT INTO recipe(id_product, name, is_custom, steps) 
+INSERT INTO recipe(id_product, name, is_custom, steps)
 VALUES(5, "Savon blanc", 0, "1- Melanger la farine 2- Ajouter les herbes");
 
-INSERT INTO recipe(id_product, name, is_custom, steps) 
+INSERT INTO recipe(id_product, name, is_custom, steps)
 VALUES(6, "Creme main orange", 1, "1- Melanger la farine 2- Ajouter les herbes");
+
 
 /* ta_recipe_product */
 INSERT INTO ta_recipe_product(id_recipe, id_product, qty_ml)
@@ -68,74 +68,84 @@ INSERT INTO ta_recipe_product(id_recipe, id_product, qty_ml)
 VALUES(5,5,22);
 
 
-/* Products */
+/*secret_question*/
+INSERT INTO secret_question(question)
+VALUES("Quel était le nom de votre premier animal de compagnie?");
+
+INSERT INTO secret_question(question)
+VALUES("Quel est le nom de votre premier(e) meilleur(e) ami(e)?");
+
+INSERT INTO secret_question(question)
+VALUES("Quel était le nom de jeune fille de votre mère?");
 
 
-/* Table Produit */
-INSERT INTO Product VALUES 
-(DEFAULT,"Atelier comment décoder les étiquettes","img1.jpg",1,"Cancer, baisse de la fertilité, Alzheimer… Et si nos produits de beauté nous empoisonnaient ?
+/*User*/
+INSERT INTO user(id_question, username, password, email, secret_answer)
+VALUES(1,"test","test123","warpaintingqc@gmail.com","chopin");
 
- Vous souhaitez apprendre à décrypter les étiquettes des produits cosmétiques conventionnels afin de connaitre les ingrédients nocifs pour votre peau et votre santé?
+INSERT INTO user(id_question, username, password, email, secret_answer)
+VALUES(2,"test!@#$%","test!@#$%","zebulon@gmail.com","corin");
 
- 
+INSERT INTO user(id_question, username, password, email, secret_answer)
+VALUES(3,"AlloToi","byebye","lolnon@gmail.com","Audit");
 
--Vous aimeriez comprendre la composition des cosmétiques conventionnels et prendre vote beauté en main?
-
--Vous voulez passer au bio et comprendre comment choisir les cosmétiques adaptés à votre peau ?
-
- 
-
-Lors de cet atelier de 2 heures, vous apprendrez à  :
-
--Décoder la composition des cosmétiques 
-
--Quelle est la liste des produits à éviter et leurs effets sur l'organisme
-
--Découvrir quels sont les vrais besoins de votre peau
-
--Découvrir ce qu'est la dermocosmétique naturelle et quels sont les bons ingrédients à choisir pour prendre soin de votre peau. ",25.00,30),
+INSERT INTO user(id_question, username, password, email, secret_answer)
+VALUES(1,"admin","admin","dgailalrd@gmail.com","duchesse");
 
 
-(DEFAULT,"Forfait Consultation en dermocosmétique naturelle + Sérum personnalisé","img2.jpg",1,"Vos problèmes de peau (couperose, dermatite atopique, eczema...) vous empoisonnent la vie? Vous avez essayé tous les traitements possibles mais cherchez une solution naturelle? Vous etes prets a changer votre routine de soins et cherchez une solution efficace, naturelle, juste pour vous? 
+/*Category*/
+INSERT INTO category(name,is_active,description)
+VALUES("Peau douce",1,"Produits qui rends la peau douce." );
 
-Prenez rendez-vous pour une consultation et un sérum personnalisé. Nous établirons ensemble un protocole de soins simple et efficace, a base d'ingrédients naturels pour vous aider à rééquilibrer votre peau.",120.00,30),
+INSERT INTO category(name,is_active,description)
+VALUES("Peau acide",1,"Produits pour la peau acide." );
 
+INSERT INTO category(name,is_active,description)
+VALUES("Rajeunissant",1,"Produits rajeunissant" );
 
-(DEFAULT,"Sérum personnalisé","default.jpg",1,"",90.00,20),
-(DEFAULT,"Consultation 1 heure en dermo cosmétique naturelle","img3.jpg",0,"Consultation d'environ 1 heure pour discuter de vos problèmes de peau 
+INSERT INTO category(name,is_active,description)
+VALUES("Peau sensible",1,"Produits pour la peau sensible." );
 
-- Bilan de vos besoins et établissement de la formule personnalisée 
-
-- Recommandations et protocole de soins adapté a votre problématique
-
-- Sur rendez-vous en personne ou par Skype
-
-- Rendez-vous de suivi gratuit un mois aprés pour évaluer vos progrès",60.00,30),
-
-
-(DEFAULT,"Gant de kessa exfoliant","img4.jpg",1,"",12.00,7),
+INSERT INTO category(name,is_active,description)
+VALUES("Peau mature",1,"Produits pour peau mature." );
 
 
-(DEFAULT,"Eau rééquilibrante","img5.jpg",1,"Composée de trois hydrolats anti-inflammatoires, cette eau rééquilibrante est à appliquer impérativement après le liniment pour rééquilibrer le ph de la peau. La camomille, la rose de damas et l'eau de bleuet viennent calmer l'irritation et les rougeurs des peaux sensibles et irritées. C'est le complément indispensable à votre routine de soin pour retrouver une peau en santé! ",20.00,8),
+/* Insert into state */
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("Fermée", "Commande fermée");
+
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("Ouverte", "Commande ouverte");
+
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("Transit", "Commande en transit");
+
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("En magasin", "Commande en magasin");
 
 
-(DEFAULT,"Liniment démaquillant peau sensible","img6.jpg",1,"Doux et efficace pour les peaux sensibles!
+/* Insert into shipping_company*/
+INSERT INTO `shipping_company` (`name`) 
+VALUES ("UPS");
 
-Le liniment Oleocalcaire démaquillant est le must pour les peaux sensibles et irritées. Bien connu en Europe pour le soin des peaux fragiles des bébés, il démaquille et nettoie en douceur les épidermes les plus fragiles. Composé à 100% d'huiles végétales  précieuses bio, il nettoie, nourrit et hydrate l'épiderme tout en douceur. A utiliser avec nos hydrolats rééquilibrants!",20.00,5),
+INSERT INTO `shipping_company` (`name`) 
+VALUES ("Fedex");
 
-
-(DEFAULT,"Beurre de karité brut de Cote d'Ivoire Sauvage 200 g","img7.jpg",1,"Découvrez notre trésor d'Afrique ! Ce beurre de karité brut filtré provient d'un petit village de Cote d'Ivoire.  Les noix de karité sont ramassées en brousse puis transformées de facon artisanale par les femmes Ivoiriennes. Ce beurre est d'une qualité exceptionnelle. Sa couleur ivoire, sa texture crémeuse et son odeur douce sont la signature de notre beurre de karité, connu pour nourrir et hydrater intensément la peau. ",17.00,4),
-
-
-(DEFAULT,"Duo clin d'oeil","img8.jpg",1,"Vous adorerez le duo contour de l'oeil Clin D'oeil. Le sérum gel Jour à la texture fluide légère est hydratant et tenseur. Les hydrolats d et l'extrait de bourgeon de hetre lissent instantanément le contour de l.oeil et défatiguent le regard. 
-
-L'huile régénérante nuit à la précieuse huile essentielle d'immortelle de Corse, aussi connue sous le nom d'Hélichryse Italienne, nourrit cette zone fragile et agit en profondeur, tandis que l'huile de foraha et ce chanvre stimulent la microcirculation.
-
-Vous pouvez aussi appliquer le gel et l'huile ensemble, pour un effet optimal!",55.00,1),
+INSERT INTO `shipping_company` (`name`) 
+VALUES ("CanadaPost");
 
 
-(DEFAULT,"Oléo-Sérum Clarté Anti-taches brunes","img9.jpg",1,"L'oléosérum Clarté contribue à réduire les taches pigmentaires grace à un actif naturel: l'arbutine contenu dans le macérat de busserole, qui régule la production de mélanine à l'origine des taches pigmentaires.
+/* INSERT into shipping_method*/
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
+VALUES (1, "Très rapide", '20.00');
 
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
+VALUES (1, "Normal", '10.00');
+
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
+VALUES (2, "Rapide", '15.00');
+
+<<<<<<< HEAD
  Les huiles essentielles dépigmentantes qu'il contient accroissent l'efficacité de ce sérum. A utiliser seul ou en duo avec le sérum tenseur. Protéger impérativement la peau du soleil.",50.00,1),
 
 
@@ -187,6 +197,8 @@ VALUES (1, "Normal", '10.00');
 INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
 VALUES (2, "Rapide", '15.00');
 
+=======
+>>>>>>> master
 INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
 VALUES (3, "Normal", '12.00');
   
@@ -222,4 +234,7 @@ VALUES (1, 2, 1);
 
 INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) 
 VALUES (2, 1, 1);
+<<<<<<< HEAD
 
+=======
+>>>>>>> master

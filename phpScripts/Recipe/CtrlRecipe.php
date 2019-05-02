@@ -18,11 +18,14 @@ include_once "MgrRecipe.php";
 
 class CtrlRecipe
 {
-
 	private $mgrRecipe;
 	private $pageNumber;
 	private $itemsPerPage;
 
+	/**
+	 * Constructor of CtrlRecipe
+	 *
+	 */
 	public function __construct()
 	{
 		$this->mgrRecipe = new MgrRecipe();
@@ -37,7 +40,7 @@ class CtrlRecipe
 	public function loadAllRecipesTable()
 	{
 		$this->pageNumber = 0;
-		$recipesList = $this->mgrRecipe->selectAllRecipes();
+		$this->mgrRecipe->selectAllRecipes();
 		$this->displayRecipesRows();
 	}
 
@@ -54,7 +57,7 @@ class CtrlRecipe
 
 		foreach ($recipes as $recipe) {
 			
-			$this->mgrRecipe->getMgrProduct()->getProductById($recipe->getidFinalProduct());
+			$this->mgrRecipe->getMgrProduct()->getProductById($recipe->getFinalProduct()->getId());
 			$finalProduct = $this->mgrRecipe->getMgrProduct()->getProduct();			
 		
 			$html .= "<tr data-toggle=\"modal\" data-target=\"#editModal\" onclick='editRecipe(".json_encode($recipe, JSON_HEX_APOS, JSON_HEX_QUOT).");' title=\"Modifier la recette\" id=\"" . $recipe->getId() . "\">";
@@ -76,22 +79,27 @@ class CtrlRecipe
 		echo $html;
 	}
 
-	public function loadRecipeIngredients($recipeId) {
-
-		$html = "";
-		$ingredients = $this->mgrRecipe->getIngredientsArray($recipeId);
-
-		foreach ($ingredients as $ingredient) {
-
-			$html .= "<div class=\"ingredient-item\" id=\"ingredient-item-" . $ingredient->getId() . "\">";
-			$html .= "<label for=\"ingredient\" class=\"col-form-label\">" . $ingredient->getName() . "</label>";
-			$html .= "<input type=\"number\" step=\"0.01\" min=\"0\" lang=\"en\" class=\"form-control input-volume\" id=\"recipe-ingredient\">";
-			$html .= "<label class=\"col-form-label label-volume\"> mL </label>";
-			$html .= "<button type=\"button\" class=\"btn btn-light btn-remove\" onclick=\"removeIngredient(" . $ingredient->getId() .")\">X</button>";
-			$html .= "</div>";
-		}
-
-		echo $html;
+	/**
+	 * addRecipe
+	 *
+	 * @param  mixed $recipeName
+	 * @param  mixed $recipeIsCustom
+	 * @param  mixed $recipeSteps
+	 * @param  mixed $finalProductName
+	 * @param  mixed $finalProductDescription
+	 * @param  mixed $categories
+	 * @param  mixed $ingredients
+	 *
+	 * @return void
+	 */
+	public function createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $categories, $ingredients) 
+	{
+		$this->mgrRecipe->addNewRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $categories, $ingredients);
+	}
+	
+	public function updateRecipe() 
+	{
+		
 	}
 }
 ?>

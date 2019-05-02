@@ -63,6 +63,8 @@
 				$element .= "<td id=\"province-" . $row['id_order'] . "\">" . $row['province'] . "</td>";
 				$element .= "<td id=\"postal_code-" . $row['id_order'] . "\">" . $row['postal_code'] . "</td>";
 				$element .= "<td id=\"state-name-" . $row['id_order'] . "\">" . $row['state_name'] . "</td>";
+
+
 				$element .= "</tr>";
 				
 				echo $element;

@@ -35,18 +35,27 @@ class MgrRecipe
 	 * along with its parameters as a map to insert a new recipe. 
 	 *
 	 */
-	public function addNewRecipe()
+	public function addNewRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, 
+															 $finalProductDescription, $categories, $ingredients)
 	{
-		$query = "INSERT INTO recipe(name, is_custom) VALUES (:name, :is_custom)";
+		$query = "INSERT INTO recipe(name, is_custom, steps, id_product) 
+							OUTPUT Inserted.ID
+							VALUES (:name, :is_custom, :steps, :id_product)";
 		$parameters =
 			[
-				":name" => "Test2",
-				":is_custom" => "1",
+				":name" => $recipeName,
+				":is_custom" => $recipeIsCustom,
+				":steps" => $recipeSteps,
+				":id_product" => 2
 			];
 
-		if (!$this->queryEngine->executeQuery($query, $parameters)) {
-			echo "Error in the query";
-		}
+			$resultSet = 	$this->queryEngine->executeQuery($query, $parameters);
+	
+			if (!$resultSet) {
+				echo "Error while trying to load all recipes";
+			} else {
+				$this->resultToArray($resultSet);
+			}
 	}
 
 	/**
@@ -86,9 +95,12 @@ class MgrRecipe
 
 		foreach($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
 
+			$this->mgrProduct->getProductById($result[1]);
+			$finalProduct = $this->mgrProduct->getProduct();	
+
 			$recipe = new Recipe(
 				$result[2], // name
-				$result[1], // id_product
+				$finalProduct[0], // finalProduct
 				$result[3], // is_custom
 				$result[4] // steps
 			);
@@ -110,16 +122,6 @@ class MgrRecipe
 	}
 
 	/**
-	 * setRecipe
-	 * @param recipe $recipe
-	 * 
-	 */
-	public function setRecipe($recipe)
-	{
-		$this->recipe = $recipe;
-	}
-
-	/**
 	 * Gets the list of ingredients used in the recipe
 	 * @param int $recipeId the id of the recipe
 	 * @return array of products
@@ -131,7 +133,7 @@ class MgrRecipe
 		return $ingredients;
 	}
 
-		/**
+	/**
 	 * Gets the product manager to access the products linked to the recipe
 	 * @return MgrProduct $mgrProduct
 	 * 
@@ -140,5 +142,6 @@ class MgrRecipe
 	{
 		return $this->mgrProduct;
 	}
+
 }
 ?>

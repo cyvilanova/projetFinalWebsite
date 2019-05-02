@@ -50,7 +50,7 @@
 				`client`.`postal_code`, `state`.`name` as 'state_name' 
 			FROM `order` 
 			INNER JOIN `state` ON `order`.id_state = `state`.id_state 
-			INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client` 
+			INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client`
 			WHERE `state`.name != 'Fermée'";
 
 			$resultSet = $this->query_engine->executeQuery($query);

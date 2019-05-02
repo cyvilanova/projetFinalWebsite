@@ -8,7 +8,7 @@
 <body>
 	<header>
 		<!-- La nav bar n'est pas la temporairement puisque son style brise le form de Stripe.. -->
-		<?php include("nav_inv.html"); ?>
+		<?php include("nav_admin.html"); ?>
 	</header>
 	<section>
 		<div class="page-title-bar">
@@ -75,9 +75,6 @@
 		 	<button id="btnConfirm">Soumettre le paiement</button>
 		 </form>
 	</section>
-	<footer class="classic-footer">
-		<p>Insérez du texte ici</p>
-	</footer>
 
 	<script>
 		const stripe = Stripe('pk_test_EqumhjKd2yDQpLAkL0FfffWO00zbR2Knni');
