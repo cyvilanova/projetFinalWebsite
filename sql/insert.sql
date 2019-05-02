@@ -68,6 +68,17 @@ INSERT INTO ta_recipe_product(id_recipe, id_product, qty_ml)
 VALUES(5,5,22);
 
 
+/*secret_question*/
+INSERT INTO secret_question(question)
+VALUES("Quel était le nom de votre premier animal de compagnie?");
+
+INSERT INTO secret_question(question)
+VALUES("Quel est le nom de votre premier(e) meilleur(e) ami(e)?");
+
+INSERT INTO secret_question(question)
+VALUES("Quel était le nom de jeune fille de votre mère?");
+
+
 /*User*/
 INSERT INTO user(id_question, username, password, email, secret_answer)
 VALUES(1,"test","test123","warpaintingqc@gmail.com","chopin");
@@ -80,17 +91,6 @@ VALUES(3,"AlloToi","byebye","lolnon@gmail.com","Audit");
 
 INSERT INTO user(id_question, username, password, email, secret_answer)
 VALUES(1,"admin","admin","dgailalrd@gmail.com","duchesse");
-
-
-/*secret_question*/
-INSERT INTO secret_question(question)
-VALUES("Quel était le nom de votre premier animal de compagnie?");
-
-INSERT INTO secret_question(question)
-VALUES("Quel est le nom de votre premier(e) meilleur(e) ami(e)?");
-
-INSERT INTO secret_question(question)
-VALUES("Quel était le nom de jeune fille de votre mère?");
 
 
 /*Category*/
