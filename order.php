@@ -48,6 +48,11 @@
             </div>
 
           <div class="form-group">
+              <label for="zip" class="col-form-label">Code postal </label>
+              <input type="text" name="zip" class="form-control" placeholder="J1N1Y9" required id="client-zip">  
+          </div>
+
+          <div class="form-group">
               <label for="province" class="col-form-label">Province </label>
               <select name="province" class="selectpicker form-control" id="client-province">
                 <option value="Alberta">Alberta</option>
@@ -125,6 +130,11 @@
               <label for="city" class="col-form-label">Ville </label>
               <input type="text" name="city" class="form-control" placeholder="Sherbrooke" required id="client-city-edit">  
             </div>
+
+          <div class="form-group">
+              <label for="zip" class="col-form-label">Code postal </label>
+              <input type="text" name="zip" class="form-control" placeholder="J1N1Y9" required id="client-zip">  
+          </div>
 
           <div class="form-group">
               <label for="province" class="col-form-label">Province </label>

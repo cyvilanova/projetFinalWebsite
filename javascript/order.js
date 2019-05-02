@@ -31,7 +31,7 @@ function emptyForm() {
 
 function productsQty() {
 	for (var i = 0; i < id_products_order.length; i++) {
-		alert(document.getElementById('products-qty-' + id_products_order[i]).value);
+		//alert(document.getElementById('products-qty-' + id_products_order[i]).value);
 		qty_products_order.push(document.getElementById('products-qty-' + id_products_order[i]).value);
 	}
 }
@@ -50,18 +50,20 @@ function addOrder() {
 				clientAddress : $('#client-address').val(),
 				clientCity : $('#client-city').val(),
 				clientProvince : $('#client-province').val(),
+				clientZip : $('#client-zip').val(),
 				productsId : id_products_order,
 				productsQty : qty_products_order,
-				methodId : $('#product-ship').val(),
+				methodId : $('#product-ship').attr("id"),
 			},
 			success: function(data) {
-            alert(data); // Inspect this in your console
+            console.log(data); // Inspect this in your console
         },
 		});
 	}
 	else {
 		alert("Il y a des erreurs dans le formulaire.");
 	}
+	alert("mmm");
 }
 
 function verifForm() {
@@ -114,7 +116,5 @@ function openModalTable(order) {
 	let address = order.cells[2];
 	let state = order.cells[3];
 
-
 	$('#modal-edit-orders').modal('show');
-
 }

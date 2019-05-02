@@ -58,8 +58,6 @@
 			return $resultSet;
 		}
 
-		
-
 		/**
 		 * Add an order to the database
 		 *
@@ -72,23 +70,42 @@
 
 			$insertClient = "INSERT INTO `client` (`id_client`, `name`, `address`, `city`, `province`, `postal_code`) VALUES (default, :name, :address, :city, :province, :postal_code)";
 
-			$insertOrder = "INSERT INTO `order` (`id_order`, `id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) VALUES (DEFAULT, :client, 1, 2, :method, :tps, :tvq, :total)";
+			$parametersClient = 
+			[
+				":name" => $client_infos[0],
+				":address" => $client_infos[1],
+				":city" => $client_infos[2],
+				":province" => $client_infos[3],
+				":postal_code" => $client_infos[4],
+			];		
+
+			if(!$this->query_engine->executeQuery($insertClient, $parametersClient)) {
+				echo "Erreur lors de l'ajout du client";
+			}
+
+			$id_client = $this->query_engine->getLastInsertedId();
+
+			$insertOrder = "INSERT INTO `order` (`id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) VALUES (:client, 1, 2, :method, :tps, :tvq, :total)";
+			echo $id_method;
+			$id_method = 1;
 
 			$parametersOrders = 
 			[
 				":client" => $id_client,
 				":method" => $id_method,
-				":tps" => $order->calculateTPS(),
-				":tvq" => $order->calculateTVQ(),
+				":tps" => $this->calculateTPS($order),
+				":tvq" => $this->calculateTVQ($order),
 				":total" => $order->getTotal(),
 			];
-
 
 			if(!$this->query_engine->executeQuery($insertOrder, $parametersOrders)) {
 				echo "Erreur lors de l'ajout de la commande";
 			}
 
-			insertProducts($order);
+			$id_order = $this->query_engine->getLastInsertedId();
+			$order->setId($id_order);
+
+			$this->insertProducts($order);
 		}
 
 		/**
@@ -98,14 +115,15 @@
 		 */
 		private function insertProducts($order)
 		{
-			$insertProductOrders = "INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) VALUES (:id_order, id_product, :quantity)";
+			
 
-			$last_id = $this->query_engine->getLastInsertedId();
+			//$last_id = $this->query_engine->getLastInsertedId();
 
 			foreach ($order->getProducts() as $product) {
+				$insertProductOrders = "INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) VALUES (:id_order, :id_product, :quantity)";
 				$parametersProductOrder = 
 				[
-					":id_order" => $last_id,
+					":id_order" => $this->query_engine->getLastInsertedId(),
 					":id_product" => $product->getId(),
 					":quantity" => $product->getQuantity(),
 				];
@@ -123,7 +141,7 @@
 		 */
 		public function deleteOrder($id_order)
 		{
-			deleteProducts();
+			$this->deleteProducts();
 
 			$deleteOrder = "DELETE FROM order WHERE `id_order` = :id_order";
 			$parametersOrder = 
@@ -161,7 +179,7 @@
 		 */
 		public function updateOrder($order, $id_client)
 		{
-			deleteProducts($order->getId());
+			$this->deleteProducts($order->getId());
 
 			$query = "UPDATE `order` SET `id_client` = :id_client, `tps` = :tps, `tvq` = :tvq, `total` = :total WHERE `order`.`id_order` = :id_order";
 			$parametersOrders = 
@@ -175,7 +193,7 @@
 			if(!$this->query_engine->executeQuery($deleteOrder, $parametersOrder)) {
 				echo "Erreur lors de la modification de la commande";
 			}
-			insertProducts($order);
+			$this->insertProducts($order);
 		}
 
 
@@ -192,7 +210,7 @@
 				$total .= $p->getPrice();
 			}
 			$order->setPrice($total);
-			calculateTaxes();
+			$this->calculateTaxes($order);
 		}
 
 		/**
@@ -202,10 +220,11 @@
 		 */
 		public function calculateTaxes($order)
 		{
-			$taxes = calculateTPS($order);
-			$taxes .= calculateTVQ($order);
-			$order->setTotal($order->getPrice() + $taxes);
-			return $taxes;
+			$taxes1 = $this->calculateTPS($order);
+			$taxes2 = $this->calculateTVQ($order);
+
+			$order->setTotal($order->getPrice() + $taxes1 + $taxes2);
+			return ($taxes1+$taxes2);
 		}
 
 		/**
@@ -215,7 +234,7 @@
 		 */
 		public function calculateTPS($order)
 		{
-			return $order->getPrice() *  0.05;
+			return ($order->getPrice() *  0.05);
 		}
 
 		/**
@@ -225,7 +244,7 @@
 		 */
 		public function calculateTVQ($order)
 		{
-			return $order->getPrice() * 0.09975;
+			return ($order->getPrice() * 0.09975);
 		}
 	}	
 ?>

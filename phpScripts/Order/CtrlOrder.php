@@ -20,8 +20,8 @@
 		switch ($_POST['function']) {
 			case 'addOrder':
 					$ctrlO = new CtrlOrder();
-
-					$ctrlO->addOrder(0, $_POST['productsId'], _POST['productsQty'], "");
+					$client = array($_POST['clientName'], $_POST['clientAddress'], $_POST['clientCity'], $_POST['clientProvince'], $_POST['clientZip']);
+					$ctrlO->addOrder(0, $_POST['productsId'], $_POST['productsQty'], $_POST['methodId'], $client);
 				break;
 			
 			default:
@@ -35,6 +35,7 @@
 	{
 		
 		private $mgrOrder;
+		private $mgrProduct;
 
 		/**
 		 * __construct
@@ -42,6 +43,7 @@
 		function __construct()
 		{
 			$this->mgrOrder = new MgrOrder();
+			$this->mgrProduct = new MgrProduct();
 		}
 
 		/**
@@ -75,17 +77,19 @@
 		 * @param  ArrayList of int $quantities
 		 * @param  int $id_client
 		 */
-		public function addOrder($price, $products_id, $quantities, $id_client)
+		public function addOrder($price, $products_id, $quantities, $id_method, $client)
 		{
 			$products = [];
 			foreach ($products_id as $id) {
-				array_push($products, $this->mgr->getProductById($id));
+				$this->mgrProduct->getProductById($id);
+				array_push($products, $this->mgrProduct->getProduct()[0]);
 			}
+			var_dump($products);
 
 			$order = new Order("", $price, "", $products, $quantities);
 			$this->mgrOrder->calculatePrice($order);
 
-			$this->mgrOrder->insertOrder($order, $id_client, $id_method);
+			$this->mgrOrder->insertOrder($order, $client, $id_method);
 		}
 
 		/**
