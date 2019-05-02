@@ -17,11 +17,12 @@
   <div class="login-container">
     <div class="loginConnect">
       <form action="phpScripts/User/MgrLogin.php" method="post">
-        <label for="uname" >Nom d'utilisateur:</label>
-        <input type="text" name="uname" required="required" pattern="[A-Za-z0-9]{1,20}">
-        <label for="pwd">Mot de passe:</label>
-        <input type="password" name="pwd" required="required" pattern="[A-Za-z0-9]{1,20}">
-        <input type="submit" value="Se connecter">
+        <label for="uname" class="loginlbl">Nom d'utilisateur:</label>
+        <input type="text" class="loginInput" name="uname" required="required" pattern="[A-Za-z0-9()!@#$%^&+_*]{1,20}">
+        <label for="pwd" class="loginlbl">Mot de passe:</label>
+        <input type="password" class="loginInput" name="pwd" required="required" pattern="[A-Za-z0-9()!@#$%^&+_*]{1,20}">
+        <input type="submit" class="loginSub" value="Se connecter">
+
       </form>
 
     </div>
