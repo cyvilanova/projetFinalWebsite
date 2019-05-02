@@ -66,6 +66,7 @@ VALUES(5,4,0.1);
 
 INSERT INTO ta_recipe_product(id_recipe, id_product, qty_ml)
 VALUES(5,5,22);
+<<<<<<< HEAD
 
 
 /*secret_question*/
@@ -145,10 +146,6 @@ VALUES (1, "Normal", '10.00');
 INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
 VALUES (2, "Rapide", '15.00');
 
-<<<<<<< HEAD
- Les huiles essentielles dépigmentantes qu'il contient accroissent l'efficacité de ce sérum. A utiliser seul ou en duo avec le sérum tenseur. Protéger impérativement la peau du soleil.",50.00,1),
-
-
 (DEFAULT,"Oléo-sérum Équilibre peau grasse et acnéique","img10.jpg",1,"L'acné vous gâche la vie et vous souhaitez une alternative naturelle aux traitements agressifs pour votre peau? L'oléo-sérum Équilibre aide votre peau à se rééquilibrer naturellement  et en douceur grace aux propriétés équilibrantes et assainissantes. Combinez le avec le nettoyant micellaire sans rinçage et le savon au moringa pour une action optimale.",50.00,6),
 
 (DEFAULT,"Oléo-sérum Harmonie Couperose et Rosacée","images/imgProducts/img11.jpg",1,"Vous souffrez de couperose ou de rosacée et souhaitez une alternative naturelle? L'Oléo-sérum Harmonie calme l'inflammation et les rougeurs grâce à un puissant complexe d'huiles végétales précieuses, riches en Omégas 3 et 9 qui apaisent l'inflammation de votre peau! Les huiles végétales de chanvre et tamanu en particulier apportent leurs propriétés apaisantes et anti-inflammatoires pour un soin apaisant 100% actif et naturel, allié à la précieuse Huile essentielle d' immortelle de Corse, connue aussi sous le nom d'Hélychrise italienne, et de camomille, anti-inflammatoire.",50.00,100),
@@ -161,6 +158,7 @@ VALUES (2, "Rapide", '15.00');
 (DEFAULT,"Savon peaux sensibles moringa et calendule","img13.jpg",1,"Savon doux aux huiles végétales de moringa et de calendule, pour peaux sensibles",7.00,12),
 (DEFAULT,"Savon Exfoliant moringa et abricot","img14.jpg",1,"Savon exfoliant doux, moringa calendule et graines d'Abricot",8.00,5),
 (DEFAULT,"Shampoing au moringa et karité cheveux secs","img15.jpg",1,"Ce shampoing doux enrichi en huile de moringa et karité est un plaisir pour les cheveux secs.  Il nettoie vos cheveux en douceur et les rend doux et faciles à coiffer. Les huiles essentielles de lavande et romarin apportent leurs propriétés apaisantes et fortifiantes à ce soin. Nos shampoings sont sans agents toxiques ou parfums chimiques, ils sont excellents pour tous types de cheveux.",13.00,2);
+
 
 /* Insert into state */
 INSERT INTO `state` (`name`, `description`) 
@@ -197,8 +195,6 @@ VALUES (1, "Normal", '10.00');
 INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
 VALUES (2, "Rapide", '15.00');
 
-=======
->>>>>>> master
 INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
 VALUES (3, "Normal", '12.00');
   
@@ -234,7 +230,5 @@ VALUES (1, 2, 1);
 
 INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) 
 VALUES (2, 1, 1);
-<<<<<<< HEAD
 
-=======
->>>>>>> master
+
