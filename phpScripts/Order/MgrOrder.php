@@ -67,11 +67,11 @@
 		 * @param  int $id_client
 		 * @param  int $id_method
 		 */
-		public function insertOrder($order, $id_client, $id_method)
+		public function insertOrder($order, $client_infos, $id_method)
 		{
 
-			
-			
+			$insertClient = "INSERT INTO `client` (`id_client`, `name`, `address`, `city`, `province`, `postal_code`) VALUES (default, :name, :address, :city, :province, :postal_code)";
+
 			$insertOrder = "INSERT INTO `order` (`id_order`, `id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) VALUES (DEFAULT, :client, 1, 2, :method, :tps, :tvq, :total)";
 
 			$parametersOrders = 

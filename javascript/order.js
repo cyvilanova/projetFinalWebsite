@@ -52,6 +52,7 @@ function addOrder() {
 				clientProvince : $('#client-province').val(),
 				productsId : id_products_order,
 				productsQty : qty_products_order,
+				methodId : $('#product-ship').val(),
 			},
 			success: function(data) {
             alert(data); // Inspect this in your console

@@ -14,14 +14,14 @@
 	****************************************/
 	require_once __DIR__ . '/MgrOrder.php';
 	require_once __DIR__ . '/Order.php';
-
+	require_once __DIR__ . '\..\Product\MgrProduct.php';	
 
 	if (isset($_POST['function'])) {
 		switch ($_POST['function']) {
 			case 'addOrder':
 					$ctrlO = new CtrlOrder();
 
-					$ctrlO->addOrder(0, $_POST['productsId'], _POST['productsQty']);
+					$ctrlO->addOrder(0, $_POST['productsId'], _POST['productsQty'], "");
 				break;
 			
 			default:
@@ -75,11 +75,16 @@
 		 * @param  ArrayList of int $quantities
 		 * @param  int $id_client
 		 */
-		public function addOrder($price, $products, $quantities, $id_client)
+		public function addOrder($price, $products_id, $quantities, $id_client)
 		{
+			$products = [];
+			foreach ($products_id as $id) {
+				array_push($products, $this->mgr->getProductById($id));
+			}
+
 			$order = new Order("", $price, "", $products, $quantities);
 			$this->mgrOrder->calculatePrice($order);
-			
+
 			$this->mgrOrder->insertOrder($order, $id_client, $id_method);
 		}
 
