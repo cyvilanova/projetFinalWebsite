@@ -78,6 +78,9 @@ VALUES(2,"test!@#$%","test!@#$%","zebulon@gmail.com","corin");
 INSERT INTO user(id_question, username, password, email, secret_answer)
 VALUES(3,"AlloToi","byebye","lolnon@gmail.com","Audit");
 
+INSERT INTO user(id_question, username, password, email, secret_answer)
+VALUES(1,"admin","admin","dgailalrd@gmail.com","duchesse");
+
 
 /*secret_question*/
 INSERT INTO secret_question(question)

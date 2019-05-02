@@ -1,7 +1,7 @@
 <?php
 /****************************************
-Fichier : myrecipes.php
-Auteur : Cynthia Vilanova
+Fichier : myCategories.php
+Auteur : Philippe Audit-Allaire
 Fonctionnalité : W3 - Gestion des recettes
 Date : 2019-04-17
 Vérification :
@@ -11,10 +11,14 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
-?>
 
-<?php
+session_start();
+
 include_once "phpScripts/Category/CtrlCategory.php";
+
+if($_SESSION["username"]!="admin"){
+    echo "<script> location.href='Catalog.php'</script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -44,7 +48,7 @@ include_once "phpScripts/Category/CtrlCategory.php";
                 <td>Acivité</td>
                 <td>Description</td>
             </thead>
-            <tbody id="products">
+            <tbody id="categories">
                 <?php
                 $ctrlC = new CtrlCategory();
                 $ctrlC->loadAllCategories();
@@ -53,7 +57,7 @@ include_once "phpScripts/Category/CtrlCategory.php";
         </table>
     </div>
 
-    <!-- Edit a recipe modal -->
+    <!-- Edit a category modal -->
     <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editCategoryModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -72,14 +76,12 @@ include_once "phpScripts/Category/CtrlCategory.php";
                         <div class="form-group">
                             <label for="category-activity" class="col-form-label">État d'activité de la catégorie</label>
                             <select class="form-control selectpicker" data-live-search="true" onchange="editCategoryActivityModal(this)" id="category-activity" data-live-search="true" disabled>
-
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="category-description" class="col-form-label">Description de la catégorie</label>
                             <textarea class="form-control" id="category-description" disabled></textarea>
                         </div>
-
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -91,7 +93,7 @@ include_once "phpScripts/Category/CtrlCategory.php";
         </div>
     </div>
 
-    <!-- New recipe modal -->
+    <!-- New Category modal -->
     <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addCategoryModal" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -123,6 +125,6 @@ include_once "phpScripts/Category/CtrlCategory.php";
 
 </body>
 
-<script src="javascript/manageRecipes.js"></script>
+<script src="javascript/manageCategories.js"></script>
 
 </html>
