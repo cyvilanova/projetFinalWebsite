@@ -18,11 +18,14 @@ include_once "MgrRecipe.php";
 
 class CtrlRecipe
 {
-
 	private $mgrRecipe;
 	private $pageNumber;
 	private $itemsPerPage;
 
+	/**
+	 * Constructor of CtrlRecipe
+	 *
+	 */
 	public function __construct()
 	{
 		$this->mgrRecipe = new MgrRecipe();
@@ -37,7 +40,7 @@ class CtrlRecipe
 	public function loadAllRecipesTable()
 	{
 		$this->pageNumber = 0;
-		$recipesList = $this->mgrRecipe->selectAllRecipes();
+		$this->mgrRecipe->selectAllRecipes();
 		$this->displayRecipesRows();
 	}
 
@@ -74,6 +77,29 @@ class CtrlRecipe
 		}
 
 		echo $html;
+	}
+
+	/**
+	 * addRecipe
+	 *
+	 * @param  mixed $recipeName
+	 * @param  mixed $recipeIsCustom
+	 * @param  mixed $recipeSteps
+	 * @param  mixed $finalProductName
+	 * @param  mixed $finalProductDescription
+	 * @param  mixed $categories
+	 * @param  mixed $ingredients
+	 *
+	 * @return void
+	 */
+	public function addRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $categories, $ingredients) 
+	{
+		$this->mgrRecipe->addNewRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $categories, $ingredients);
+	}
+	
+	public function updateRecipe() 
+	{
+		
 	}
 }
 ?>

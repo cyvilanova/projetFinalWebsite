@@ -1,12 +1,6 @@
 <?php
 
-echo $_POST['id'] ."\n";
-echo $_POST['isNew'] ."\n";
-echo $_POST['name'] ."\n";
-echo $_POST['steps'] ."\n";
-echo $_POST['productName'] ."\n";
-echo $_POST['productDesc'] ."\n";
-echo $_POST['categories'] ."\n";
+include_once "CtrlRecipe.php";
 
 $categoriesData = html_entity_decode( $_POST['categories'] );
 $formattedCategoriesData = json_decode($categoriesData);
@@ -17,6 +11,19 @@ $formattedIngredientsData = json_decode($ingredientsData);
 foreach($formattedIngredientsData as $a) {
   foreach($a as $b)
     echo $b;
+}
+
+$ctrlRecipe = new CtrlRecipe();
+
+if(isNew) {
+  $ctrlRecipe->addRecipe($_POST['name'], $_POST['isCustom'], $_POST['steps'], 
+                        $_POST['productName'], $_POST['productDesc'],
+                        $formattedCategoriesData, $formattedIngredientsData);
+}
+elseif(!isNew) {
+  $ctrlRecipe->updateRecipe($_POST['id'], $_POST['name'], $_POST['steps'], 
+                            $_POST['productName'], $_POST['productDesc'],
+                            $formattedCategoriesData, $formattedIngredientsData);
 }
 
 ?>

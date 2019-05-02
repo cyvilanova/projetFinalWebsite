@@ -80,6 +80,19 @@ function displayIngredients(ingredients) {
   }
 }
 
+/** Validates all the fields in form */
+function validateForm(modalId) {
+  if($(modalId).find('#recipe-name').val() == '') {
+    $(modalId).find('#invalid-recipe-name').html('OIfsaafadf');
+    $(modalId).find('#recipe-name').css("border-color","#dc3545");
+  }
+  else {
+    $(modalId).find('#invalid-recipe-name').html('');
+    $(modalId).find('#recipe-name').css("border-color","#ced4da");
+  }
+  //getRecipeInformations(modalId);
+}
+
 /** Gets all the informations entered and sends it to a php file with ajax */
 function getRecipeInformations(modalId) {
   $.ajax({

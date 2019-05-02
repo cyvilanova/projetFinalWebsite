@@ -115,7 +115,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     <button type="button" class="btn btn-quintessentiel" onclick="enableEditing()">Modifier</button>
-                    <button type="button" class="btn btn-quintessentiel" onclick="getRecipeInformations('#editModal')">Sauvegarder</button>
+                    <button type="button" class="btn btn-quintessentiel" onclick="validateForm('#editModal')">Sauvegarder</button>
                 </div>
             </div>
         </div>
@@ -135,7 +135,8 @@ include_once "phpScripts/Product/CtrlProduct.php";
                     <form>
                         <div class="form-group">
                             <label for="recipe-name" class="col-form-label">Nom de la recette</label>
-                            <input type="text" class="form-control" id="recipe-name">
+                            <input type="text" class="form-control" id="recipe-name" onblur="validateForm(modalId)">
+                            <div class="invalid-input" id="invalid-recipe-name"></div>
                         </div>
                         <div class="switch-wrapper">
                             <label class="switch">
@@ -179,7 +180,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-quintessentiel" onclick="getRecipeInformations('#addModal')">Sauvegarder</button>
+                    <button type="button" class="btn btn-quintessentiel" onclick="validateForm('#addModal')">Sauvegarder</button>
                 </div>
             </div>
         </div>
