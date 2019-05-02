@@ -86,8 +86,7 @@
 			$id_client = $this->query_engine->getLastInsertedId();
 
 			$insertOrder = "INSERT INTO `order` (`id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) VALUES (:client, 1, 2, :method, :tps, :tvq, :total)";
-			echo $id_method;
-			$id_method = 1;
+			
 
 			$parametersOrders = 
 			[
@@ -115,22 +114,23 @@
 		 */
 		private function insertProducts($order)
 		{
-			
-
-			//$last_id = $this->query_engine->getLastInsertedId();
-
+			$id_order = $this->query_engine->getLastInsertedId();
+			var_dump($order);
+			$qty = 0;
 			foreach ($order->getProducts() as $product) {
 				$insertProductOrders = "INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) VALUES (:id_order, :id_product, :quantity)";
 				$parametersProductOrder = 
 				[
-					":id_order" => $this->query_engine->getLastInsertedId(),
+					":id_order" => $order->getId(),
 					":id_product" => $product->getId(),
-					":quantity" => $product->getQuantity(),
+					":quantity" => $order->getQuantities()[$qty],
 				];
-
+				var_dump($product);
+				var_dump($parametersProductOrder);
 				if (!$this->query_engine->executeQuery($insertProductOrders, $parametersProductOrder)) {
 					echo "Erreur lors de l'ajout des produits de la commande";
 				}
+				$qty++;
 			}			
 		}
 

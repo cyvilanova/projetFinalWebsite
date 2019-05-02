@@ -84,7 +84,7 @@
 				$this->mgrProduct->getProductById($id);
 				array_push($products, $this->mgrProduct->getProduct()[0]);
 			}
-			var_dump($products);
+			
 
 			$order = new Order("", $price, "", $products, $quantities);
 			$this->mgrOrder->calculatePrice($order);

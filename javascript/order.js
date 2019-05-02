@@ -1,5 +1,6 @@
 let id_products_order = new Array();
 let qty_products_order = new Array();
+let method;
 
 function commandesOnLoad() {
 	let newBtn = document.getElementById("new-order");
@@ -25,6 +26,10 @@ function commandesOnLoad() {
 
 }
 
+function methodId(selected) {
+	method = ($($('#product-ship').find("option")[selected.selectedIndex]).attr("id"));
+}
+
 function emptyForm() {
 	// body...
 }
@@ -40,7 +45,7 @@ function addOrder() {
 	if (verifForm() && (id_products_order.length > 0)) {
 		
 		productsQty();
-
+		alert(method);
 		$.ajax({
 			url: "phpScripts\\Order\\CtrlOrder.php",
 			type : 'POST',
@@ -53,17 +58,17 @@ function addOrder() {
 				clientZip : $('#client-zip').val(),
 				productsId : id_products_order,
 				productsQty : qty_products_order,
-				methodId : $('#product-ship').attr("id"),
+				methodId : method,
 			},
 			success: function(data) {
-            console.log(data); // Inspect this in your console
-        },
+            	console.log(data); // Inspect this in your console
+        	},
 		});
 	}
 	else {
 		alert("Il y a des erreurs dans le formulaire.");
 	}
-	alert("mmm");
+	
 }
 
 function verifForm() {

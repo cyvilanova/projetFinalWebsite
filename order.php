@@ -72,7 +72,7 @@
             </div>            
          <div class="form-group">
               <label for="shipping" class="col-form-label">Livraison </label>
-              <select id="product-ship" name="products" class="selectpicker form-control">
+              <select id="product-ship" name="products" class="selectpicker form-control" onchange="methodId(this)">
                 <option disabled selected value>Choisir une méthode de livraison</option>
               <?php
                 $ctrlL = new CtrlShipping();

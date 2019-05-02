@@ -75,6 +75,17 @@
 		}
 
 
+		public function getQuantities()
+		{
+		    return $this->quantities;
+		}
+		 
+		public function setQuantities($quantities)
+		{
+		    $this->quantities = $quantities;
+		    return $this;
+		}
+
 		/**
 		 * Delete a product from the arraylist of products
 		 *
