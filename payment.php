@@ -7,7 +7,6 @@
 </head>
 <body>
 	<header>
-		<!-- La nav bar n'est pas la temporairement puisque son style brise le form de Stripe.. -->
 		<?php include("nav_admin.html"); ?>
 	</header>
 	<section>
@@ -15,7 +14,7 @@
 		 	<h1>Paiement</h1>
 		 </div>
 
-		 <form class="payment-form" action="" method="POST">
+		 <form class="payment-form" action="phpScripts/methodCall/scriptPayment.php" method="POST">
 		 	<div class="form-row">
 		 		<label for="card-element">
 		 			Carte de crédit ou de débit
@@ -105,11 +104,15 @@
 		function tokenCreated(result){
 
 		  if (result.token) {	//If it worked
-		  	console.log(result.token);
-		    // In a real integration, you'd submit the form with the token to your backend server
-		    //var form = document.querySelector('form');
-		    //form.querySelector('input[name="token"]').setAttribute('value', result.token.id);
-		    //form.submit();
+
+		  	let form = document.getElementsByTagName("form")[0];
+		  	let input = document.createElement("input");
+		  	input.name = "value";
+		  	input.value = result.token.id;
+		  	form.append(input);
+
+		  	form.submit();
+
 		  } else if (result.error) { //If it didn't
 			console.log("error");
 		  }
@@ -119,7 +122,8 @@
 		document.getElementById("btnConfirm").addEventListener("click",function(e){
 			e.preventDefault();
 
-
+			/*
+			Might get deleted -- Not sure yet
 			const options = {
 				name: document.getElementById("firstName").value + " " + document.getElementById("lastName").value,
 				address: document.getElementById("address").value,
@@ -127,8 +131,9 @@
 				province: document.getElementById("province").value,
 				postalCode: document.getElementById("postalCode").value
 			};
+			*/
 
-			stripe.createToken(card,options).then(tokenCreated)
+			stripe.createToken(card).then(tokenCreated)
 		});
 	</script>
 </body>
