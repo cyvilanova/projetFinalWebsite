@@ -35,18 +35,27 @@ class MgrRecipe
 	 * along with its parameters as a map to insert a new recipe. 
 	 *
 	 */
-	public function addNewRecipe()
+	public function addNewRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, 
+															 $finalProductDescription, $categories, $ingredients)
 	{
-		$query = "INSERT INTO recipe(name, is_custom) VALUES (:name, :is_custom)";
+		$query = "INSERT INTO recipe(name, is_custom, steps, id_product) 
+							OUTPUT Inserted.ID
+							VALUES (:name, :is_custom, :steps, :id_product)";
 		$parameters =
 			[
-				":name" => "Test2",
-				":is_custom" => "1",
+				":name" => $recipeName,
+				":is_custom" => $recipeIsCustom,
+				":steps" => $recipeSteps,
+				":id_product" => 2
 			];
 
-		if (!$this->queryEngine->executeQuery($query, $parameters)) {
-			echo "Error in the query";
-		}
+			$resultSet = 	$this->queryEngine->executeQuery($query, $parameters);
+	
+			if (!$resultSet) {
+				echo "Error while trying to load all recipes";
+			} else {
+				$this->resultToArray($resultSet);
+			}
 	}
 
 	/**
@@ -110,16 +119,6 @@ class MgrRecipe
 	public function getRecipesArray()
 	{
 		return $this->recipes;
-	}
-
-	/**
-	 * setRecipe
-	 * @param recipe $recipe
-	 * 
-	 */
-	public function setRecipe($recipe)
-	{
-		$this->recipe = $recipe;
 	}
 
 	/**

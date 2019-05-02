@@ -1,6 +1,27 @@
 let currentRecipe;
 
-/** Opens the editrecipe page with the recipe clicked */
+/** Reset the borders color of editModal */
+$('#editModal').on('hidden.bs.modal', function (e) {
+  const modalId = '#editModal';
+  applyInvalidStyle(modalId, 'recipe-name', '', '#ced4da');
+  applyInvalidStyle(modalId, 'recipe-ingredients', '', '#ced4da');
+  applyInvalidStyle(modalId, 'recipe-steps', '', '#ced4da');
+  applyInvalidStyle(modalId, 'recipe-product', '', '#ced4da');
+  applyInvalidStyle(modalId, 'product-description', '', '#ced4da');
+  
+})
+
+/** Reset the borders color of addModal */
+$('#addModal').on('hidden.bs.modal', function (e) {
+  const modalId = '#addModal';
+  applyInvalidStyle(modalId, 'recipe-name', '', '#ced4da');
+  applyInvalidStyle(modalId, 'recipe-ingredients', '', '#ced4da');
+  applyInvalidStyle(modalId, 'recipe-steps', '', '#ced4da');
+  applyInvalidStyle(modalId, 'recipe-product', '', '#ced4da');
+  applyInvalidStyle(modalId, 'product-description', '', '#ced4da');
+})
+
+/** Opens the editrecipe page with the recipe clicked and the correct informations*/
 function editRecipe(recipe) {
   currentRecipe = recipe;
   $('.ingredient-item').remove();
@@ -10,6 +31,15 @@ function editRecipe(recipe) {
   $('#recipe-steps').val(recipe.steps);
   $('#recipe-product').val(recipe.finalProduct.name);
   $('#product-description').val(recipe.finalProduct.description);
+
+  if(recipe.custom == 1) {
+    $('#switch-custom-recipe').prop('checked', true);  // Checks the box
+    $('#custom-recipe-title').html('Recette personnalisée');
+  }
+  else {
+    $('#switch-custom-recipe').prop('checked', false); // Unchecks the box
+    $('#custom-recipe-title').html('Recette standard');
+  }
 
   displayIngredients(recipe.ingredients);
 }
@@ -28,10 +58,27 @@ function disableForm(disabled) {
   $("#recipe-ingredients").prop("disabled", disabled);
 }
 
+/** Changes the label of the toggle */
+function changeLabelCheckBox(modalId) {
+  if(isCustomRecipeChecked(modalId)) {
+    $(modalId).find('#custom-recipe-title').html('Recette personnalisée');
+  }
+  else {
+    $(modalId).find('#custom-recipe-title').html('Recette standard');
+  }
+}
+
+/** Checks if the toggle is checked or not */
+function isCustomRecipeChecked(modalId) {
+  return $(modalId).find('#switch-custom-recipe').is(':checked');
+}
+
+/** Calls the method to add new ingredient in the create new recipe modal */
 function addRecipeAddIngredientModal(select) {
   addIngredient(select, '#addModal');
 }
 
+/** Calls the method to add new ingredient in the edit recipe modal */
 function editRecipeAddIngredientModal(select) {
   addIngredient(select, '#editModal');
 }
@@ -55,6 +102,7 @@ function removeIngredient(ingredientId) {
   $('#ingredient-item-' + ingredientId).remove();
 }
 
+/** Initializes the list of ingredients of an existing recipe */
 function displayIngredients(ingredients) {
 
   for (let i = 0; i < ingredients.length; i++) {
@@ -71,6 +119,111 @@ function displayIngredients(ingredients) {
   }
 }
 
+/** Validates all the fields in form */
+function validateForm(modalId) {
+  let invalidAreas = 5; // Counter of the invalid areas in form
+
+  invalidAreas = validateInput(modalId, 'recipe-name', invalidAreas);
+  invalidAreas = validateTextArea(modalId, 'recipe-steps', invalidAreas);
+  invalidAreas = validateInput(modalId, 'recipe-product', invalidAreas);
+  invalidAreas = validateTextArea(modalId, 'product-description', invalidAreas);
+  invalidAreas = validateIngredients(modalId, invalidAreas);
+
+  // If all areas are valid, sends informations to recipeHandler.php
+  if(invalidAreas == 0) {
+    //getRecipeInformations(modalId);
+  }
+}
+
+/** Validates the input areas of the form and apply style if valid */
+function validateInput(modalId, inputId, invalidAreas) {
+  if($(modalId).find('#'+ inputId).val() == '') {
+    applyInvalidStyle(modalId, inputId, 'Ce champ ne peut pas être vide.', '#dc3545');
+  }
+  else {
+    applyInvalidStyle(modalId, inputId, '', '#ced4da');
+    invalidAreas--;
+  }
+  return invalidAreas;
+}
+
+/** Validates the textareas of the form and apply style if valid */
+function validateTextArea(modalId, inputId, invalidAreas) {
+  if(!$.trim($(modalId).find('#' + inputId).val())) {
+    applyInvalidStyle(modalId, inputId, 'Ce champ ne peut pas être vide.', '#dc3545');
+  }
+  else {
+    applyInvalidStyle(modalId, inputId, '', '#ced4da');
+    invalidAreas--;
+  }
+  return invalidAreas;
+}
+
+/** Validates that the recipe has ingredients and that their volume used is > 0 */
+function validateIngredients(modalId, invalidAreas) {
+  let ingredients = getIngredients(modalId);
+  if(ingredients.length == 0) {
+    applyInvalidStyle(modalId, 'recipe-ingredients', 'Une recette doit avoir au moins un ingrédient.', '#dc3545');
+  }
+  else {
+    applyInvalidStyle(modalId, 'recipe-ingredients', '', '#ced4da');
+    
+    if(findVolumeZero(modalId)) {
+      invalidAreas--;
+    }
+
+  }
+  return invalidAreas;
+}
+
+/** Validates the volume used for each ingredients and return true if they're all valid */
+function findVolumeZero(modalId) {
+  let validVolumeCount = 0;
+
+  let volumeInputs = $(modalId).find('.input-volume').each((_, value) => {
+    if($(value).val() == 0) {
+      $(value).attr('style', 'border-color: #dc3545');
+      $(modalId).find('#invalid-recipe-ingredients').html('Le volume utilisé doit être un nombre plus grand que 0 mL.');
+    }
+    else {
+      $(value).attr('style', 'border-color: #ced4da');
+      $(modalId).find('#invalid-recipe-ingredients').html('');
+      validVolumeCount++;
+    }
+  });
+
+  // If all the volume inputs are valid, both values are equal, therefore the inputs are valid
+  if(volumeInputs.length == validVolumeCount) {
+    return true;
+  }
+  else {
+    return false;
+  }
+}
+
+/** Validates that the product has at least one category */
+function validateIngredients(modalId, invalidAreas) {
+  let ingredients = getIngredients(modalId);
+  if(ingredients.length == 0) {
+    applyInvalidStyle(modalId, 'recipe-ingredients', 'Une recette doit avoir au moins un ingrédient.', '#dc3545');
+  }
+  else {
+    applyInvalidStyle(modalId, 'recipe-ingredients', '', '#ced4da');
+    
+    if(findVolumeZero(modalId)) {
+      invalidAreas--;
+    }
+
+  }
+  return invalidAreas;
+}
+
+/** Applies the valid or invalid style on the elements */
+function applyInvalidStyle(modalId, inputId, messageError, color) {
+  $(modalId).find('#invalid-' + inputId).html(messageError);
+  $(modalId).find('#' + inputId).css("border-color", color);
+}
+
 /** Gets all the informations entered and sends it to a php file with ajax */
 function getRecipeInformations(modalId) {
   $.ajax({
@@ -78,8 +231,9 @@ function getRecipeInformations(modalId) {
     data: {
       id: currentRecipe ? currentRecipe.id : 0,
       name: $(modalId).find('#recipe-name').val(),
+      isCustom: isCustomRecipeChecked(modalId) ? 1 : 0,
       steps: $(modalId).find('#recipe-steps').val(),
-      ingredients: getIngredients(modalId),
+      ingredients: JSON.stringify(getIngredients(modalId)),
       productName: $(modalId).find('#recipe-product').val(),
       productDesc: $(modalId).find('#product-description').val(),
       categories: JSON.stringify($(modalId).find('#product-categories').val()),
@@ -102,5 +256,5 @@ function getIngredients(modalId) {
     ingredients.push([parseInt($(value).attr('data-ingredient-id')), parseFloat($(value).find('input').val())]);
   });
 
-  return JSON.stringify(ingredients);
+  return ingredients;
 }
