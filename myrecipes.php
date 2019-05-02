@@ -71,6 +71,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                         <div class="form-group">
                             <label for="recipe-name" class="col-form-label">Nom de la recette</label>
                             <input type="text" class="form-control" id="recipe-name" disabled>
+                            <div class="invalid-input" id="invalid-recipe-name"></div>
                         </div>
                         <div class="switch-wrapper">
                             <label class="switch">
@@ -87,20 +88,24 @@ include_once "phpScripts/Product/CtrlProduct.php";
                                 $ctrlP->loadAllIngredients();
                                 ?>
                             </select>
+                            <div class="invalid-input" id="invalid-recipe-ingredients"></div>
                             <div id="ingredients" class="ingredients-list">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="recipe-steps" class="col-form-label">Étapes de préparation</label>
                             <textarea class="form-control" id="recipe-steps" disabled></textarea>
+                            <div class="invalid-input" id="invalid-recipe-steps"></div>
                         </div>
                         <div class="form-group">
                             <label for="recipe-product" class="col-form-label">Nom du produit final</label>
                             <input type="text" class="form-control" id="recipe-product" disabled>
+                            <div class="invalid-input" id="invalid-recipe-product"></div>
                         </div>
                         <div class="form-group">
                             <label for="product-description" class="col-form-label">Description du produit final</label>
                             <textarea type="text" class="form-control" id="product-description" disabled></textarea>
+                            <div class="invalid-input" id="invalid-product-description"></div>
                         </div>
                         <div class="form-group">
                             <label for="product-categories" class="col-form-label">Catégories du produit final</label>
@@ -109,6 +114,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                                 <option value="2">Ketchup</option>
                                 <option value="3">Relish</option>
                             </select>
+                            <div class="invalid-input" id="invalid-product-categories"></div>
                         </div>
                     </form>
                 </div>
@@ -135,7 +141,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                     <form>
                         <div class="form-group">
                             <label for="recipe-name" class="col-form-label">Nom de la recette</label>
-                            <input type="text" class="form-control" id="recipe-name" onblur="validateForm(modalId)">
+                            <input type="text" class="form-control" id="recipe-name">
                             <div class="invalid-input" id="invalid-recipe-name"></div>
                         </div>
                         <div class="switch-wrapper">
@@ -143,7 +149,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                                 <input type="checkbox" id="switch-custom-recipe" onchange="changeLabelCheckBox('#addModal')">
                                 <span class="slider round"></span>
                             </label>
-                            <label for="switch-custom-recipe" class="custom-recipe" id="custom-recipe-title">Standard</label>
+                            <label for="switch-custom-recipe" class="custom-recipe" id="custom-recipe-title">Recette standard</label>
                         </div>
                         <div class="form-group">
                             <label for="recipe-ingredients" class="col-form-label">Ingrédients</label>
@@ -153,20 +159,24 @@ include_once "phpScripts/Product/CtrlProduct.php";
                                 $ctrlP->loadAllIngredients();
                                 ?>
                             </select>
+                            <div class="invalid-input" id="invalid-recipe-ingredients"></div>
                             <div id="ingredients" class="ingredients-list">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="recipe-steps" class="col-form-label">Étapes de préparation</label>
                             <textarea class="form-control" id="recipe-steps"></textarea>
+                            <div class="invalid-input" id="invalid-recipe-steps"></div>
                         </div>
                         <div class="form-group">
                             <label for="recipe-product" class="col-form-label">Nom du produit final</label>
                             <input type="text" class="form-control" id="recipe-product">
+                            <div class="invalid-input" id="invalid-recipe-product"></div>
                         </div>
                         <div class="form-group">
                             <label for="product-description" class="col-form-label">Description du produit final</label>
                             <textarea type="text" class="form-control" id="product-description"></textarea>
+                            <div class="invalid-input" id="invalid-product-description"></div>
                         </div>
                         <div class="form-group">
                             <label for="product-categories" class="col-form-label">Catégories du produit final</label>
@@ -175,6 +185,7 @@ include_once "phpScripts/Product/CtrlProduct.php";
                                 <option>Ketchup</option>
                                 <option>Relish</option>
                             </select>
+                            <div class="invalid-input" id="invalid-product-categories"></div>
                         </div>
                     </form>
                 </div>

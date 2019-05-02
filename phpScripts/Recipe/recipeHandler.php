@@ -16,7 +16,7 @@ foreach($formattedIngredientsData as $a) {
 $ctrlRecipe = new CtrlRecipe();
 
 if(isNew) {
-  $ctrlRecipe->addRecipe($_POST['name'], $_POST['isCustom'], $_POST['steps'], 
+  $ctrlRecipe->createRecipe($_POST['name'], $_POST['isCustom'], $_POST['steps'], 
                         $_POST['productName'], $_POST['productDesc'],
                         $formattedCategoriesData, $formattedIngredientsData);
 }

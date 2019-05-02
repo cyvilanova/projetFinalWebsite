@@ -92,7 +92,7 @@ class CtrlRecipe
 	 *
 	 * @return void
 	 */
-	public function addRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $categories, $ingredients) 
+	public function createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $categories, $ingredients) 
 	{
 		$this->mgrRecipe->addNewRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $categories, $ingredients);
 	}
