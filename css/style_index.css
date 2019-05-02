@@ -943,12 +943,8 @@ img {
 
 }
 
-
 @media screen and (max-width: 425px) {
     /* start of phone styles */
-    body{
-        background-color: green;
-    }
 
     .single-product{
         text-align: center;
@@ -992,12 +988,13 @@ img {
   .loginConnect {
 	  max-width: 350px;
 	  height: 150px;
+
 	}
   .loginConnect form{
     text-align:center;
   }
 
-	.loginConnect .loginlbl {
+	.loginConnect .input {
 	  width:75%;
 	  max-width:250px;
 	}
@@ -1007,10 +1004,11 @@ img {
     content: "\a";
 	}
 
-  .loginConnect .loginInput {
+	.loginConnect .input[type=submit] {
 	  width:75%;
 	  max-width:200px;
 	}
+
 
   .loginConnect .loginInput:after {
     display:block;
@@ -1022,3 +1020,9 @@ img {
 	  width:75%;
 	  max-width:150px;
 	}
+
+  .loginConnect .label ::before{
+    content: "\a";
+    white-space: pre;
+  }
+

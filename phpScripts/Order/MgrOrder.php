@@ -50,10 +50,10 @@
 			INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client` 
 			INNER JOIN `ta_order_product` ON `ta_order_product`.`id_order` = `order`.`id_order` 
 			INNER JOIN `product` ON `product`.`id_product` = `ta_order_product`.`id_product` 
-			WHERE `state`.name != 'closed'";
+			WHERE `state`.name != 'Fermée'";
 
-			$resultSet = $this->query_engine->executeQuery($query,[]);
-
+			$resultSet = $this->query_engine->executeQuery($query);
+			
 			return $resultSet;
 		}
 

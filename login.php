@@ -22,6 +22,7 @@
         <label for="pwd" class="loginlbl">Mot de passe:</label>
         <input type="password" class="loginInput" name="pwd" required="required" pattern="[A-Za-z0-9()!@#$%^&+_*]{1,20}">
         <input type="submit" class="loginSub" value="Se connecter">
+
       </form>
 
     </div>

@@ -86,9 +86,12 @@ class MgrRecipe
 
 		foreach($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
 
+			$this->mgrProduct->getProductById($result[1]);
+			$finalProduct = $this->mgrProduct->getProduct();	
+
 			$recipe = new Recipe(
 				$result[2], // name
-				$result[1], // id_product
+				$finalProduct[0], // finalProduct
 				$result[3], // is_custom
 				$result[4] // steps
 			);
@@ -131,7 +134,7 @@ class MgrRecipe
 		return $ingredients;
 	}
 
-		/**
+	/**
 	 * Gets the product manager to access the products linked to the recipe
 	 * @return MgrProduct $mgrProduct
 	 * 
@@ -140,5 +143,6 @@ class MgrRecipe
 	{
 		return $this->mgrProduct;
 	}
+
 }
 ?>
