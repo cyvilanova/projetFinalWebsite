@@ -52,9 +52,9 @@ class MgrCategory{
     }
   }
 
-/**
-*Fetches the categories from the database
-*/
+  /**
+  *Fetches the categories from the database
+  */
   public function selectAllCategories(){
     $query = "SELECT * FROM category";
 
@@ -69,9 +69,9 @@ class MgrCategory{
   }
 
   /**
-	 *Use a result set of category and push every row in the array of $categories
-   * @param mixed $resultSet The result set from the database
-	 */
+	*Use a result set of category and push every row in the array of $categories
+  * @param mixed $resultSet The result set from the database
+	*/
 	private function resultToArray($resultSet){
 		$this->categories = array();
 

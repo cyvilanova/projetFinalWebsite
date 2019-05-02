@@ -117,7 +117,7 @@ if($_SESSION["username"]!="admin"){
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-quintessentiel">Sauvegarder</button>
+                    <button type="button" class="btn btn-quintessentiel" onclick="">Sauvegarder</button>
                 </div>
             </div>
         </div>
