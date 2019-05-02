@@ -422,7 +422,7 @@ img {
     flex-direction: column;
 }
 
-.ingredient-item {
+.ingredient-item, .product-item {
     display: flex;
     flex-direction: row;
     margin-top: 2px;

@@ -9,6 +9,7 @@
 	 =========================================================
 	 Historique de modifications :
 	 Date Nom Description
+	 2019-05-01 CB Modifications insert - client
 	 =========================================================
 	****************************************/
 
@@ -45,11 +46,11 @@
 		public function getAllOrders()
 		{
 			// TODO -> à refaire, pas pratique /!\
-			$query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `product`.`name` AS 'product_name', `ta_order_product`.`quantity`
-			FROM `order` INNER JOIN `state` ON `order`.id_state = `state`.id_state 
+			$query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `client`.`city`, `client`.`province`, 
+				`client`.`postal_code`, `state`.`name` as 'state_name' 
+			FROM `order` 
+			INNER JOIN `state` ON `order`.id_state = `state`.id_state 
 			INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client` 
-			INNER JOIN `ta_order_product` ON `ta_order_product`.`id_order` = `order`.`id_order` 
-			INNER JOIN `product` ON `product`.`id_product` = `ta_order_product`.`id_product` 
 			WHERE `state`.name != 'Fermée'";
 
 			$resultSet = $this->query_engine->executeQuery($query);
@@ -57,7 +58,7 @@
 			return $resultSet;
 		}
 
-
+		
 
 		/**
 		 * Add an order to the database
@@ -68,6 +69,9 @@
 		 */
 		public function insertOrder($order, $id_client, $id_method)
 		{
+
+			
+			
 			$insertOrder = "INSERT INTO `order` (`id_order`, `id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) VALUES (DEFAULT, :client, 1, 2, :method, :tps, :tvq, :total)";
 
 			$parametersOrders = 

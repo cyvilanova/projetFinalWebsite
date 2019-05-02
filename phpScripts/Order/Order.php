@@ -23,7 +23,7 @@
 		private $quantities = []; // Quantities of the products
 		private $price; // price of the order
 		private $total; // total (price + taxes)
-		private $products = []; // ArrayList of products
+		private $products = []; // ArrayList of products or ids
 
 		/**
 		 * __construct
