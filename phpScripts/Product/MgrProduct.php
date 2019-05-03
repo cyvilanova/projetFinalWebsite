@@ -30,7 +30,7 @@ class MgrProduct
      */
     public function __construct()
     {
-        $mgrCategory = new MgrCategory();
+        $this->mgrCategory = new MgrCategory();
         $this->products = array();
         $this->ingredientsQuantities = array();
     }
@@ -240,16 +240,22 @@ class MgrProduct
      */
     private function resultToArray($resultSet)
     {
+        
         $this->products = array();
+
         foreach ($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
+            $categories = array();
+
+            $categories = $this->getProductCategoriesArray($result[0]);
+        
             $product = new Product(
-                $result[1], // name
-                [],        // Categories
-                $result[2], // is_sellable
-                $result[4], // price
-                $result[3], // description
-                $result[5], // quantity
-                $result[6] //path
+                $result[1],  // name
+                $categories, // categories
+                $result[2],  // is_sellable
+                $result[4],  // price
+                $result[3],  // description
+                $result[5],  // quantity
+                $result[6]   // image_path
             );
             $product->setId($result[0]); // id
             if (isset($result[7])) {
@@ -258,6 +264,19 @@ class MgrProduct
 
             array_push($this->products, $product);
         }
+    }
+
+    /**
+     * Gets the array of the product's categories
+     * @param  mixed $productId The id of the product
+     * @return array $categories List of categories
+     * 
+     */
+    public function getProductCategoriesArray($productId)
+    {
+		$this->mgrCategory->getProductCategories($productId);
+		$categories = $this->mgrCategory->getCategories();
+		return $categories;
     }
 
     /**
