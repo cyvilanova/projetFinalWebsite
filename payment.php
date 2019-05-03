@@ -148,7 +148,7 @@ Date Nom Description
 		  	card.clear();
 
 		  } else if (result.error) { //If it didn't
-			console.log("error");
+			displayFormMessage("<span class='payment-error'>Erreur lors de la tentative du paiement</span>");
 		  }
 		}
 
@@ -175,7 +175,6 @@ Date Nom Description
 			let select = document.getElementById("province");
 
 			if(select.options[select.selectedIndex].value == ""){
-				console.log(select.selectedIndex);
 				return false;
 			}
 
@@ -196,6 +195,7 @@ Date Nom Description
 			let paymentState = document.getElementById("payment-state");
 			paymentState.innerHTML = message;
 		}
+		
 	</script>
 </body>
 </html>
