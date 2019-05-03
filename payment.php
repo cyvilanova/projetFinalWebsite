@@ -11,8 +11,14 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
+include_once ("phpScripts/Order/CtrlOrder.php");
+$ctrl = new CtrlOrder();
 
-echo $_GET["orderId"];
+if(!empty($_GET["orderId"]) && $ctrl->isIdValid($_GET["orderId"]))
+{
+
+	
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -28,7 +34,11 @@ echo $_GET["orderId"];
 	<section>
 		<div class="page-title-bar">
 		 	<h1>Paiement</h1>
-		 </div>
+		</div>
+		<div class="infos-client">
+			<p>Numéro de commande: #<?php echo $_GET["orderId"] ?></p>
+			<p>Prix: <?php echo $ctrl->getTotalById($_GET["orderId"]) ?></p></p>
+		</div>
 		 <p id="payment-state"></p>
 		 <form class="payment-form" action="phpScripts/methodCall/scriptPayment.php" method="POST">
 		 	<div class="form-row">
@@ -89,6 +99,7 @@ echo $_GET["orderId"];
 
 		 	<button id="btnConfirm">Soumettre le paiement</button>
 		 </form>
+		 <p class="link-previous"><a href="Order.php">Retour aux commandes</a></p>
 	</section>
 
 	<script>
@@ -202,3 +213,10 @@ echo $_GET["orderId"];
 	</script>
 </body>
 </html>
+
+<?php
+}
+else{
+	echo "Vous n'avez pas accès à cette page!";
+}
+?>

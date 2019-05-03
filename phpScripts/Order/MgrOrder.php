@@ -288,14 +288,14 @@ class MgrOrder
      * @param $id_order is the id of the order
      * @return the total
      */
-    public function getTotalById($id_order)
+    public function getTotalById($idOrder)
     {
         //Gets the total for an order
 
         $query = "SELECT total FROM `order` WHERE id_order = :id_order";
         $parametersOrder =
             [
-            "id_order" => $id_order,
+            "id_order" => $idOrder,
         ];
 
         $result = $this->query_engine->executeQuery($query, $parametersOrder);
@@ -307,6 +307,52 @@ class MgrOrder
             $total = $result->fetch();
 
             return $total["total"];
+        }
+    }
+
+    /**
+     * Checks if the given id is valid
+     * 
+     * @param $id is the id of the order to check
+     * @return bool telling wether it exists or not
+     */
+    public function isIdValid($idOrder)
+    {
+        $query = "SELECT * FROM `order` WHERE id_order = :id_order";
+        $parametersOrder =
+            [
+            "id_order" => $idOrder,
+        ];
+
+        $result = $this->query_engine->executeQuery($query, $parametersOrder);
+
+        if (!$result) { 
+            echo "Error while checking if the id is valid";
+            return false;
+        } else {
+            $answer = $result->fetch();
+
+            return $answer;
+        }
+    }
+
+    /**
+     * Changes the state of an order by it's id
+     * 
+     * @param $idOrder
+     */
+    public function changeOrderStateById($idOrder){
+
+        $query = "UPDATE `order` SET id_state = 5 WHERE id_order = :id_order";
+        $parametersOrder =
+            [
+            "id_order" => $idOrder,
+        ];
+
+        $result = $this->query_engine->executeQuery($query, $parametersOrder);
+
+        if (!$result) { 
+            echo "Error while changing the order state";
         }
     }
 }

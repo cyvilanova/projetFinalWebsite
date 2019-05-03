@@ -955,7 +955,7 @@ input:checked + .slider:before {
 
 #payment-state{
     text-align: center;
-    font-size:20px;
+    font-size:30px;
 }
 
 .payment-success{
@@ -965,6 +965,16 @@ input:checked + .slider:before {
 .payment-error{
     color:red;
 }
+
+.infos-client{
+    text-align: center;
+    font-size:30px;
+}
+
+.link-previous{
+    text-align: center;
+}
+
 @keyframes animLabel{
 
     0%{
