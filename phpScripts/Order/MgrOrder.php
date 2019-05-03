@@ -9,6 +9,7 @@ Date Nom Approuvé
 =========================================================
 Historique de modifications :
 Date Nom Description
+05-02 David Gaulin Ajout de la fonction de paiement
 =========================================================
  ****************************************/
 
@@ -234,14 +235,27 @@ class MgrOrder
 
         $price *= 100;
 
-        \Stripe\Stripe::setApiKey("sk_test_IHvUqWlOZpF6fpSXlX9k119n00Cf1LJM5v");
-        
-        $charge = \Stripe\Charge::create([
-            'amount' => $price,
-            'currency' => 'cad',
-            'description' => 'Commande quintessentiel',
-            'source' => $tokenId,
-        ]);
+        try {
+            \Stripe\Stripe::setApiKey("sk_test_IHvUqWlOZpF6fpSXlX9k119n00Cf1LJM5v");
+
+            $charge = \Stripe\Charge::create([
+                'amount' => $price,
+                'currency' => 'cad',
+                'description' => 'Commande quintessentiel',
+                'source' => $tokenId,
+            ]);
+
+        } catch (\Stripe\Error\Card $e) {
+            //When a card is declined
+            return 2;
+            echo "carte invalide!";
+        }
+        catch (Exception $e) {
+            // Something else happened, completely unrelated to Stripe
+            return 3;
+        }
+
+        return 1; //worked perfectly
     }
 
 }

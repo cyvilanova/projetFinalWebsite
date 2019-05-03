@@ -8,7 +8,10 @@ Vérification :
 Date Nom Approuvé
 =========================================================
 Historique de modifications :
+
 Date Nom Description
+
+05-02 David Gaulin Ajout de la fonction de paiement
 =========================================================
  ****************************************/
 require_once __DIR__ . '/MgrOrder.php';
@@ -91,15 +94,27 @@ class CtrlOrder
 
     /**
      * Makes a payment via the stripe API
-     * 
+     *
      * @param $tokenId Id of the user's token
      * @param $order order object
      */
     public function makePayment($tokenId, $order)
-    {	
-    	$idOrder = $order->getId();
-    	$price = $order->getTotal();
-    	
-       	$this->mgrOrder->makePayment($tokenId,$price);
+    {
+        $idOrder = $order->getId();
+        $price = $order->getTotal();
+
+        $response = $this->mgrOrder->makePayment($tokenId, $price);
+
+        switch ($response) {
+            case 1: //Worked perfectly
+                echo "<span class='payment-success'>Paiement effectué!</span>";
+                break;
+            case 2:
+                echo "<span class='payment-error'>Carte refusée!</span>";
+                break;
+            case 3:
+                echo "<span class='payment-error'>Erreur lors de la tentative de paiement.</span>";
+                break;
+        }
     }
 }
