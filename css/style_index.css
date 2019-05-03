@@ -507,7 +507,7 @@ input:checked + .slider:before {
     flex-direction: column;
 }
 
-.ingredient-item {
+.ingredient-item, .product-item {
     display: flex;
     flex-direction: row;
     margin-top: 2px;
@@ -953,6 +953,18 @@ input:checked + .slider:before {
     margin-top:5px;
 }
 
+#payment-state{
+    text-align: center;
+    font-size:20px;
+}
+
+.payment-success{
+    color:green;
+}
+
+.payment-error{
+    color:red;
+}
 @keyframes animLabel{
 
     0%{

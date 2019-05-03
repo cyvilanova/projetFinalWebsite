@@ -68,6 +68,7 @@ INSERT INTO ta_recipe_product(id_recipe, id_product, qty_ml)
 VALUES(5,5,22);
 
 
+
 /*secret_question*/
 INSERT INTO secret_question(question)
 VALUES("Quel était le nom de votre premier animal de compagnie?");
@@ -148,6 +149,54 @@ INSERT INTO shipping_method (id_company, name, price)
 VALUES (1, "Normal", '10.00');
 
 INSERT INTO shipping_method (id_company, name, price) 
+VALUES (2, "Rapide", '15.00');
+(DEFAULT,"Oléo-sérum Équilibre peau grasse et acnéique","img10.jpg",1,"L'acné vous gâche la vie et vous souhaitez une alternative naturelle aux traitements agressifs pour votre peau? L'oléo-sérum Équilibre aide votre peau à se rééquilibrer naturellement  et en douceur grace aux propriétés équilibrantes et assainissantes. Combinez le avec le nettoyant micellaire sans rinçage et le savon au moringa pour une action optimale.",50.00,6),
+
+(DEFAULT,"Oléo-sérum Harmonie Couperose et Rosacée","images/imgProducts/img11.jpg",1,"Vous souffrez de couperose ou de rosacée et souhaitez une alternative naturelle? L'Oléo-sérum Harmonie calme l'inflammation et les rougeurs grâce à un puissant complexe d'huiles végétales précieuses, riches en Omégas 3 et 9 qui apaisent l'inflammation de votre peau! Les huiles végétales de chanvre et tamanu en particulier apportent leurs propriétés apaisantes et anti-inflammatoires pour un soin apaisant 100% actif et naturel, allié à la précieuse Huile essentielle d' immortelle de Corse, connue aussi sous le nom d'Hélychrise italienne, et de camomille, anti-inflammatoire.",50.00,100),
+(DEFAULT,"Sérum Régénération anti-age aux 5 huiles précieuses","images/imgProducts/img12.jpg",1,"Découvrez notre merveilleux soin anti-age aux 5 huiles précieuses! Un vrai trésor liquide, gorgé d'acides gras omégas 3, 6 et 9, essentiels pour votre peau! la peau est régénérée, souple et douce.",50.00,8),
+(DEFAULT,"Savon peaux sensibles moringa et calendule","images/imgProducts/img13.jpg",1,"Savon doux aux huiles végétales de moringa et de calendule, pour peaux sensibles",7.00,12),
+(DEFAULT,"Savon Exfoliant moringa et abricot","images/imgProducts/img14.jpg",1,"Savon exfoliant doux, moringa calendule et graines d'Abricot",8.00,5),
+(DEFAULT,"Shampoing au moringa et karité cheveux secs","images/imgProducts/img15.jpg",1,"Ce shampoing doux enrichi en huile de moringa et karité est un plaisir pour les cheveux secs.  Il nettoie vos cheveux en douceur et les rend doux et faciles à coiffer. Les huiles essentielles de lavande et romarin apportent leurs propriétés apaisantes et fortifiantes à ce soin. Nos shampoings sont sans agents toxiques ou parfums chimiques, ils sont excellents pour tous types de cheveux.",13.00,2);
+(DEFAULT,"Oléo-sérum Harmonie Couperose et Rosacée","img11.jpg",1,"Vous souffrez de couperose ou de rosacée et souhaitez une alternative naturelle? L'Oléo-sérum Harmonie calme l'inflammation et les rougeurs grâce à un puissant complexe d'huiles végétales précieuses, riches en Omégas 3 et 9 qui apaisent l'inflammation de votre peau! Les huiles végétales de chanvre et tamanu en particulier apportent leurs propriétés apaisantes et anti-inflammatoires pour un soin apaisant 100% actif et naturel, allié à la précieuse Huile essentielle d' immortelle de Corse, connue aussi sous le nom d'Hélychrise italienne, et de camomille, anti-inflammatoire.",50.00,100),
+(DEFAULT,"Sérum Régénération anti-age aux 5 huiles précieuses","img12.jpg",1,"Découvrez notre merveilleux soin anti-age aux 5 huiles précieuses! Un vrai trésor liquide, gorgé d'acides gras omégas 3, 6 et 9, essentiels pour votre peau! la peau est régénérée, souple et douce.",50.00,8),
+(DEFAULT,"Savon peaux sensibles moringa et calendule","img13.jpg",1,"Savon doux aux huiles végétales de moringa et de calendule, pour peaux sensibles",7.00,12),
+(DEFAULT,"Savon Exfoliant moringa et abricot","img14.jpg",1,"Savon exfoliant doux, moringa calendule et graines d'Abricot",8.00,5),
+(DEFAULT,"Shampoing au moringa et karité cheveux secs","img15.jpg",1,"Ce shampoing doux enrichi en huile de moringa et karité est un plaisir pour les cheveux secs.  Il nettoie vos cheveux en douceur et les rend doux et faciles à coiffer. Les huiles essentielles de lavande et romarin apportent leurs propriétés apaisantes et fortifiantes à ce soin. Nos shampoings sont sans agents toxiques ou parfums chimiques, ils sont excellents pour tous types de cheveux.",13.00,2);
+
+
+/* Insert into state */
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("Fermée", "Commande fermée");
+
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("Ouverte", "Commande ouverte");
+
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("Transit", "Commande en transit");
+
+INSERT INTO `state` (`name`, `description`) 
+VALUES ("En magasin", "Commande en magasin");
+
+
+/* Insert into shipping_company*/
+INSERT INTO `shipping_company` (`name`) 
+VALUES ("UPS");
+
+INSERT INTO `shipping_company` (`name`) 
+VALUES ("Fedex");
+
+INSERT INTO `shipping_company` (`name`) 
+VALUES ("CanadaPost");
+
+
+/* INSERT into shipping_method*/
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
+VALUES (1, "Très rapide", '20.00');
+
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
+VALUES (1, "Normal", '10.00');
+
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
 VALUES (2, "Rapide", '15.00');
 
 INSERT INTO shipping_method (id_company, name, price) 

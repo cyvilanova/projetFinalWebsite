@@ -257,6 +257,7 @@ class MgrProduct
                 $result[5],  // quantity
                 $result[6]   // image_path
             );
+
             $product->setId($result[0]); // id
             if (isset($result[7])) {
                 $product->setVolumeUsed($result[7]); // qty_ml

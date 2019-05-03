@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tableContent>
+
+	<!-- Product -->
+	<product>
+		<name>Beurre de Karite</name>
+		<sellable>0</sellable>
+		<description>Action reparatrice</description>
+		<price>12.00</price>
+		<quantity>10</quantity>
+		<imgPath>img7.jpg</imgPath>
+	</product>
+	<product>
+		<name>Petale de rose</name>
+		<sellable>1</sellable>
+		<description>Action reparatrice</description>
+		<price>21.00</price>
+		<quantity>12</quantity>
+		<imgPath>img5.jpg</imgPath>
+	</product>
+	<product>
+		<name>Huile de lavande</name>
+		<sellable>1</sellable>
+		<description>Apportent leurs vertus curatives et leurs precieux aromes pour embellir votre peau.</description>
+		<price>21.22</price>
+		<quantity>10</quantity>
+		<imgPath>img16.jpg</imgPath>
+	</product>
+	<product>
+		<name>Oleo-serum Harmonie Couperose et Rosacee</name>
+		<sellable>1</sellable>
+		<description>Peau couperosee et rosacee</description>
+		<price>9.22</price>
+		<quantity>12</quantity>
+		<imgPath>img13.jpg</imgPath>
+	</product>
+	<product>
+		<name>Oleo-serum equilibre peau grasse et acneique</name>
+		<sellable>1</sellable>
+		<description>Cette mousse micellaire naturelle aux eaux florales de rose et d'orange nettoie et demaquille votre peau tout en douceur.</description>
+		<price>32.00</price>
+		<quantity>10</quantity>
+		<imgPath>img11.jpg</imgPath>
+	</product>
+	<product>
+		<name>Nettoyant micellaire 'mousse radieuse'</name>
+		<sellable>1</sellable>
+		<description>Action reparatrice</description>
+		<price>10.00</price>
+		<quantity>12</quantity>
+		<imgPath>img10.jpg</imgPath>
+	</product>
+	<product>
+		<name>Sel de l'Himalaya</name>
+		<sellable>1</sellable>
+		<description>riche en plus de 80 mineraux, il est regenerant et detoxifiant</description>
+		<price>88.22</price>
+		<quantity>12</quantity>
+		<imgPath>img12.jpg</imgPath>
+	</product>
+	<product>
+		<name>Formation sur les etiquettes</name>
+		<sellable>1</sellable>
+		<description>Action reparatrice</description>
+		<price>22.83</price>
+		<quantity>12</quantity>
+		<imgPath>img3.jpg</imgPath>
+	</product>
+	<product>
+		<name>Gant de crain</name>
+		<sellable>1</sellable>
+		<description>Action reparatrice</description>
+		<price>2.78</price>
+		<quantity>12</quantity>
+		<imgPath>img4.jpg</imgPath>
+	</product>
+
+	<!-- Category -->
+	<category>
+		<name>Category name 1</name>
+		<isActive>1</isActive>
+		<description>A category description</description>
+	</category>
+	<category>
+		<name>Category name 2</name>
+		<isActive>0</isActive>
+		<description>A second category description</description>
+	</category>
+
+	<!-- secret Question -->
+	<secretQuestion>
+		<question>Quel a été votre premier animal de compagnie?</question>
+	</secretQuestion>
+	<secretQuestion>
+		<question>Lieu de naissance de votre père</question>
+	</secretQuestion>
+	<secretQuestion>
+		<question>Lieu de naissance de votre mère</question>
+	</secretQuestion>
+	<!-- User -->
+	<user>
+		<idQuestion>1</idQuestion>
+		<username>Utilisateur1</username>
+		<password>abc123</password>
+		<email>testmail@gmail.com</email>
+		<secretAnswer>Chat</secretAnswer>
+	</user>
+
+	<!-- Client -->
+	<client>
+		<name>Pier Huot</name>
+		<address>4125 cool st.</address>
+		<city>Sherbrooke</city>
+		<province>Québec</province>
+		<postalCode>J1H 8Y5</postalCode>
+	</client>
+
+	<!-- Shipping Company-->
+	<shippingCompany>
+		<name>FedEx</name>
+	</shippingCompany>
+
+	<!-- Shipping Method -->
+	<shippingCompany>
+		<name>Poste Canada</name>
+	</shippingCompany>
+
+	<shippingMethod>
+		<idCompany>1</idCompany>
+		<name>Express</name>
+		<price>50.00</price>
+	</shippingMethod>
+
+	<shippingMethod>
+		<idCompany>1</idCompany>
+		<name>Basique</name>
+		<price>20.00</price>
+	</shippingMethod>
+
+	<shippingMethod>
+		<idCompany>2</idCompany>
+		<name>Express</name>
+		<price>50.00</price>
+	</shippingMethod>
+
+	<shippingMethod>
+		<idCompany>2</idCompany>
+		<name>Basique</name>
+		<price>20.00</price>
+	</shippingMethod>
+
+
+
+</tableContent>
