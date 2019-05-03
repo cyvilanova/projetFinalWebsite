@@ -256,7 +256,7 @@ class CtrlProduct
      * Populate multiselect list of ingredients when creating a recipe.
      * 
      */
-    public function loadAllIngredients() {
+    public function loadIngredientsOptions() {
         $this->mgrProduct->getAllProducts();
         $products = $this->mgrProduct->getProduct();
         $html = "";
