@@ -1,4 +1,5 @@
 <?php
+
 /****************************************
 Fichier : MgrOrder.php
 Auteure : Catherine Bronsard
@@ -146,6 +147,7 @@ class CtrlOrder
     	return $this->mgrOrder->getTotalById($idOrder) . "$";
     }
     /**
+
      * Makes a payment via the stripe API
      *
      * @param $tokenId Id of the user's token
@@ -192,3 +194,6 @@ class CtrlOrder
     	return $this->mgrOrder->isIdValid($id);
     }
 }
+
+?>
+

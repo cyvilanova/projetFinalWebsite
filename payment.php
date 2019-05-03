@@ -11,13 +11,12 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
+
 include_once ("phpScripts/Order/CtrlOrder.php");
 $ctrl = new CtrlOrder();
 
 if(!empty($_GET["orderId"]) && $ctrl->isIdValid($_GET["orderId"]))
 {
-
-	
 
 ?>
 <!DOCTYPE html>
@@ -39,6 +38,7 @@ if(!empty($_GET["orderId"]) && $ctrl->isIdValid($_GET["orderId"]))
 			<p>Numéro de commande: #<?php echo $_GET["orderId"] ?></p>
 			<p>Prix: <?php echo $ctrl->getTotalById($_GET["orderId"]) ?></p></p>
 		</div>
+
 		 <p id="payment-state"></p>
 		 <form class="payment-form" action="phpScripts/methodCall/scriptPayment.php" method="POST">
 		 	<div class="form-row">

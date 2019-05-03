@@ -12,7 +12,7 @@
  =========================================================
 ****************************************/
 
-class Category
+class Category implements JsonSerializable
 {
   private $id; // Identification number of the category
   private $name;  // Name of the category
@@ -45,7 +45,7 @@ class Category
       return array(
           'id' => $this->id,
           'name' => $this->name,
-          'isSellable' => $this->isSellable,
+          'active' => $this->active,
           'description' => $this->description,
       );
   }

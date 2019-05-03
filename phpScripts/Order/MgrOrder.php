@@ -312,7 +312,7 @@ class MgrOrder
 
     /**
      * Checks if the given id is valid
-     * 
+     *
      * @param $id is the id of the order to check
      * @return bool telling wether it exists or not
      */
@@ -326,7 +326,7 @@ class MgrOrder
 
         $result = $this->query_engine->executeQuery($query, $parametersOrder);
 
-        if (!$result) { 
+        if (!$result) {
             echo "Error while checking if the id is valid";
             return false;
         } else {
@@ -338,10 +338,11 @@ class MgrOrder
 
     /**
      * Changes the state of an order by it's id
-     * 
+     *
      * @param $idOrder
      */
-    public function changeOrderStateById($idOrder){
+    public function changeOrderStateById($idOrder)
+    {
 
         $query = "UPDATE `order` SET id_state = 5 WHERE id_order = :id_order";
         $parametersOrder =
@@ -351,10 +352,9 @@ class MgrOrder
 
         $result = $this->query_engine->executeQuery($query, $parametersOrder);
 
-        if (!$result) { 
+        if (!$result) {
             echo "Error while changing the order state";
         }
     }
-}
 
-?>
+}

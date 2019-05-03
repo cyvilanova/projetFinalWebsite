@@ -73,6 +73,11 @@ class MgrCategory
     }
   }
 
+  /**
+   * Gets all the categories in which a product is
+   * @param int $productId The product's id
+   *
+   */
   public function getProductCategories($productId)
   {
     $query = "SELECT category.id_category, category.name, category.is_active, category.description

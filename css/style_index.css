@@ -966,6 +966,7 @@ input:checked + .slider:before {
     color:red;
 }
 
+
 .infos-client{
     text-align: center;
     font-size:30px;

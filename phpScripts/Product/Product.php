@@ -59,6 +59,7 @@ class Product implements JsonSerializable
         return array(
             'id' => $this->id,
             'name' => $this->name,
+            'categories' => $this->categories,
             'isSellable' => $this->isSellable,
             'price' => $this->price,
             'description' => $this->description,
