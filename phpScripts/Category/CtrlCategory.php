@@ -33,8 +33,7 @@ class CtrlCategory
    */
   public function loadAllCategories()
   {
-    $this->pageNumber = 0;
-    $categoryList = $this->mgrCategory->selectAllCategories();
+    $this->mgrCategory->selectAllCategories();
     $this->displayCategoriesRows();
   }
 
@@ -61,6 +60,23 @@ class CtrlCategory
       $html .= "<td>" . $category->getDescription() . "</td>";
 
       $html .= "</tr>";
+    }
+
+    echo $html;
+  }
+
+  public function loadCategoriesOptions() 
+  {
+    $this->mgrCategory->selectAllCategories(1);
+    $categories = $this->mgrCategory->getCategories();
+    $html = "";
+
+    foreach ($categories as $category) {
+        
+        $html .= "<option title=\"" . $category->getDescription() . "\" ";
+        $html .= "id=\"" . $category->getId() . "\" ";
+        $html .= "value=\"" . $category->getName() . "\">";
+        $html .= $category->getName() . "</div>";
     }
 
     echo $html;

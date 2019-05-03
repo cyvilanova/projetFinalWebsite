@@ -52,13 +52,19 @@ class MgrCategory
 
   /**
    * Fetches the categories from the database
+   * @param int $active Filter the active categories
    *
    */
-  public function selectAllCategories()
+  public function selectAllCategories($active = null)
   {
     $query = "SELECT * FROM category";
 
-    $resultSet =   $this->queryEngine->executeQuery($query);
+    if ($active != null) {
+      // Adds the filter by active categories
+      $query .= " WHERE is_active = " . $active;
+    }
+
+    $resultSet =  $this->queryEngine->executeQuery($query);
 
     if (!$resultSet) {
       echo "Error while trying to load all category";
@@ -69,26 +75,18 @@ class MgrCategory
 
   public function getProductCategories($productId)
   {
-    $queryEngine = new QueryEngine();
-    $query = "SELECT c.id_product AS id_product, 
-            product.name AS name,
-            product.is_sellable AS is_sellable, 
-            product.price AS price,
-            product.description AS description, 
-            product.quantity AS quantity,
-            product.image_path AS image_path, 
-            ta_recipe_product.qty_ml AS qty_ml 
-            FROM product
-            INNER JOIN ta_recipe_product
-            ON product.id_product = ta_recipe_product.id_product
-            WHERE id_recipe = :idRecipe";
+    $query = "SELECT category.id_category, category.name, category.is_active, category.description
+              FROM ta_product_category
+              INNER JOIN category
+              ON category.id_category = ta_product_category.id_category
+              WHERE id_product = :productId";
     $parameters =
         [
-            "idRecipe" => $recipeId,
+            "productId" => $productId,
         ];
-    $resultSet = $queryEngine->executeQuery($query, $parameters);
+    $resultSet = $this->queryEngine->executeQuery($query, $parameters);
     if (!$resultSet) {
-        echo "Error while trying to load the ingredients.";
+        echo "Error while trying to load the categories of a product.";
     } else {
         $this->resultToArray($resultSet);
     }

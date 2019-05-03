@@ -95,20 +95,25 @@ VALUES(1,"admin","admin","dgailalrd@gmail.com","duchesse");
 
 /*Category*/
 INSERT INTO category(name,is_active,description)
-VALUES("Peau douce",1,"Produits qui rends la peau douce." );
+VALUES("Peau douce",1,"Produits qui rends la peau douce.");
 
 INSERT INTO category(name,is_active,description)
-VALUES("Peau acide",1,"Produits pour la peau acide." );
+VALUES("Peau acide",1,"Produits pour la peau acide.");
 
 INSERT INTO category(name,is_active,description)
-VALUES("Rajeunissant",1,"Produits rajeunissant" );
+VALUES("Rajeunissant",1,"Produits rajeunissant");
 
 INSERT INTO category(name,is_active,description)
-VALUES("Peau sensible",1,"Produits pour la peau sensible." );
+VALUES("Peau sensible",1,"Produits pour la peau sensible.");
 
 INSERT INTO category(name,is_active,description)
-VALUES("Peau mature",1,"Produits pour peau mature." );
+VALUES("Peau mature",1,"Produits pour peau mature.");
 
+INSERT INTO category(name,is_active,description)
+VALUES("Nutritif",0,"Apporte les nutriments necessaires.");
+
+INSERT INTO category(name,is_active,description)
+VALUES("Peau seche",0,"Produits hydratants.");
 
 /* Insert into state */
 INSERT INTO state (name, description) 
