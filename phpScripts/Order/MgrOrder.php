@@ -9,6 +9,7 @@ Date Nom Approuvé
 =========================================================
 Historique de modifications :
 Date Nom Description
+2019-05-01 CB Modifications insert - client
 05-02 David Gaulin Ajout de la fonction de paiement
 =========================================================
  ****************************************/
@@ -19,7 +20,6 @@ require_once __DIR__ . '/Order.php';
 require_once __DIR__ . '/../Product/Product.php';
 require_once __DIR__ . '/../Product/CtrlProduct.php';
 require_once __DIR__ . '/../Stripe/init.php';
-
 /**
  *
  */
@@ -48,11 +48,11 @@ class MgrOrder
     public function getAllOrders()
     {
         // TODO -> à refaire, pas pratique /!\
-        $query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `product`.`name` AS 'product_name', `ta_order_product`.`quantity`
-			FROM `order` INNER JOIN `state` ON `order`.id_state = `state`.id_state
+        $query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `client`.`city`, `client`.`province`,
+				`client`.`postal_code`, `state`.`name` as 'state_name'
+			FROM `order`
+			INNER JOIN `state` ON `order`.id_state = `state`.id_state
 			INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client`
-			INNER JOIN `ta_order_product` ON `ta_order_product`.`id_order` = `order`.`id_order`
-			INNER JOIN `product` ON `product`.`id_product` = `ta_order_product`.`id_product`
 			WHERE `state`.name != 'Fermée'";
 
         $resultSet = $this->query_engine->executeQuery($query);
@@ -67,16 +67,34 @@ class MgrOrder
      * @param  int $id_client
      * @param  int $id_method
      */
-    public function insertOrder($order, $id_client, $id_method)
+    public function insertOrder($order, $client_infos, $id_method)
     {
-        $insertOrder = "INSERT INTO `order` (`id_order`, `id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) VALUES (DEFAULT, :client, 1, 2, :method, :tps, :tvq, :total)";
+
+        $insertClient = "INSERT INTO `client` (`id_client`, `name`, `address`, `city`, `province`, `postal_code`) VALUES (default, :name, :address, :city, :province, :postal_code)";
+
+        $parametersClient =
+            [
+            ":name" => $client_infos[0],
+            ":address" => $client_infos[1],
+            ":city" => $client_infos[2],
+            ":province" => $client_infos[3],
+            ":postal_code" => $client_infos[4],
+        ];
+
+        if (!$this->query_engine->executeQuery($insertClient, $parametersClient)) {
+            echo "Erreur lors de l'ajout du client";
+        }
+
+        $id_client = $this->query_engine->getLastInsertedId();
+
+        $insertOrder = "INSERT INTO `order` (`id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) VALUES (:client, 1, 2, :method, :tps, :tvq, :total)";
 
         $parametersOrders =
             [
             ":client" => $id_client,
             ":method" => $id_method,
-            ":tps" => $order->calculateTPS(),
-            ":tvq" => $order->calculateTVQ(),
+            ":tps" => $this->calculateTPS($order),
+            ":tvq" => $this->calculateTVQ($order),
             ":total" => $order->getTotal(),
         ];
 
@@ -84,7 +102,10 @@ class MgrOrder
             echo "Erreur lors de l'ajout de la commande";
         }
 
-        insertProducts($order);
+        $id_order = $this->query_engine->getLastInsertedId();
+        $order->setId($id_order);
+
+        $this->insertProducts($order);
     }
 
     /**
@@ -94,21 +115,23 @@ class MgrOrder
      */
     private function insertProducts($order)
     {
-        $insertProductOrders = "INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) VALUES (:id_order, id_product, :quantity)";
-
-        $last_id = $this->query_engine->getLastInsertedId();
-
+        $id_order = $this->query_engine->getLastInsertedId();
+        var_dump($order);
+        $qty = 0;
         foreach ($order->getProducts() as $product) {
+            $insertProductOrders = "INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) VALUES (:id_order, :id_product, :quantity)";
             $parametersProductOrder =
                 [
-                ":id_order" => $last_id,
+                ":id_order" => $order->getId(),
                 ":id_product" => $product->getId(),
-                ":quantity" => $product->getQuantity(),
+                ":quantity" => $order->getQuantities()[$qty],
             ];
-
+            var_dump($product);
+            var_dump($parametersProductOrder);
             if (!$this->query_engine->executeQuery($insertProductOrders, $parametersProductOrder)) {
                 echo "Erreur lors de l'ajout des produits de la commande";
             }
+            $qty++;
         }
     }
 
@@ -119,9 +142,9 @@ class MgrOrder
      */
     public function deleteOrder($id_order)
     {
-        deleteProducts();
+        $this->deleteProducts($id_order);
 
-        $deleteOrder = "DELETE FROM order WHERE `id_order` = :id_order";
+        $deleteOrder = "DELETE FROM `order` WHERE `id_order` = :id_order";
         $parametersOrder =
             [
             ":id_order" => $id_order,
@@ -143,7 +166,7 @@ class MgrOrder
             [
             ":id_order" => $id_order,
         ];
-        if (!$this->query_engine->executeQuery($deleteProducts, $parametersProducts)) {
+        if (!$this->query_engine->executeQuery($deleteProducts, $parametersProductOrder)) {
             echo "Erreur lors de la suppression des produits de la commande";
         }
 
@@ -157,7 +180,7 @@ class MgrOrder
      */
     public function updateOrder($order, $id_client)
     {
-        deleteProducts($order->getId());
+        $this->deleteProducts($order->getId());
 
         $query = "UPDATE `order` SET `id_client` = :id_client, `tps` = :tps, `tvq` = :tvq, `total` = :total WHERE `order`.`id_order` = :id_order";
         $parametersOrders =
@@ -171,7 +194,7 @@ class MgrOrder
         if (!$this->query_engine->executeQuery($deleteOrder, $parametersOrder)) {
             echo "Erreur lors de la modification de la commande";
         }
-        insertProducts($order);
+        $this->insertProducts($order);
     }
 
     /**
@@ -187,7 +210,7 @@ class MgrOrder
             $total .= $p->getPrice();
         }
         $order->setPrice($total);
-        calculateTaxes();
+        $this->calculateTaxes($order);
     }
 
     /**
@@ -197,10 +220,11 @@ class MgrOrder
      */
     public function calculateTaxes($order)
     {
-        $taxes = calculateTPS($order);
-        $taxes .= calculateTVQ($order);
-        $order->setTotal($order->getPrice() + $taxes);
-        return $taxes;
+        $taxes1 = $this->calculateTPS($order);
+        $taxes2 = $this->calculateTVQ($order);
+
+        $order->setTotal($order->getPrice() + $taxes1 + $taxes2);
+        return ($taxes1 + $taxes2);
     }
 
     /**
@@ -210,7 +234,7 @@ class MgrOrder
      */
     public function calculateTPS($order)
     {
-        return $order->getPrice() * 0.05;
+        return ($order->getPrice() * 0.05);
     }
 
     /**
@@ -220,7 +244,7 @@ class MgrOrder
      */
     public function calculateTVQ($order)
     {
-        return $order->getPrice() * 0.09975;
+        return ($order->getPrice() * 0.09975);
     }
 
     /**
@@ -249,8 +273,7 @@ class MgrOrder
             //When a card is declined
             return 2;
             echo "carte invalide!";
-        }
-        catch (Exception $e) {
+        } catch (Exception $e) {
             // Something else happened, completely unrelated to Stripe
             return 3;
         }
@@ -259,13 +282,15 @@ class MgrOrder
     }
 
     /**
-     * Gets the total of an order from 
+     * Gets the total of an order from
      * the DB with it's Id.
-     * 
+     *
      * @param $id_order is the id of the order
      * @return the total
      */
-    public function getTotalById($id_order){ //Gets the total for an order
+    public function getTotalById($id_order)
+    {
+        //Gets the total for an order
 
         $query = "SELECT total FROM `order` WHERE id_order = :id_order";
         $parametersOrder =
@@ -278,12 +303,12 @@ class MgrOrder
         if (!$result) {
             echo "Erreur lors de la sélection du prix de la commande";
             throw new Exception("Cannot get the total");
-        }
-        else{
+        } else {
             $total = $result->fetch();
 
             return $total["total"];
         }
     }
-
 }
+
+?>

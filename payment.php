@@ -11,6 +11,8 @@ Historique de modifications :
 Date Nom Description
 =========================================================
  ****************************************/
+
+echo $_GET["orderId"];
 ?>
 <!DOCTYPE html>
 <html>
@@ -132,6 +134,7 @@ Date Nom Description
 	 			url: "phpScripts/methodCall/scriptPayment.php",
 	 			data: {
 	 				tokenId: result.token.id,
+	 				orderId: <?php echo $_GET["orderId"] ?>,
 	 				firstName: document.getElementById("firstName").value,
 	 				lastName: document.getElementById("lastName").value,
 	 				address: document.getElementById("address").value,
