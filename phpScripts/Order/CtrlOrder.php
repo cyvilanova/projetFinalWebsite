@@ -101,19 +101,25 @@ class CtrlOrder
     public function makePayment($tokenId, $orderId)
     {
 
-        $price = $this->mgrOrder->getTotalById($orderId);
-        $response = $this->mgrOrder->makePayment($tokenId, $price);
+        try{
+            $price = $this->mgrOrder->getTotalById($orderId);
+            $response = $this->mgrOrder->makePayment($tokenId, $price);
 
-        switch ($response) {
-            case 1: //Worked perfectly
-                echo "<span class='payment-success'>Paiement effectué!</span>";
-                break;
-            case 2:
-                echo "<span class='payment-error'>Carte refusée!</span>";
-                break;
-            case 3:
-                echo "<span class='payment-error'>Erreur lors de la tentative de paiement.</span>";
-                break;
+
+            switch ($response) {
+                case 1: //Worked perfectly
+                    echo "<span class='payment-success'>Paiement effectué!</span>";
+                    break;
+                case 2:
+                    echo "<span class='payment-error'>Carte refusée!</span>";
+                    break;
+                case 3:
+                    echo "<span class='payment-error'>Erreur lors de la tentative de paiement.</span>";
+                    break;
+            }
+        }
+        catch(Exception $e){ //Cannot load total
+            echo $e;
         }
     }
 }

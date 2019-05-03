@@ -195,7 +195,7 @@ Date Nom Description
 			let paymentState = document.getElementById("payment-state");
 			paymentState.innerHTML = message;
 		}
-		
+
 	</script>
 </body>
 </html>

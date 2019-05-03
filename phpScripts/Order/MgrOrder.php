@@ -258,6 +258,13 @@ class MgrOrder
         return 1; //worked perfectly
     }
 
+    /**
+     * Gets the total of an order from 
+     * the DB with it's Id.
+     * 
+     * @param $id_order is the id of the order
+     * @return the total
+     */
     public function getTotalById($id_order){ //Gets the total for an order
 
         $query = "SELECT total FROM `order` WHERE id_order = :id_order";
@@ -270,14 +277,13 @@ class MgrOrder
 
         if (!$result) {
             echo "Erreur lors de la sélection du prix de la commande";
+            throw new Exception("Cannot get the total");
         }
         else{
             $total = $result->fetch();
-            
+
             return $total["total"];
         }
-
-        echo "price calculated";
     }
 
 }
