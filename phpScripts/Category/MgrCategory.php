@@ -1,6 +1,6 @@
 <?php
 /****************************************
- Fichier : Category.php
+ Fichier : MgrCategory.php
  Auteur : Philippe Audit-Allaire
  Fonctionnalité : W - Connexion de l'utilisateur
  Date : 2019-04-15
@@ -11,38 +11,46 @@
  Date Nom Description
  =========================================================
 ****************************************/
+
 require_once 'Category.php';
 require_once __DIR__ . '/../QueryEngine.php';
 
-class MgrCategory{
-  private $queryEngine;  //new query engine
-  private $categories; //array of category
+class MgrCategory
+{
+  private $queryEngine;  // New query engine
+  private $categories; // Array of category
 
   /**
-  * Category manager constructor without parameters
-  */
-  public function __construct(){
+   * Category manager constructor
+   * 
+   */
+  public function __construct()
+  {
     $this->queryEngine = new QueryEngine();
   }
 
   /**
-  *Gets the the array of categories
-  * @return array $categories of the manager
-  */
-  public function getCategories(){
+   * Gets the the array of categories
+   * @return array $categories of the manager
+   * 
+   */
+  public function getCategories()
+  {
     return $this->categories;
   }
 
   /**
-  *Add a category to the database
-  *@param mixed $category category to add to the array
-  */
-  public function addCategory($category){
+   * Adds a category to the database
+   * @param mixed $category category to add to the array
+   *
+   */
+  public function addCategory($category)
+  {
     $parameters =
       [
         ":name" => $category->getName(),
         ":is_active" => $category->getActive(),
-        ":desc" =>$category->getDescription(),
+        ":desc" => $category->getDescription(),
       ];
 
     $query = "INSERT INTO category(name, is_active,description) VALUES (:name, :is_active,:desc)";
@@ -53,40 +61,43 @@ class MgrCategory{
   }
 
   /**
-  *Fetches the categories from the database
-  */
-  public function selectAllCategories(){
+   * Fetches the categories from the database
+   *
+   */
+  public function selectAllCategories()
+  {
     $query = "SELECT * FROM category";
 
-		$resultSet = 	$this->queryEngine->executeQuery($query);
+    $resultSet =   $this->queryEngine->executeQuery($query);
 
-		if (!$resultSet){
-			echo "Error while trying to load all category";
-		}
-    else{
-			$this->resultToArray($resultSet);
-		}
+    if (!$resultSet) {
+      echo "Error while trying to load all category";
+    } else {
+      $this->resultToArray($resultSet);
+    }
   }
 
   /**
-	*Use a result set of category and push every row in the array of $categories
-  * @param mixed $resultSet The result set from the database
-	*/
-	private function resultToArray($resultSet){
-		$this->categories = array();
+   * Takes a resultSet as parameter and adds every row into the categories array
+   * @param mixed $resultSet The resultset from the database
+   * 
+   */
+  private function resultToArray($resultSet)
+  {
+    $this->categories = array();
 
-		foreach($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
+    foreach ($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
 
-			$category = new Category(
+      $category = new Category(
         $result[0], // id_category
         $result[1], // name
-				$result[2], // is_active
-				$result[3] // description
-			);
-			array_push($this->categories, $category);
-		}
-	}
+        $result[2], // is_active
+        $result[3] // description
+      );
 
+      array_push($this->categories, $category);
+    }
+  }
 
 }
 
