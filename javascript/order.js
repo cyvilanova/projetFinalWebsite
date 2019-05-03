@@ -140,7 +140,7 @@ function openModal() {
 function openModalTable(order) {
 
 	newOrd = false;
-
+	
 	let id = order.cells[0];
 	let client = order.cells[1];
 	let address = order.cells[2];
@@ -155,7 +155,15 @@ function openModalTable(order) {
 		deleteOrder(id.innerHTML);
 	});
 	
+
 	modDelBtn.disabled = false;
+
+	let modPaybtn = document.getElementById("btn-pay-modal");
+
+	modPaybtn.addEventListener("click",function(e){
+		e.preventDefault();
+		document.location.href = "payment.php?orderId="+id.innerHTML;
+	},false);
 
 	document.getElementById('client-name').value = client.innerHTML;
 	document.getElementById('client-address').value = address.innerHTML;
@@ -165,3 +173,5 @@ function openModalTable(order) {
 
 	$('#modal-add-orders').modal('show');
 }
+
+

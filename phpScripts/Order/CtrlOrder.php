@@ -9,12 +9,13 @@
 	 =========================================================
 	 Historique de modifications :
 	 Date Nom Description
-	 2019-05-01 CB Appel fonctions par JS-Ajax 
+	 05-02 David Gaulin Ajout de la fonction de paiement
+     05-01 CB Appel fonctions par JS-Ajax 
 	 =========================================================
 	****************************************/
 	require_once __DIR__ . '/MgrOrder.php';
 	require_once __DIR__ . '/Order.php';
-	require_once __DIR__ . '\..\Product\MgrProduct.php';	
+	require_once __DIR__ . '/../Product/MgrProduct.php';	
 
 	if (isset($_POST['function'])) {
 		switch ($_POST['function']) {
@@ -98,32 +99,66 @@
 			$this->mgrOrder->insertOrder($order, $client, $id_method);
 		}
 
-		/**
-		 * Update an order in the data base
-		 *
-		 * @param  int $id_order
-		 * @param  int $id_client
-		 * @param  ArrayList of Products $product
-		 * @param  ArrayList of int $quantity
-		 * @param  string $adress
-		 *
-		 * @return void
-		 */
-		public function editOrder($id_order, $id_client, $product, $quantity, $adress)
-		{
-			$order = new Order($id_order, "", "", $product,"");
-			$this->mgrOrder->updateOrder($order, $id_client);
-		}
 
-		/**
-		 * Delete an order from the database
-		 *
-		 * @param  int $id_order
-		 */
-		public function deleteOrder($id_order)
-		{
-			$this->mgrOrder->deleteOrder($id_order);
-		}
-	}
+
+    /**
+     * Update an order in the data base
+     *
+     * @param  int $id_order
+     * @param  int $id_client
+     * @param  ArrayList of Products $product
+     * @param  ArrayList of int $quantity
+     * @param  string $adress
+     *
+     * @return void
+     */
+    public function editOrder($id_order, $id_client, $product, $quantity, $adress)
+    {
+        $order = new Order($id_order, "", "", $product, "");
+        $this->mgrOrder->updateOrder($order, $id_client);
+    }
+
+    /**
+     * Delete an order from the database
+     *
+     * @param  int $id_order
+     */
+    public function deleteOrder($id_order)
+    {
+        $this->mgrOrder->deleteOrder($id_order);
+    }
+
+    /**
+     * Makes a payment via the stripe API
+     *
+     * @param $tokenId Id of the user's token
+     * @param $order order object
+     */
+    public function makePayment($tokenId, $orderId)
+    {
+
+        try{
+            $price = $this->mgrOrder->getTotalById($orderId);
+            $response = $this->mgrOrder->makePayment($tokenId, $price);
+
+
+            switch ($response) {
+                case 1: //Worked perfectly
+                    echo "<span class='payment-success'>Paiement effectué!</span>";
+                    break;
+                case 2:
+                    echo "<span class='payment-error'>Carte refusée!</span>";
+                    break;
+                case 3:
+                    echo "<span class='payment-error'>Erreur lors de la tentative de paiement.</span>";
+                    break;
+            }
+        }
+        catch(Exception $e){ //Cannot load total
+            echo $e;
+        }
+    }
+}
+
+
 ?>
-
