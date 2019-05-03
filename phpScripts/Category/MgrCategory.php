@@ -18,7 +18,7 @@ require_once __DIR__ . '/../QueryEngine.php';
 class MgrCategory
 {
   private $queryEngine;  // New query engine
-  private $categories; // Array of category
+  private $categories; // Array of categories
 
   /**
    * Category manager constructor
