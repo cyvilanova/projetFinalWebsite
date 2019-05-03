@@ -149,12 +149,6 @@ function openModalTable(order) {
 	let zip = order.cells[5];
 	let state = order.cells[6];
 
-	document.getElementById('client-name').value = client.innerHTML;
-	document.getElementById('client-address').value = address.innerHTML;
-	document.getElementById('client-city').value = city.innerHTML;
-	document.getElementById('client-province').value = province.innerHTML;
-	document.getElementById('client-zip').value = zip.innerHTML;
- 
 	let modDelBtn = document.getElementById("btn-del-modal");
 
 	modDelBtn.addEventListener("click", function(){
@@ -163,6 +157,11 @@ function openModalTable(order) {
 	
 	modDelBtn.disabled = false;
 
+	document.getElementById('client-name').value = client.innerHTML;
+	document.getElementById('client-address').value = address.innerHTML;
+	document.getElementById('client-city').value = city.innerHTML;
+	document.getElementById('client-province').value = province.innerHTML;
+	document.getElementById('client-zip').value = zip.innerHTML;
+
 	$('#modal-add-orders').modal('show');
-	//$('#client-name').val() = client.innerHTML;
 }
