@@ -1,8 +1,7 @@
 <?php
 include_once "../Order/CtrlOrder.php";
 
-$order = new Order(1,[2,4,1],20,50,[1,5,2]);
-//Normalement, on aurait une variable de session/POST contenant l'objet order en question
+$order = 1; //Order id
 
 if (!empty($_POST["tokenId"]) && !empty($order)) {
 	$ctrl = new CtrlOrder();

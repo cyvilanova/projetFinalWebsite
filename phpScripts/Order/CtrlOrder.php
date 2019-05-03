@@ -98,11 +98,10 @@ class CtrlOrder
      * @param $tokenId Id of the user's token
      * @param $order order object
      */
-    public function makePayment($tokenId, $order)
+    public function makePayment($tokenId, $orderId)
     {
-        $idOrder = $order->getId();
-        $price = $order->getTotal();
 
+        $price = $this->mgrOrder->getTotalById($orderId);
         $response = $this->mgrOrder->makePayment($tokenId, $price);
 
         switch ($response) {

@@ -18,7 +18,7 @@ require_once __DIR__ . '/../Shipping/MgrShipping.php';
 require_once __DIR__ . '/Order.php';
 require_once __DIR__ . '/../Product/Product.php';
 require_once __DIR__ . '/../Product/CtrlProduct.php';
-require_once '../Stripe/init.php';
+require_once __DIR__ . '/../Stripe/init.php';
 
 /**
  *
@@ -256,6 +256,28 @@ class MgrOrder
         }
 
         return 1; //worked perfectly
+    }
+
+    public function getTotalById($id_order){ //Gets the total for an order
+
+        $query = "SELECT total FROM `order` WHERE id_order = :id_order";
+        $parametersOrder =
+            [
+            "id_order" => $id_order,
+        ];
+
+        $result = $this->query_engine->executeQuery($query, $parametersOrder);
+
+        if (!$result) {
+            echo "Erreur lors de la sélection du prix de la commande";
+        }
+        else{
+            $total = $result->fetch();
+            
+            return $total["total"];
+        }
+
+        echo "price calculated";
     }
 
 }
