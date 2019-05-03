@@ -141,9 +141,9 @@
 		 */
 		public function deleteOrder($id_order)
 		{
-			$this->deleteProducts();
+			$this->deleteProducts($id_order);
 
-			$deleteOrder = "DELETE FROM order WHERE `id_order` = :id_order";
+			$deleteOrder = "DELETE FROM `order` WHERE `id_order` = :id_order";
 			$parametersOrder = 
 				[
 					":id_order" => $id_order,
@@ -165,7 +165,7 @@
 				[
 					":id_order" => $id_order,
 				];
-			if(!$this->query_engine->executeQuery($deleteProducts, $parametersProducts)) {
+			if(!$this->query_engine->executeQuery($deleteProducts, $parametersProductOrder)) {
 				echo "Erreur lors de la suppression des produits de la commande";
 			}
 			

@@ -1,11 +1,14 @@
 let id_products_order = new Array();
 let qty_products_order = new Array();
 let method;
+let newOrd = false;
 
 function commandesOnLoad() {
 	let newBtn = document.getElementById("new-order");
 
 	let modAddBtn = document.getElementById("btn-add-modal");
+
+	let modDelBtn = document.getElementById("btn-del-modal");
 
 	let edit = document.getElementsByClassName('order');
 
@@ -16,6 +19,7 @@ function commandesOnLoad() {
 	}
 
 	newBtn.addEventListener("click", function(){
+		emptyForm();
 		openModal();
 	});
 
@@ -26,12 +30,30 @@ function commandesOnLoad() {
 
 }
 
+function deleteOrder(id) {
+	$.ajax({
+			url: "phpScripts\\Order\\CtrlOrder.php",
+			type : 'POST',
+			data : {
+				function : 'delOrder',
+				id_order : id,
+			},
+			success: function(data) {
+            	console.log(data); // Inspect this in your console
+        	},
+		});
+}
+
 function methodId(selected) {
 	method = ($($('#product-ship').find("option")[selected.selectedIndex]).attr("id"));
 }
 
 function emptyForm() {
-	// body...
+	document.getElementById('client-name').value = "";
+	document.getElementById('client-address').value = "";
+	document.getElementById('client-city').value = "";
+	document.getElementById('client-province').value = "Québec";
+	document.getElementById('client-zip').value = "";
 }
 
 function productsQty() {
@@ -111,15 +133,36 @@ function showNewOrder()
 }
 
 function openModal() {
+	newOrd = true;
 	$('#modal-add-orders').modal('show');
 }
 
 function openModalTable(order) {
-	let modal = $('#modal-edit-orders');
+
+	newOrd = false;
+
 	let id = order.cells[0];
 	let client = order.cells[1];
 	let address = order.cells[2];
-	let state = order.cells[3];
+	let city = order.cells[3];
+	let province = order.cells[4];
+	let zip = order.cells[5];
+	let state = order.cells[6];
 
-	$('#modal-edit-orders').modal('show');
+	document.getElementById('client-name').value = client.innerHTML;
+	document.getElementById('client-address').value = address.innerHTML;
+	document.getElementById('client-city').value = city.innerHTML;
+	document.getElementById('client-province').value = province.innerHTML;
+	document.getElementById('client-zip').value = zip.innerHTML;
+ 
+	let modDelBtn = document.getElementById("btn-del-modal");
+
+	modDelBtn.addEventListener("click", function(){
+		deleteOrder(id.innerHTML);
+	});
+	
+	modDelBtn.disabled = false;
+
+	$('#modal-add-orders').modal('show');
+	//$('#client-name').val() = client.innerHTML;
 }

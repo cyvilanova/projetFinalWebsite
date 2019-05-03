@@ -23,7 +23,11 @@
 					$client = array($_POST['clientName'], $_POST['clientAddress'], $_POST['clientCity'], $_POST['clientProvince'], $_POST['clientZip']);
 					$ctrlO->addOrder(0, $_POST['productsId'], $_POST['productsQty'], $_POST['methodId'], $client);
 				break;
-			
+			case 'delOrder':
+				$ctrlO = new CtrlOrder();
+				$ctrlO->deleteOrder($_POST['id_order']);
+
+				break;
 			default:
 				# code...
 				break;
