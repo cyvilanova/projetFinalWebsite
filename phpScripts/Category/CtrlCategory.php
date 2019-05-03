@@ -53,7 +53,7 @@ class CtrlCategory
       $html .= "<tr data-toggle=\"modal\" data-target=\"#editModal\" onclick='editRecipe(" . json_encode($category, JSON_HEX_APOS, JSON_HEX_QUOT) . ");' title=\"Modifier la categorie\" id=\"" . $category->getId() . "\">";
       $html .= "<td>" . $category->getId() . "</td>";
       $html .= "<td>" . $category->getName() . "</td>";
-      if ($category->getActive() == 1) {
+      if ($category->isActive() == 1) {
         $html .= "<td>Actif</td>";
       } else {
         $html .= "<td>Inactif</td>";

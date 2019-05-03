@@ -30,16 +30,6 @@ class MgrCategory
   }
 
   /**
-   * Gets the the array of categories
-   * @return array $categories of the manager
-   * 
-   */
-  public function getCategories()
-  {
-    return $this->categories;
-  }
-
-  /**
    * Adds a category to the database
    * @param mixed $category category to add to the array
    *
@@ -49,7 +39,7 @@ class MgrCategory
     $parameters =
       [
         ":name" => $category->getName(),
-        ":is_active" => $category->getActive(),
+        ":is_active" => $category->isActive(),
         ":desc" => $category->getDescription(),
       ];
 
@@ -77,6 +67,33 @@ class MgrCategory
     }
   }
 
+  public function getProductCategories($productId)
+  {
+    $queryEngine = new QueryEngine();
+    $query = "SELECT c.id_product AS id_product, 
+            product.name AS name,
+            product.is_sellable AS is_sellable, 
+            product.price AS price,
+            product.description AS description, 
+            product.quantity AS quantity,
+            product.image_path AS image_path, 
+            ta_recipe_product.qty_ml AS qty_ml 
+            FROM product
+            INNER JOIN ta_recipe_product
+            ON product.id_product = ta_recipe_product.id_product
+            WHERE id_recipe = :idRecipe";
+    $parameters =
+        [
+            "idRecipe" => $recipeId,
+        ];
+    $resultSet = $queryEngine->executeQuery($query, $parameters);
+    if (!$resultSet) {
+        echo "Error while trying to load the ingredients.";
+    } else {
+        $this->resultToArray($resultSet);
+    }
+  }
+
   /**
    * Takes a resultSet as parameter and adds every row into the categories array
    * @param mixed $resultSet The resultset from the database
@@ -97,6 +114,16 @@ class MgrCategory
 
       array_push($this->categories, $category);
     }
+  }
+
+  /**
+   * Gets the the array of categories
+   * @return array $categories of the manager
+   * 
+   */
+  public function getCategories()
+  {
+    return $this->categories;
   }
 
 }

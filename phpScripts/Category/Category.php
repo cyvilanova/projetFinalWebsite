@@ -35,6 +35,21 @@ class Category
     $this->setDescription($description);
   }
 
+    /**
+     * Makes an array with all the properties of the object 
+     * and returns it for the js to use.
+     * @return array of all the properties of the object
+     * 
+     */
+    public function jsonSerialize() {
+      return array(
+          'id' => $this->id,
+          'name' => $this->name,
+          'isSellable' => $this->isSellable,
+          'description' => $this->description,
+      );
+  }
+
   /**
    *Gets the id of the category
    * @return int $id of the category
