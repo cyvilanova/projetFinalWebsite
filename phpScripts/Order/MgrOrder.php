@@ -1,55 +1,57 @@
 <?php
-	/****************************************
-	 Fichier : MgrOrder.php
-	 Auteure : Catherine Bronsard
-	 Fonctionnalité : Commandes clients
-	 Date : 2019-04-18
-	 Vérification :
-	 Date Nom Approuvé
-	 =========================================================
-	 Historique de modifications :
-	 Date Nom Description
-	 2019-05-01 CB Modifications insert - client
-	 =========================================================
-	****************************************/
+/****************************************
+Fichier : MgrOrder.php
+Auteure : Catherine Bronsard
+Fonctionnalité : Commandes clients
+Date : 2019-04-18
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+2019-05-01 CB Modifications insert - client
+05-02 David Gaulin Ajout de la fonction de paiement
+=========================================================
+ ****************************************/
 
-	require_once __DIR__ . '/../QueryEngine.php';
-	require_once __DIR__ . '/../Shipping/MgrShipping.php';
-	require_once __DIR__ . '/Order.php';
-	require_once __DIR__ . '/../Product/Product.php';
-	require_once __DIR__ . '/../Product/CtrlProduct.php';
-	/**
-	 * 
-	 */
-	class MgrOrder
-	{
-		
-		private $shipping;
-		private $query_engine;
-		
-		/**
-		 * __construct
-		 *
-		 * @return void
-		 */
-		function __construct()
-		{
-			$this->shipping = new MgrShipping();
-			$this->query_engine = new QueryEngine();
-		}
+require_once __DIR__ . '/../QueryEngine.php';
+require_once __DIR__ . '/../Shipping/MgrShipping.php';
+require_once __DIR__ . '/Order.php';
+require_once __DIR__ . '/../Product/Product.php';
+require_once __DIR__ . '/../Product/CtrlProduct.php';
+require_once __DIR__ . '/../Stripe/init.php';
+/**
+ *
+ */
+class MgrOrder
+{
 
-		/**
-		 * Get All Orders in an ArrayList
-		 *
-		 * @return void
-		 */
-		public function getAllOrders()
-		{
-			// TODO -> à refaire, pas pratique /!\
-			$query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `client`.`city`, `client`.`province`, 
-				`client`.`postal_code`, `state`.`name` as 'state_name' 
-			FROM `order` 
-			INNER JOIN `state` ON `order`.id_state = `state`.id_state 
+    private $shipping;
+    private $query_engine;
+
+    /**
+     * __construct
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->shipping = new MgrShipping();
+        $this->query_engine = new QueryEngine();
+    }
+
+    /**
+     * Get All Orders in an ArrayList
+     *
+     * @return void
+     */
+    public function getAllOrders()
+    {
+        // TODO -> à refaire, pas pratique /!\
+        $query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `client`.`city`, `client`.`province`,
+				`client`.`postal_code`, `state`.`name` as 'state_name'
+			FROM `order`
+			INNER JOIN `state` ON `order`.id_state = `state`.id_state
 			INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client`
 			WHERE `state`.name != 'Fermée'";
 
@@ -274,5 +276,61 @@
 			//return $tt;
 		}
 	}	
-?>
+    public function makePayment($tokenId, $price)
+    {
 
+        $price *= 100;
+
+        try {
+            \Stripe\Stripe::setApiKey("sk_test_IHvUqWlOZpF6fpSXlX9k119n00Cf1LJM5v");
+
+            $charge = \Stripe\Charge::create([
+                'amount' => $price,
+                'currency' => 'cad',
+                'description' => 'Commande quintessentiel',
+                'source' => $tokenId,
+            ]);
+
+        } catch (\Stripe\Error\Card $e) {
+            //When a card is declined
+            return 2;
+            echo "carte invalide!";
+        } catch (Exception $e) {
+            // Something else happened, completely unrelated to Stripe
+            return 3;
+        }
+
+        return 1; //worked perfectly
+    }
+
+    /**
+     * Gets the total of an order from
+     * the DB with it's Id.
+     *
+     * @param $id_order is the id of the order
+     * @return the total
+     */
+    public function getTotalById($id_order)
+    {
+        //Gets the total for an order
+
+        $query = "SELECT total FROM `order` WHERE id_order = :id_order";
+        $parametersOrder =
+            [
+            "id_order" => $id_order,
+        ];
+
+        $result = $this->query_engine->executeQuery($query, $parametersOrder);
+
+        if (!$result) {
+            echo "Erreur lors de la sélection du prix de la commande";
+            throw new Exception("Cannot get the total");
+        } else {
+            $total = $result->fetch();
+
+            return $total["total"];
+        }
+    }
+}
+
+?>

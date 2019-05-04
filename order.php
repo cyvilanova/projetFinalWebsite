@@ -99,7 +99,7 @@
  
           <button type="button" class="btn btn-light" data-dismiss="modal">Fermer</button>
           <button type="button" class="btn btn-light" id="btn-del-modal" disabled="true">Supprimer</button>
-          <button type="button" class="btn btn-light" id="btn-paye-modal">Payer</button>
+          <button type="button" class="btn btn-light" id="btn-pay-modal">Payer</button>
           <input type="submit" class="btn btn-default" id="btn-add-modal" value="Ajouter"/>
           </form>
         </div>

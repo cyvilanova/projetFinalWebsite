@@ -1,3 +1,19 @@
+<?php
+/****************************************
+Fichier : payment.php
+Auteure : David Gaulin
+Fonctionnalité : Paiement en ligne
+Date : 2019-04-29
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
+
+echo $_GET["orderId"];
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,15 +23,14 @@
 </head>
 <body>
 	<header>
-		<!-- La nav bar n'est pas la temporairement puisque son style brise le form de Stripe.. -->
 		<?php include("nav_admin.html"); ?>
 	</header>
 	<section>
 		<div class="page-title-bar">
 		 	<h1>Paiement</h1>
 		 </div>
-
-		 <form class="payment-form" action="" method="POST">
+		 <p id="payment-state"></p>
+		 <form class="payment-form" action="phpScripts/methodCall/scriptPayment.php" method="POST">
 		 	<div class="form-row">
 		 		<label for="card-element">
 		 			Carte de crédit ou de débit
@@ -93,6 +108,9 @@
 
 		card.mount("#card-element");
 
+		/*
+			Displays errors about the card infos entered
+		*/
 		card.addEventListener('change', ({error}) => {
 		  const displayError = document.getElementById('card-errors');
 		  if (error) {
@@ -102,34 +120,85 @@
 		  }
 		});
 
+		/* Makes the ajax call if the token
+			has been successfully created
+		*/
 		function tokenCreated(result){
 
 		  if (result.token) {	//If it worked
-		  	console.log(result.token);
-		    // In a real integration, you'd submit the form with the token to your backend server
-		    //var form = document.querySelector('form');
-		    //form.querySelector('input[name="token"]').setAttribute('value', result.token.id);
-		    //form.submit();
+
+		  	let form = document.getElementsByTagName("form")[0];
+
+		  	$.ajax({	//Call the payment script
+	 			type: "POST",
+	 			url: "phpScripts/methodCall/scriptPayment.php",
+	 			data: {
+	 				tokenId: result.token.id,
+	 				orderId: <?php echo $_GET["orderId"] ?>,
+	 				firstName: document.getElementById("firstName").value,
+	 				lastName: document.getElementById("lastName").value,
+	 				address: document.getElementById("address").value,
+	 				city: document.getElementById("city").value,
+	 				province: document.getElementById("province").value,
+	 				postalCode: document.getElementById("postalCode").value,
+	 			},
+	 			success: function(output) {
+                    displayFormMessage(output);
+                }
+	 		});
+
+		  	form.reset();
+		  	card.clear();
+
 		  } else if (result.error) { //If it didn't
-			console.log("error");
+			displayFormMessage("<span class='payment-error'>Erreur lors de la tentative du paiement</span>");
 		  }
 		}
 
 		
+		/* Detects the click on the confirm button */
 		document.getElementById("btnConfirm").addEventListener("click",function(e){
 			e.preventDefault();
-
-
-			const options = {
-				name: document.getElementById("firstName").value + " " + document.getElementById("lastName").value,
-				address: document.getElementById("address").value,
-				city: document.getElementById("city").value,
-				province: document.getElementById("province").value,
-				postalCode: document.getElementById("postalCode").value
-			};
-
-			stripe.createToken(card,options).then(tokenCreated)
+			if(formNotEmpty()){
+				stripe.createToken(card).then(tokenCreated);
+			}
+			else{
+				displayFormMessage("<span class='payment-error'>Veuillez remplir tout les champs</span>");
+			}
 		});
+
+		/*
+			Check if the form is empty
+			and returns a bool
+		*/
+		function formNotEmpty(){
+
+			let form = document.getElementsByTagName("form")[0];
+			let input = form.getElementsByTagName("input");
+			let select = document.getElementById("province");
+
+			if(select.options[select.selectedIndex].value == ""){
+				return false;
+			}
+
+			for(let i = 1;i < input.length;i++) //Starts at 1 because of Stripe input
+			{	
+				if(input[i].value == ""){
+					return false;
+				}
+			}
+
+			return true;
+		}
+
+		/*
+			Displays a message in the form message area
+		*/
+		function displayFormMessage(message){
+			let paymentState = document.getElementById("payment-state");
+			paymentState.innerHTML = message;
+		}
+
 	</script>
 </body>
 </html>

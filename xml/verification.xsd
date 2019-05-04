@@ -1,0 +1,93 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="tableContent">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="product" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="name"/>
+              <xs:element type="xs:boolean" name="sellable"/>
+              <xs:element type="xs:string" name="description"/>
+              <xs:element type="xs:double" name="price"/>
+              <xs:element type="xs:positiveInteger" name="quantity"/>
+              <xs:element name="imgPath" type="LimitBigString"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="category" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name" type="LimitBigString"/>
+              <xs:element type="xs:boolean" name="isActive"/>
+              <xs:element type="xs:string" name="description"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="secretQuestion" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="question"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="user" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:positiveInteger" name="idQuestion"/>
+              <xs:element name="username" type="LimitBigString"/>
+              <xs:element name="password" type="LimitBigString"/>
+              <xs:element name="email" type="emailAddress"/>
+              <xs:element name="secretAnswer" type="LimitBigString"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+          <xs:element name="client" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name" type="LimitBigString"/>
+              <xs:element name="address" type="LimitBigString"/>
+              <xs:element type="xs:string" name="city"/>
+              <xs:element type="xs:string" name="province"/>
+              <xs:element name="postalCode" type="postalCodeFormat"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="shippingCompany" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="name" type="LimitBigString"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="shippingMethod" maxOccurs="unbounded" minOccurs="0">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:integer" name="idCompany"/>
+              <xs:element name="name" type="LimitBigString"/>
+              <xs:element name="price" type="xs:double"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="emailAddress"> 
+    <xs:restriction base="xs:string"> 
+      <xs:pattern value="[^@]+@[^\.]+\..+"/> 
+    </xs:restriction> 
+  </xs:simpleType>
+
+   <xs:simpleType name="LimitBigString">
+    <xs:restriction base="xs:string">
+      <xs:maxLength value="255" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="postalCodeFormat">
+    <xs:restriction base="xs:string">
+      <xs:pattern  value="[A-Z][0-9][A-Z] [0-9][A-Z][0-9]" />
+      <xs:pattern  value="[A-Z][0-9][A-Z][0-9][A-Z][0-9]" />
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

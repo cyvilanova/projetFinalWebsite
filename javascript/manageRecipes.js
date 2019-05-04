@@ -3,6 +3,7 @@ let currentRecipe;
 /** Reset the borders color of editModal */
 $('#editModal').on('hidden.bs.modal', function (e) {
   const modalId = '#editModal';
+  resetSelectedCategories();
   applyInvalidStyle(modalId, 'recipe-name', '', '#ced4da');
   applyInvalidStyle(modalId, 'recipe-ingredients', '', '#ced4da');
   applyInvalidStyle(modalId, 'recipe-steps', '', '#ced4da');
@@ -20,6 +21,12 @@ $('#addModal').on('hidden.bs.modal', function (e) {
   applyInvalidStyle(modalId, 'recipe-product', '', '#ced4da');
   applyInvalidStyle(modalId, 'product-description', '', '#ced4da');
 })
+
+function resetSelectedCategories() {
+  $('#editModal').find('.product-category').each((_, value) => {
+      $(value).prop("selected", false);
+  });
+}
 
 /** Opens the editrecipe page with the recipe clicked and the correct informations*/
 function editRecipe(recipe) {
@@ -42,6 +49,36 @@ function editRecipe(recipe) {
   }
 
   displayIngredients(recipe.ingredients);
+  selectCategories(recipe.finalProduct.categories);
+}
+
+/** Initializes the list of ingredients of an existing recipe */
+function displayIngredients(ingredients) {
+
+  for (let i = 0; i < ingredients.length; i++) {
+
+    let html1 = '<div class=\"ingredient-item\" data-ingredient-id=\"' + ingredients[i].id + '\" id="ingredient-item-' + ingredients[i].id + '"></div>';
+    const html2 = '<label for=\"ingredient\" class=\"col-form-label\">' + ingredients[i].name + '</label>';
+    const html4 = '<input type=\"number\" step=\"0.1\" min=\"0\" lang=\"en\" class=\"form-control input-volume\"' +
+      'value=\"' + Number(ingredients[i].volumeUsed) + '\" disabled>';
+    const html5 = '<label class=\"col-form-label label-volume\"> mL </label>';
+    const deleteBtn = '<button type="button" class="btn btn-light btn-remove" onclick="removeIngredient(' + ingredients[i].id + ')">X</button>';
+
+    html1 = $(html1).append(html2, html4, html5, deleteBtn);
+    $('#editModal').find('#ingredients').append(html1);
+  }
+}
+
+/** Selects the categories in which the final product is */
+function selectCategories(categories) {
+  
+  $('#editModal').find('.product-category').each((_, value) => {
+    for (let i = 0; i < categories.length; i++) {
+      if ($(value).attr('id') == categories[i].id) {
+        $(value).prop("selected", true);
+      }
+    }
+  });
 }
 
 /** Enables the editing in the modal to edit the recipe */
@@ -100,23 +137,6 @@ function addIngredient(select, modalId) {
 /** Removes an ingredient from the list when clicking on the X */
 function removeIngredient(ingredientId) {
   $('#ingredient-item-' + ingredientId).remove();
-}
-
-/** Initializes the list of ingredients of an existing recipe */
-function displayIngredients(ingredients) {
-
-  for (let i = 0; i < ingredients.length; i++) {
-
-    let html1 = '<div class=\"ingredient-item\" data-ingredient-id=\"' + ingredients[i].id + '\" id="ingredient-item-' + ingredients[i].id + '"></div>';
-    const html2 = '<label for=\"ingredient\" class=\"col-form-label\">' + ingredients[i].name + '</label>';
-    const html4 = '<input type=\"number\" step=\"0.1\" min=\"0\" lang=\"en\" class=\"form-control input-volume\"' +
-      'value=\"' + Number(ingredients[i].volumeUsed) + '\" disabled>';
-    const html5 = '<label class=\"col-form-label label-volume\"> mL </label>';
-    const deleteBtn = '<button type="button" class="btn btn-light btn-remove" onclick="removeIngredient(' + ingredients[i].id + ')">X</button>';
-
-    html1 = $(html1).append(html2, html4, html5, deleteBtn);
-    $('#editModal').find('#ingredients').append(html1);
-  }
 }
 
 /** Validates all the fields in form */

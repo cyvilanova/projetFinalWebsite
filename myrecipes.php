@@ -183,9 +183,10 @@ include_once "phpScripts/Category/CtrlCategory.php";
                         <div class="form-group">
                             <label for="product-categories" class="col-form-label">Catégories du produit final</label>
                             <select class="form-control selectpicker" multiple data-live-search="true" id="product-categories" data-live-search="true">
-                                <option>Mustard</option>
-                                <option>Ketchup</option>
-                                <option>Relish</option>
+                                <?php
+                                $ctrlC = new CtrlCategory();
+                                $ctrlC->loadCategoriesOptions();
+                                ?>
                             </select>
                             <div class="invalid-input" id="invalid-product-categories"></div>
                         </div>
