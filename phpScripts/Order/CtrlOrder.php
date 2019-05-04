@@ -28,8 +28,14 @@
 				$ctrlO->deleteOrder($_POST['id_order']);
 
 				break;
-			default:
-				# code...
+			case 'editOrder':
+				$ctrlO = new CtrlOrder();
+				$client = array($_POST['clientName'], $_POST['clientAddress'], $_POST['clientCity'], $_POST['clientProvince'], $_POST['clientZip']);
+				//$ctrlO->editOrder();
+				break;
+			case 'productsId':
+					$ctrlO = new CtrlOrder();
+					$ctrlO->getProducts($_POST['id']);
 				break;
 		}
 
@@ -109,10 +115,10 @@
 		 *
 		 * @return void
 		 */
-		public function editOrder($id_order, $id_client, $product, $quantity, $adress)
+		public function editOrder($id_order, $client, $product, $quantity, $adress)
 		{
 			$order = new Order($id_order, "", "", $product,"");
-			$this->mgrOrder->updateOrder($order, $id_client);
+			$this->mgrOrder->updateOrder($order, $client);
 		}
 
 		/**
@@ -123,6 +129,14 @@
 		public function deleteOrder($id_order)
 		{
 			$this->mgrOrder->deleteOrder($id_order);
+		}
+
+
+		public function getProducts($id_order)
+		{
+			$id = json_encode($this->mgrOrder->getProductsId($id_order));
+			echo $id;
+			return $id;
 		}
 	}
 ?>

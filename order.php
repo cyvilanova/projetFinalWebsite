@@ -74,7 +74,7 @@
          <div class="form-group">
               <label for="shipping" class="col-form-label">Livraison </label>
               <select id="product-ship" name="products" class="selectpicker form-control" onchange="methodId(this)">
-                <option disabled selected value>Choisir une méthode de livraison</option>
+                <option disabled selected value="start">Choisir une méthode de livraison</option>
               <?php
                 $ctrlL = new CtrlShipping();
                 $ctrlL->loadAllShippingSelect();
@@ -84,7 +84,7 @@
           <div class="form-group">
               <label for="products" class="col-form-label">Produits </label>
               <select id="product-order" name="products" class="selectpicker form-control" onchange="addProduct(this)">
-                <option disabled selected value>Choisir un ou plusieurs produits</option>
+                <option disabled selected value="start">Choisir un ou plusieurs produits</option>
               <?php
                 $ctrlP = new CtrlProduct();
                 $ctrlP->loadAllProductsSelect();
