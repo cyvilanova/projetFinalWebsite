@@ -21,32 +21,29 @@ let selected = false;
 
 let modals_container = document.getElementById("modals-window");
 
-let addModal = document.getElementById("modal-add");
-let editModal = document.getElementById("modal-edit");
-let deleteModal = document.getElementById("modal-delete");
+let addModal = document.getElementById("addModal");
+let editModal = document.getElementById("editModal");
+let deleteModal = document.getElementById("deleteModal");
 
+for(let i = 0; i < products_container.childElementCount; i++)
+{
+    var row = products_container.children[i];
 
-addBtn.addEventListener("click", function(){
-    openModal(this.id);
+    row.addEventListener("click", function() {
 
-    let image_input = $(addModal).find("#product_image")[0];
-
-    image_input.addEventListener("change", function(){
-        let txt_image = $(addModal).find("#product_image_text")[0];
-        txt_image.value = this.value;
-    });
-
-});
-
-editBtn.addEventListener("click", function(){
-    if(this.classList.contains("disabled") == false)
-    {
-        openModal(this.id);
+        for(let j = 0; j < products.length; j++)
+        {
+            if(products[j]["id"] == this.id)
+            {
+                selected_prod = products[j];
+                break;
+            }
+        }
 
         //Get the fields to fill
         let selected_prod_id = $(editModal).find("#selected_prod_id")[0];
 
-        selected_prod_id.value = selected_prod.id;
+        selected_prod_id.value = selected_prod['id'];
         console.log(selected_prod_id);
 
         let txt_name = $(editModal).find("#product_name")[0];
@@ -67,41 +64,40 @@ editBtn.addEventListener("click", function(){
         //Fill the fields
         txt_name.value = selected_prod['name'];
         txt_des.value = selected_prod['description'];
+        console.log(txt_name);
         txt_image.value = selected_prod['image_path'];
         txt_category.selectedValue = selected_prod['category'];
         txt_qty.value = selected_prod['quantity'];
         txt_price.value = selected_prod['price'].substr(0, selected_prod['price'].length - 1);
         check_visible.checked = selected_prod['visible'];
-    }
-});
+    });
+}
 
-deleteBtn.addEventListener("click", function(){
-    if(this.classList.contains("disabled") == false)
-    {
-        openModal(this.id);
+addBtn.addEventListener("click", function(){
+    //openModal(this.id);
 
-        let selected_prod_id = $(deleteModal).find("#selected_prod_id")[0];
+    let image_input = $(addModal).find("#product_image")[0];
 
-        selected_prod_id.value = selected_prod.id;
-
-        deleteModal.innerHTML = deleteModal.innerHTML.replace("|*|", selected_prod.name);
-    }
+    image_input.addEventListener("change", function(){
+        let txt_image = $(addModal).find("#product_image_text")[0];
+        txt_image.value = this.value;
+    });
 
 });
 
 //Get all loaded products in the array
-for(let i = 0; i < products_container.childElementCount; i++)
+for(i = 0; i < products_container.childElementCount; i++)
 {
     let element = products_container.children[i];
     let product = {
         id: element.id,
-        name: element.children[1].innerText,
-        description: element.children[2].innerText,
-        image_path: element.children[3].children[0].getAttribute("src"),
-        category: element.children[4].innerText,
-        quantity: element.children[5].innerText,
-        price: element.children[6].innerText,
-        visible: element.children[7].children[0].checked
+        name: element.children[0].innerText,
+        description: element.children[1].innerText,
+        image_path: element.children[2].children[0].getAttribute("src"),
+        category: element.children[3].innerText,
+        quantity: element.children[4].innerText,
+        price: element.children[5].innerText,
+        visible: element.children[6].children[0].checked
     };
     products.push(product);
 }
@@ -142,66 +138,4 @@ for(i = 0; i < selectBtn.length; i++)
             deleteBtn.classList.toggle("disabled", true);
         }
     });
-}
-
-//Event listener to close the modal when user clicks out of it
-modals_container.addEventListener("click", function(){
-
-    let min_x = openedModal.offsetLeft;
-    let max_x = openedModal.offsetLeft + openedModal.offsetWidth;
-    let min_y = openedModal.offsetTop;
-    let max_y = openedModal.offsetTop + openedModal.offsetHeight;
-
-    let x = event.clientX;
-    let y = event.clientY;
-
-    if((x < min_x || x > max_x) || (y < min_y || y > max_y))
-    {
-        closeModals();
-        modals_container.classList.toggle("open", false);
-    }
-})
-
-//Open modal
-function openModal(btnId){
-    switch(btnId){
-        case "add":
-            closeModals();
-            showModal(addModal);
-            break;
-        case "edit":
-            closeModals();
-            showModal(editModal);
-            break;
-        case "delete":
-            closeModals();
-            showModal(deleteModal);
-            break;
-    }
-    modals_container.classList.toggle("open", true);
-}
-
-//Closes all the Modals
-function closeModals(){
-    addModal.classList.toggle("open", false);
-    editModal.classList.toggle("open", false);
-    deleteModal.classList.toggle("open", false);
-    body.style.overflow = "auto";
-}
-
-//Toggles on the selected modal
-function showModal(m){
-    m.classList.toggle("open", true);
-    openedModal = m;
-    body.style.overflow = "hidden";
-    window.scrollTo(0,0);
-}
-
-
-//Uncheck all products in the table
-function unselectAll(){
-    for(i = 0; i < selectBtn.length; i++)
-    {
-        selectBtn[i].checked = false;
-    }
 }

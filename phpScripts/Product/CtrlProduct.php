@@ -230,8 +230,7 @@ class CtrlProduct
 
         foreach ($products as $product) {
 
-            $html .= "<tr id=" . $product->getId() . ">";
-            $html .= "<td><input type='checkbox' class='select'/></td>";
+            $html .= "<tr id=" . $product->getId() . " data-toggle='modal' data-target='#editModal'>";
             $html .= "<td>" . $product->getName() . "</td>";
             $html .= "<td>" . $product->getDescription() . "</td>";
             $html .= "<td><img src='images/imgProducts/" . $product->getImagePath() . "'/></td>";
