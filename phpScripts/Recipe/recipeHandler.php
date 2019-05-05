@@ -12,6 +12,7 @@ $formattedIngredientsData = json_decode($ingredientsData);
 
 $ctrlRecipe = new CtrlRecipe();
 
+// Add a new recipe
 if ($isNew) {
   $ctrlRecipe->createRecipe(
     $_POST['name'],
@@ -23,7 +24,9 @@ if ($isNew) {
     $formattedIngredientsData
   );
 
-} elseif (!$isNew) {
+} 
+// Update a recipe
+elseif (!$isNew) {
   $ctrlRecipe->updateRecipe(
     $_POST['id'],
     $_POST['name'],
