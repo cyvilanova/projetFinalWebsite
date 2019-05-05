@@ -1,207 +1,173 @@
-let addBtn = document.getElementById("add");
-let editBtn = document.getElementById("edit");
-let deleteBtn = document.getElementById("delete");
+//Buttons
+let addBtn = document.getElementById("add");    //Button to open the Add Modal
+let deleteBtn = document.getElementById("deleteBtn");   //Button to open the Delete Modal
+let cancelDeleteBtn = document.getElementById("cancelDeleteBtn"); //Cancel button in the delete Modal.
 
-let body = document.getElementById("body");
+//The text in the delete modal.
+let deleteTxt = document.getElementById("deleteTxt");
 
+//The table body
 let products_container = document.getElementById("products");
 
 //All the loaded products
 let products = [];
+
+//Product currently selected
 let selected_prod;
 
-let cancelBtn = document.getElementsByClassName("cancel-btn default");
+//Modals
+let addModal = document.getElementById("addModal");
+let editModal = document.getElementById("editModal");
+let deleteModal = document.getElementById("deleteModal");
 
-let openedModal;
+//Categories Select Box
+let categories_select = $(editModal).find("#product_category")[0];
 
-//All the select checkboxes
-let selectBtn = document.getElementsByClassName("select");
+//Open the Delete Menu
+deleteBtn.addEventListener("click", function() {
+    //Hide the edit modal
+    editModal.classList.toggle("show", false);
 
-let selected = false;
+    //We write which product is about to be deleted.
+    deleteTxt.innerText = deleteTxt.innerText.replace("|*|", selected_prod['name']);
 
-let modals_container = document.getElementById("modals-window");
-
-let addModal = document.getElementById("modal-add");
-let editModal = document.getElementById("modal-edit");
-let deleteModal = document.getElementById("modal-delete");
-
-
-addBtn.addEventListener("click", function(){
-    openModal(this.id);
-
-    let image_input = $(addModal).find("#product_image")[0];
-
-    image_input.addEventListener("change", function(){
-        let txt_image = $(addModal).find("#product_image_text")[0];
-        txt_image.value = this.value;
-    });
+    //We set the hiddenValue of the selected item for the delete form.
+    let selected_prod_id = $(deleteModal).find("#selected_prod_id")[0];
+    selected_prod_id.value = selected_prod['id'];
 
 });
 
-editBtn.addEventListener("click", function(){
-    if(this.classList.contains("disabled") == false)
-    {
-        openModal(this.id);
+//Click event when clicking cancel in the delete form
+cancelDeleteBtn.addEventListener("click", function () {
 
-        //Get the fields to fill
-        let selected_prod_id = $(editModal).find("#selected_prod_id")[0];
+    //Close the delete Modal
+    deleteModal.classList.toggle("show", false);
 
-        selected_prod_id.value = selected_prod.id;
-        console.log(selected_prod_id);
+    //Show the edit modal
+    editModal.classList.toggle("show", true);
 
-        let txt_name = $(editModal).find("#product_name")[0];
-        let txt_des = $(editModal).find("#product_desc")[0];
-        let txt_image = $(editModal).find("#product_image_text")[0];
-        let txt_category = $(editModal).find("#product_category")[0];
-        let txt_qty = $(editModal).find("#product_qty")[0];
-        let txt_price = $(editModal).find("#product_price")[0];
-        let check_visible = $(editModal).find("#product_visible")[0];
-
-        let image_input = $(editModal).find("#product_image")[0];
-
-        image_input.addEventListener("change", function(){
-           let txt_image = $(editModal).find("#product_image_text")[0];
-            txt_image.value = this.value;
-        });
-
-        //Fill the fields
-        txt_name.value = selected_prod['name'];
-        txt_des.value = selected_prod['description'];
-        txt_image.value = selected_prod['image_path'];
-        txt_category.selectedValue = selected_prod['category'];
-        txt_qty.value = selected_prod['quantity'];
-        txt_price.value = selected_prod['price'].substr(0, selected_prod['price'].length - 1);
-        check_visible.checked = selected_prod['visible'];
-    }
+    //Set the text, in the delete modal, back to the placeholder |*|
+    deleteTxt.innerText = deleteTxt.innerText.replace(selected_prod['name'], "|*|");
 });
 
-deleteBtn.addEventListener("click", function(){
-    if(this.classList.contains("disabled") == false)
-    {
-        openModal(this.id);
-
-        let selected_prod_id = $(deleteModal).find("#selected_prod_id")[0];
-
-        selected_prod_id.value = selected_prod.id;
-
-        deleteModal.innerHTML = deleteModal.innerHTML.replace("|*|", selected_prod.name);
-    }
-
-});
-
-//Get all loaded products in the array
+//Loop to add click event handler to each table row. Opens the edit modal.
 for(let i = 0; i < products_container.childElementCount; i++)
 {
-    let element = products_container.children[i];
-    let product = {
-        id: element.id,
-        name: element.children[1].innerText,
-        description: element.children[2].innerText,
-        image_path: element.children[3].children[0].getAttribute("src"),
-        category: element.children[4].innerText,
-        quantity: element.children[5].innerText,
-        price: element.children[6].innerText,
-        visible: element.children[7].children[0].checked
-    };
-    products.push(product);
-}
+    var row = products_container.children[i];
 
+    //Click event handler for each row
+    row.addEventListener("click", function() {
 
-//Makes the cancel buttons close the modals.
-for(i = 0; i < cancelBtn.length; i++)
-{
-    cancelBtn[i].addEventListener("click", function(){closeModals();});
-    $(deleteModal).find(".cancel-btn")[0].addEventListener("click", function(){closeModals();});
-}
-
-
-//Forces the user to select only 1 product, or none.
-for(i = 0; i < selectBtn.length; i++)
-{
-    selectBtn[i].addEventListener("change", function(){
-        if(this.checked == true)
+        //Loop to set the selected_prod
+        for(let j = 0; j < products.length; j++)
         {
-            unselectAll();
-            this.checked = true;
-            editBtn.classList.toggle("disabled", false);
-            deleteBtn.classList.toggle("disabled", false);
-            for(i = 0; i < products.length; i++)
+            if(products[j]["id"] == this.id)
             {
-                if(products[i]["id"] == this.parentNode.parentNode.id)
-                {
-                    selected_prod = products[i];
-                    break;
-                }
+                selected_prod = products[j];
+                break;
             }
+        }
 
-        }
-        else
-        {
-            unselectAll();
-            editBtn.classList.toggle("disabled", true);
-            deleteBtn.classList.toggle("disabled", true);
-        }
+        //Open the edit modal
+        openEdit();
     });
 }
 
-//Event listener to close the modal when user clicks out of it
-modals_container.addEventListener("click", function(){
 
-    let min_x = openedModal.offsetLeft;
-    let max_x = openedModal.offsetLeft + openedModal.offsetWidth;
-    let min_y = openedModal.offsetTop;
-    let max_y = openedModal.offsetTop + openedModal.offsetHeight;
+//Open edit modal with the product's data
+function openEdit()
+{
+    //Get the fields to fill
+    let selected_prod_id = $(editModal).find("#selected_prod_id")[0];
+    let txt_name = $(editModal).find("#product_name")[0];
+    let txt_des = $(editModal).find("#product_desc")[0];
+    let txt_image = $(editModal).find("#product_image_text")[0];
+    let txt_category = $(editModal).find("#product_category")[0];
+    let txt_qty = $(editModal).find("#product_qty")[0];
+    let txt_price = $(editModal).find("#product_price")[0];
+    let check_visible = $(editModal).find("#product_visible")[0];
+    let image_input = $(editModal).find("#product_image")[0];
 
-    let x = event.clientX;
-    let y = event.clientY;
+    //Categories of the selected product.
+    let selected_categories = new Array();
+    selected_categories = selected_prod['category'].split(",");
 
-    if((x < min_x || x > max_x) || (y < min_y || y > max_y))
+    //First we unselect every option.
+    for(let i = 0; i < categories_select.options.length; i++)
     {
-        closeModals();
-        modals_container.classList.toggle("open", false);
+        categories_select.options[i].selected = false;
     }
-})
 
-//Open modal
-function openModal(btnId){
-    switch(btnId){
-        case "add":
-            closeModals();
-            showModal(addModal);
-            break;
-        case "edit":
-            closeModals();
-            showModal(editModal);
-            break;
-        case "delete":
-            closeModals();
-            showModal(deleteModal);
-            break;
-    }
-    modals_container.classList.toggle("open", true);
-}
-
-//Closes all the Modals
-function closeModals(){
-    addModal.classList.toggle("open", false);
-    editModal.classList.toggle("open", false);
-    deleteModal.classList.toggle("open", false);
-    body.style.overflow = "auto";
-}
-
-//Toggles on the selected modal
-function showModal(m){
-    m.classList.toggle("open", true);
-    openedModal = m;
-    body.style.overflow = "hidden";
-    window.scrollTo(0,0);
-}
-
-
-//Uncheck all products in the table
-function unselectAll(){
-    for(i = 0; i < selectBtn.length; i++)
+    //Loops that select matching categories.
+    for(let i = 0; i < categories_select.options.length; i++)
     {
-        selectBtn[i].checked = false;
+        for(let j = 0; j < selected_categories.length; j++)
+        {
+            //If the options value is the same as the category being read, select it.
+            if(categories_select.options[i].innerText == selected_categories[j])
+            {
+                categories_select.options[i].selected = true;
+                break;
+            }
+        }
     }
+
+    //Fill the fields
+    selected_prod_id.value = selected_prod['id'];
+    txt_name.value = selected_prod['name'];
+    txt_des.value = selected_prod['description'];
+    txt_image.value = selected_prod['image_path'];
+    txt_category.selectedValue = selected_prod['category'];
+    txt_qty.value = selected_prod['quantity'];
+    txt_price.value = selected_prod['price'].substr(0, selected_prod['price'].length - 1);
+    check_visible.checked = selected_prod['visible'];
+}
+
+style_file_input(editModal);
+style_file_input(addModal);
+
+//Fake file input styling. Takes the value of the invisible file input and puts it in a textbox
+function style_file_input(modal)
+{
+    let image_input = $(modal).find("#product_image")[0];
+
+    image_input.addEventListener("change", function(){
+        let txt_image = $(modal).find("#product_image_text")[0];
+        txt_image.value = this.value;
+    });
+}
+
+
+//Get all loaded products in the array
+for(i = 0; i < products_container.childElementCount; i++)
+{
+    let element = products_container.children[i];
+
+    //Create a product object
+    let prod = new Product(element.id,
+                           element.children[0].innerText,
+                           element.children[1].innerText,
+                           element.children[2].children[0].getAttribute("src"),
+                           element.children[3].innerText,
+                           element.children[4].innerText,
+                           element.children[5].innerText,
+                           element.children[6].children[0].checked
+                          );
+
+    //Push the product in the products array
+    products.push(prod);
+}
+
+
+//Product object
+function Product(id, name, description, image_path, category, quantity, price, visible)
+{
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.image_path = image_path;
+    this.category = category;
+    this.quantity = quantity;
+    this.price = price;
+    this.visible = visible;
 }

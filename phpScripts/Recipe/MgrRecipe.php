@@ -32,34 +32,6 @@ class MgrRecipe
 
 	/**
 	 * Send to the QueryEngine a prepared statement in string form
-	 * along with its parameters as a map to insert a new recipe. 
-	 *
-	 */
-	public function addNewRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, 
-															 $finalProductDescription, $categories, $ingredients)
-	{
-		$query = "INSERT INTO recipe(name, is_custom, steps, id_product) 
-							OUTPUT Inserted.ID
-							VALUES (:name, :is_custom, :steps, :id_product)";
-		$parameters =
-			[
-				":name" => $recipeName,
-				":is_custom" => $recipeIsCustom,
-				":steps" => $recipeSteps,
-				":id_product" => 2
-			];
-
-			$resultSet = 	$this->queryEngine->executeQuery($query, $parameters);
-	
-			if (!$resultSet) {
-				echo "Error while trying to load all recipes";
-			} else {
-				$this->resultToArray($resultSet);
-			}
-	}
-
-	/**
-	 * Send to the QueryEngine a prepared statement in string form
 	 * along with its parameters as a map to select the recipes needed. 
 	 *
 	 * @param string $filter 
@@ -141,6 +113,67 @@ class MgrRecipe
 	public function getMgrProduct()
 	{
 		return $this->mgrProduct;
+	}
+
+	/**
+	 * Send to the QueryEngine a prepared statement in string form
+	 * along with its parameters as a map to insert a new recipe. 
+	 *
+	 * @param  mixed $recipeName
+	 * @param  mixed $recipeIsCustom
+	 * @param  mixed $recipeSteps
+	 * @param  mixed $finalProductName
+	 *
+	 */
+	public function createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, 
+															 $finalProductDescription, $finalProductCategories, $recipeIngredients)
+	{
+		$finalProductId = $this->mgrProduct->createNewProduct($finalProductName, $finalProductDescription, $finalProductCategories);
+
+		$query = "INSERT INTO recipe(name, is_custom, steps, id_product) 
+							VALUES (:name, :is_custom, :steps, :id_product)";
+		$parameters =
+			[
+				":name" => $recipeName,
+				":is_custom" => $recipeIsCustom,
+				":steps" => $recipeSteps,
+				":id_product" => $finalProductId
+			];
+
+			if(!$this->queryEngine->executeQuery($query, $parameters)) {
+				echo "Error while trying to insert a recipe in database.";
+			} 
+			else {
+				$recipeId = $this->queryEngine->getLastInsertedId();
+				$this->addIngredients($recipeId,  $recipeIngredients);
+			}
+	}
+
+	/**
+	 * Associates the recipe with products(ingredients) in the association table.
+	 *
+	 * @param  int $recipeId The id of the recipe
+	 * @param  array $recipeIngredients The array containing the id of the product and the quantity used in ml
+	 *
+	 */
+	public function addIngredients($recipeId,  $recipeIngredients)
+	{
+		for ($i = 0, $size = count($recipeIngredients); $i < $size; ++$i) {
+			$query = "INSERT INTO ta_recipe_product(id_recipe, id_product, qty_ml)
+								VALUES(:id_recipe, :id_product, :qty_ml)";
+
+			$parameters =
+				[
+					":id_recipe" => $recipeId, // recipe's id
+					":id_product" => $recipeIngredients[$i][0], // ingredient's id
+					":qty_ml" => $recipeIngredients[$i][1] // ingredient's quantity in ml
+
+				];
+
+			if (!$this->queryEngine->executeQuery($query, $parameters)) {
+				echo "Error while trying to insert an ingredient in the recipe. id_product = " . $recipeIngredients[$i][0];
+			}
+		}
 	}
 
 }
