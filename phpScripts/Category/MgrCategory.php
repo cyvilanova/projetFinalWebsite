@@ -1,6 +1,6 @@
 <?php
 /****************************************
- Fichier : Category.php
+ Fichier : MGRCategory.php
  Auteur : Philippe Audit-Allaire
  Fonctionnalité : W - Connexion de l'utilisateur
  Date : 2019-04-15
@@ -16,7 +16,7 @@ require_once __DIR__ . '/../QueryEngine.php';
 
 class MgrCategory{
 
-  private $categories; //array of category
+  private $categories; //Array of categories
 
   /**
   * Category manager constructor without parameters
@@ -47,7 +47,7 @@ class MgrCategory{
 
     $query = "INSERT INTO category(name, is_active,description) VALUES (:name, :is_active,:desc)";
 
-    if ($queryEngine->executeQuery($query, $parameters)) {
+    if (!$queryEngine->executeQuery($query, $parameters)) {
       echo "Error in the query";
     }
   }
@@ -135,8 +135,7 @@ class MgrCategory{
 		$this->categories = array();
 
 		foreach($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
-
-			$category = new Category(
+      $category = new Category(
         $result[0], // id_category
         $result[1], // name
 				$result[2], // is_active
