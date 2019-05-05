@@ -126,13 +126,14 @@ class MgrProduct
      * @param string $filter 
      *
      */
-    public function getProductsByName($name, $filter = null)
+    public function getProductsByName($name,$isSellable,$filter = null)
     {
         $queryEngine = new QueryEngine();
-        $query = "SELECT * FROM Product WHERE name LIKE :name";
+        $query = "SELECT * FROM Product WHERE name LIKE :name AND is_sellable = :is_sellable";
         $parameters =
             [
                 ":name" => "%" . $name . "%",
+                ":is_sellable" => $isSellable,
             ];
         if ($filter != null) {
             //Adds the filter
@@ -181,21 +182,29 @@ class MgrProduct
      * @param string $filter 
      *
      */
-    public function getAllProducts($filter = null)
+    public function getAllProducts($isSellable,$filter = null)
     {
         $queryEngine = new QueryEngine();
-        $query = "SELECT * FROM Product";
+        $query = "SELECT * FROM Product WHERE is_sellable = :is_sellable";
+
+        $parameters =
+            [
+                ":is_sellable" => $isSellable,
+            ];
+
         if ($filter != null) {
             //Adds the filter
             $query .= " ORDER BY " . $filter;
         }
-        $resultSet = $queryEngine->executeQuery($query);
+        $resultSet = $queryEngine->executeQuery($query,$parameters);
+
         if (!$resultSet) {
             echo "Error while trying to load all products";
         } else {
             $this->resultToArray($resultSet);
         }
     }
+
 
     /**
      * Send to the QueryEngine a prepared statement in string form
