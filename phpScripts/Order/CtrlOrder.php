@@ -31,8 +31,9 @@
 				break;
 			case 'editOrder':
 				$ctrlO = new CtrlOrder();
-				$client = array($_POST['clientName'], $_POST['clientAddress'], $_POST['clientCity'], $_POST['clientProvince'], $_POST['clientZip']);
-				//$ctrlO->editOrder();
+				$client = new Client($_POST['clientAddress'], $_POST['clientCity'], $_POST['clientName'], $_POST['clientZip'], $_POST['clientProvince'], $_POST['clientId']);
+
+				$ctrlO->editOrder($_POST['id'], $client, $_POST['productsId'], $_POST['productsQty']);
 				break;
 			case 'productsId':
 					$ctrlO = new CtrlOrder();
@@ -63,17 +64,17 @@
 		public function loadAllOrders()
 		{
 			$orders = $this->mgrOrder->getAllOrders();
-			
-			foreach ($orders as $row) {
+			//var_dump($orders);
+			foreach ($orders as $order) {
 				
-				$element = "<tr class=\"order\">";
-				$element .= "<td id=\"id-order-" . $row['id_order'] . "\">" . $row['id_order'] . "</td>";
-				$element .= "<td id=\"client-name-" . $row['id_order'] . "\">" . $row['client_name'] . "</td>";
-				$element .= "<td id=\"address-" . $row['id_order'] . "\">" . $row['address'] . "</td>";
-				$element .= "<td id=\"city-" . $row['id_order'] . "\">" . $row['city'] . "</td>";
-				$element .= "<td id=\"province-" . $row['id_order'] . "\">" . $row['province'] . "</td>";
-				$element .= "<td id=\"postal_code-" . $row['id_order'] . "\">" . $row['postal_code'] . "</td>";
-				$element .= "<td id=\"state-name-" . $row['id_order'] . "\">" . $row['state_name'] . "</td>";
+				$element = "<tr class=\"order\" onclick='openModalTable(" . json_encode($order, JSON_HEX_APOS, JSON_HEX_QUOT) . ")'>";
+				$element .= "<td id=\"id-order-" . $order->getId() . "\">" . $order->getId() . "</td>";
+				$element .= "<td id=\"client-name-" . $order->getId() . "\">" . $order->getClient()->getName() . "</td>";
+				$element .= "<td id=\"address-" . $order->getId() . "\">" . $order->getClient()->getAddress() . "</td>";
+				$element .= "<td id=\"city-" . $order->getId() . "\">" . $order->getClient()->getCity() . "</td>";
+				$element .= "<td id=\"province-" . $order->getId() . "\">" . $order->getClient()->getProvince() . "</td>";
+				$element .= "<td id=\"postal_code-" . $order->getId() . "\">" . $order->getClient()->getPostalCode() . "</td>";
+				$element .= "<td id=\"state-name-" . $order->getId() . "\">" . $order->getState() . "</td>";
 
 
 				$element .= "</tr>";
@@ -98,8 +99,8 @@
 				array_push($products, $this->mgrProduct->getProduct()[0]);
 			}
 			
-
-			$order = new Order("", $price, "", $products, $quantities);
+			var_dump($quantities);
+			$order = new Order("", $client, $price, "", $products, $quantities, 'Ouverte');
 			$this->mgrOrder->calculatePrice($order);
 
 			$this->mgrOrder->insertOrder($order, $client, $id_method);
@@ -117,9 +118,18 @@
 		 *
 		 * @return void
 		 */
-		public function editOrder($id_order, $client, $product, $quantity, $adress)
+		public function editOrder($id_order, $client, $product, $quantity)
 		{
-			$order = new Order($id_order, "", "", $product,"");
+			$products = [];
+			var_dump($product);
+			foreach ($product as $id) {
+				var_dump($id);
+				$this->mgrProduct->getProductById($id);
+				array_push($products, $this->mgrProduct->getProduct()[0]);
+			}
+
+			$order = new Order($id_order, $client, "", "", $products, $quantity, "Ouverte");
+			var_dump(($order->getProducts()));
 			$this->mgrOrder->updateOrder($order, $client);
 		}
 
@@ -136,11 +146,11 @@
 
 		public function getProducts($id_order)
 		{
-			$id = json_encode($this->mgrOrder->getProductsId($id_order));
+			/*$id = json_encode($this->mgrOrder->getProductsId($id_order));
 			echo $id;
-			return $id;
+			return $id;*/
 		}
-	}
+	
     /**
      * Makes a payment via the stripe API
      *
@@ -172,6 +182,5 @@
         }
     }
 }
-
 
 ?>

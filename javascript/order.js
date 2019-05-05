@@ -4,6 +4,8 @@ let method;
 let newOrd = false;
 let row;
 let productNames = new Array();
+let currentOrder;
+
 
 function commandesOnLoad() {
 	let newBtn = document.getElementById("new-order");
@@ -14,20 +16,12 @@ function commandesOnLoad() {
 
 	let select = document.getElementById("product-order");
 
+	$("#modal-add-orders").on("hidden.bs.modal", function () {
+	    emptyForm();
+	});
+
 	for (var i = 1; i < select.options.length; i++) {
 		productNames.push(select.options[i].innerHTML);
-	}
-
-	let edit = document.getElementsByClassName('order');
-
-	for (var i = 0; i < edit.length; i++) {
-		edit[i].addEventListener("click", function(argument) {
-			openModalTable(this);/*
-			getProductsId(this.cells[0]);
-			for (var i = 0; i < id_products_order.length; i++) {
-				addProductId(id_products_order[i]);
-			}*/
-		});
 	}
 
 	newBtn.addEventListener("click", function(){
@@ -41,7 +35,7 @@ function commandesOnLoad() {
 			addOrder();
 		}
 		else {
-			editOrder(row);
+			editOrder(currentOrder);
 		}
 		
 	});
@@ -87,19 +81,24 @@ function edit(order) {
 			type : 'POST',
 			data : {
 				function : 'editOrder',
-				id : order.cells[0].innerHTML,
-				clientName: order.cells[1].innerHTML,
-				clientAddress : order.cells[2].innerHTML,
-				clientCity : order.cells[3].innerHTML,
-				clientProvince : order.cells[4].innerHTML,
-				clientZip : order.cells[5].innerHTML,
+				id : order.id,
+				clientName: $('#client-name').val(),
+				clientAddress : $('#client-address').val(),
+				clientCity : $('#client-city').val(),
+				clientProvince : $('#client-province').val(),
+				clientZip : $('#client-zip').val(),
+				clientId : order.client.id,
 				productsId : id_products_order,
 				productsQty : qty_products_order,
 				methodId : method,
 			},
 			success: function(data) {
-            	console.log("FML"); // Inspect this in your console
+            	console.log("djsgo");
+            	console.log(data);
         	},
+        	error : function(data) {
+        		console.log("FML")
+        	}
 		});	
 }
 
@@ -127,14 +126,22 @@ function emptyForm() {
 	document.getElementById('client-city').value = "";
 	$('#client-province').val("Québec");
 	document.getElementById('client-zip').value = "";
+	console.log(id_products_order);
+	for (var i = 0; i < id_products_order.length; i++) {
+		deleteProduct(id_products_order[i]);
+	}
 
+	if (id_products_order.length > 0) {
+		deleteProduct(id_products_order[0]);
+	}
+	
 	id_products_order = new Array();
 	qty_products_order = new Array();
 }
 
 function productsQty() {
 
-	for (var i = 0; i < id_products_order.length-1; i++) {
+	for (var i = 0; i < id_products_order.length; i++) {
 		alert(document.getElementById('products-qty-' + id_products_order[i]).value);
 		qty_products_order.push(document.getElementById('products-qty-' + id_products_order[i]).value);
 	}
@@ -144,7 +151,7 @@ function addOrder() {
 	if (verifForm() && (id_products_order.length > 0)) {
 		
 		productsQty();
-		//alert(method);
+		console.log(id_products_order.length);
 		$.ajax({
 			url: "phpScripts\\Order\\CtrlOrder.php",
 			type : 'POST',
@@ -167,7 +174,6 @@ function addOrder() {
 	else {
 		alert("Il y a des erreurs dans le formulaire.");
 	}
-	
 }
 
 function verifForm() {
@@ -178,13 +184,9 @@ function addProduct(selected) {
 
   const productId = ($($('#product-order').find("option")[selected.selectedIndex]).attr("id"));
 
-  addProductId(productId);
-}
-
-function addProductId(productId) {
 
 	let html1 = '<div class=\"product-item\" id="product-order-' + productId + '"></div>';
-	const html2 = '<label for=\"product\" class=\"col-form-label\">' + productNames[productId] + '</label>';
+	const html2 = '<label for=\"product\" class=\"col-form-label\">' + $('#product-order').val() + '</label>';
 	const html4 = '<input type=\"number\" step=\"1\" min=\"1\" lang=\"en\" class=\"form-control input-volume\" id=\"products-qty-' + productId + '\" value=1>';
 	const html5 = '<label class=\"col-form-label label-volume\"> items </label>';
 	const deleteBtn = '<button type="button" class="btn btn-light btn-remove" id="delete-product" onclick="deleteProduct(' + productId +')">X</button>';
@@ -193,6 +195,21 @@ function addProductId(productId) {
 	$('#order-products').append(html1);
 
 	id_products_order.push(productId);
+}
+
+function addProductId(product) {
+
+	let html1 = '<div class=\"product-item\" id="product-order-' + product.id + '"></div>';
+	const html2 = '<label for=\"product\" class=\"col-form-label\">' + product.name + '</label>';
+	const html4 = '<input type=\"number\" step=\"1\" min=\"1\" lang=\"en\" class=\"form-control input-volume\" id=\"products-qty-' + product.id + '\" value=' + 
+		currentOrder.quantities[0] + '>';
+	const html5 = '<label class=\"col-form-label label-volume\"> items </label>';
+	const deleteBtn = '<button type="button" class="btn btn-light btn-remove" id="delete-product" onclick="deleteProduct(' + product.id +')">X</button>';
+
+	html1 = $(html1).append(html2, html4, html5, deleteBtn);
+	$('#order-products').append(html1);
+
+	id_products_order.push(product.id);
 }
 
 function deleteProduct(id_product) {
@@ -205,10 +222,9 @@ function deleteProduct(id_product) {
 	}
 }
 
-
-
 function showNewOrder() 
 {
+	document.getElementById("btn-add-modal").value = "Ajouter";
 	openModal();
 }
 
@@ -218,16 +234,17 @@ function openModal() {
 }
 
 function openModalTable(order) {
-	row = order;
+
+	currentOrder = order;
 	newOrd = false;
 	
-	let id = order.cells[0];
-	let client = order.cells[1];
-	let address = order.cells[2];
-	let city = order.cells[3];
-	let province = order.cells[4];
-	let zip = order.cells[5];
-	let state = order.cells[6];
+	let id = order.id;
+	let client = order.client.name;
+	let address = order.client.address;
+	let city = order.client.city;
+	let province = order.client.province;
+	let zip = order.client.postalCode;
+	let state = order.state;
 
 	let modDelBtn = document.getElementById("btn-del-modal");
 
@@ -242,18 +259,24 @@ function openModalTable(order) {
 
 	modPaybtn.addEventListener("click",function(e){
 		e.preventDefault();
-		document.location.href = "payment.php?orderId="+id.innerHTML;
+		document.location.href = "payment.php?orderId="+id;
 	},false);
 
-	document.getElementById('client-name').value = client.innerHTML;
-	document.getElementById('client-address').value = address.innerHTML;
-	document.getElementById('client-city').value = city.innerHTML;
-	$('#client-province').val(province.innerHTML);
-	document.getElementById('client-zip').value = zip.innerHTML;
+	document.getElementById('client-name').value = client;
+	document.getElementById('client-address').value = address;
+	document.getElementById('client-city').value = city;
+	$('#client-province').val(province);
+	document.getElementById('client-zip').value = zip;
 
-	
+	for (var i = 0; i < order.products.length; i++) {
+		addProductId(order.products[i][0]);
+	}
+
+	document.getElementById("btn-add-modal").value = "Sauvegarder";
 
 	$('#modal-add-orders').modal('show');
+	
+	//console.log(order.products[0][0]);
 }
 
 

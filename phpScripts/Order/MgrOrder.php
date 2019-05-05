@@ -19,6 +19,8 @@ require_once __DIR__ . '/../Shipping/MgrShipping.php';
 require_once __DIR__ . '/Order.php';
 require_once __DIR__ . '/../Product/Product.php';
 require_once __DIR__ . '/../Product/CtrlProduct.php';
+require_once __DIR__ . '/../Product/MgrProduct.php';
+require_once __DIR__ . '/../Client/Client.php';
 require_once __DIR__ . '/../Stripe/init.php';
 /**
  *
@@ -28,6 +30,7 @@ class MgrOrder
 
     private $shipping;
     private $query_engine;
+    private $mgrProduct;
 
     /**
      * __construct
@@ -38,6 +41,7 @@ class MgrOrder
     {
         $this->shipping = new MgrShipping();
         $this->query_engine = new QueryEngine();
+        $this->mgrProduct = new MgrProduct();
     }
 
     /**
@@ -48,16 +52,40 @@ class MgrOrder
     public function getAllOrders()
     {
         // TODO -> à refaire, pas pratique /!\
-        $query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `client`.`city`, `client`.`province`,
-				`client`.`postal_code`, `state`.`name` as 'state_name'
-			FROM `order`
-			INNER JOIN `state` ON `order`.id_state = `state`.id_state
-			INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client`
-			WHERE `state`.name != 'Fermée'";
+        $query = "SELECT `order`.`id_order`, `order`.`total`, `order`.`id_method`,`client`.`id_client`, `client`.`name` as 'client_name', client.address, client.city, client.province, client.postal_code, state.name as 'state_name' FROM `order` INNER JOIN `state` ON `order`.id_state = `state`.id_state INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client` INNER JOIN `shipping_method` ON `shipping_method`.`id_method` = `order`.`id_method` WHERE `state`.name != 'Fermée'";
 
 			$resultSet = $this->query_engine->executeQuery($query);
 			
-			return $resultSet;
+			$orders = $this->resultToArray($resultSet);
+
+			return $orders;
+		}
+
+		public function resultToArray($resultSet)
+		{
+			$orders = [];
+			foreach ($resultSet as $row) {
+
+				$order = new Order(
+					$row['id_order'],
+					new Client(
+						$row['address'],
+						$row['city'],
+						$row['client_name'],
+						$row['postal_code'],
+						$row['province'],
+						$row['id_client']
+					),
+					"",
+					$row['total'],
+					$this->getProductsId($row['id_order']),
+					$this->getProductsQty($row['id_order']),
+					$row['state_name']
+				);
+				array_push($orders, $order);
+			}
+			
+			return $orders;
 		}
 
 		/**
@@ -116,7 +144,7 @@ class MgrOrder
 		 */
 		private function insertProducts($order)
 		{
-			$id_order = $this->query_engine->getLastInsertedId();
+
 			#var_dump($order);
 			$qty = 0;
 			foreach ($order->getProducts() as $product) {
@@ -127,8 +155,8 @@ class MgrOrder
 					":id_product" => $product->getId(),
 					":quantity" => $order->getQuantities()[$qty],
 				];
-				#var_dump($product);
-				#var_dump($parametersProductOrder);
+				var_dump($product);
+				var_dump($parametersProductOrder);
 				if (!$this->query_engine->executeQuery($insertProductOrders, $parametersProductOrder)) {
 					echo "Erreur lors de l'ajout des produits de la commande";
 				}
@@ -179,23 +207,41 @@ class MgrOrder
 		 * @param  Order $order
 		 * @param  int $id_client
 		 */
-		public function updateOrder($order, $client_infos)
+		public function updateOrder($order)
 		{
 			$this->deleteProducts($order->getId());
 
 			$query = "UPDATE `order` SET `id_client` = :id_client, `tps` = :tps, `tvq` = :tvq, `total` = :total WHERE `order`.`id_order` = :id_order";
 
+			$query2 = "UPDATE `client` SET `name` = :name, `address` = :address, `city` = :city, `province` = :province, `postal_code` = :zip WHERE `client`.`id_client` = :id_client";
 
+			$parametersClient = 
+			[
+				":id_client" => $order->getClient()->getId(),
+				":name" => $order->getClient()->getName(),
+				":address" => $order->getClient()->getAddress(),
+				":city" => $order->getClient()->getCity(),
+				":province" => $order->getClient()->getProvince(),
+				":zip" => $order->getClient()->getPostalCode(),
+			];	
+			
 
+			$this->calculatePrice($order);
+			var_dump($order);
 			$parametersOrders = 
 			[
 				"id_order" => $order->getId(),
-				":id_client" => $id_client,
-				":tps" => $order->calculateTPS(),
-				":tvq" => $order->calculateTVQ(),
+				":id_client" => $order->getClient()->getId(),
+				":tps" => $this->calculateTPS($order),
+				":tvq" => $this->calculateTVQ($order),
 				":total" => $order->getTotal(),
 			];
-			if(!$this->query_engine->executeQuery($deleteOrder, $parametersOrder)) {
+
+			if(!$this->query_engine->executeQuery($query2, $parametersClient)) {
+				echo "Erreur lors de la modification du client";
+			}			
+
+			if(!$this->query_engine->executeQuery($query, $parametersOrders)) {
 				echo "Erreur lors de la modification de la commande";
 			}
 			$this->insertProducts($order);
@@ -211,8 +257,9 @@ class MgrOrder
 		{
 			$order->setPrice(0);
 			$total = 0;
+			$i = 0;
 			foreach ($order->getProducts() as $p) {
-				$total .= $p->getPrice();
+				$total .= ($p->getPrice()*$order->getQuantities()[$i]);
 			}
 			$order->setPrice($total);
 			$this->calculateTaxes($order);
@@ -252,6 +299,24 @@ class MgrOrder
 			return ($order->getPrice() * 0.09975);
 		}
 
+		public function getProductsQty($id_order)
+		{
+			$query = "SELECT quantity FROM `ta_order_product` WHERE id_order = " . $id_order;
+
+			$parametersOrders = 
+			[
+				"id" => $id_order,
+			];
+
+			$resultSet = $this->query_engine->executeQuery($query);
+			$qty = [];
+			foreach ($resultSet as $row) {
+				array_push($qty, $row['quantity']);
+			}
+
+			return $qty;
+		}
+
 
 		public function getProductsId($id_order)
 		{
@@ -263,19 +328,18 @@ class MgrOrder
 			];
 
 			$resultSet = $this->query_engine->executeQuery($query);
-
+			$products= [];
 			foreach ($resultSet as $row) {
-				$tt = $row['id_product'];
-				$tt .= "|";
-				//var_dump($tt);
-				echo $tt;
+				#var_dump($row['id_product']);
+				$this->mgrProduct->getProductById($row['id_product']);
+				$pro = $this->mgrProduct->getProduct();
+				#var_dump($pro);
+				array_push($products, $pro);
 			}
-
-			//var_dump($resultSet);
-			
-			//return $tt;
+			#var_dump($products);
+			return $products;
 		}
-	}	
+		
     public function makePayment($tokenId, $price)
     {
 

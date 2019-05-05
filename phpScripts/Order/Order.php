@@ -13,17 +13,19 @@
 	****************************************/
 
 	require_once __DIR__ . '/../Product/Product.php';
-
+	require_once __DIR__ . '/../Client/Client.php';
 	/**
 	 *
 	 */
-	class Order
+	class Order implements JsonSerializable
 	{
 		private $id; // Id of the order
 		private $quantities = []; // Quantities of the products
 		private $price; // price of the order
 		private $total; // total (price + taxes)
 		private $products = []; // ArrayList of products or ids
+		private $client;
+		private $state;
 
 		/**
 		 * __construct
@@ -36,13 +38,48 @@
 		 *
 		 * @return void
 		 */
-		function __construct($id, $price, $total, $products, $quantities)
+		function __construct($id, $client, $price, $total, $products, $quantities, $state)
 		{
 			$this->id = $id;
 			$this->price = $price;
 			$this->total = $total;
 			$this->products = $products;
 			$this->quantities = $quantities;
+			$this->client = $client;
+			$this->state = $state;
+		}
+
+
+	public function jsonSerialize() {
+		return array(
+				'id'=>$this->id,
+				'client'=>$this->client,
+				'products'=>$this->products,
+				'quantities'=>$this->quantities,
+				'state'=>$this->state
+		);
+	}
+
+		public function getState()
+		{
+		    return $this->state;
+		}
+		 
+		public function setState($state)
+		{
+		    $this->state = $state;
+		    return $this;
+		}
+
+		public function getClient()
+		{
+		    return $this->client;
+		}
+		 
+		public function setClient($client)
+		{
+		    $this->client = $client;
+		    return $this;
 		}
 
 

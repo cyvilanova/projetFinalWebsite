@@ -17,6 +17,19 @@ Date Nom Description
 	require_once __DIR__ . '/MgrShipping.php';
 	require_once __DIR__ . '/../QueryEngine.php';
 
+	
+if (isset($_POST['function'])) {
+		switch ($_POST['function']) {
+			case 'add':
+				$ctrl = new CtrlShipping();
+				$ctrl->addShipping($_POST['method'], $_POST['company'], $_POST['cost']);
+				break;
+			case 'edit':
+				// maybe ???
+				break;
+		}
+	}
+
 	/**
 	 * 
 	 */
@@ -43,6 +56,23 @@ Date Nom Description
 			echo $element;
 		}
 
+		public function loadAllShippingTable()
+		{
+			$shippings = $this->mgrshipping->getAllShippingsMethod();
+
+			$element = "";
+			foreach ($shippings as $row) {
+				//var_dump($row);
+				$element = "<tr class=\"order\" onclick='openModalTable(this)'>";
+				$element .= "<td id=\"" . $row['id_method'] . "\">". $row['id_method'] ."</td>";
+				$element .= "<td id=\"" . $row['id_method'] . "\">". $row['method_name'] ."</td>";
+				$element .= "<td id=\"" . $row['id_method'] . "\">". $row['company_name'] ."</td>";
+				$element .= "<td id=\"" . $row['id_method'] . "\">". $row['price'] ."</td>";
+				$element .= "</tr>";
+				echo $element;
+			}
+		}
+
 		/**
 		 * Add a shipping company and a shipping method
 		 *
@@ -53,11 +83,11 @@ Date Nom Description
 		public function addShipping($shipping_name, $method_name, $price)
 		{
 			$shipping = new Shipping($shipping_name, $method_name, $price);
-			$mgrshipping->insertShippingCompany($shipping);
+			$this->mgrshipping->insertShippingCompany($shipping);
 			
-			$id = $mgrshipping->getCompanyId($shipping->getCompany());
+			$id = $this->mgrshipping->getCompanyId($shipping->getCompany());
 
-			$mgrshipping->insertShippingMethod($id, $method_name, $price);
+			$this->mgrshipping->insertShippingMethod($id, $method_name, $price);
 		}
 
 	}

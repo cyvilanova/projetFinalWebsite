@@ -33,13 +33,10 @@ Date Nom Description
 
 		public function getAllShippingsMethod()
 		{
-			$query = "SELECT `shipping_method`.`id_method`,`shipping_method`.`name` AS 'method_name', shipping_company.name AS 'company_name' FROM `shipping_method` INNER JOIN shipping_company on shipping_company.id_company = shipping_method.id_company";
-			$resultSet = $this->query_engine->executeQuery($query);
-			if (!$resultSet) {
-				echo "Erreur durant l'ajout de la compagnie de livraison.";
-			}
+			$query = "SELECT `shipping_method`.`id_method`,`shipping_method`.`name` AS 'method_name', shipping_company.name AS 'company_name', price FROM `shipping_method` INNER JOIN shipping_company on shipping_company.id_company = shipping_method.id_company";
 
-	
+			$resultSet = $this->query_engine->executeQuery($query);
+
 			return $resultSet;
 		}
 
@@ -96,7 +93,7 @@ Date Nom Description
 			$query = "INSERT INTO shipping_company (`id_company`, `name`) VALUES (DEFAULT, :name)";
 
 			$parameters = [
-				":name" => $shipping,
+				":name" => $shipping->getCompany(),
 			];
 
 			$result = $this->query_engine->executeQuery($query, $parameters);
@@ -147,11 +144,11 @@ Date Nom Description
 				":company_name" => $name,
 			];
 
-			$resultSet = $this->query_engine->executeQuery($query,[]);
+			$resultSet = $this->query_engine->executeQuery($query,$parameters);
 
-			$result = resultToArray($resultSet, "id_company");
+			//$result = $this->resultToArray($resultSet, "id_company");
 
-			foreach ($result as $row) {
+			foreach ($resultSet as $row) {
 				return $row['id_company'];
 			}
 		}
