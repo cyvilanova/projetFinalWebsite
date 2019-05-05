@@ -33,19 +33,13 @@ class MgrRecipe
 	/**
 	 * Send to the QueryEngine a prepared statement in string form
 	 * along with its parameters as a map to select the recipes needed. 
-	 *
-	 * @param string $filter 
+	 * 
 	 * @return array of all the recipes found in the database
 	 * 
 	 */
-	public function selectAllRecipes($filter = NULL)
+	public function selectAllRecipes()
 	{
 		$query = "SELECT * FROM recipe";
-
-		if ($filter != NULL) {
-			//Adds the filter
-			$query .= " ORDER BY " . $filter;
-		}
 
 		$resultSet = 	$this->queryEngine->executeQuery($query);
 
@@ -58,7 +52,7 @@ class MgrRecipe
 
 	/**
 	 * Takes a resultSet as parameter and
-	 * adds every row into the Recipes array
+	 * adds every row into the Recipes array.
 	 *
 	 */
 	private function resultToArray($resultSet)
@@ -84,7 +78,8 @@ class MgrRecipe
 	}
 
 	/**
-	 * Gets the array of recipes
+	 * Gets the array of recipes.
+	 * 
 	 * @return recipe $recipes
 	 * 
 	 */
@@ -94,8 +89,10 @@ class MgrRecipe
 	}
 
 	/**
-	 * Gets the list of ingredients used in the recipe
+	 * Gets the list of ingredients used in the recipe.
+	 * 
 	 * @param int $recipeId the id of the recipe
+	 * 
 	 * @return array of products
 	 * 
 	 */
@@ -106,7 +103,8 @@ class MgrRecipe
 	}
 
 	/**
-	 * Gets the product manager to access the products linked to the recipe
+	 * Gets the product manager to access the products linked to the recipe.
+	 * 
 	 * @return MgrProduct $mgrProduct
 	 * 
 	 */
@@ -119,10 +117,10 @@ class MgrRecipe
 	 * Send to the QueryEngine a prepared statement in string form
 	 * along with its parameters as a map to insert a new recipe. 
 	 *
-	 * @param  mixed $recipeName
-	 * @param  mixed $recipeIsCustom
-	 * @param  mixed $recipeSteps
-	 * @param  mixed $finalProductName
+	 * @param string $recipeName
+	 * @param boolean $recipeIsCustom
+	 * @param string $recipeSteps
+	 * @param string $finalProductName
 	 *
 	 */
 	public function createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, 
@@ -152,42 +150,58 @@ class MgrRecipe
 	/**
 	 * Send to the QueryEngine a prepared statement in string form
 	 * along with its parameters as a map to insert a new recipe. 
+	 * 1- Update recipe
+	 * 2- Update the final product informations
+	 * 	2.1 - Update the product's categories
+	 * 3- Update the ingredients
 	 *
-	 * @param  mixed $recipeId
-	 * @param  mixed $recipeIsCustom
-	 * @param  mixed $recipeSteps
-	 * @param  mixed $finalProductName
+	 * @param int $recipeId
+	 * @param boolean $recipeIsCustom
+	 * @param string $recipeSteps
+	 * @param string $finalProductName
 	 *
 	 */
-	public function updateRecipe($recipeId, $recipeIsCustom, $recipeSteps, $finalProductName, 
-															 $finalProductDescription, $finalProductCategories, $recipeIngredients)
+	public function updateRecipe($recipeId, $recipeName, $recipeIsCustom, $recipeSteps, $recipeIngredients)
 	{
-		$finalProductId = $this->mgrProduct->createNewProduct($finalProductName, $finalProductDescription, $finalProductCategories);
+		$query = "UPDATE recipe SET name = :name, 
+							is_custom = :is_custom, 
+							steps = :steps
+							WHERE id_recipe = :id";
 
-		$query = "INSERT INTO recipe(name, is_custom, steps, id_product) 
-							VALUES (:name, :is_custom, :steps, :id_product)";
 		$parameters =
 			[
-				":name" => $recipeId,
+				":name" => $recipeName,
 				":is_custom" => $recipeIsCustom,
 				":steps" => $recipeSteps,
-				":id_product" => $finalProductId
+				":id" => $recipeId
 			];
 
-			if(!$this->queryEngine->executeQuery($query, $parameters)) {
-				echo "Error while trying to insert a recipe in database.";
-			} 
-			else {
-				$recipeId = $this->queryEngine->getLastInsertedId();
-				$this->addIngredients($recipeId,  $recipeIngredients);
-			}
+		if ($this->queryEngine->executeQuery($query, $parameters)) {
+			$this->updateRecipeIngredients($recipeId, $recipeIngredients);
+		} else {
+			echo "Error while trying to update a recipe's informations.";
+		}
+	}
+
+	/**
+	 * Deletes the associations of recipe and products
+	 * and creates the edited ones.
+	 *
+	 * @param int $recipeId The id of the recipe to edit
+	 * @param array $recipeIngredients The ingredients used
+	 *
+	 */
+	public function updateRecipeIngredients($recipeId, $recipeIngredients)
+	{
+		$this->deleteFromTAProduct($recipeId);
+		$this->addIngredients($recipeId,  $recipeIngredients);
 	}
 
 	/**
 	 * Associates the recipe with products(ingredients) in the association table.
 	 *
-	 * @param  int $recipeId The id of the recipe
-	 * @param  array $recipeIngredients The array containing the id of the product and the quantity used in ml
+	 * @param int $recipeId The id of the recipe
+	 * @param array $recipeIngredients The array containing the id of the product and the quantity used in ml
 	 *
 	 */
 	public function addIngredients($recipeId,  $recipeIngredients)
@@ -210,5 +224,47 @@ class MgrRecipe
 		}
 	}
 
+	/**
+	 * Deletes the recipe from the database.
+	 *
+	 * @param int $recipeId The id of the recipe we want to delete
+	 *
+	 */
+	public function deleteRecipe($recipeId)
+	{
+		$this->deleteFromTAProduct($recipeId);
+		$query = "DELETE FROM recipe WHERE id_recipe= :id";
+
+		$parameters =
+			[
+				":id" => $recipeId
+			];
+
+		if (!$this->queryEngine->executeQuery($query, $parameters)) {
+			echo "Error while trying to delete a recipe";
+		}
+	}
+
+	/**
+	 * Deletes the association between the recipe and the products
+	 * in ta_recipe_product.
+	 *
+	 * @param int $recipeId The id of the recipe we want to delete
+	 * 
+	 */
+	public function deleteFromTAProduct($recipeId)
+	{
+		$query = "DELETE FROM ta_recipe_product WHERE id_recipe= :id";
+
+		$parameters =
+			[
+				":id" => $recipeId
+			];
+
+		if (!$this->queryEngine->executeQuery($query, $parameters)) {
+			echo "Error while trying to delete the associations between the recipe and the ingredients.";
+		}
+	}
 }
+
 ?>

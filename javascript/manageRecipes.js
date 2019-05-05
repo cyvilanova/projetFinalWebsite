@@ -63,7 +63,7 @@ function displayIngredients(ingredients) {
     const html4 = '<input type=\"number\" step=\"0.1\" min=\"0\" lang=\"en\" class=\"form-control input-volume\"' +
       'value=\"' + Number(ingredients[i].volumeUsed) + '\" disabled>';
     const html5 = '<label class=\"col-form-label label-volume\"> mL </label>';
-    const deleteBtn = '<button type="button" class="btn btn-light btn-remove" onclick="removeIngredient(' + ingredients[i].id + ')">X</button>';
+    const deleteBtn = '<button type="button" class="btn btn-light btn-remove" onclick="removeIngredient(' + ingredients[i].id + ')" disabled>X</button>';
 
     html1 = $(html1).append(html2, html4, html5, deleteBtn);
     $('#editModal').find('#ingredients').append(html1);
@@ -89,11 +89,12 @@ function enableEditing() {
 
 /** Changes the state of the editable areas */
 function disableForm(disabled) {
-  $("#removeIng").prop("disabled", disabled);
-  $("#editModal input").prop("disabled", disabled);
-  $("#editModal textarea").prop("disabled", disabled);
-  $("#product-categories").prop("disabled", disabled);
+  $('#editModal').find('#recipe-name').prop("disabled", disabled);
+  $('#editModal').find('#switch-custom-recipe').prop("disabled", disabled);
   $("#recipe-ingredients").prop("disabled", disabled);
+  $("#ingredients button").prop("disabled", disabled);
+  $("#ingredients input").prop("disabled", disabled);
+  $('#editModal').find('#recipe-steps').prop("disabled", disabled);
 }
 
 /** Changes the label of the toggle */
@@ -141,7 +142,7 @@ function removeIngredient(ingredientId) {
 }
 
 /** Validates all the fields in form */
-function validateForm(modalId) {
+function validateForm(modalId, actionToPerform) {
   let invalidAreas = 5; // Counter of the invalid areas in form
 
   invalidAreas = validateInput(modalId, 'recipe-name', invalidAreas);
@@ -152,7 +153,7 @@ function validateForm(modalId) {
 
   // If all areas are valid, sends informations to recipeHandler.php
   if(invalidAreas == 0) {
-    getRecipeInformations(modalId);
+    getRecipeInformations(modalId, actionToPerform);
   }
 }
 
@@ -245,8 +246,31 @@ function applyInvalidStyle(modalId, inputId, messageError, color) {
   $(modalId).find('#' + inputId).css("border-color", color);
 }
 
+/** Shows the deletion of a recipe confirmation modal */
+function confirmationDelete() {
+  $('#confirmationModal').modal('show');
+}
+
+/** Sends the recipe's id to a php file with ajax to delete it from the database */
+function proceedWithRecipeDeletion(modalId, actionToPerform) {
+  $.ajax({
+    type: "POST",
+    data: {
+      recipeId: currentRecipe.id,
+      actionToPerform: actionToPerform
+    },
+    url: "phpScripts/Recipe/recipeHandler.php",
+    dataType: "html",
+    success: () => {
+      $(modalId).modal('hide');
+      location.reload();
+    },
+    async: true
+  });
+}
+
 /** Gets all the informations entered and sends it to a php file with ajax */
-function getRecipeInformations(modalId) {
+function getRecipeInformations(modalId, actionToPerform) {
   $.ajax({
     type: "POST",
     data: {
@@ -255,16 +279,19 @@ function getRecipeInformations(modalId) {
       isCustom: isCustomRecipeChecked(modalId) ? 1 : 0,
       steps: $(modalId).find('#recipe-steps').val(),
       ingredients: JSON.stringify(getIngredients(modalId)),
-      productId: currentRecipe.finalProduct.id ? currentRecipe.finalProduct.id : 0,
+      productId: currentRecipe ? currentRecipe.finalProduct.id : 0,
       productName: $(modalId).find('#recipe-product').val(),
       productDesc: $(modalId).find('#product-description').val(),
       categories: JSON.stringify($(modalId).find('#product-categories').val()),
-      isNew: modalId === '#editModal' ? false : true
+      actionToPerform: actionToPerform
     },
     url: "phpScripts/Recipe/recipeHandler.php",
     dataType: "html",
     success: () => {
-      $(modalId).modal('hide');
+      setTimeout(function () {
+        $(modalId).modal('hide');
+        location.reload();
+      }, 1000);
     },
     async: true
   });

@@ -1,19 +1,20 @@
 <?php
 
 include_once "CtrlRecipe.php";
-
-$isNew = $_POST['isNew'];
-
-$categoriesData = html_entity_decode($_POST['categories']);
-$formattedCategoriesData = json_decode($categoriesData);
-
-$ingredientsData = html_entity_decode($_POST['ingredients']);
-$formattedIngredientsData = json_decode($ingredientsData);
-
 $ctrlRecipe = new CtrlRecipe();
 
-// Add a new recipe
-if ($isNew == "true") {
+$actionToPerform = "";
+$actionToPerform = $_POST['actionToPerform'];
+
+if ($actionToPerform !== "deleteRecipe") {
+  $categoriesData = html_entity_decode($_POST['categories']);
+  $formattedCategoriesData = json_decode($categoriesData);
+
+  $ingredientsData = html_entity_decode($_POST['ingredients']);
+  $formattedIngredientsData = json_decode($ingredientsData);
+}
+
+if ($actionToPerform == "createRecipe") {
   $ctrlRecipe->createRecipe(
     $_POST['name'],
     $_POST['isCustom'],
@@ -23,19 +24,16 @@ if ($isNew == "true") {
     $formattedCategoriesData,
     $formattedIngredientsData
   );
-} 
-elseif ($isNew == "false") { // Update a recipe
-  echo $_POST['isNew'];
-  echo $_POST['productId'];
-  /*$ctrlRecipe->updateRecipe(
+} else if ($actionToPerform == "updateRecipe") {
+  $ctrlRecipe->updateRecipe(
     $_POST['id'],
     $_POST['name'],
+    $_POST['isCustom'],
     $_POST['steps'],
-    $_POST['productName'],
-    $_POST['productDesc'],
-    $formattedCategoriesData,
     $formattedIngredientsData
-  );*/
+  );
+} else if ($actionToPerform == "deleteRecipe") {
+  $ctrlRecipe->deleteRecipe($_POST['recipeId']);
 }
 
 ?>

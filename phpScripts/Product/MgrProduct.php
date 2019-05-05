@@ -72,6 +72,7 @@ class MgrProduct
      */
     public function updateProduct($product)
     {
+        print_r($product);
         $queryEngine = new QueryEngine();
         $query = "UPDATE Product 
                 SET name= :name, image_path= :image_path, 
@@ -259,7 +260,7 @@ class MgrProduct
         }
         else {
             $productId = $queryEngine->getLastInsertedId();
-            $this->addIngredients($productId,  $finalProductCategories);
+            $this->addProductCategories($productId,  $finalProductCategories);
             return $productId;
         }
     }
@@ -267,11 +268,11 @@ class MgrProduct
     /**
      * Associates the product with categories in the association table.
      *
-     * @param  int $productId The id of the product
-     * @param  array $productCategories The array containing the id of the categories
+     * @param int $productId The id of the product
+     * @param array $productCategories The array containing the id of the categories
      *
      */
-    public function addIngredients($productId,  $productCategories)
+    public function addProductCategories($productId,  $productCategories)
     {
         $queryEngine = new QueryEngine();
         for ($i = 0, $size = count($productCategories); $i < $size; ++$i) {
@@ -286,7 +287,7 @@ class MgrProduct
                 ];
 
             if (!$queryEngine->executeQuery($query, $parameters)) {
-                echo "Error while trying to insert an ingredient in the product. id_category = " . $productCategories[$i];
+                echo "Error while trying to insert a product in a category. id_category = " . $productCategories[$i];
             }
         }
     }
@@ -300,7 +301,6 @@ class MgrProduct
      */
     private function resultToArray($resultSet)
     {
-        
         $this->products = array();
 
         foreach ($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
@@ -379,5 +379,17 @@ class MgrProduct
     {
         $this->productCategories = $productCategories;
     }
+    
+    /**
+     * Gets the the array of categories
+     * @return array $categories of the manager
+     * 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
 }
+
 ?>

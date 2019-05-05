@@ -77,13 +77,13 @@ class CtrlRecipe
 	/**
 	 * Calls the MgrRecipe to add a new recipe and its components. 
 	 *
-	 * @param  string $recipeName
-	 * @param  boolean $recipeIsCustom
-	 * @param  string $recipeSteps
-	 * @param  string $finalProductName
-	 * @param  string $finalProductDescription
-	 * @param  array $finalProductCategories
-	 * @param  array $ingredients
+	 * @param string $recipeName
+	 * @param boolean $recipeIsCustom
+	 * @param string $recipeSteps
+	 * @param string $finalProductName
+	 * @param string $finalProductDescription
+	 * @param array $finalProductCategories
+	 * @param array $ingredients
 	 *
 	 */
 	public function createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients)
@@ -94,18 +94,27 @@ class CtrlRecipe
 	/**
 	 * Calls the MgrRecipe to edit a recipe and its components. 
 	 *
-	 * @param  mixed $recipeId
-	 * @param  mixed $recipeName
-	 * @param  mixed $recipeSteps
-	 * @param  mixed $finalProductName
-	 * @param  mixed $finalProductDescription
-	 * @param  mixed $finalProductCategories
-	 * @param  mixed $ingredients
+	 * @param int $recipeId
+	 * @param string $recipeName
+	 * @param boolean $recipeIsCustom
+	 * @param string $recipeSteps
+	 * @param array $recipeIngredients
 	 *
 	 */
-	public function updateRecipe($recipeId, $recipeName, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients) 
+	public function updateRecipe($recipeId, $recipeName, $recipeIsCustom, $recipeSteps, $recipeIngredients) 
 	{
-		$this->mgrRecipe->updateRecipe($recipeId, $recipeName, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients);
+		$this->mgrRecipe->updateRecipe($recipeId, $recipeName, $recipeIsCustom, $recipeSteps, $recipeIngredients);
+	}
+
+	/**
+	 * Calls the manager of recipe to delete from the database.
+	 *
+	 * @param int $recipeId The id of the recipe to delete
+	 *
+	 */
+	public function deleteRecipe($recipeId)
+	{
+		$this->mgrRecipe->deleteRecipe($recipeId);
 	}
 }
 ?>
