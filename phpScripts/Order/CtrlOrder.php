@@ -1,4 +1,5 @@
 <?php
+
 	/****************************************
 	 Fichier : MgrOrder.php
 	 Auteure : Catherine Bronsard
@@ -106,33 +107,6 @@
 			$this->mgrOrder->insertOrder($order, $client, $id_method);
 		}
 
-
-		/**
-		 * Update an order in the data base
-		 *
-		 * @param  int $id_order
-		 * @param  int $id_client
-		 * @param  ArrayList of Products $product
-		 * @param  ArrayList of int $quantity
-		 * @param  string $adress
-		 *
-		 * @return void
-		 */
-		public function editOrder($id_order, $client, $product, $quantity)
-		{
-			$products = [];
-			var_dump($product);
-			foreach ($product as $id) {
-				var_dump($id);
-				$this->mgrProduct->getProductById($id);
-				array_push($products, $this->mgrProduct->getProduct()[0]);
-			}
-
-			$order = new Order($id_order, $client, "", "", $products, $quantity, "Ouverte");
-			var_dump(($order->getProducts()));
-			$this->mgrOrder->updateOrder($order, $client);
-		}
-
 		/**
 		 * Delete an order from the database
 		 *
@@ -143,15 +117,30 @@
 			$this->mgrOrder->deleteOrder($id_order);
 		}
 
-
-		public function getProducts($id_order)
-		{
-			/*$id = json_encode($this->mgrOrder->getProductsId($id_order));
-			echo $id;
-			return $id;*/
-		}
 	
     /**
+     * Changes the state of an order by it's id
+     * 
+     * @param $idOrder
+     */
+    public function changeOrderStateById($idOrder){
+    	$this->mgrOrder->changeOrderStateById($idOrder);
+    }
+    
+    /**
+     * Gets the total of an order from
+     * the DB with it's Id.
+     *
+     * @param $id_order is the id of the order
+     * @return the total
+     */
+    public function getTotalById($idOrder)
+    {
+        //Gets the total for an order
+    	return $this->mgrOrder->getTotalById($idOrder) . "$";
+    }
+    /**
+
      * Makes a payment via the stripe API
      *
      * @param $tokenId Id of the user's token
@@ -160,26 +149,42 @@
     public function makePayment($tokenId, $orderId)
     {
 
-        try{
+        try {
             $price = $this->mgrOrder->getTotalById($orderId);
             $response = $this->mgrOrder->makePayment($tokenId, $price);
-
 
             switch ($response) {
                 case 1: //Worked perfectly
                     echo "<span class='payment-success'>Paiement effectué!</span>";
+                    return true;
                     break;
                 case 2:
                     echo "<span class='payment-error'>Carte refusée!</span>";
+                    return false;
                     break;
                 case 3:
                     echo "<span class='payment-error'>Erreur lors de la tentative de paiement.</span>";
+                    return false;
                     break;
             }
-        }
-        catch(Exception $e){ //Cannot load total
+        } catch (Exception $e) {
+            //Cannot load total
             echo $e;
         }
+
+        return false;
+    }
+
+
+    /**
+     * Checks if the given id is valid
+     * 
+     * @param $id is the id of the order to check
+     * @return bool telling wether it exists or not
+     */
+    public function isIdValid($id)
+    {
+    	return $this->mgrOrder->isIdValid($id);
     }
 }
 
