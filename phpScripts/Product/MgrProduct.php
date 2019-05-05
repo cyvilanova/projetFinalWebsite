@@ -249,6 +249,7 @@ class MgrProduct
             $categories = $this->getProductCategoriesArray($result[0]);
         
             $product = new Product(
+
                 $result[1],  // name
                 $categories, // categories
                 $result[2],  // is_sellable
@@ -256,6 +257,7 @@ class MgrProduct
                 $result[3],  // description
                 $result[5],  // quantity
                 $result[6]   // image_path
+
             );
 
             $product->setId($result[0]); // id
