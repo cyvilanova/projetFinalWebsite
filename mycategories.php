@@ -28,10 +28,12 @@ if($_SESSION["username"]!="admin"){
     <meta charset="UTF-8">
     <meta name="viewport" content="width = device-width, initial-scale = 1.0">
     <link href="css/style_index.css" rel=stylesheet>
+    <script type="text/javascript" src="javascript/manageCategories.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
     <title>Mes categories</title>
 </head>
 
-<body>
+<body onload="addListeners()">
 
     <?php include("nav_admin.html"); ?>
     <div class="page-title-bar">
@@ -71,23 +73,25 @@ if($_SESSION["username"]!="admin"){
                     <form>
                         <div class="form-group">
                             <label for="category-name" class="col-form-label">Nom de la catégorie</label>
-                            <input type="text" class="form-control" id="category-name" disabled>
+                            <input type="text" class="form-control" id="edit-category-name" disabled>
                         </div>
                         <div class="form-group">
                             <label for="category-activity" class="col-form-label">État d'activité de la catégorie</label>
-                            <select class="form-control selectpicker" data-live-search="true" onchange="editCategoryActivityModal(this)" id="category-activity" data-live-search="true" disabled>
+                            <select class="form-control selectpicker" data-live-search="true" id="edit-category-activity" data-live-search="true" disabled>
+                              <option value="inactive">Inactif</option>
+                              <option value="active">actif</option>
                             </select>
                         </div>
                         <div class="form-group">
                             <label for="category-description" class="col-form-label">Description de la catégorie</label>
-                            <textarea class="form-control" id="category-description" disabled></textarea>
+                            <textarea class="form-control" id="edit-category-description" disabled></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     <button type="button" class="btn btn-quintessentiel" onclick="enableEditing()">Modifier</button>
-                    <button type="button" class="btn btn-quintessentiel">Sauvegarder</button>
+                    <button type="button" class="btn btn-quintessentiel" id="editCategorySaveBtn">Sauvegarder</button>
                 </div>
             </div>
         </div>
@@ -107,17 +111,17 @@ if($_SESSION["username"]!="admin"){
                     <form>
                         <div class="form-group">
                             <label for="category-name" class="col-form-label">Nom de la categorie</label>
-                            <input type="text" class="form-control" id="category-name">
+                            <input type="text" class="form-control" id="add-category-name">
                         </div>
                         <div class="form-group">
                             <label for="category-description" class="col-form-label">Description de la catégorie</label>
-                            <input type="text" class="form-control" id="category-Description">
+                            <input type="text" class="form-control" id="add-category-description">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-quintessentiel" onclick="">Sauvegarder</button>
+                    <button type="button" class="btn btn-quintessentiel" id= "addCategorySaveBtn">Sauvegarder</button>
                 </div>
             </div>
         </div>
@@ -125,6 +129,10 @@ if($_SESSION["username"]!="admin"){
 
 </body>
 
-<script src="javascript/manageCategories.js"></script>
-
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+  integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+  integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </html>
