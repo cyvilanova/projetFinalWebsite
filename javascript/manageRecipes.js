@@ -60,7 +60,7 @@ function displayIngredients(ingredients) {
 
     let html1 = '<div class=\"ingredient-item\" data-ingredient-id=\"' + ingredients[i].id + '\" id="ingredient-item-' + ingredients[i].id + '"></div>';
     const html2 = '<label for=\"ingredient\" class=\"col-form-label\">' + ingredients[i].name + '</label>';
-    const html4 = '<input type=\"number\" step=\"0.1\" min=\"0\" lang=\"en\" class=\"form-control input-volume\"' +
+    const html4 = '<input type=\"number\" step=\"1\" min=\"0\" max="9999" lang=\"en\" class=\"form-control input-volume\"' +
       'value=\"' + Number(ingredients[i].volumeUsed) + '\" disabled>';
     const html5 = '<label class=\"col-form-label label-volume\"> mL </label>';
     const deleteBtn = '<button type="button" class="btn btn-light btn-remove" onclick="removeIngredient(' + ingredients[i].id + ')" disabled>X</button>';
@@ -128,7 +128,7 @@ function addIngredient(select, modalId) {
   const ingredientId = $($('#recipe-ingredients').find("option")[select.selectedIndex]).attr("id");
   let html1 = '<div class=\"ingredient-item\" data-ingredient-id=\"' + ingredientId + '\" id="ingredient-item-' + ingredientId + '"></div>';
   const html2 = '<label for=\"ingredient\" class=\"col-form-label\">' + $(modalId).find('#recipe-ingredients').val() + '</label>';
-  const html4 = '<input type=\"number\" step=\"0.1\" min=\"0\" lang=\"en\" class=\"form-control input-volume\" value=0>';
+  const html4 = '<input type=\"number\" step=\"1\" min=\"0\" max="9999" lang=\"en\" class=\"form-control input-volume\" value=0>';
   const html5 = '<label class=\"col-form-label label-volume\"> mL </label>';
   const deleteBtn = '<button type="button" class="btn btn-light btn-remove" id="removeIng" onclick="removeIngredient(' + ingredientId + ')">X</button>';
 
@@ -203,9 +203,9 @@ function findVolumeZero(modalId) {
   let validVolumeCount = 0;
 
   let volumeInputs = $(modalId).find('.input-volume').each((_, value) => {
-    if($(value).val() == 0) {
+    if($(value).val() == 0 || $(value).val() > 9999) {
       $(value).attr('style', 'border-color: #dc3545');
-      $(modalId).find('#invalid-recipe-ingredients').html('Le volume utilisé doit être un nombre plus grand que 0 mL.');
+      $(modalId).find('#invalid-recipe-ingredients').html('Le volume utilisé doit être un nombre entre 0 et 9999 mL.');
     }
     else {
       $(value).attr('style', 'border-color: #ced4da');

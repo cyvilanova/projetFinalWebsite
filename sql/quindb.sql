@@ -31,7 +31,7 @@ CREATE TABLE recipe (
 CREATE TABLE ta_recipe_product (
 	id_recipe INT NOT NULL,
 	id_product INT NOT NULL,
-	qty_ml DECIMAL(4,2),
+	qty_ml DECIMAL(7,2),
 	PRIMARY KEY (id_recipe, id_product),
 	FOREIGN KEY (id_recipe) REFERENCES recipe(id_recipe),
 	FOREIGN KEY (id_product) REFERENCES product(id_product)
