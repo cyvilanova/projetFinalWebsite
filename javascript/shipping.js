@@ -1,4 +1,4 @@
-let newShip = false;
+let newShip = false; // Adding a new shipping ?
 let currentShip;
 
 function shipOnLoad() {
@@ -24,7 +24,7 @@ function shipOnLoad() {
 }
 
 function editShip() {
-	verifForm();
+	validForm();
 	$.ajax({
 		url: "phpScripts\\Shipping\\CtrlShipping.php",
 		type : 'POST',
@@ -35,16 +35,13 @@ function editShip() {
 			company : currentShip.cells[2],
 			cost : currentShip.cells[3],
 		},
-		success: function(data) {
-        	console.log(data); 
-    	},
     	error : function(msg) {
     		alert("Erreur lors de la modification");
     	}
 	});
 }
 
-function verifForm() {
+function validForm() {
 	let texte = document.getElementById('cost').value;
 	texte = text.replace(",", ".");
 	document.getElementById('cost').value = texte;
@@ -61,7 +58,7 @@ function addShip() {
 		cost : document.getElementById('cost').value,
 	},
 	success: function(data) {
-    	console.log(data); 
+    	alert("Livraison ajoutée"); 
 	},
 });
 }
@@ -80,3 +77,4 @@ function openModalTable(row) {
 	document.getElementById('cost').value = row.cells[3].innerHTML;
 	$('#modal-add-ship').modal('show');
 }
+

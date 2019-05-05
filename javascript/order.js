@@ -42,7 +42,7 @@ function commandesOnLoad() {
 }
 
 function getProductsId(id_order) {
-	console.log(id_order);
+
 	$.ajax({
     url:"phpScripts\\Order\\CtrlOrder.php",
     type:"POST",
@@ -51,18 +51,10 @@ function getProductsId(id_order) {
     	id : id_order,
     },
     success: function(id){
-        id_products_order = id;
-        
-        console.log(id);
-
         id_products_order = id.split('|');
-        
-    },
-    error : function (data) {
-    	console.log(data);
     },
     dataType:"text"
-});
+	});
 }
 
 function editOrder(order) {
@@ -76,35 +68,28 @@ function editOrder(order) {
 }
 
 function edit(order) {
-	if (verifForm()) {
+	if (validForm()) {
 
 	$.ajax({
-			url: "phpScripts\\Order\\CtrlOrder.php",
-			type : 'POST',
-			data : {
-				function : 'editOrder',
-				id : order.id,
-				clientName: $('#client-name').val(),
-				clientAddress : $('#client-address').val(),
-				clientCity : $('#client-city').val(),
-				clientProvince : $('#client-province').val(),
-				clientZip : $('#client-zip').val(),
-				clientId : order.client.id,
-				productsId : id_products_order,
-				productsQty : qty_products_order,
-				idMethod : method,
+		url: "phpScripts\\Order\\CtrlOrder.php",
+		type : 'POST',
+		data : {
+			function : 'editOrder',
+			id : order.id,
+			clientName: $('#client-name').val(),
+			clientAddress : $('#client-address').val(),
+			clientCity : $('#client-city').val(),
+			clientProvince : $('#client-province').val(),
+			clientZip : $('#client-zip').val(),
+			clientId : order.client.id,
+			productsId : id_products_order,
+			productsQty : qty_products_order,
+			idMethod : method,
 			},
-			success: function(data) {
-            	console.log("djsgo");
-            	console.log(data);
-        	},
-        	error : function(data) {
-        		console.log("FML")
-        	}
 		});	
 	}
 	else {
-		alert("Erreur form");
+		alert("Erreur dans le formulaire.");
 	}
 }
 
@@ -116,9 +101,6 @@ function deleteOrder(id) {
 				function : 'delOrder',
 				id_order : id,
 			},
-			success: function(data) {
-            	console.log(data); // Inspect this in your console
-        	},
 		});
 }
 
@@ -132,7 +114,6 @@ function emptyForm() {
 	document.getElementById('client-city').value = "";
 	$('#client-province').val("Québec");
 	document.getElementById('client-zip').value = "";
-	console.log(id_products_order);
 	for (var i = 0; i < id_products_order.length; i++) {
 		deleteProduct(id_products_order[i]);
 	}
@@ -146,18 +127,17 @@ function emptyForm() {
 }
 
 function productsQty() {
-
+	qty_products_order = new Array();
 	for (var i = 0; i < id_products_order.length; i++) {
-		alert(document.getElementById('products-qty-' + id_products_order[i]).value);
 		qty_products_order.push(document.getElementById('products-qty-' + id_products_order[i]).value);
 	}
 }
 
 function addOrder() {
-	if (verifForm() && (id_products_order.length > 0)) {
+	if (validForm() && (id_products_order.length > 0)) {
 		
 		productsQty();
-		console.log(id_products_order.length);
+
 		$.ajax({
 			url: "phpScripts\\Order\\CtrlOrder.php",
 			type : 'POST',
@@ -172,9 +152,6 @@ function addOrder() {
 				productsQty : qty_products_order,
 				methodId : method,
 			},
-			success: function(data) {
-            	console.log(data); // Inspect this in your console
-        	},
 		});
 	}
 	else {
@@ -182,16 +159,14 @@ function addOrder() {
 	}
 }
 
-function verifForm() {
+function validForm() {
 	let regName = RegExp(/([A-Z][a-z]+)(-[A-Z][a-z]+)? ([A-Z][a-z]+)(-[A-Z][a-z]+)?/);
 	if (!regName.test($('#client-name').val())) {
-		console.log(!regName.test($('#client-name').val()));
 		return false;
 	}
 
 	let regZip = RegExp(/[A-Z][0-9][A-Z]( |-)?[0-9][A-Z][0-9]$/);
 	if (!regZip.test($('#client-zip').val())) {
-		console.log(!regName.test($('#client-zip').val()));
 		return false;
 	}
 
@@ -267,7 +242,6 @@ function openModalTable(order) {
 	let modDelBtn = document.getElementById("btn-del-modal");
 
 	modDelBtn.addEventListener("click", function(){
-		console.log(id);
 		deleteOrder(order.id);
 	});
 	
@@ -294,8 +268,6 @@ function openModalTable(order) {
 	document.getElementById("btn-add-modal").value = "Sauvegarder";
 
 	$('#modal-add-orders').modal('show');
-	
-	//console.log(order.products[0][0]);
 }
 
 

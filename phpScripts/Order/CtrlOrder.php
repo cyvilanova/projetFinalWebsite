@@ -21,9 +21,9 @@
 	if (isset($_POST['function'])) {
 		switch ($_POST['function']) {
 			case 'addOrder':
-					$ctrlO = new CtrlOrder();
-					$client = array($_POST['clientName'], $_POST['clientAddress'], $_POST['clientCity'], $_POST['clientProvince'], $_POST['clientZip']);
-					$ctrlO->addOrder(0, $_POST['productsId'], $_POST['productsQty'], $_POST['methodId'], $client);
+				$ctrlO = new CtrlOrder();
+				$client = array($_POST['clientName'], $_POST['clientAddress'], $_POST['clientCity'], $_POST['clientProvince'], $_POST['clientZip']);
+				$ctrlO->addOrder(0, $_POST['productsId'], $_POST['productsQty'], $_POST['methodId'], $client);
 				break;
 			case 'delOrder':
 				$ctrlO = new CtrlOrder();
@@ -37,8 +37,8 @@
 				$ctrlO->editOrder($_POST['id'], $client, $_POST['productsId'], $_POST['productsQty']);
 				break;
 			case 'productsId':
-					$ctrlO = new CtrlOrder();
-					$ctrlO->getProducts($_POST['id']);
+				$ctrlO = new CtrlOrder();
+				$ctrlO->getProducts($_POST['id']);
 				break;
 		}
 
@@ -77,7 +77,6 @@
 				$element .= "<td id=\"postal_code-" . $order->getId() . "\">" . $order->getClient()->getPostalCode() . "</td>";
 				$element .= "<td id=\"state-name-" . $order->getId() . "\">" . $order->getState() . "</td>";
 
-
 				$element .= "</tr>";
 				
 				echo $element;
@@ -99,8 +98,7 @@
 				$this->mgrProduct->getProductById($id);
 				array_push($products, $this->mgrProduct->getProduct()[0]);
 			}
-			
-			var_dump($quantities);
+
 			$order = new Order("", $client, $price, "", $products, $quantities, 'Ouverte');
 			$this->mgrOrder->calculatePrice($order);
 
@@ -120,17 +118,15 @@
 
 
 public function editOrder($id_order, $client, $product, $quantity)
-		{
-			
+		{	
 			$products = [];
-			var_dump($product);
+
 			foreach ($product as $id) {
-				var_dump($id);
 				$this->mgrProduct->getProductById($id);
 				array_push($products, $this->mgrProduct->getProduct()[0]);
 			}
+
 			$order = new Order($id_order, $client, "", "", $products, $quantity, "Ouverte");
-			var_dump(($order->getProducts()));
 			$this->mgrOrder->updateOrder($order, $client);
 		}
 	

@@ -25,8 +25,8 @@ INSERT INTO product(name, image_path, is_sellable, description, price)
 VALUES("Formation sur les etiquettes", "img3.jpg", 1, "Action reparatrice", 22.83);
 
 INSERT INTO product(name, image_path, is_sellable, description, price)
-VALUES("Gant de crain", "img4.jpg", 1, "Action reparatrice", 2.78);
-/*
+VALUES("Gant de crain", "img4.jpg", 1, "Action reparatrice", 2.78),
+
 ("Oléo-sérum Équilibre peau grasse et acnéique","img10.jpg",1,"L'acné vous gâche la vie et vous souhaitez une alternative naturelle aux traitements agressifs pour votre peau? L'oléo-sérum Équilibre aide votre peau à se rééquilibrer naturellement  et en douceur grace aux propriétés équilibrantes et assainissantes. Combinez le avec le nettoyant micellaire sans rinçage et le savon au moringa pour une action optimale.",50.00,6),
 
 ("Oléo-sérum Harmonie Couperose et Rosacée","images/imgProducts/img11.jpg",1,"Vous souffrez de couperose ou de rosacée et souhaitez une alternative naturelle? L'Oléo-sérum Harmonie calme l'inflammation et les rougeurs grâce à un puissant complexe d'huiles végétales précieuses, riches en Omégas 3 et 9 qui apaisent l'inflammation de votre peau! Les huiles végétales de chanvre et tamanu en particulier apportent leurs propriétés apaisantes et anti-inflammatoires pour un soin apaisant 100% actif et naturel, allié à la précieuse Huile essentielle d' immortelle de Corse, connue aussi sous le nom d'Hélychrise italienne, et de camomille, anti-inflammatoire.",50.00,100),
@@ -40,7 +40,7 @@ VALUES("Gant de crain", "img4.jpg", 1, "Action reparatrice", 2.78);
 ("Savon Exfoliant moringa et abricot","img14.jpg",1,"Savon exfoliant doux, moringa calendule et graines d'Abricot",8.00,5),
 ("Shampoing au moringa et karité cheveux secs","img15.jpg",1,"Ce shampoing doux enrichi en huile de moringa et karité est un plaisir pour les cheveux secs.  Il nettoie vos cheveux en douceur et les rend doux et faciles à coiffer. Les huiles essentielles de lavande et romarin apportent leurs propriétés apaisantes et fortifiantes à ce soin. Nos shampoings sont sans agents toxiques ou parfums chimiques, ils sont excellents pour tous types de cheveux.",13.00,2);
 ;
-*/
+
 
 /* recipe */
 INSERT INTO recipe(id_product, name, is_custom, steps)

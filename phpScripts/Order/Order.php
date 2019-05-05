@@ -52,11 +52,11 @@
 
 	public function jsonSerialize() {
 		return array(
-				'id'=>$this->id,
-				'client'=>$this->client,
-				'products'=>$this->products,
-				'quantities'=>$this->quantities,
-				'state'=>$this->state
+			'id'=>$this->id,
+			'client'=>$this->client,
+			'products'=>$this->products,
+			'quantities'=>$this->quantities,
+			'state'=>$this->state
 		);
 	}
 

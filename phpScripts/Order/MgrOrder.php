@@ -155,8 +155,6 @@ class MgrOrder
 					":id_product" => $product->getId(),
 					":quantity" => $order->getQuantities()[$qty],
 				];
-				var_dump($product);
-				var_dump($parametersProductOrder);
 				if (!$this->query_engine->executeQuery($insertProductOrders, $parametersProductOrder)) {
 					echo "Erreur lors de l'ajout des produits de la commande";
 				}
@@ -227,7 +225,6 @@ class MgrOrder
 			
 
 			$this->calculatePrice($order);
-			var_dump($order);
 			$parametersOrders = 
 			[
 				"id_order" => $order->getId(),
@@ -330,13 +327,10 @@ class MgrOrder
 			$resultSet = $this->query_engine->executeQuery($query);
 			$products= [];
 			foreach ($resultSet as $row) {
-				#var_dump($row['id_product']);
 				$this->mgrProduct->getProductById($row['id_product']);
 				$pro = $this->mgrProduct->getProduct();
-				#var_dump($pro);
 				array_push($products, $pro);
 			}
-			#var_dump($products);
 			return $products;
 		}
 		

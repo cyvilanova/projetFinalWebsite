@@ -24,9 +24,6 @@ if (isset($_POST['function'])) {
 				$ctrl = new CtrlShipping();
 				$ctrl->addShipping($_POST['method'], $_POST['company'], $_POST['cost']);
 				break;
-			case 'edit':
-				// maybe ???
-				break;
 		}
 	}
 
@@ -62,7 +59,6 @@ if (isset($_POST['function'])) {
 
 			$element = "";
 			foreach ($shippings as $row) {
-				//var_dump($row);
 				$element = "<tr class=\"order\" onclick='openModalTable(this)'>";
 				$element .= "<td id=\"" . $row['id_method'] . "\">". $row['id_method'] ."</td>";
 				$element .= "<td id=\"" . $row['id_method'] . "\">". $row['method_name'] ."</td>";

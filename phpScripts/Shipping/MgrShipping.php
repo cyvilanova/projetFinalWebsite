@@ -146,8 +146,6 @@ Date Nom Description
 
 			$resultSet = $this->query_engine->executeQuery($query,$parameters);
 
-			//$result = $this->resultToArray($resultSet, "id_company");
-
 			foreach ($resultSet as $row) {
 				return $row['id_company'];
 			}
