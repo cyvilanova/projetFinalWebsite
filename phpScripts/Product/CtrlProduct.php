@@ -229,12 +229,19 @@ class CtrlProduct
         $html = "";
 
         foreach ($products as $product) {
+            $categories = $this->mgrProduct->getProductCategoriesArray($product->getId());
+            $cat_string = "";
+            foreach($categories as $cat)
+            {
+                $cat_string .= $cat->getName() . ",";
+            }
+            $cat_string = rtrim($cat_string, ",");
 
             $html .= "<tr id=" . $product->getId() . " data-toggle='modal' data-target='#editModal'>";
             $html .= "<td>" . $product->getName() . "</td>";
             $html .= "<td>" . $product->getDescription() . "</td>";
-            $html .= "<td><img src='images/imgProducts/" . $product->getImagePath() . "'/></td>";
-            $html .= "<td>Catégorie Produit</td>";
+            $html .= "<td><img width='60' heigth='60' src='images/imgProducts/" . $product->getImagePath() . "'/></td>";
+            $html .= "<td>" . $cat_string . "</td>";
             $html .= "<td>" . $product->getQuantity() . "</td>";
             $html .= "<td>" . $product->getPrice() . "$</td>";
 

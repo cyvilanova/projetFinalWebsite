@@ -2,6 +2,9 @@
     include_once "phpScripts/Product/CtrlProduct.php";
     include_once "phpScripts/Product/Product.php";
     include_once "phpScripts/Product/MgrProduct.php";
+    include_once "phpScripts/Category/CtrlCategory.php";
+    include_once "phpScripts/Category/MgrCategory.php";
+
 ?>
 
 <!DOCTYPE html>
@@ -44,20 +47,24 @@
 
                         <label for="product_image">Image</label>
                         <br />
-                        <input type="file" accept="image/png,image/jpeg,image/jpg" name="product_image" class="col-4" id="product_image" style="">
 
                         <div class="input-group">
                             <input class="form-control" type="text" readonly id="product_image_text" name="path">
                             <div class="input-group-append">
+                                <input type="file" accept="image/png,image/jpeg,image/jpg" name="product_image" id="product_image" style="">
                                 <button class="btn btn-default" id="btnUploadImage">Choisir</button>
                             </div>
                         </div>
                     </div>
+
                     <div class="col-xs-12 col-sm-6">
                         <label for="product_category">Catégorie</label>
                         <br />
-                        <select class="col-12 form-control" name="product_category" id="product_category">
-
+                        <select class="form-control selectpicker" name="product_category[]" multiple data-live-search="true" id="product_category">
+                            <?php
+                            $ctrlC = new CtrlCategory();
+                            $ctrlC->loadCategoriesOptions();
+                            ?>
                         </select>
                         <br />
                         <label for="product_qty">Quantité</label>
@@ -109,11 +116,11 @@
 
                         <label for="product_image">Image</label>
                         <br />
-                        <input type="file" accept="image/png,image/jpeg,image/jpg" name="product_image" class="col-4" id="product_image" style="">
 
                         <div class="input-group">
                             <input class="form-control" type="text" readonly id="product_image_text" name="path">
                             <div class="input-group-append">
+                                <input type="file" accept="image/png,image/jpeg,image/jpg" name="product_image" id="product_image" style="">
                                 <button class="btn btn-default" id="btnUploadImage">Choisir</button>
                             </div>
                         </div>
@@ -121,8 +128,11 @@
                     <div class="col-xs-12 col-sm-6">
                         <label for="product_category">Catégorie</label>
                         <br />
-                        <select class="col-12 form-control" name="product_category" id="product_category">
-
+                        <select class="form-control selectpicker" name="product_category[]" multiple data-live-search="true" id="product_category">
+                            <?php
+                            $ctrlC = new CtrlCategory();
+                            $ctrlC->loadCategoriesOptions();
+                            ?>
                         </select>
                         <br />
                         <label for="product_qty">Quantité</label>
@@ -223,7 +233,7 @@
         $MgrProd = new MgrProduct();
         $id = $_POST['prod'];
         $target_dir = "images/imgProducts/";
-        include_once("phpScripts/Product/MgrProduct.php");
+
         if($_POST['action'] != "delete")
         {
             if(isset($_FILES['product_image']['tmp_name']))
@@ -250,9 +260,12 @@
                 }
             }
             $MgrProd->getProductById($_POST['prod']);
-            include_once("phpScripts/Product/Product.php");
             $name = $_POST['product_name'];
-            //$categories = $_POST['product_category'];
+
+            $categories = json_encode($_POST['product_category']);
+            $categoriesData = html_entity_decode($categories);
+            $formattedCategoriesData = json_decode($categoriesData);
+
             if(isset($_POST['product_visible']))
             {
                 $isSellable = 1;
@@ -265,16 +278,21 @@
             $description = $_POST['product_desc'];
             $quantity = $_POST['product_qty'];
             $path = basename($_POST['path']);
+
             $prod = new Product($name, $categories, $isSellable, $price, $description, $quantity, $path);
         }
         if($action == "edit")
         {
             $prod->setId($id);
             $MgrProd->updateProduct($prod);
+            $MgrProd->delCategories($id);
+            $MgrProd->addIngredients($id, $formattedCategoriesData);
         }
         else if($action == "add")
         {
-            $MgrProd->insertProduct($prod);
+            $prod = $MgrProd->insertProduct($prod);
+
+            $MgrProd->addIngredients($prod->getId(), $formattedCategoriesData);
         }
         else if($action == "delete")
         {

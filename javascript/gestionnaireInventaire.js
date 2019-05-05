@@ -1,3 +1,4 @@
+//Buttons
 let addBtn = document.getElementById("add");    //Button to open the Add Modal
 let deleteBtn = document.getElementById("deleteBtn");   //Button to open the Delete Modal
 let cancelDeleteBtn = document.getElementById("cancelDeleteBtn"); //Cancel button in the delete Modal.
@@ -19,6 +20,8 @@ let addModal = document.getElementById("addModal");
 let editModal = document.getElementById("editModal");
 let deleteModal = document.getElementById("deleteModal");
 
+//Categories Select Box
+let categories_select = $(editModal).find("#product_category")[0];
 
 //Open the Delete Menu
 deleteBtn.addEventListener("click", function() {
@@ -74,27 +77,50 @@ for(let i = 0; i < products_container.childElementCount; i++)
 //Open edit modal with the product's data
 function openEdit()
 {
-        //Get the fields to fill
-        let selected_prod_id = $(editModal).find("#selected_prod_id")[0];
-        let txt_name = $(editModal).find("#product_name")[0];
-        let txt_des = $(editModal).find("#product_desc")[0];
-        let txt_image = $(editModal).find("#product_image_text")[0];
-        let txt_category = $(editModal).find("#product_category")[0];
-        let txt_qty = $(editModal).find("#product_qty")[0];
-        let txt_price = $(editModal).find("#product_price")[0];
-        let check_visible = $(editModal).find("#product_visible")[0];
-        let image_input = $(editModal).find("#product_image")[0];
+    //Get the fields to fill
+    let selected_prod_id = $(editModal).find("#selected_prod_id")[0];
+    let txt_name = $(editModal).find("#product_name")[0];
+    let txt_des = $(editModal).find("#product_desc")[0];
+    let txt_image = $(editModal).find("#product_image_text")[0];
+    let txt_category = $(editModal).find("#product_category")[0];
+    let txt_qty = $(editModal).find("#product_qty")[0];
+    let txt_price = $(editModal).find("#product_price")[0];
+    let check_visible = $(editModal).find("#product_visible")[0];
+    let image_input = $(editModal).find("#product_image")[0];
 
+    //Categories of the selected product.
+    let selected_categories = new Array();
+    selected_categories = selected_prod['category'].split(",");
 
-        //Fill the fields
-        selected_prod_id.value = selected_prod['id'];
-        txt_name.value = selected_prod['name'];
-        txt_des.value = selected_prod['description'];
-        txt_image.value = selected_prod['image_path'];
-        txt_category.selectedValue = selected_prod['category'];
-        txt_qty.value = selected_prod['quantity'];
-        txt_price.value = selected_prod['price'].substr(0, selected_prod['price'].length - 1);
-        check_visible.checked = selected_prod['visible'];
+    //First we unselect every option.
+    for(let i = 0; i < categories_select.options.length; i++)
+    {
+        categories_select.options[i].selected = false;
+    }
+
+    //Loops that select matching categories.
+    for(let i = 0; i < categories_select.options.length; i++)
+    {
+        for(let j = 0; j < selected_categories.length; j++)
+        {
+            //If the options value is the same as the category being read, select it.
+            if(categories_select.options[i].innerText == selected_categories[j])
+            {
+                categories_select.options[i].selected = true;
+                break;
+            }
+        }
+    }
+
+    //Fill the fields
+    selected_prod_id.value = selected_prod['id'];
+    txt_name.value = selected_prod['name'];
+    txt_des.value = selected_prod['description'];
+    txt_image.value = selected_prod['image_path'];
+    txt_category.selectedValue = selected_prod['category'];
+    txt_qty.value = selected_prod['quantity'];
+    txt_price.value = selected_prod['price'].substr(0, selected_prod['price'].length - 1);
+    check_visible.checked = selected_prod['visible'];
 }
 
 style_file_input(editModal);
@@ -122,8 +148,10 @@ for(i = 0; i < products_container.childElementCount; i++)
                            element.children[0].innerText,
                            element.children[1].innerText,
                            element.children[2].children[0].getAttribute("src"),
-                           element.children[3].innerText,element.children[4].innerText,
-                           element.children[5].innerText,element.children[6].children[0].checked
+                           element.children[3].innerText,
+                           element.children[4].innerText,
+                           element.children[5].innerText,
+                           element.children[6].children[0].checked
                           );
 
     //Push the product in the products array
