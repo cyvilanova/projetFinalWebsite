@@ -130,15 +130,50 @@ class MgrProduct
      * @param string $filter 
      *
      */
-    public function getProductsByName($name,$isSellable,$filter = null)
+    public function getProductsByName($name,$filter = null)
     {
         $queryEngine = new QueryEngine();
-        $query = "SELECT * FROM Product WHERE name LIKE :name AND is_sellable = :is_sellable";
+        $query = "SELECT * FROM Product WHERE name LIKE :name";
         $parameters =
             [
                 ":name" => "%" . $name . "%",
-                ":is_sellable" => $isSellable,
+
             ];
+
+        if ($filter != null) {
+            //Adds the filter
+            $query .= " ORDER BY " . $filter;
+        }
+
+        $resultSet = $queryEngine->executeQuery($query, $parameters);
+
+        if (!$resultSet) {
+            echo "Error while trying to load products by name";
+        } else {
+            $this->resultToArray($resultSet);
+        }
+    }
+
+
+
+    /**
+     * Send to the QueryEngine a prepared statement in string form
+     * along with its parameters as a map
+     *
+     * @param string $name The name of the product
+     * @param string $filter 
+     *
+     */
+    public function getSellablesByName($name,$filter = null)
+    {
+        $queryEngine = new QueryEngine();
+        $query = "SELECT * FROM Product WHERE name LIKE :name AND is_sellable = 1";
+        $parameters =
+            [
+                ":name" => "%" . $name . "%",
+
+            ];
+
         if ($filter != null) {
             //Adds the filter
             $query .= " ORDER BY " . $filter;
@@ -186,21 +221,44 @@ class MgrProduct
      * @param string $filter 
      *
      */
-    public function getAllProducts($isSellable,$filter = null)
+    public function getAllProducts($filter = null)
     {
         $queryEngine = new QueryEngine();
-        $query = "SELECT * FROM Product WHERE is_sellable = :is_sellable";
-
-        $parameters =
-            [
-                ":is_sellable" => $isSellable,
-            ];
+        $query = "SELECT * FROM Product";
 
         if ($filter != null) {
             //Adds the filter
             $query .= " ORDER BY " . $filter;
         }
-        $resultSet = $queryEngine->executeQuery($query,$parameters);
+        $resultSet = $queryEngine->executeQuery($query);
+
+        if (!$resultSet) {
+            echo "Error while trying to load all products";
+        } else {
+            $this->resultToArray($resultSet);
+        }
+    }
+
+
+
+    /**
+     * Send to the QueryEngine a prepared statement in string form
+     * along with its parameters as a map.
+     * Gets a list of all the products from the database, ordered or not.
+     *
+     * @param string $filter 
+     *
+     */
+    public function getAllSellables($filter = null)
+    {
+        $queryEngine = new QueryEngine();
+        $query = "SELECT * FROM Product WHERE is_sellable = 1";
+
+        if ($filter != null) {
+            //Adds the filter
+            $query .= " ORDER BY " . $filter;
+        }
+        $resultSet = $queryEngine->executeQuery($query);
 
         if (!$resultSet) {
             echo "Error while trying to load all products";

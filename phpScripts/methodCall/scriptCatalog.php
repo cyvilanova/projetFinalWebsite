@@ -11,10 +11,10 @@
 		if(isset($_POST["name"]) && isset($_POST["filter"]) && !empty($_SESSION["ctrlProduct"]))
 		{	
 			if($_POST["name"] == ""){
-				$ctrl->loadAllProducts(1,$_POST["filter"]);	
+				$ctrl->loadAllSellables($_POST["filter"]);	
 			}
 			else{
-				$ctrl->loadProductsByName($_POST["name"],1,$_POST["filter"]);	
+				$ctrl->loadSellablesByName($_POST["name"],$_POST["filter"]);	
 			}
 
 			

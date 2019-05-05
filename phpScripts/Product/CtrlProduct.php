@@ -56,15 +56,28 @@ class CtrlProduct
     /**
      * Loads every products and 
      * displys it as a product
-     * $isSellable WHERE is_sellable = 
      * $filter: ORDER BY $filter
      * */
-    public function loadAllProducts($isSellable,$filter = null)
+    public function loadAllProducts($filter = null)
     {
         $this->pageNumber = 0;
-        $productList = $this->getMgrProduct()->getAllProducts($isSellable,$filter);
+        $productList = $this->getMgrProduct()->getAllProducts($filter);
         $this->displayProducts();
     }
+
+
+    /**
+     * Loads every sellable products and 
+     * displys it as a product
+     * $filter: ORDER BY $filter
+     * */
+    public function loadAllSellables($filter = null)
+    {
+        $this->pageNumber = 0;
+        $productList = $this->getMgrProduct()->getAllSellables($filter);
+        $this->displayProducts();
+    }
+
 
     /**
      * Loads a product by it's id
@@ -80,13 +93,28 @@ class CtrlProduct
      * the given letters
      *
      * $name: letters given by the user
-     * $isSellable WHERE is_sellable = 
      * $filter: ORDER BY $filter
      * */
-    public function loadProductsByName($name,$isSellable, $filter = null)
+    public function loadProductsByName($name, $filter = null)
     {
         $this->pageNumber = 0;
-        $productList = $this->getMgrProduct()->getProductsByName($name,$isSellable,$filter);
+        $productList = $this->getMgrProduct()->getProductsByName($name,$filter);
+        $this->displayProducts();
+    }
+
+
+
+    /**
+     * Loads the sellables products relative to
+     * the given letters
+     *
+     * $name: letters given by the user
+     * $filter: ORDER BY $filter
+     * */
+    public function loadSellablesByName($name, $filter = null)
+    {
+        $this->pageNumber = 0;
+        $productList = $this->getMgrProduct()->getSellablesByName($name,$filter);
         $this->displayProducts();
     }
 
