@@ -76,6 +76,8 @@ function editOrder(order) {
 }
 
 function edit(order) {
+	if (verifForm()) {
+
 	$.ajax({
 			url: "phpScripts\\Order\\CtrlOrder.php",
 			type : 'POST',
@@ -100,6 +102,10 @@ function edit(order) {
         		console.log("FML")
         	}
 		});	
+	}
+	else {
+		alert("Erreur form");
+	}
 }
 
 function deleteOrder(id) {
@@ -177,6 +183,18 @@ function addOrder() {
 }
 
 function verifForm() {
+	let regName = RegExp(/([A-Z][a-z]+)(-[A-Z][a-z]+)? ([A-Z][a-z]+)(-[A-Z][a-z]+)?/);
+	if (!regName.test($('#client-name').val())) {
+		console.log(!regName.test($('#client-name').val()));
+		return false;
+	}
+
+	let regZip = RegExp(/[A-Z][0-9][A-Z]( |-)?[0-9][A-Z][0-9]$/);
+	if (!regZip.test($('#client-zip').val())) {
+		console.log(!regName.test($('#client-zip').val()));
+		return false;
+	}
+
 	return true;
 }
 

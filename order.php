@@ -14,12 +14,21 @@
   <meta name="viewport" content="width = device-width, initial-scale = 1.0">
   <link href="css/style_index.css" rel=stylesheet>
   <script type="text/javascript" src="javascript/order.js"></script>
-  
+       <?php
+      if(!isset($_SESSION["username"])||$_SESSION["username"]!="admin"){
+          include("nav_admin.html");
+          
+      }
+      else{
+        include("nav_inv.html");
+        echo "<script> location.href='Catalog.php'</script>";
+      }
+      ?> 
 </head>
 
 <body onload="commandesOnLoad()">
 
-<?php include("nav_admin.html"); ?>
+
   
 
 <div class="modal fade" id="modal-add-orders" role="dialog">
@@ -35,7 +44,7 @@
           <form>
            <div class="form-group">
               <label for="client" class="col-form-label">Client </label>
-              <input type="text" name="client" class="form-control" placeholder="Roger Lapierre" required id="client-name">  
+              <input type="text" name="client" class="form-control" placeholder="Roger Lapierre" required id="client-name" pattern="([A-Z][a-z]+)(-[A-Z][a-z]+)? ([A-Z][a-z]+)(-[A-Z][a-z]+)?">  
             </div>
 
           <div class="form-group">
@@ -50,7 +59,7 @@
 
           <div class="form-group">
               <label for="zip" class="col-form-label">Code postal </label>
-              <input type="text" name="zip" class="form-control" placeholder="J1N1Y9" required id="client-zip">  
+              <input type="text" name="zip" class="form-control" placeholder="J1N1Y9" required id="client-zip" pattern="[A-Z][0-9][A-Z]( |-)?[0-9][A-Z][0-9]$">  
           </div>
 
           <div class="form-group">

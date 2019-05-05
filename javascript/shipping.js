@@ -24,6 +24,7 @@ function shipOnLoad() {
 }
 
 function editShip() {
+	verifForm();
 	$.ajax({
 		url: "phpScripts\\Shipping\\CtrlShipping.php",
 		type : 'POST',
@@ -37,7 +38,16 @@ function editShip() {
 		success: function(data) {
         	console.log(data); 
     	},
+    	error : function(msg) {
+    		alert("Erreur lors de la modification");
+    	}
 	});
+}
+
+function verifForm() {
+	let texte = document.getElementById('cost').value;
+	texte = text.replace(",", ".");
+	document.getElementById('cost').value = texte;
 }
 
 function addShip() {

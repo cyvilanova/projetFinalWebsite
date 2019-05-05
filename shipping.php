@@ -10,7 +10,16 @@
 
 <head>
 <title>Livraisons</title>
-  <?php include("nav_admin.html"); ?>
+       <?php
+      if(!isset($_SESSION["username"])||$_SESSION["username"]!="admin"){
+          include("nav_admin.html");
+          
+      }
+      else{
+        include("nav_inv.html");
+        echo "<script> location.href='Catalog.php'</script>";
+      }
+      ?> 
   
    <script type="text/javascript" src="javascript/shipping.js"></script>
 </head>
