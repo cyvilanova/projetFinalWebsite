@@ -31,6 +31,7 @@ $ctrl = new CtrlProduct();
 	 	<!-- Bootstrap CSS -->
 	 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
 	 	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+		<script src='javascript/zoombox.js' type='text/javascript'></script>
 	 </head>
 	 <body>
 	 	<div class="page">
@@ -43,7 +44,9 @@ $ctrl = new CtrlProduct();
 			 			$ctrl -> loadProductById($_GET["productId"]);
 			 		}
 			 	?>
-
+				<script type="text/javascript">
+					magnify('picture', 2);
+				</script>
 			 </section>
 			 <footer class="classic-footer">
 			 		<p>Insérez du texte ici</p>

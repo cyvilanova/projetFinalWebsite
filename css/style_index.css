@@ -780,13 +780,11 @@ input:checked + .slider:before {
 }
 
 .single-product img {
-	width:30%;
+	width:100%;
 	min-width: 200px;
 	display: inline-block;
 	vertical-align: top;
 	border:5px solid #292323;
-	margin-left:5%;
-	margin-top:5%;
 }
 
 .single-product .desc {
@@ -827,6 +825,23 @@ input:checked + .slider:before {
 	text-align:center;
 	margin-top: 50px;
 	font-size: 25px;
+}
+
+.img-container{
+  width: 30%;
+  position: relative;
+  margin-left: 5%;
+  margin-top: 5%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+.img-zoombox{
+  border: 2px solid #B0B0B0;
+  cursor: none;
+  position: absolute;
+  width: 45%;
+  height: 45%;
 }
 
 /* Link Section */
@@ -1129,4 +1144,3 @@ input:checked + .slider:before {
     content: "\a";
     white-space: pre;
   }
-
