@@ -612,7 +612,6 @@ input:checked + .slider:before {
     border:1px solid black;
     padding-left: 5px;
     outline:0;
-    background-image: url("../icons/magnifying.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: 99% center;
@@ -955,7 +954,7 @@ input:checked + .slider:before {
 
 #payment-state{
     text-align: center;
-    font-size:20px;
+    font-size:30px;
 }
 
 .payment-success{
@@ -965,6 +964,17 @@ input:checked + .slider:before {
 .payment-error{
     color:red;
 }
+
+
+.infos-client{
+    text-align: center;
+    font-size:30px;
+}
+
+.link-previous{
+    text-align: center;
+}
+
 @keyframes animLabel{
 
     0%{
