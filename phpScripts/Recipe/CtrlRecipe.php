@@ -75,15 +75,15 @@ class CtrlRecipe
 	}
 
 	/**
-	 * addRecipe
+	 * Calls the MgrRecipe to add a new recipe and its components. 
 	 *
-	 * @param  string $recipeName
-	 * @param  boolean $recipeIsCustom
-	 * @param  string $recipeSteps
-	 * @param  string $finalProductName
-	 * @param  string $finalProductDescription
-	 * @param  array $finalProductCategories
-	 * @param  array $ingredients
+	 * @param string $recipeName
+	 * @param boolean $recipeIsCustom
+	 * @param string $recipeSteps
+	 * @param string $finalProductName
+	 * @param string $finalProductDescription
+	 * @param array $finalProductCategories
+	 * @param array $ingredients
 	 *
 	 */
 	public function createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients)
@@ -91,9 +91,30 @@ class CtrlRecipe
 		$this->mgrRecipe->createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients);
 	}
 	
-	public function updateRecipe() 
+	/**
+	 * Calls the MgrRecipe to edit a recipe and its components. 
+	 *
+	 * @param int $recipeId
+	 * @param string $recipeName
+	 * @param boolean $recipeIsCustom
+	 * @param string $recipeSteps
+	 * @param array $recipeIngredients
+	 *
+	 */
+	public function updateRecipe($recipeId, $recipeName, $recipeIsCustom, $recipeSteps, $recipeIngredients) 
 	{
-		
+		$this->mgrRecipe->updateRecipe($recipeId, $recipeName, $recipeIsCustom, $recipeSteps, $recipeIngredients);
+	}
+
+	/**
+	 * Calls the manager of recipe to delete from the database.
+	 *
+	 * @param int $recipeId The id of the recipe to delete
+	 *
+	 */
+	public function deleteRecipe($recipeId)
+	{
+		$this->mgrRecipe->deleteRecipe($recipeId);
 	}
 }
 ?>
