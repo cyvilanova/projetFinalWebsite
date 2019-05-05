@@ -8,7 +8,7 @@ $('#editModal').on('hidden.bs.modal', function (e) {
   applyInvalidStyle(modalId, 'recipe-steps', '', '#ced4da');
   applyInvalidStyle(modalId, 'recipe-product', '', '#ced4da');
   applyInvalidStyle(modalId, 'product-description', '', '#ced4da');
-  
+
 })
 
 /** Reset the borders color of addModal */
@@ -20,6 +20,13 @@ $('#addModal').on('hidden.bs.modal', function (e) {
   applyInvalidStyle(modalId, 'recipe-product', '', '#ced4da');
   applyInvalidStyle(modalId, 'product-description', '', '#ced4da');
 })
+
+/** Unselects all categories to reset the select */
+function resetSelectedCategories() {
+  $('#editModal').find('.product-category').each((_, value) => {
+      $(value).prop("selected", false);
+  });
+}
 
 /** Opens the editrecipe page with the recipe clicked and the correct informations*/
 function editRecipe(recipe) {
@@ -131,7 +138,7 @@ function validateForm(modalId) {
 
   // If all areas are valid, sends informations to recipeHandler.php
   if(invalidAreas == 0) {
-    //getRecipeInformations(modalId);
+    getRecipeInformations(modalId);
   }
 }
 
@@ -167,7 +174,7 @@ function validateIngredients(modalId, invalidAreas) {
   }
   else {
     applyInvalidStyle(modalId, 'recipe-ingredients', '', '#ced4da');
-    
+
     if(findVolumeZero(modalId)) {
       invalidAreas--;
     }
@@ -209,7 +216,7 @@ function validateIngredients(modalId, invalidAreas) {
   }
   else {
     applyInvalidStyle(modalId, 'recipe-ingredients', '', '#ced4da');
-    
+
     if(findVolumeZero(modalId)) {
       invalidAreas--;
     }

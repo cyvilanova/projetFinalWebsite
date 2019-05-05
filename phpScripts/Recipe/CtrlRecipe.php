@@ -82,19 +82,18 @@ class CtrlRecipe
 	/**
 	 * addRecipe
 	 *
-	 * @param  mixed $recipeName
-	 * @param  mixed $recipeIsCustom
-	 * @param  mixed $recipeSteps
-	 * @param  mixed $finalProductName
-	 * @param  mixed $finalProductDescription
-	 * @param  mixed $categories
-	 * @param  mixed $ingredients
+	 * @param  string $recipeName
+	 * @param  boolean $recipeIsCustom
+	 * @param  string $recipeSteps
+	 * @param  string $finalProductName
+	 * @param  string $finalProductDescription
+	 * @param  array $finalProductCategories
+	 * @param  array $ingredients
 	 *
-	 * @return void
 	 */
-	public function createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $categories, $ingredients) 
+	public function createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients)
 	{
-		$this->mgrRecipe->addNewRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $categories, $ingredients);
+		$this->mgrRecipe->createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients);
 	}
 	
 	public function updateRecipe() 

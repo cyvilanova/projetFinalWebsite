@@ -63,14 +63,15 @@ include_once "mgrCategory.php";
       echo $html;
     }
 
-    /**
-    * Adds a category to the database
-    * @param $name the name of the category to create
-    * @param $description the description of the category to create
-    */
-    public function addCategory($name, $description){
-      $newCategory = new Category(1,$name, 1, $description);
-      $this->mgrCategory->addCategory($newCategory);
+
+      foreach ($categories as $category) {
+        $html .= "<option title=\"" . $category->getDescription() . "\" ";
+        $html .= "id=\"" . $category->getId() . "\" ";
+        $html .= "class=\"product-category\" ";
+        $html .= "value=\"" . $category->getId() . "\">";
+        $html .= $category->getName() . "</div>";
+        }
+
     }
 
     /**
