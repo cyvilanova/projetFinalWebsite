@@ -50,7 +50,7 @@ class QueryEngine
         }
     }
 
-    public function getLastInsertedId()
+    public function getLastInsertedId($value='')
     {
         $conn = $this->db->getDbConn();
         $last_id = $conn->lastInsertId();

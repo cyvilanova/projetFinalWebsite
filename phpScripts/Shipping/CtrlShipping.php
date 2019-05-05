@@ -9,7 +9,6 @@ Date Nom Approuvé
 =========================================================
 Historique de modifications :
 Date Nom Description
-2019-04-31 CB Afficher livraison dans un select
 =========================================================
  ****************************************/
 
@@ -29,18 +28,7 @@ Date Nom Description
 		 */
 		function __construct()
 		{
-			$this->mgrshipping = new MgrShipping();
-		}
-
-		public function loadAllShippingSelect()
-		{
-			$shippings = $this->mgrshipping->getAllShippingsMethod();
-
-			$element = "";
-			foreach ($shippings as $row) {
-				$element .= "<option id=\"" . $row['id_method'] ."\" value=\"" . $row['method_name'] . "\"> " . $row['company_name'] . "-" .  $row['method_name'] . "</option>";
-			}
-			echo $element;
+			$mgrshipping = new MgrShipping();
 		}
 
 		/**

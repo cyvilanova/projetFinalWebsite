@@ -16,7 +16,6 @@ Date Nom Description
 <?php
 include_once "phpScripts/Recipe/CtrlRecipe.php";
 include_once "phpScripts/Product/CtrlProduct.php";
-include_once "phpScripts/Category/CtrlCategory.php";
 ?>
 
 <!DOCTYPE html>
@@ -86,7 +85,7 @@ include_once "phpScripts/Category/CtrlCategory.php";
                             <select class="form-control selectpicker" data-live-search="true" onchange="editRecipeAddIngredientModal(this)" id="recipe-ingredients" data-live-search="true" disabled>
                                 <?php
                                 $ctrlP = new CtrlProduct();
-                                $ctrlP->loadIngredientsOptions();
+                                $ctrlP->loadAllIngredients();
                                 ?>
                             </select>
                             <div class="invalid-input" id="invalid-recipe-ingredients"></div>
@@ -111,10 +110,9 @@ include_once "phpScripts/Category/CtrlCategory.php";
                         <div class="form-group">
                             <label for="product-categories" class="col-form-label">Catégories du produit final</label>
                             <select class="form-control selectpicker" multiple data-live-search="true" id="product-categories" disabled>
-                                <?php
-                                $ctrlC = new CtrlCategory();
-                                $ctrlC->loadCategoriesOptions();
-                                ?>
+                                <option value="1">Mustard</option>
+                                <option value="2">Ketchup</option>
+                                <option value="3">Relish</option>
                             </select>
                             <div class="invalid-input" id="invalid-product-categories"></div>
                         </div>
@@ -158,7 +156,7 @@ include_once "phpScripts/Category/CtrlCategory.php";
                             <select class="form-control selectpicker" data-live-search="true" onchange="addRecipeAddIngredientModal(this)" id="recipe-ingredients">
                                 <?php
                                 $ctrlP = new CtrlProduct();
-                                $ctrlP->loadIngredientsOptions();
+                                $ctrlP->loadAllIngredients();
                                 ?>
                             </select>
                             <div class="invalid-input" id="invalid-recipe-ingredients"></div>
@@ -183,10 +181,9 @@ include_once "phpScripts/Category/CtrlCategory.php";
                         <div class="form-group">
                             <label for="product-categories" class="col-form-label">Catégories du produit final</label>
                             <select class="form-control selectpicker" multiple data-live-search="true" id="product-categories" data-live-search="true">
-                                <?php
-                                $ctrlC = new CtrlCategory();
-                                $ctrlC->loadCategoriesOptions();
-                                ?>
+                                <option>Mustard</option>
+                                <option>Ketchup</option>
+                                <option>Relish</option>
                             </select>
                             <div class="invalid-input" id="invalid-product-categories"></div>
                         </div>

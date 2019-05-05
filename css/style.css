@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway');
+
+body{
+	padding:0;
+	font-family: 'Raleway', sans-serif;
+	overflow-x: hidden;
+}
+
+/* Nav bar */
+.navbar{
+	padding-bottom: 0;
+}
+
+/* CSS style navigation bar + links */
+.img-logo-nav {
+  width: 350px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 5px 30px;
+}
+
+.navbar-light {
+  background-color: #fff !important;
+}
+
+.navbar-nav {
+  margin-right: 100px;
+  padding:0;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  margin-right: 50px;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  padding-right: 25px;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-weight: 600;
+}
+
+/* Title bar */
+.page-title-bar {
+  background-color: #342c2c;
+  padding: 17px 20px;
+}
+
+.page-title-bar h1 {
+  text-align: center;
+  color: #fff;
+  font-size: 28px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+  line-height: 28px;
+  margin: 0;
+}
+
+.dropdown-menu {
+  border: 1px solid #7c8c34;
+}
+
+.dropdown-item.active, .dropdown-item:active {
+  background-color: #7c8c34;
+
+}
+
+/* ===== <Catalogue>  =====*/
+
+/* Search section */
+.search-section{
+	text-align: center;
+	margin-top:15px;
+}
+
+.search-section input,.search-section select{
+	width:200px;
+	height:25px;
+}
+.search-section input{
+	font-family: "Raleway";
+	font-size:25px;
+	width:30%;
+	min-width:250px;
+	height:45px;
+
+	border:1px solid black;
+	padding-left: 5px;
+	outline:0;
+
+	background-image: url("../icons/magnifying.png");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: 99% center;
+}
+
+.search-section input:focus{
+	transition-duration: 1s;
+
+	color:white;
+	caret-color:white;
+	border:1px solid white;
+	background-color: #342c2c;
+	background-image: none;
+}
+
+.search-section p{
+	font-size: 22px;
+}
+
+.search-section select{
+	font-size: 20px;
+	width:220px;
+	height:30px;
+}
+
+
+/* Product section */
+.page{
+	position: relative;
+	min-height:100vh;
+}
+
+.main-section{
+	padding-bottom: 120px;
+}
+
+.product-section{
+	width:90%;
+	margin:auto;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	box-sizing: content-box;
+}
+
+.product-section .product{
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	text-align: center;
+	width:25%;
+	padding-top:20px;
+	margin-top:20px;
+	margin-right:10px;
+	margin-left:10px;
+	padding-right:1%;
+	padding-left: 1%;
+	border:2px solid #292323;
+	box-sizing: content-box;
+	transition-duration: 1s;
+	text-decoration: none;
+	color: black;
+}
+
+.product-section .product h2{
+	word-wrap: break-word;
+}
+
+.product-section .product img{
+	flex-direction: row;
+	align-self: center;
+	width:170px;
+	height:150px;
+}
+
+.product-section .bottom-text{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	width:100%;
+}
+
+.product:hover{
+	color:white;
+	background-color: #342c2c;
+	cursor:pointer;
+}
+
+
+.single-product{
+	width:50%;
+	margin:auto;
+	text-align: center;
+	margin-top:30px;
+}
+
+.single-product img{
+	width:40%;
+}
+
+.single-product .desc{
+	width:80%;
+	margin:auto;
+	font-size:22px;
+}
+
+.single-product .bottom-text{
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: 35px;
+}
+
+.align-center{
+	text-align:center;
+	margin-top: 50px;
+	font-size: 25px;
+}
+
+/* Link Section */
+.link-page-box{
+	display: block;
+	width:100%;
+	text-align: center;
+	padding-top:20px;
+}
+
+.link-page-box a{
+	margin-right:5px;
+	margin-left:5px;
+	font-size:25px;
+}
+
+/* Footer section */
+.classic-footer{
+	background-color: #292323;
+	width:100%;
+	position:absolute;
+	bottom:0;
+}
+
+.classic-footer p{
+	text-align: center;
+	color:white;
+	margin:0;
+	padding-top:40px;
+	padding-bottom:40px;
+}
+
+/* === </Catalogue> === */
+
+
+
+@media screen and (max-width: 991px) {
+	/* start of large tablet styles */
+
+
+	/* Product changes */
+	.product-section .product{
+		width:35%;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	/* start of medium tablet styles */
+
+	/* Product changes */
+	.product-section .product{
+		width:65%;
+	}
+
+	/* Search section changes */
+	.search-section p{
+		display: block;
+	}
+
+}
+
+@media screen and (max-width: 479px) {
+	/* start of phone styles */
+	body{
+		background-color: green;
+	}
+
+	/* Product section changes */
+	.product-section{
+		width:100%;
+	}
+
+	.product-section .product{
+		width:70%;
+	}
+
+	/* ========Login========*/
+
+	.loginConnect{
+		display: flex;
+		justify-content: center;
+	  /*margin-top:40px;
+		margin-right:auto;
+		margin-bottom:0;
+		margin-left:auto;
+	  padding-top: 40px;
+	  background-color: #fff6c9;
+	  text-align: center;*/
+	  width: 400px;
+	  height: 300px;
+	  border: solid 1px black;
+	}
+
+
+	input{
+	  width:75%;
+	  max-width:250px;
+	}
+
+	input[type=submit]{
+	  width:75%;
+	  max-width:150px;
+	}
+
+}

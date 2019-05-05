@@ -13,7 +13,7 @@ if (isset($_POST['action'])){
 
         $newCtrl->addCategory($name,$description);
       break;
-
+      
     //Edit a ctegory from the database
     case 'edit':
       $id = $_POST['id'];

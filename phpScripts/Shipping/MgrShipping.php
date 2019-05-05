@@ -29,20 +29,6 @@ Date Nom Description
 			$this->query_engine = new QueryEngine();
 		}
 
-
-
-		public function getAllShippingsMethod()
-		{
-			$query = "SELECT `shipping_method`.`id_method`,`shipping_method`.`name` AS 'method_name', shipping_company.name AS 'company_name' FROM `shipping_method` INNER JOIN shipping_company on shipping_company.id_company = shipping_method.id_company";
-			$resultSet = $this->query_engine->executeQuery($query);
-			if (!$resultSet) {
-				echo "Erreur durant l'ajout de la compagnie de livraison.";
-			}
-
-	
-			return $resultSet;
-		}
-
 		/**
 		 * Returns shipping id from the method name
 		 *

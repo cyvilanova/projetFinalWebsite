@@ -507,7 +507,7 @@ input:checked + .slider:before {
     flex-direction: column;
 }
 
-.ingredient-item, .product-item {
+.ingredient-item {
     display: flex;
     flex-direction: row;
     margin-top: 2px;
@@ -612,6 +612,7 @@ input:checked + .slider:before {
     border:1px solid black;
     padding-left: 5px;
     outline:0;
+    background-image: url("../icons/magnifying.png");
     background-repeat: no-repeat;
     background-size: contain;
     background-position: 99% center;
@@ -950,29 +951,6 @@ input:checked + .slider:before {
 #card-errors{
     width:100%;
     margin-top:5px;
-}
-
-#payment-state{
-    text-align: center;
-    font-size:30px;
-}
-
-.payment-success{
-    color:green;
-}
-
-.payment-error{
-    color:red;
-}
-
-
-.infos-client{
-    text-align: center;
-    font-size:30px;
-}
-
-.link-previous{
-    text-align: center;
 }
 
 @keyframes animLabel{

@@ -1,6 +1,6 @@
 <?php
 /****************************************
- Fichier : MgrCategory.php
+ Fichier : Category.php
  Auteur : Philippe Audit-Allaire
  Fonctionnalité : W - Connexion de l'utilisateur
  Date : 2019-04-15

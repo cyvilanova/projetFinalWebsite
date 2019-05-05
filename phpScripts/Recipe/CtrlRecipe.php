@@ -19,6 +19,8 @@ include_once "MgrRecipe.php";
 class CtrlRecipe
 {
 	private $mgrRecipe;
+	private $pageNumber;
+	private $itemsPerPage;
 
 	/**
 	 * Constructor of CtrlRecipe
@@ -27,6 +29,8 @@ class CtrlRecipe
 	public function __construct()
 	{
 		$this->mgrRecipe = new MgrRecipe();
+		$this->pageNumber = 0;
+		$this->itemsPerPage = 10;
 	}
 
 	/**
@@ -35,6 +39,7 @@ class CtrlRecipe
 	 */
 	public function loadAllRecipesTable()
 	{
+		$this->pageNumber = 0;
 		$this->mgrRecipe->selectAllRecipes();
 		$this->displayRecipesRows();
 	}

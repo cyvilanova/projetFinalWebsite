@@ -68,6 +68,17 @@ INSERT INTO ta_recipe_product(id_recipe, id_product, qty_ml)
 VALUES(5,5,22);
 
 
+/*secret_question*/
+INSERT INTO secret_question(question)
+VALUES("Quel était le nom de votre premier animal de compagnie?");
+
+INSERT INTO secret_question(question)
+VALUES("Quel est le nom de votre premier(e) meilleur(e) ami(e)?");
+
+INSERT INTO secret_question(question)
+VALUES("Quel était le nom de jeune fille de votre mère?");
+
+
 /*User*/
 INSERT INTO user(id_question, username, password, email, secret_answer)
 VALUES(1,"test","test123","warpaintingqc@gmail.com","chopin");
@@ -80,17 +91,6 @@ VALUES(3,"AlloToi","byebye","lolnon@gmail.com","Audit");
 
 INSERT INTO user(id_question, username, password, email, secret_answer)
 VALUES(1,"admin","admin","dgailalrd@gmail.com","duchesse");
-
-
-/*secret_question*/
-INSERT INTO secret_question(question)
-VALUES("Quel était le nom de votre premier animal de compagnie?");
-
-INSERT INTO secret_question(question)
-VALUES("Quel est le nom de votre premier(e) meilleur(e) ami(e)?");
-
-INSERT INTO secret_question(question)
-VALUES("Quel était le nom de jeune fille de votre mère?");
 
 
 /*Category*/
@@ -145,55 +145,38 @@ VALUES (1, "Normal", '10.00');
 INSERT INTO `shipping_method` (`id_company`, `name`, `price`)
 VALUES (2, "Rapide", '15.00');
 
-INSERT INTO shipping_method (id_company, name, price)
+INSERT INTO `shipping_method` (`id_company`, `name`, `price`)
 VALUES (3, "Normal", '12.00');
 
 
 /* Insert into client */
-INSERT INTO client (name, address, city, province, postal_code)
+INSERT INTO `client` (`name`, `address`, `city`, `province`, `postal_code`)
 VALUES ("Edith Piaf", '14 Rue Alexandre', 'Sherbrooke', 'Québec', 'J2H4I9');
 
-INSERT INTO client (name, address, city, province, postal_code)
+INSERT INTO `client` (`name`, `address`, `city`, `province`, `postal_code`)
 VALUES ("Céline Dion", '1 Rue Chanteuse', 'Sherbrooke', 'Québec', 'J2H4I9');
 
-INSERT INTO client (name, address, city, province, postal_code)
+INSERT INTO `client` (`name`, `address`, `city`, `province`, `postal_code`)
 VALUES ("Éric Lapointe", '333 Boulevard Rock', 'Sherbrooke', 'Québec', 'J2H4I9');
 
 
 /* Insert into order */
-INSERT INTO `order` (id_client, id_user, id_state, id_method, tps, tvq, total)
-VALUES (1, 1, 1, 1, 10.00, 20.00, 50.00);
+INSERT INTO `order` (`id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`)
+VALUES (1, 1, 1, 1, '10.00', '20.00', '50.00');
 
-INSERT INTO `order` (id_client, id_user, id_state, id_method, tps, tvq, total)
-VALUES (2, 1, 2, 4, 20.00, 20.00, 60.00);
+INSERT INTO `order` (`id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`)
+VALUES (2, 1, 2, 4, '20.00', '20.00', '60.00');
 
 
 /* Insert into table association order - product */
-INSERT INTO ta_order_product (id_order, id_product, quantity)
+INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`)
 VALUES (1, 1, 2);
 
-INSERT INTO ta_order_product (id_order, id_product, quantity)
+INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`)
 VALUES (1, 5, 4);
 
-INSERT INTO ta_order_product (id_order, id_product, quantity)
+INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`)
 VALUES (1, 2, 1);
 
-INSERT INTO ta_order_product (id_order, id_product, quantity)
+INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`)
 VALUES (2, 1, 1);
-
-
-/* Insert into table association order - product */
-INSERT INTO ta_product_category(id_category, id_product)
-VALUES (1, 1);
-
-INSERT INTO ta_product_category(id_category, id_product)
-VALUES (3, 1);
-
-INSERT INTO ta_product_category(id_category, id_product)
-VALUES (4, 1);
-
-INSERT INTO ta_product_category(id_category, id_product)
-VALUES (1, 2);
-
-INSERT INTO ta_product_category(id_category, id_product)
-VALUES (4, 3);
