@@ -60,6 +60,10 @@ class MgrProduct
         if (!$queryEngine->executeQuery($query, $parameters)) {
             echo "Error while trying to add a product";
         }
+
+        $product->setId($queryEngine->getLastInsertedId());
+
+        return $product;
     }
 
     /**
@@ -230,6 +234,88 @@ class MgrProduct
             $this->resultToArray($resultSet);
         }
     }
+
+    /**
+     * Creates a new product when creating a recipe
+     *
+     * @param  string $finalProductName
+     * @param  string $finalProductDescription
+     * @param  array $finalProductCategories
+     *
+     * @return int the id of the last inserted product
+     * 
+     */
+    public function createNewProduct($finalProductName, $finalProductDescription, $finalProductCategories)
+    {
+        $queryEngine = new QueryEngine();
+
+        $query = "INSERT INTO Product(name,is_sellable,description)
+        VALUES(:name,:is_sellable,:description)";
+
+        $parameters =
+            [
+                ":name" => $finalProductName,
+                ":is_sellable" => 0,
+                ":description" => $finalProductDescription
+            ];
+        if (!$queryEngine->executeQuery($query, $parameters)) {
+            echo "Error while trying to add a product";
+        }
+        else {
+            $productId = $queryEngine->getLastInsertedId();
+            $this->addIngredients($productId,  $finalProductCategories);
+            return $productId;
+        }
+    }
+
+    /**
+     * Associates the product with categories in the association table.
+     *
+     * @param  int $productId The id of the product
+     * @param  array $productCategories The array containing the id of the categories
+     *
+     */
+    public function addIngredients($productId,  $productCategories)
+    {
+        $queryEngine = new QueryEngine();
+        for ($i = 0, $size = count($productCategories); $i < $size; ++$i) {
+            $query = "INSERT INTO ta_product_category(id_product, id_category)
+					VALUES(:id_product, :id_category)";
+
+            $parameters =
+                [
+                    ":id_product" => $productId, // product's id
+                    ":id_category" => $productCategories[$i] // category's id
+
+                ];
+
+            if (!$queryEngine->executeQuery($query, $parameters)) {
+                echo "Error while trying to insert an ingredient in the product. id_category = " . $productCategories[$i];
+            }
+        }
+    }
+    
+    /*
+     * Deletes records from ta_product_category
+     *
+     * @param int $productId The id of the product to remove all the categories from.
+     *
+     */
+    public function delCategories($productId)
+    {
+        $queryEngine = new QueryEngine();
+        $query = "DELETE FROM ta_product_category WHERE id_product= :id";
+
+        $parameters =
+            [
+                ":id" => $productId
+            ];
+
+        if (!$queryEngine->executeQuery($query, $parameters)) {
+            echo "Error while trying to add a product";
+        }
+    }
+
 
     /**
      * Takes a resultSet as parameter and
