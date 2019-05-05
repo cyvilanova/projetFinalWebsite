@@ -46,9 +46,10 @@ class QueryEngine
             }
         } catch (Exception $e) {
             return false;
+
         }
     }
-    
+
     public function getLastInsertedId($value='')
     {
         $conn = $this->db->getDbConn();
@@ -57,4 +58,3 @@ class QueryEngine
     }
 
 }
-

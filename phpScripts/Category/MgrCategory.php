@@ -38,6 +38,7 @@ class MgrCategory{
   *@param mixed $category category to add to the array
   */
   public function addCategory($category){
+
     $parameters =
       [
         ":name" => $category->getName(),
@@ -49,6 +50,31 @@ class MgrCategory{
 
     if (!$this->queryEngine->executeQuery($query, $parameters)) {
       echo "Error in the query";
+    }
+  }
+
+  /**
+  *Edit an existing category in the database
+  *@param mixed $updatedCategory category containing the updated information
+  */
+  public function editCategory($updatedCategory){
+    $parameters =
+      [
+        ":id" =>$updatedCategory->getId(),
+        ":name" => $updatedCategory->getName(),
+        ":activity" => $updatedCategory->getActive(),
+        ":description" =>$updatedCategory->getDescription(),
+      ];
+
+    $query = "UPDATE category SET name=:name, is_active=:activity, description=:description WHERE id_category=:id";
+
+    if (!$this->queryEngine->executeQuery($query, $parameters)) {
+      echo "Error in the query\n";
+      echo $updatedCategory->getId()."\n";
+      echo $updatedCategory->getName()."\n";
+      echo $updatedCategory->getActive()."\n";
+      echo $updatedCategory->getDescription()."\n";
+
     }
   }
 

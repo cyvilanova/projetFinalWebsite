@@ -46,7 +46,7 @@ include_once "mgrCategory.php";
 
       foreach ($categories as $category) {
 
-      $html .= "<tr data-toggle=\"modal\" data-target=\"#editModal\" onclick='editRecipe(".json_encode($category, JSON_HEX_APOS, JSON_HEX_QUOT).");' title=\"Modifier la categorie\" id=\"" . $category->getId() . "\">";
+      $html .= "<tr data-toggle=\"modal\" data-target=\"#editModal\" onclick=\"editCategory('".$category->getId()."','".$category->getName()."','".$category->getActive()."','".$category->getDescription()."'".")\" title=\"Modifier la categorie\" id=\"" . $category->getId() . "\">";
       $html .= "<td>" . $category->getId() . "</td>";
       $html .= "<td>" . $category->getName() . "</td>";
       if($category->getActive()==1){
@@ -61,6 +61,28 @@ include_once "mgrCategory.php";
       }
 
       echo $html;
+    }
+
+    /**
+    * Adds a category to the database
+    * @param $name the name of the category to create
+    * @param $description the description of the category to create
+    */
+    public function addCategory($name, $description){
+      $newCategory = new Category(1,$name, 1, $description);
+      $this->mgrCategory->addCategory($newCategory);
+    }
+
+    /**
+    * Adds a category to the database
+    * @param $id the id of the category to edit
+    * @param $name the name of the category to edit
+    * @param $activity the state of activity of the category to edit
+    * @param $description the description of the category to edit
+    */
+    public function editCategory($id,$name,$activity,$description){
+      $newCategory = new Category($id,$name, $activity, $description);
+      $this->mgrCategory->editCategory($newCategory);
     }
   }
 ?>
