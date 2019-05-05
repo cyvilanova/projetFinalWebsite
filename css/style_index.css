@@ -533,6 +533,14 @@ input:checked + .slider:before {
     color: #dc3545;
 }
 
+#confirmationModal {
+    z-index: 9999;
+}
+
+.modal-backdrop:nth-child(2n) {
+    z-index: 5000;
+}
+
 /************** CSS style navigation bar + links **************/
 
 .img-logo-nav {

@@ -69,7 +69,7 @@ VALUES(5,5,22);
 
 
 
-/*secret_question*/
+/* secret_question */
 INSERT INTO secret_question(question)
 VALUES("Quel était le nom de votre premier animal de compagnie?");
 
@@ -80,12 +80,12 @@ INSERT INTO secret_question(question)
 VALUES("Quel était le nom de jeune fille de votre mère?");
 
 
-/*User*/
+/* user */
 INSERT INTO `user`(id_question, username, password, email, secret_answer)
 VALUES(1,"test","test123","warpaintingqc@gmail.com","chopin");
 
 INSERT INTO `user`(id_question, username, password, email, secret_answer)
-VALUES(2,"test!@#$%","test!@#$%","zebulon@gmail.com","corin");
+VALUES(2,"test","test","zebulon@gmail.com","corin");
 
 INSERT INTO `user`(id_question, username, password, email, secret_answer)
 VALUES(3,"AlloToi","byebye","lolnon@gmail.com","Audit");
@@ -94,7 +94,7 @@ INSERT INTO `user`(id_question, username, password, email, secret_answer)
 VALUES(1,"admin","admin","dgailalrd@gmail.com","duchesse");
 
 
-/*Category*/
+/* category */
 INSERT INTO category(name,is_active,description)
 VALUES("Peau douce",1,"Produits qui rends la peau douce.");
 
@@ -116,7 +116,8 @@ VALUES("Nutritif",0,"Apporte les nutriments necessaires.");
 INSERT INTO category(name,is_active,description)
 VALUES("Peau seche",0,"Produits hydratants.");
 
-/* Insert into state */
+
+/* state */
 INSERT INTO state (name, description) 
 VALUES ("Fermée", "Commande fermée");
 
@@ -130,10 +131,10 @@ INSERT INTO state (name, description)
 VALUES ("En magasin", "Commande en magasin");
 
 INSERT INTO state (name, description)
-VALUES (DEFAULT,"Payée","Commande payée");
+VALUES ("Payée","Commande payée");
 
 
-/* Insert into shipping_company*/
+/* shipping_company */
 INSERT INTO shipping_company (name) 
 VALUES ("UPS");
 
@@ -144,80 +145,54 @@ INSERT INTO shipping_company (name)
 VALUES ("CanadaPost");
 
 
-/* INSERT into shipping_method*/
+/* shipping_method */
 INSERT INTO shipping_method (id_company, name, price) 
-VALUES (1, "Très rapide", '20.00');
-
-INSERT INTO shipping_method (id_company, name, price) 
-VALUES (1, "Normal", '10.00');
+VALUES (1, "Très rapide", 20.00);
 
 INSERT INTO shipping_method (id_company, name, price) 
-VALUES (2, "Rapide", '15.00');
-(DEFAULT,"Oléo-sérum Équilibre peau grasse et acnéique","img10.jpg",1,"L'acné vous gâche la vie et vous souhaitez une alternative naturelle aux traitements agressifs pour votre peau? L'oléo-sérum Équilibre aide votre peau à se rééquilibrer naturellement  et en douceur grace aux propriétés équilibrantes et assainissantes. Combinez le avec le nettoyant micellaire sans rinçage et le savon au moringa pour une action optimale.",50.00,6),
+VALUES (1, "Normal", 10.00);
 
-(DEFAULT,"Oléo-sérum Harmonie Couperose et Rosacée","images/imgProducts/img11.jpg",1,"Vous souffrez de couperose ou de rosacée et souhaitez une alternative naturelle? L'Oléo-sérum Harmonie calme l'inflammation et les rougeurs grâce à un puissant complexe d'huiles végétales précieuses, riches en Omégas 3 et 9 qui apaisent l'inflammation de votre peau! Les huiles végétales de chanvre et tamanu en particulier apportent leurs propriétés apaisantes et anti-inflammatoires pour un soin apaisant 100% actif et naturel, allié à la précieuse Huile essentielle d' immortelle de Corse, connue aussi sous le nom d'Hélychrise italienne, et de camomille, anti-inflammatoire.",50.00,100),
-(DEFAULT,"Sérum Régénération anti-age aux 5 huiles précieuses","images/imgProducts/img12.jpg",1,"Découvrez notre merveilleux soin anti-age aux 5 huiles précieuses! Un vrai trésor liquide, gorgé d'acides gras omégas 3, 6 et 9, essentiels pour votre peau! la peau est régénérée, souple et douce.",50.00,8),
-(DEFAULT,"Savon peaux sensibles moringa et calendule","images/imgProducts/img13.jpg",1,"Savon doux aux huiles végétales de moringa et de calendule, pour peaux sensibles",7.00,12),
-(DEFAULT,"Savon Exfoliant moringa et abricot","images/imgProducts/img14.jpg",1,"Savon exfoliant doux, moringa calendule et graines d'Abricot",8.00,5),
-(DEFAULT,"Shampoing au moringa et karité cheveux secs","images/imgProducts/img15.jpg",1,"Ce shampoing doux enrichi en huile de moringa et karité est un plaisir pour les cheveux secs.  Il nettoie vos cheveux en douceur et les rend doux et faciles à coiffer. Les huiles essentielles de lavande et romarin apportent leurs propriétés apaisantes et fortifiantes à ce soin. Nos shampoings sont sans agents toxiques ou parfums chimiques, ils sont excellents pour tous types de cheveux.",13.00,2);
-(DEFAULT,"Oléo-sérum Harmonie Couperose et Rosacée","img11.jpg",1,"Vous souffrez de couperose ou de rosacée et souhaitez une alternative naturelle? L'Oléo-sérum Harmonie calme l'inflammation et les rougeurs grâce à un puissant complexe d'huiles végétales précieuses, riches en Omégas 3 et 9 qui apaisent l'inflammation de votre peau! Les huiles végétales de chanvre et tamanu en particulier apportent leurs propriétés apaisantes et anti-inflammatoires pour un soin apaisant 100% actif et naturel, allié à la précieuse Huile essentielle d' immortelle de Corse, connue aussi sous le nom d'Hélychrise italienne, et de camomille, anti-inflammatoire.",50.00,100),
-(DEFAULT,"Sérum Régénération anti-age aux 5 huiles précieuses","img12.jpg",1,"Découvrez notre merveilleux soin anti-age aux 5 huiles précieuses! Un vrai trésor liquide, gorgé d'acides gras omégas 3, 6 et 9, essentiels pour votre peau! la peau est régénérée, souple et douce.",50.00,8),
-(DEFAULT,"Savon peaux sensibles moringa et calendule","img13.jpg",1,"Savon doux aux huiles végétales de moringa et de calendule, pour peaux sensibles",7.00,12),
-(DEFAULT,"Savon Exfoliant moringa et abricot","img14.jpg",1,"Savon exfoliant doux, moringa calendule et graines d'Abricot",8.00,5),
-(DEFAULT,"Shampoing au moringa et karité cheveux secs","img15.jpg",1,"Ce shampoing doux enrichi en huile de moringa et karité est un plaisir pour les cheveux secs.  Il nettoie vos cheveux en douceur et les rend doux et faciles à coiffer. Les huiles essentielles de lavande et romarin apportent leurs propriétés apaisantes et fortifiantes à ce soin. Nos shampoings sont sans agents toxiques ou parfums chimiques, ils sont excellents pour tous types de cheveux.",13.00,2);
+INSERT INTO shipping_method (id_company, name, price) 
+VALUES (2, "Rapide", 15.00);
 
 
-/* Insert into state */
-INSERT INTO `state` (`name`, `description`) 
-VALUES ("Fermée", "Commande fermée");
-
-INSERT INTO `state` (`name`, `description`) 
-VALUES ("Ouverte", "Commande ouverte");
-
-INSERT INTO `state` (`name`, `description`) 
-VALUES ("Transit", "Commande en transit");
-
-INSERT INTO `state` (`name`, `description`) 
-VALUES ("En magasin", "Commande en magasin");
-
-
-/* Insert into shipping_company*/
-INSERT INTO `shipping_company` (`name`) 
+/* shipping_company*/
+INSERT INTO shipping_company (name) 
 VALUES ("UPS");
 
-INSERT INTO `shipping_company` (`name`) 
+INSERT INTO shipping_company (name) 
 VALUES ("Fedex");
 
-INSERT INTO `shipping_company` (`name`) 
+INSERT INTO shipping_company (name) 
 VALUES ("CanadaPost");
 
 
-/* INSERT into shipping_method*/
-INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
-VALUES (1, "Très rapide", '20.00');
-
-INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
-VALUES (1, "Normal", '10.00');
-
-INSERT INTO `shipping_method` (`id_company`, `name`, `price`) 
-VALUES (2, "Rapide", '15.00');
+/* shipping_method*/
+INSERT INTO shipping_method (id_company, name, price) 
+VALUES (1, "Très rapide", 20.00);
 
 INSERT INTO shipping_method (id_company, name, price) 
-VALUES (3, "Normal", '12.00');
+VALUES (1, "Normal", 10.00);
+
+INSERT INTO shipping_method (id_company, name, price) 
+VALUES (2, "Rapide", 15.00);
+
+INSERT INTO shipping_method (id_company, name, price) 
+VALUES (3, "Normal", 12.00);
   
  
-/* Insert into client */
+/* client */
 INSERT INTO client (name, address, city, province, postal_code) 
 VALUES ("Edith Piaf", '14 Rue Alexandre', 'Sherbrooke', 'Québec', 'J2H4I9');
 
 INSERT INTO client (name, address, city, province, postal_code) 
-VALUES ("Céline Dion", '1 Rue Chanteuse', 'Sherbrooke', 'Québec', 'J2H4I9');
+VALUES ("Céline Dion", '1 Rue Chanteuse', 'Magog', 'Québec', 'J3A5H8');
 
 INSERT INTO client (name, address, city, province, postal_code) 
-VALUES ("Éric Lapointe", '333 Boulevard Rock', 'Sherbrooke', 'Québec', 'J2H4I9');
+VALUES ("Éric Lapointe", '333 Boulevard Rock', 'St-Élie', 'Québec', 'J4H1D9');
   
   
-/* Insert into order */
+/* order */
 INSERT INTO `order` (id_client, id_user, id_state, id_method, tps, tvq, total) 
 VALUES (1, 1, 1, 1, 10.00, 20.00, 50.00);
 
@@ -225,7 +200,7 @@ INSERT INTO `order` (id_client, id_user, id_state, id_method, tps, tvq, total)
 VALUES (2, 1, 2, 4, 20.00, 20.00, 60.00);
   
   
-/* Insert into table association order - product */
+/* ta_order_product */
 INSERT INTO ta_order_product (id_order, id_product, quantity) 
 VALUES (1, 1, 2);
 
@@ -239,7 +214,7 @@ INSERT INTO ta_order_product (id_order, id_product, quantity)
 VALUES (2, 1, 1);
 
   
-/* Insert into table association order - product */
+/* ta_product_category */
 INSERT INTO ta_product_category(id_category, id_product) 
 VALUES (1, 1);
 

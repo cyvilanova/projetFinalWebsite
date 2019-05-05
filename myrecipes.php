@@ -76,7 +76,7 @@ include_once "phpScripts/Category/CtrlCategory.php";
                         </div>
                         <div class="switch-wrapper">
                             <label class="switch">
-                                <input type="checkbox" id="switch-custom-recipe" onchange="changeLabelCheckBox('#editModal')">
+                                <input type="checkbox" id="switch-custom-recipe" onchange="changeLabelCheckBox('#editModal')" disabled>
                                 <span class="slider round"></span>
                             </label>
                             <label for="switch-custom-recipe" class="custom-recipe" id="custom-recipe-title"></label>
@@ -121,9 +121,10 @@ include_once "phpScripts/Category/CtrlCategory.php";
                     </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-quintessentiel" onclick="enableEditing()">Modifier</button>
-                    <button type="button" class="btn btn-quintessentiel" onclick="validateForm('#editModal')">Sauvegarder</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" title="Sortir du formulaire">Annuler</button>
+                    <button type="button" class="btn btn-secondary" onclick="confirmationDelete()" title="Supprimer la recette">Supprimer</button>
+                    <button type="button" class="btn btn-quintessentiel" onclick="enableEditing()" title="Activer la modification des champs">Modifier</button>
+                    <button type="button" class="btn btn-quintessentiel" onclick="validateForm('#editModal', 'updateRecipe')" title="Créer la nouvelle recette">Sauvegarder</button>
                 </div>
             </div>
         </div>
@@ -194,7 +195,25 @@ include_once "phpScripts/Category/CtrlCategory.php";
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-quintessentiel" onclick="validateForm('#addModal')">Sauvegarder</button>
+                    <button type="button" class="btn btn-quintessentiel" onclick="validateForm('#addModal', 'createRecipe')">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Deletion confirmation modal -->
+    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h6 class="modal-title">Êtes-vous certain de vouloir supprimer cette recette?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-quintessentiel" onclick="proceedWithRecipeDeletion('#confirmationModal', 'deleteRecipe')">Oui</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
                 </div>
             </div>
         </div>
