@@ -2,7 +2,7 @@
 /****************************************
  Fichier : Category.php
  Auteur : Philippe Audit-Allaire
- Fonctionnalité : W - Category
+ Fonctionnalité : Gestion de categorie
  Date : 2019-04-15
  Vérification :
  Date Nom Approuvé

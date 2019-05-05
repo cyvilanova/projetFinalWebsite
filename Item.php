@@ -2,7 +2,7 @@
 /****************************************
 Fichier : Item.php
 Auteur : David Gaulin
-Fonctionnalité : W7 - Consultation d'un catalogue de produit
+Fonctionnalité : Gestion de categorie
 Date : 2019-04-19
 Vérification :
 Date Nom Approuvé

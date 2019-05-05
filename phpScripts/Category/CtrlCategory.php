@@ -2,7 +2,7 @@
 /****************************************
  Fichier : CtrlCategory.php
  Auteur : Philippe Audit-Allaire
- Fonctionnalité : W - category
+ Fonctionnalité : Gestion de categorie
  Date : 2019-04-15
  Vérification :
  Date Nom Approuvé

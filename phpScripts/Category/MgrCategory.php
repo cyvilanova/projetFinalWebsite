@@ -2,7 +2,7 @@
 /****************************************
  Fichier : MGRCategory.php
  Auteur : Philippe Audit-Allaire
- Fonctionnalité : W - Connexion de l'utilisateur
+ Fonctionnalité : Gestion de categorie
  Date : 2019-04-15
  Vérification :
  Date Nom Approuvé
