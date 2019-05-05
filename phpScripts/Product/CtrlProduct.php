@@ -9,6 +9,8 @@ Date Nom Approuvé
 =========================================================
 Historique de modifications :
 Date Nom Description
+2019-04-24 CB Ajout function loadAllProductsSelect()
+
 =========================================================
  ****************************************/
 
@@ -29,13 +31,13 @@ class CtrlProduct
 
     public function loadAllProductsSelect()
     {
-        $productList = $this->mgrProduct->getAllProducts($filter);
+        $productList = $this->mgrProduct->getAllProducts();
 
         $products = $this->mgrProduct->getProduct();
         $html = "";
 
         foreach ($products as $product) {
-            $html .= "<option value=\"" . $product->getName() . "\">" . $product->getName() . "</option>";
+            $html .= "<option id=\"" . $product->getId() . "\" value=\"" . $product->getName() . "\">" . $product->getName() . "</option>";
         }
         echo $html;
     }
@@ -254,7 +256,7 @@ class CtrlProduct
      * Populate multiselect list of ingredients when creating a recipe.
      * 
      */
-    public function loadAllIngredients() {
+    public function loadIngredientsOptions() {
         $this->mgrProduct->getAllProducts();
         $products = $this->mgrProduct->getProduct();
         $html = "";

@@ -16,14 +16,27 @@ class Product implements JsonSerializable
 {
     private $id;
     private $name;
-    private $categories; //array of categories in wich the product belongs
-    private $isSellable;
-    private $price;
-    private $description;
-    private $quantity;
-    private $imagePath;
+    private $categories; // Array of categories in wich the product belongs
+    private $isSellable; // If the product is sellable and viewable in the catalog
+    private $price; 
+    private $description; 
+    private $quantity; // The quantity in stock
+    private $imagePath; // The filename of the image
     private $volumeUsed; // Quantity of product used in recipe in mL
 
+    /**
+     * Constructor of a product
+     *
+     * @param  string $name
+     * @param  array $categories
+     * @param  boolean $isSellable
+     * @param  double $price
+     * @param  string $description
+     * @param  int $quantity
+     * @param  string $imagePath
+     * @param  double $volumeUsed
+     *
+     */
     public function __construct($name, $categories, $isSellable, $price, $description, $quantity, $imagePath, $volumeUsed = 0)
     {
         $this->name = $name;
@@ -46,6 +59,7 @@ class Product implements JsonSerializable
         return array(
             'id' => $this->id,
             'name' => $this->name,
+            'categories' => $this->categories,
             'isSellable' => $this->isSellable,
             'price' => $this->price,
             'description' => $this->description,
@@ -54,13 +68,20 @@ class Product implements JsonSerializable
             'volumeUsed' => $this->volumeUsed
         );
     }
+    
+    /**
+     * Gets the id of the product
+     * @return int $id The id of the product
+     * 
+     */
     public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param mixed $id
+     * Sets the id of a product
+     * @param int $id The id of the product
      *
      */
     public function setId($id)
@@ -71,7 +92,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * Gets the name of the product
+     * @return string $name The name of the product
      */
     public function getName()
     {
@@ -79,7 +101,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @param mixed $name
+     * Sets the name of the product
+     * @param string $name The name of the product
      *
      */
     public function setName($name)
@@ -88,7 +111,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * Gets the list of categories of the product
+     * @return array $categories The categories of the product
      */
     public function getCategories()
     {
@@ -96,7 +120,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @param mixed $categories
+     * Sets the list of categories of a product
+     * @param array $categories The categories of the product
      *
      */
     public function setCategories($categories)
@@ -105,7 +130,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * Tells if the product is sellable or not
+     * @return boolean
      */
     public function getIsSellable()
     {
@@ -113,7 +139,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @param mixed $isSellable
+     * Sets if the product is sellable or not
+     * @param boolean $isSellable
      *
      */
     public function setIsSellable($isSellable)
@@ -122,7 +149,9 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * Gets the price of the product
+     * @return double $price The price of the product
+     * 
      */
     public function getPrice()
     {
@@ -130,7 +159,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @param mixed $price
+     * Sets the price of a product
+     * @param double $price The price of the product
      *
      */
     public function setPrice($price)
@@ -139,7 +169,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * Gets the description of the product
+     * @return string $description The description of the product
      */
     public function getDescription()
     {
@@ -147,7 +178,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @param mixed $description
+     * Sets the description of the product
+     * @param string $description The quantity in stock of the product
      *
      */
     public function setDescription($description)
@@ -156,7 +188,9 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @return mixed
+     * Gets the quantity in stock of the product
+     * @return string $quantity The quantity in stock of the product
+     * 
      */
     public function getQuantity()
     {
@@ -164,7 +198,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @param mixed $quantity
+     * Sets the quantity in stock of the product
+     * @param string $quantity The quantity in stock of the product
      *
      */
     public function setQuantity($quantity)
@@ -174,7 +209,9 @@ class Product implements JsonSerializable
 
 
     /**
-     * @return mixed
+     * Gets the name of the image file 
+     * @return string $imagePath
+     * 
      */
     public function getImagePath()
     {
@@ -182,7 +219,8 @@ class Product implements JsonSerializable
     }
 
     /**
-     * @param mixed $quantity
+     * Sets the name of the image file 
+     * @param string $imagePath
      *
      */
     public function setImagePath($imagePath)
@@ -192,7 +230,7 @@ class Product implements JsonSerializable
 
     /**
      * Sets the quantity of product used in a recipe in mL
-     * @param int $volume
+     * @param double $volume
      *
      */
     public function setVolumeUsed($volume)

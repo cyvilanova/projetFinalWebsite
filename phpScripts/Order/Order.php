@@ -23,7 +23,7 @@
 		private $quantities = []; // Quantities of the products
 		private $price; // price of the order
 		private $total; // total (price + taxes)
-		private $products = []; // ArrayList of products
+		private $products = []; // ArrayList of products or ids
 
 		/**
 		 * __construct
@@ -74,6 +74,17 @@
 			array_push($this->products, $product);
 		}
 
+
+		public function getQuantities()
+		{
+		    return $this->quantities;
+		}
+		 
+		public function setQuantities($quantities)
+		{
+		    $this->quantities = $quantities;
+		    return $this;
+		}
 
 		/**
 		 * Delete a product from the arraylist of products

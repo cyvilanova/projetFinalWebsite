@@ -1,21 +1,47 @@
+<?php
+/****************************************
+Fichier : payment.php
+Auteure : David Gaulin
+Fonctionnalité : Paiement en ligne
+Date : 2019-04-29
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
+
+include_once ("phpScripts/Order/CtrlOrder.php");
+$ctrl = new CtrlOrder();
+
+if(!empty($_GET["orderId"]) && $ctrl->isIdValid($_GET["orderId"]))
+{
+
+?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Paiement</title>
 	<meta charset="utf-8"/>
 	<script src="https://js.stripe.com/v3/"></script>
+	<script>let orderId = <?php echo $_GET["orderId"]; ?></script>
 </head>
 <body>
 	<header>
-		<!-- La nav bar n'est pas la temporairement puisque son style brise le form de Stripe.. -->
-		<?php include("nav_inv.html"); ?>
+		<?php include("nav_admin.html"); ?>
 	</header>
 	<section>
 		<div class="page-title-bar">
 		 	<h1>Paiement</h1>
-		 </div>
+		</div>
+		<div class="infos-client">
+			<p>Numéro de commande: #<?php echo $_GET["orderId"] ?></p>
+			<p>Prix: <?php echo $ctrl->getTotalById($_GET["orderId"]) ?></p></p>
+		</div>
 
-		 <form class="payment-form" action="" method="POST">
+		 <p id="payment-state"></p>
+		 <form class="payment-form" action="phpScripts/methodCall/scriptPayment.php" method="POST">
 		 	<div class="form-row">
 		 		<label for="card-element">
 		 			Carte de crédit ou de débit
@@ -74,65 +100,16 @@
 
 		 	<button id="btnConfirm">Soumettre le paiement</button>
 		 </form>
+		 <p class="link-previous"><a href="Order.php">Retour aux commandes</a></p>
 	</section>
-	<footer class="classic-footer">
-		<p>Insérez du texte ici</p>
-	</footer>
 
-	<script>
-		const stripe = Stripe('pk_test_EqumhjKd2yDQpLAkL0FfffWO00zbR2Knni');
-		const elements = stripe.elements();
-
-		const card = elements.create('card',{
-		  hidePostalCode: true,
-		  style: {
-		    base: {
-		      fontSize: '20px',
-
-		    },
-		  }
-		});
-
-
-		card.mount("#card-element");
-
-		card.addEventListener('change', ({error}) => {
-		  const displayError = document.getElementById('card-errors');
-		  if (error) {
-		    displayError.textContent = error.message;
-		  } else {
-		    displayError.textContent = '';
-		  }
-		});
-
-		function tokenCreated(result){
-
-		  if (result.token) {	//If it worked
-		  	console.log(result.token);
-		    // In a real integration, you'd submit the form with the token to your backend server
-		    //var form = document.querySelector('form');
-		    //form.querySelector('input[name="token"]').setAttribute('value', result.token.id);
-		    //form.submit();
-		  } else if (result.error) { //If it didn't
-			console.log("error");
-		  }
-		}
-
-		
-		document.getElementById("btnConfirm").addEventListener("click",function(e){
-			e.preventDefault();
-
-
-			const options = {
-				name: document.getElementById("firstName").value + " " + document.getElementById("lastName").value,
-				address: document.getElementById("address").value,
-				city: document.getElementById("city").value,
-				province: document.getElementById("province").value,
-				postalCode: document.getElementById("postalCode").value
-			};
-
-			stripe.createToken(card,options).then(tokenCreated)
-		});
-	</script>
+	<script src="javascript/payment.js"></script>
 </body>
 </html>
+
+<?php
+}
+else{
+	echo "Vous n'avez pas accès à cette page!";
+}
+?>
