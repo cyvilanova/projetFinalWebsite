@@ -90,7 +90,7 @@ function edit(order) {
 				clientId : order.client.id,
 				productsId : id_products_order,
 				productsQty : qty_products_order,
-				methodId : method,
+				idMethod : method,
 			},
 			success: function(data) {
             	console.log("djsgo");
@@ -249,7 +249,8 @@ function openModalTable(order) {
 	let modDelBtn = document.getElementById("btn-del-modal");
 
 	modDelBtn.addEventListener("click", function(){
-		deleteOrder(id.innerHTML);
+		console.log(id);
+		deleteOrder(order.id);
 	});
 	
 

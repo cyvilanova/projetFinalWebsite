@@ -27,13 +27,13 @@
 				break;
 			case 'delOrder':
 				$ctrlO = new CtrlOrder();
+				var_dump($_POST['id_order']);
 				$ctrlO->deleteOrder($_POST['id_order']);
 
 				break;
 			case 'editOrder':
 				$ctrlO = new CtrlOrder();
 				$client = new Client($_POST['clientAddress'], $_POST['clientCity'], $_POST['clientName'], $_POST['clientZip'], $_POST['clientProvince'], $_POST['clientId']);
-
 				$ctrlO->editOrder($_POST['id'], $client, $_POST['productsId'], $_POST['productsQty']);
 				break;
 			case 'productsId':
@@ -117,6 +117,22 @@
 			$this->mgrOrder->deleteOrder($id_order);
 		}
 
+
+
+public function editOrder($id_order, $client, $product, $quantity)
+		{
+			
+			$products = [];
+			var_dump($product);
+			foreach ($product as $id) {
+				var_dump($id);
+				$this->mgrProduct->getProductById($id);
+				array_push($products, $this->mgrProduct->getProduct()[0]);
+			}
+			$order = new Order($id_order, $client, "", "", $products, $quantity, "Ouverte");
+			var_dump(($order->getProducts()));
+			$this->mgrOrder->updateOrder($order, $client);
+		}
 	
     /**
      * Changes the state of an order by it's id
