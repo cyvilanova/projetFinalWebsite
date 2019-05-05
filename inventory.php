@@ -14,27 +14,6 @@
     </head>
 
     <body id="body">
-            <div class="modals panel" id="modal-delete">
-
-                <div class="panel-header delete">
-                    <h3>Supprimer un produit</h3>
-                </div>
-                <form action="inventory.php" method="post" enctype="multipart/form-data">
-
-                    <input type="hidden" name="action" value="delete"/>
-                    <input type="hidden" name="prod" id="selected_prod_id" value=""/>
-                    <div class="panel-body">
-
-                    <p>Êtes-vous sur de vouloir supprimer "|*|" ?</p>
-                        <div class="col-sm-12">
-                            <br />
-                            <button type=submit class="addProd-btn delete">Supprimer</button>
-                            <a class="cancel-btn default">Annuler</a>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
         <?php include("nav_admin.html"); ?>
 
         <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
@@ -159,9 +138,33 @@
                     </div>
                   </div>
                   <div class="modal-footer">
-                    <button type="button" class="btn btn-default">Supprimer</button>
+                    <button type="button" class="btn btn-default" data-toggle="modal" data-target="#deleteModal" id="deleteBtn">Supprimer</button>
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
                     <button type="submit" class="btn btn-quintessentiel">Modifier</button>
+                  </div>
+                </div>
+            </form>
+          </div>
+        </div>
+
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <form action="inventory.php" method="post" enctype="multipart/form-data">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModalLabel">Supprimer un produit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <div class="modal-body">
+                        <input type="hidden" name="action" value="delete"/>
+                        <input type="hidden" name="prod" id="selected_prod_id" value=""/>
+                        <p id="deleteTxt">Êtes-vous sur de vouloir supprimer "|*|" ?</p>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="cancelDeleteBtn">Annuler</button>
+                    <button type="submit" class="btn btn-dark">Supprimer</button>
                   </div>
                 </div>
             </form>

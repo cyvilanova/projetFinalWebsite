@@ -1,6 +1,9 @@
 let addBtn = document.getElementById("add");
 let editBtn = document.getElementById("edit");
-let deleteBtn = document.getElementById("delete");
+let deleteBtn = document.getElementById("deleteBtn");
+let cancelDeleteBtn = document.getElementById("cancelDeleteBtn");
+
+let deleteTxt = document.getElementById("deleteTxt");
 
 let body = document.getElementById("body");
 
@@ -25,6 +28,26 @@ let addModal = document.getElementById("addModal");
 let editModal = document.getElementById("editModal");
 let deleteModal = document.getElementById("deleteModal");
 
+
+//Open the Delete Menu
+deleteBtn.addEventListener("click", function() {
+   editModal.classList.toggle("show", false);
+
+    //We write which product is about to be deleted.
+    deleteTxt.innerText = deleteTxt.innerText.replace("|*|", selected_prod['name']);
+
+    //We set the hiddenValue of the selected item for the delete form.
+
+    let selected_prod_id = $(deleteModal).find("#selected_prod_id")[0];
+    selected_prod_id.value = selected_prod['id'];
+});
+
+cancelDeleteBtn.addEventListener("click", function () {
+    deleteModal.classList.toggle("show", false);
+    editModal.classList.toggle("show", true);
+    deleteTxt.innerText = deleteTxt.innerText.replace(selected_prod['name'], "|*|");
+});
+
 for(let i = 0; i < products_container.childElementCount; i++)
 {
     var row = products_container.children[i];
@@ -44,7 +67,6 @@ for(let i = 0; i < products_container.childElementCount; i++)
         let selected_prod_id = $(editModal).find("#selected_prod_id")[0];
 
         selected_prod_id.value = selected_prod['id'];
-        console.log(selected_prod_id);
 
         let txt_name = $(editModal).find("#product_name")[0];
         let txt_des = $(editModal).find("#product_desc")[0];
@@ -64,7 +86,6 @@ for(let i = 0; i < products_container.childElementCount; i++)
         //Fill the fields
         txt_name.value = selected_prod['name'];
         txt_des.value = selected_prod['description'];
-        console.log(txt_name);
         txt_image.value = selected_prod['image_path'];
         txt_category.selectedValue = selected_prod['category'];
         txt_qty.value = selected_prod['quantity'];
@@ -89,53 +110,27 @@ addBtn.addEventListener("click", function(){
 for(i = 0; i < products_container.childElementCount; i++)
 {
     let element = products_container.children[i];
-    let product = {
-        id: element.id,
-        name: element.children[0].innerText,
-        description: element.children[1].innerText,
-        image_path: element.children[2].children[0].getAttribute("src"),
-        category: element.children[3].innerText,
-        quantity: element.children[4].innerText,
-        price: element.children[5].innerText,
-        visible: element.children[6].children[0].checked
-    };
-    products.push(product);
+
+    let prod = new Product(element.id,
+                           element.children[0].innerText,
+                           element.children[1].innerText,
+                           element.children[2].children[0].getAttribute("src"),
+                           element.children[3].innerText,element.children[4].innerText,
+                           element.children[5].innerText,element.children[6].children[0].checked
+                          );
+    products.push(prod);
 }
 
 
-//Makes the cancel buttons close the modals.
-for(i = 0; i < cancelBtn.length; i++)
+//Product object
+function Product(id, name, description, image_path, category, quantity, price, visible)
 {
-    cancelBtn[i].addEventListener("click", function(){closeModals();});
-    $(deleteModal).find(".cancel-btn")[0].addEventListener("click", function(){closeModals();});
-}
-
-
-//Forces the user to select only 1 product, or none.
-for(i = 0; i < selectBtn.length; i++)
-{
-    selectBtn[i].addEventListener("change", function(){
-        if(this.checked == true)
-        {
-            unselectAll();
-            this.checked = true;
-            editBtn.classList.toggle("disabled", false);
-            deleteBtn.classList.toggle("disabled", false);
-            for(i = 0; i < products.length; i++)
-            {
-                if(products[i]["id"] == this.parentNode.parentNode.id)
-                {
-                    selected_prod = products[i];
-                    break;
-                }
-            }
-
-        }
-        else
-        {
-            unselectAll();
-            editBtn.classList.toggle("disabled", true);
-            deleteBtn.classList.toggle("disabled", true);
-        }
-    });
+    this.id = id;
+    this.name = name;
+    this.description = description;
+    this.image_path = image_path;
+    this.category = category;
+    this.quantity = quantity;
+    this.price = price;
+    this.visible = visible;
 }
