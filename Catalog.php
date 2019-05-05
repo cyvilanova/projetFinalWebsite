@@ -60,7 +60,7 @@ $ctrl = new CtrlProduct();
 		 	<section class="product-section"> <!-- products section -->
 		 		<?php
 
-				$ctrl->loadAllProducts();
+				$ctrl->loadAllSellables();
 				$_SESSION["ctrlProduct"] = serialize($ctrl);
 				?>
 		 	</section>

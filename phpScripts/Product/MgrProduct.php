@@ -76,6 +76,7 @@ class MgrProduct
      */
     public function updateProduct($product)
     {
+        print_r($product);
         $queryEngine = new QueryEngine();
         $query = "UPDATE Product 
                 SET name= :name, image_path= :image_path, 
@@ -130,14 +131,50 @@ class MgrProduct
      * @param string $filter 
      *
      */
-    public function getProductsByName($name, $filter = null)
+    public function getProductsByName($name,$filter = null)
     {
         $queryEngine = new QueryEngine();
         $query = "SELECT * FROM Product WHERE name LIKE :name";
         $parameters =
             [
                 ":name" => "%" . $name . "%",
+
             ];
+
+        if ($filter != null) {
+            //Adds the filter
+            $query .= " ORDER BY " . $filter;
+        }
+
+        $resultSet = $queryEngine->executeQuery($query, $parameters);
+
+        if (!$resultSet) {
+            echo "Error while trying to load products by name";
+        } else {
+            $this->resultToArray($resultSet);
+        }
+    }
+
+
+
+    /**
+     * Send to the QueryEngine a prepared statement in string form
+     * along with its parameters as a map
+     *
+     * @param string $name The name of the product
+     * @param string $filter 
+     *
+     */
+    public function getSellablesByName($name,$filter = null)
+    {
+        $queryEngine = new QueryEngine();
+        $query = "SELECT * FROM Product WHERE name LIKE :name AND is_sellable = 1";
+        $parameters =
+            [
+                ":name" => "%" . $name . "%",
+
+            ];
+
         if ($filter != null) {
             //Adds the filter
             $query .= " ORDER BY " . $filter;
@@ -189,17 +226,48 @@ class MgrProduct
     {
         $queryEngine = new QueryEngine();
         $query = "SELECT * FROM Product";
+
         if ($filter != null) {
             //Adds the filter
             $query .= " ORDER BY " . $filter;
         }
         $resultSet = $queryEngine->executeQuery($query);
+
         if (!$resultSet) {
             echo "Error while trying to load all products";
         } else {
             $this->resultToArray($resultSet);
         }
     }
+
+
+
+    /**
+     * Send to the QueryEngine a prepared statement in string form
+     * along with its parameters as a map.
+     * Gets a list of all the products from the database, ordered or not.
+     *
+     * @param string $filter 
+     *
+     */
+    public function getAllSellables($filter = null)
+    {
+        $queryEngine = new QueryEngine();
+        $query = "SELECT * FROM Product WHERE is_sellable = 1";
+
+        if ($filter != null) {
+            //Adds the filter
+            $query .= " ORDER BY " . $filter;
+        }
+        $resultSet = $queryEngine->executeQuery($query);
+
+        if (!$resultSet) {
+            echo "Error while trying to load all products";
+        } else {
+            $this->resultToArray($resultSet);
+        }
+    }
+
 
     /**
      * Send to the QueryEngine a prepared statement in string form
@@ -263,7 +331,7 @@ class MgrProduct
         }
         else {
             $productId = $queryEngine->getLastInsertedId();
-            $this->addIngredients($productId,  $finalProductCategories);
+            $this->addProductCategories($productId,  $finalProductCategories);
             return $productId;
         }
     }
@@ -271,11 +339,11 @@ class MgrProduct
     /**
      * Associates the product with categories in the association table.
      *
-     * @param  int $productId The id of the product
-     * @param  array $productCategories The array containing the id of the categories
+     * @param int $productId The id of the product
+     * @param array $productCategories The array containing the id of the categories
      *
      */
-    public function addIngredients($productId,  $productCategories)
+    public function addProductCategories($productId,  $productCategories)
     {
         $queryEngine = new QueryEngine();
         for ($i = 0, $size = count($productCategories); $i < $size; ++$i) {
@@ -290,7 +358,7 @@ class MgrProduct
                 ];
 
             if (!$queryEngine->executeQuery($query, $parameters)) {
-                echo "Error while trying to insert an ingredient in the product. id_category = " . $productCategories[$i];
+                echo "Error while trying to insert a product in a category. id_category = " . $productCategories[$i];
             }
         }
     }
@@ -326,7 +394,6 @@ class MgrProduct
      */
     private function resultToArray($resultSet)
     {
-        
         $this->products = array();
 
         foreach ($resultSet->fetchAll(\PDO::FETCH_NUM) as $result) {
@@ -405,5 +472,17 @@ class MgrProduct
     {
         $this->productCategories = $productCategories;
     }
+    
+    /**
+     * Gets the the array of categories
+     * @return array $categories of the manager
+     * 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
+    }
+
 }
+
 ?>

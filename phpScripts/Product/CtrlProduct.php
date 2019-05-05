@@ -65,15 +65,19 @@ class CtrlProduct
         $this->displayProducts();
     }
 
+
     /**
-     * Loads all the sellables products
+     * Loads every sellable products and 
+     * displys it as a product
+     * $filter: ORDER BY $filter
      * */
-    public function loadAllSellables()
+    public function loadAllSellables($filter = null)
     {
         $this->pageNumber = 0;
-        $sellableProductList = $this->getMgrProduct()->getAllSellables();
+        $productList = $this->getMgrProduct()->getAllSellables($filter);
         $this->displayProducts();
     }
+
 
     /**
      * Loads a product by it's id
@@ -94,7 +98,23 @@ class CtrlProduct
     public function loadProductsByName($name, $filter = null)
     {
         $this->pageNumber = 0;
-        $productList = $this->getMgrProduct()->getProductsByName($name, $filter);
+        $productList = $this->getMgrProduct()->getProductsByName($name,$filter);
+        $this->displayProducts();
+    }
+
+
+
+    /**
+     * Loads the sellables products relative to
+     * the given letters
+     *
+     * $name: letters given by the user
+     * $filter: ORDER BY $filter
+     * */
+    public function loadSellablesByName($name, $filter = null)
+    {
+        $this->pageNumber = 0;
+        $productList = $this->getMgrProduct()->getSellablesByName($name,$filter);
         $this->displayProducts();
     }
 
@@ -138,7 +158,7 @@ class CtrlProduct
         echo $html;
     }
 
-    #Cette function ne serait pas nécéssaire si on pouvait avoir plusieurs fichiers css..
+
     /**
      * Displays a single product
      * */

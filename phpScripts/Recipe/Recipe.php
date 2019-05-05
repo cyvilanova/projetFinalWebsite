@@ -165,4 +165,5 @@ class Recipe implements JsonSerializable {
 	}
 
 }
+
 ?>
