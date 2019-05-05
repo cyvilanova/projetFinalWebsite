@@ -60,6 +60,10 @@ class MgrProduct
         if (!$queryEngine->executeQuery($query, $parameters)) {
             echo "Error while trying to add a product";
         }
+
+        $product->setId($queryEngine->getLastInsertedId());
+
+        return $product;
     }
 
     /**
@@ -292,6 +296,28 @@ class MgrProduct
         }
     }
     
+    /*
+     * Deletes records from ta_product_category
+     *
+     * @param int $productId The id of the product to remove all the categories from.
+     *
+     */
+    public function delCategories($productId)
+    {
+        $queryEngine = new QueryEngine();
+        $query = "DELETE FROM ta_product_category WHERE id_product= :id";
+
+        $parameters =
+            [
+                ":id" => $productId
+            ];
+
+        if (!$queryEngine->executeQuery($query, $parameters)) {
+            echo "Error while trying to add a product";
+        }
+    }
+
+
     /**
      * Takes a resultSet as parameter and
      * adds every row into the Products array
