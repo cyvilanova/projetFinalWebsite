@@ -75,7 +75,7 @@ class CtrlRecipe
 	}
 
 	/**
-	 * addRecipe
+	 * Calls the MgrRecipe to add a new recipe and its components. 
 	 *
 	 * @param  string $recipeName
 	 * @param  boolean $recipeIsCustom
@@ -91,9 +91,21 @@ class CtrlRecipe
 		$this->mgrRecipe->createRecipe($recipeName, $recipeIsCustom, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients);
 	}
 	
-	public function updateRecipe() 
+	/**
+	 * Calls the MgrRecipe to edit a recipe and its components. 
+	 *
+	 * @param  mixed $recipeId
+	 * @param  mixed $recipeName
+	 * @param  mixed $recipeSteps
+	 * @param  mixed $finalProductName
+	 * @param  mixed $finalProductDescription
+	 * @param  mixed $finalProductCategories
+	 * @param  mixed $ingredients
+	 *
+	 */
+	public function updateRecipe($recipeId, $recipeName, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients) 
 	{
-		
+		$this->mgrRecipe->updateRecipe($recipeId, $recipeName, $recipeSteps, $finalProductName, $finalProductDescription, $finalProductCategories, $ingredients);
 	}
 }
 ?>

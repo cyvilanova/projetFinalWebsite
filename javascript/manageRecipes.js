@@ -255,6 +255,7 @@ function getRecipeInformations(modalId) {
       isCustom: isCustomRecipeChecked(modalId) ? 1 : 0,
       steps: $(modalId).find('#recipe-steps').val(),
       ingredients: JSON.stringify(getIngredients(modalId)),
+      productId: currentRecipe.finalProduct.id ? currentRecipe.finalProduct.id : 0,
       productName: $(modalId).find('#recipe-product').val(),
       productDesc: $(modalId).find('#product-description').val(),
       categories: JSON.stringify($(modalId).find('#product-categories').val()),

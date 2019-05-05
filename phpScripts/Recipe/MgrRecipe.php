@@ -150,6 +150,40 @@ class MgrRecipe
 	}
 
 	/**
+	 * Send to the QueryEngine a prepared statement in string form
+	 * along with its parameters as a map to insert a new recipe. 
+	 *
+	 * @param  mixed $recipeId
+	 * @param  mixed $recipeIsCustom
+	 * @param  mixed $recipeSteps
+	 * @param  mixed $finalProductName
+	 *
+	 */
+	public function updateRecipe($recipeId, $recipeIsCustom, $recipeSteps, $finalProductName, 
+															 $finalProductDescription, $finalProductCategories, $recipeIngredients)
+	{
+		$finalProductId = $this->mgrProduct->createNewProduct($finalProductName, $finalProductDescription, $finalProductCategories);
+
+		$query = "INSERT INTO recipe(name, is_custom, steps, id_product) 
+							VALUES (:name, :is_custom, :steps, :id_product)";
+		$parameters =
+			[
+				":name" => $recipeId,
+				":is_custom" => $recipeIsCustom,
+				":steps" => $recipeSteps,
+				":id_product" => $finalProductId
+			];
+
+			if(!$this->queryEngine->executeQuery($query, $parameters)) {
+				echo "Error while trying to insert a recipe in database.";
+			} 
+			else {
+				$recipeId = $this->queryEngine->getLastInsertedId();
+				$this->addIngredients($recipeId,  $recipeIngredients);
+			}
+	}
+
+	/**
 	 * Associates the recipe with products(ingredients) in the association table.
 	 *
 	 * @param  int $recipeId The id of the recipe

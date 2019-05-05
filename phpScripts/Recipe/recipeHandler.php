@@ -13,7 +13,7 @@ $formattedIngredientsData = json_decode($ingredientsData);
 $ctrlRecipe = new CtrlRecipe();
 
 // Add a new recipe
-if ($isNew) {
+if ($isNew == "true") {
   $ctrlRecipe->createRecipe(
     $_POST['name'],
     $_POST['isCustom'],
@@ -23,11 +23,11 @@ if ($isNew) {
     $formattedCategoriesData,
     $formattedIngredientsData
   );
-
 } 
-// Update a recipe
-elseif (!$isNew) {
-  $ctrlRecipe->updateRecipe(
+elseif ($isNew == "false") { // Update a recipe
+  echo $_POST['isNew'];
+  echo $_POST['productId'];
+  /*$ctrlRecipe->updateRecipe(
     $_POST['id'],
     $_POST['name'],
     $_POST['steps'],
@@ -35,7 +35,7 @@ elseif (!$isNew) {
     $_POST['productDesc'],
     $formattedCategoriesData,
     $formattedIngredientsData
-  );
+  );*/
 }
 
 ?>
