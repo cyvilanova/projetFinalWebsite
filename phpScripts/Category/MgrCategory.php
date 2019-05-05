@@ -17,17 +17,13 @@ require_once __DIR__ . '/../QueryEngine.php';
 
 class MgrCategory
 {
-  private $queryEngine;  // New query engine
   private $categories; // Array of categories
 
   /**
    * Category manager constructor
    * 
    */
-  public function __construct()
-  {
-    $this->queryEngine = new QueryEngine();
-  }
+  public function __construct(){}
 
   /**
    * Adds a category to the database
@@ -36,6 +32,8 @@ class MgrCategory
    */
   public function addCategory($category)
   {
+    $queryEngine = new QueryEngine();
+
     $parameters =
       [
         ":name" => $category->getName(),
@@ -45,7 +43,7 @@ class MgrCategory
 
     $query = "INSERT INTO category(name, is_active,description) VALUES (:name, :is_active,:desc)";
 
-    if (!$this->queryEngine->executeQuery($query, $parameters)) {
+    if (!$queryEngine->executeQuery($query, $parameters)) {
       echo "Error in the query";
     }
   }
@@ -57,6 +55,7 @@ class MgrCategory
    */
   public function selectAllCategories($active = null)
   {
+    $queryEngine = new QueryEngine();
     $query = "SELECT * FROM category";
 
     if ($active != null) {
@@ -64,7 +63,7 @@ class MgrCategory
       $query .= " WHERE is_active = " . $active;
     }
 
-    $resultSet =  $this->queryEngine->executeQuery($query);
+    $resultSet =  $queryEngine->executeQuery($query);
 
     if (!$resultSet) {
       echo "Error while trying to load all category";
@@ -80,6 +79,7 @@ class MgrCategory
    */
   public function getProductCategories($productId)
   {
+    $queryEngine = new QueryEngine();
     $query = "SELECT category.id_category, category.name, category.is_active, category.description
               FROM ta_product_category
               INNER JOIN category
@@ -89,7 +89,7 @@ class MgrCategory
         [
             "productId" => $productId,
         ];
-    $resultSet = $this->queryEngine->executeQuery($query, $parameters);
+    $resultSet = $queryEngine->executeQuery($query, $parameters);
     if (!$resultSet) {
         echo "Error while trying to load the categories of a product.";
     } else {

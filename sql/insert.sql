@@ -129,6 +129,9 @@ VALUES ("Transit", "Commande en transit");
 INSERT INTO state (name, description) 
 VALUES ("En magasin", "Commande en magasin");
 
+INSERT INTO state (name, description)
+VALUES (DEFAULT,"Payée","Commande payée");
+
 
 /* Insert into shipping_company*/
 INSERT INTO shipping_company (name) 
