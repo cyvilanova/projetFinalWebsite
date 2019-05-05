@@ -19,6 +19,8 @@ require_once __DIR__ . '/../Shipping/MgrShipping.php';
 require_once __DIR__ . '/Order.php';
 require_once __DIR__ . '/../Product/Product.php';
 require_once __DIR__ . '/../Product/CtrlProduct.php';
+require_once __DIR__ . '/../Product/MgrProduct.php';
+require_once __DIR__ . '/../Client/Client.php';
 require_once __DIR__ . '/../Stripe/init.php';
 /**
  *
@@ -28,6 +30,7 @@ class MgrOrder
 
     private $shipping;
     private $query_engine;
+    private $mgrProduct;
 
     /**
      * __construct
@@ -38,6 +41,7 @@ class MgrOrder
     {
         $this->shipping = new MgrShipping();
         $this->query_engine = new QueryEngine();
+        $this->mgrProduct = new MgrProduct();
     }
 
     /**
@@ -48,212 +52,288 @@ class MgrOrder
     public function getAllOrders()
     {
         // TODO -> à refaire, pas pratique /!\
-        $query = "SELECT `order`.`id_order`, `client`.`name` AS 'client_name', `client`.`address`, `client`.`city`, `client`.`province`,
-				`client`.`postal_code`, `state`.`name` as 'state_name'
-			FROM `order`
-			INNER JOIN `state` ON `order`.id_state = `state`.id_state
-			INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client`
-			WHERE `state`.name != 'Fermée'";
+        $query = "SELECT `order`.`id_order`, `order`.`total`, `order`.`id_method`,`client`.`id_client`, `client`.`name` as 'client_name', client.address, client.city, client.province, client.postal_code, state.name as 'state_name' FROM `order` INNER JOIN `state` ON `order`.id_state = `state`.id_state INNER JOIN `client` ON `client`.`id_client` = `order`.`id_client` INNER JOIN `shipping_method` ON `shipping_method`.`id_method` = `order`.`id_method` WHERE `state`.name != 'Fermée'";
 
-        $resultSet = $this->query_engine->executeQuery($query);
+			$resultSet = $this->query_engine->executeQuery($query);
+			
+			$orders = $this->resultToArray($resultSet);
 
-        return $resultSet;
-    }
+			return $orders;
+		}
 
-    /**
-     * Add an order to the database
-     *
-     * @param  Order $order
-     * @param  int $id_client
-     * @param  int $id_method
-     */
-    public function insertOrder($order, $client_infos, $id_method)
-    {
+		public function resultToArray($resultSet)
+		{
+			$orders = [];
+			foreach ($resultSet as $row) {
 
-        $insertClient = "INSERT INTO `client` (`id_client`, `name`, `address`, `city`, `province`, `postal_code`) VALUES (default, :name, :address, :city, :province, :postal_code)";
+				$order = new Order(
+					$row['id_order'],
+					new Client(
+						$row['address'],
+						$row['city'],
+						$row['client_name'],
+						$row['postal_code'],
+						$row['province'],
+						$row['id_client']
+					),
+					"",
+					$row['total'],
+					$this->getProductsId($row['id_order']),
+					$this->getProductsQty($row['id_order']),
+					$row['state_name']
+				);
+				array_push($orders, $order);
+			}
+			
+			return $orders;
+		}
 
-        $parametersClient =
-            [
-            ":name" => $client_infos[0],
-            ":address" => $client_infos[1],
-            ":city" => $client_infos[2],
-            ":province" => $client_infos[3],
-            ":postal_code" => $client_infos[4],
-        ];
+		/**
+		 * Add an order to the database
+		 *
+		 * @param  Order $order
+		 * @param  int $id_client
+		 * @param  int $id_method
+		 */
+		public function insertOrder($order, $client_infos, $id_method)
+		{
 
-        if (!$this->query_engine->executeQuery($insertClient, $parametersClient)) {
-            echo "Erreur lors de l'ajout du client";
-        }
+			$insertClient = "INSERT INTO `client` (`id_client`, `name`, `address`, `city`, `province`, `postal_code`) VALUES (default, :name, :address, :city, :province, :postal_code)";
 
-        $id_client = $this->query_engine->getLastInsertedId();
+			$parametersClient = 
+			[
+				":name" => $client_infos[0],
+				":address" => $client_infos[1],
+				":city" => $client_infos[2],
+				":province" => $client_infos[3],
+				":postal_code" => $client_infos[4],
+			];		
 
-        $insertOrder = "INSERT INTO `order` (`id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) VALUES (:client, 1, 2, :method, :tps, :tvq, :total)";
+			if(!$this->query_engine->executeQuery($insertClient, $parametersClient)) {
+				echo "Erreur lors de l'ajout du client";
+			}
 
-        $parametersOrders =
-            [
-            ":client" => $id_client,
-            ":method" => $id_method,
-            ":tps" => $this->calculateTPS($order),
-            ":tvq" => $this->calculateTVQ($order),
-            ":total" => $order->getTotal(),
-        ];
+			$id_client = $this->query_engine->getLastInsertedId();
 
-        if (!$this->query_engine->executeQuery($insertOrder, $parametersOrders)) {
-            echo "Erreur lors de l'ajout de la commande";
-        }
+			$insertOrder = "INSERT INTO `order` (`id_client`, `id_user`, `id_state`, `id_method`, `tps`, `tvq`, `total`) VALUES (:client, 1, 2, :method, :tps, :tvq, :total)";
+			
 
-        $id_order = $this->query_engine->getLastInsertedId();
-        $order->setId($id_order);
+			$parametersOrders = 
+			[
+				":client" => $id_client,
+				":method" => $id_method,
+				":tps" => $this->calculateTPS($order),
+				":tvq" => $this->calculateTVQ($order),
+				":total" => $order->getTotal(),
+			];
 
-        $this->insertProducts($order);
-    }
+			if(!$this->query_engine->executeQuery($insertOrder, $parametersOrders)) {
+				echo "Erreur lors de l'ajout de la commande";
+			}
 
-    /**
-     * Add products to an order in the database
-     *
-     * @param Order $order
-     */
-    private function insertProducts($order)
-    {
-        $id_order = $this->query_engine->getLastInsertedId();
-        var_dump($order);
-        $qty = 0;
-        foreach ($order->getProducts() as $product) {
-            $insertProductOrders = "INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) VALUES (:id_order, :id_product, :quantity)";
-            $parametersProductOrder =
-                [
-                ":id_order" => $order->getId(),
-                ":id_product" => $product->getId(),
-                ":quantity" => $order->getQuantities()[$qty],
-            ];
-            var_dump($product);
-            var_dump($parametersProductOrder);
-            if (!$this->query_engine->executeQuery($insertProductOrders, $parametersProductOrder)) {
-                echo "Erreur lors de l'ajout des produits de la commande";
-            }
-            $qty++;
-        }
-    }
+			$id_order = $this->query_engine->getLastInsertedId();
+			$order->setId($id_order);
 
-    /**
-     * Delete an order from the database
-     *
-     * @param  int $id_order
-     */
-    public function deleteOrder($id_order)
-    {
-        $this->deleteProducts($id_order);
+			$this->insertProducts($order);
+		}
 
-        $deleteOrder = "DELETE FROM `order` WHERE `id_order` = :id_order";
-        $parametersOrder =
-            [
-            ":id_order" => $id_order,
-        ];
-        if (!$this->query_engine->executeQuery($deleteOrder, $parametersOrder)) {
-            echo "Erreur lors de la suppression de la commande";
-        }
-    }
+		/**
+		 * Add products to an order in the database
+		 *
+		 * @param Order $order
+		 */
+		private function insertProducts($order)
+		{
 
-    /**
-     * Delete the products related to an order
-     *
-     * @param  int $id_order
-     */
-    private function deleteProducts($id_order)
-    {
-        $deleteProducts = "DELETE FROM ta_order_product WHERE `id_order` = :id_order";
-        $parametersProductOrder =
-            [
-            ":id_order" => $id_order,
-        ];
-        if (!$this->query_engine->executeQuery($deleteProducts, $parametersProductOrder)) {
-            echo "Erreur lors de la suppression des produits de la commande";
-        }
+			#var_dump($order);
+			$qty = 0;
+			foreach ($order->getProducts() as $product) {
+				$insertProductOrders = "INSERT INTO `ta_order_product` (`id_order`, `id_product`, `quantity`) VALUES (:id_order, :id_product, :quantity)";
+				$parametersProductOrder = 
+				[
+					":id_order" => $order->getId(),
+					":id_product" => $product->getId(),
+					":quantity" => $order->getQuantities()[$qty],
+				];
+				if (!$this->query_engine->executeQuery($insertProductOrders, $parametersProductOrder)) {
+					echo "Erreur lors de l'ajout des produits de la commande";
+				}
+				$qty++;
+			}			
+		}
 
-    }
+		/**
+		 * Delete an order from the database
+		 *
+		 * @param  int $id_order
+		 */
+		public function deleteOrder($id_order)
+		{
+			$this->deleteProducts($id_order);
 
-    /**
-     * Update an order to the data base
-     *
-     * @param  Order $order
-     * @param  int $id_client
-     */
-    public function updateOrder($order, $id_client)
-    {
-        $this->deleteProducts($order->getId());
+			$deleteOrder = "DELETE FROM `order` WHERE `id_order` = :id_order";
+			$parametersOrder = 
+				[
+					":id_order" => $id_order,
+				];
+			if(!$this->query_engine->executeQuery($deleteOrder, $parametersOrder)) {
+				echo "Erreur lors de la suppression de la commande";
+			}
+		}
 
-        $query = "UPDATE `order` SET `id_client` = :id_client, `tps` = :tps, `tvq` = :tvq, `total` = :total WHERE `order`.`id_order` = :id_order";
-        $parametersOrders =
-            [
-            "id_order" => $order->getId(),
-            ":id_client" => $id_client,
-            ":tps" => $order->calculateTPS(),
-            ":tvq" => $order->calculateTVQ(),
-            ":total" => $order->getTotal(),
-        ];
-        if (!$this->query_engine->executeQuery($deleteOrder, $parametersOrder)) {
-            echo "Erreur lors de la modification de la commande";
-        }
-        $this->insertProducts($order);
-    }
+		/**
+		 * Delete the products related to an order
+		 *
+		 * @param  int $id_order
+		 */
+		private function deleteProducts($id_order)
+		{
+			$deleteProducts = "DELETE FROM ta_order_product WHERE `id_order` = :id_order";
+			$parametersProductOrder = 
+				[
+					":id_order" => $id_order,
+				];
+			if(!$this->query_engine->executeQuery($deleteProducts, $parametersProductOrder)) {
+				echo "Erreur lors de la suppression des produits de la commande";
+			}
+			
+		}
 
-    /**
-     * Calculate the price of an order (via the products' prices)
-     *
-     * @param  Order $order
-     */
-    public function calculatePrice($order)
-    {
-        $order->setPrice(0);
-        $total = 0;
-        foreach ($order->getProducts() as $p) {
-            $total .= $p->getPrice();
-        }
-        $order->setPrice($total);
-        $this->calculateTaxes($order);
-    }
+		/**
+		 * Update an order to the data base
+		 *
+		 * @param  Order $order
+		 * @param  int $id_client
+		 */
+		public function updateOrder($order)
+		{
+			$this->deleteProducts($order->getId());
 
-    /**
-     * Calculate the taxes of an order with the price
-     *
-     * @param  Order $order
-     */
-    public function calculateTaxes($order)
-    {
-        $taxes1 = $this->calculateTPS($order);
-        $taxes2 = $this->calculateTVQ($order);
+			$query = "UPDATE `order` SET `id_client` = :id_client, `tps` = :tps, `tvq` = :tvq, `total` = :total WHERE `order`.`id_order` = :id_order";
 
-        $order->setTotal($order->getPrice() + $taxes1 + $taxes2);
-        return ($taxes1 + $taxes2);
-    }
+			$query2 = "UPDATE `client` SET `name` = :name, `address` = :address, `city` = :city, `province` = :province, `postal_code` = :zip WHERE `client`.`id_client` = :id_client";
 
-    /**
-     * Calculate the TPS of an order with the price
-     *
-     * @param  Order $order
-     */
-    public function calculateTPS($order)
-    {
-        return ($order->getPrice() * 0.05);
-    }
+			$parametersClient = 
+			[
+				":id_client" => $order->getClient()->getId(),
+				":name" => $order->getClient()->getName(),
+				":address" => $order->getClient()->getAddress(),
+				":city" => $order->getClient()->getCity(),
+				":province" => $order->getClient()->getProvince(),
+				":zip" => $order->getClient()->getPostalCode(),
+			];	
+			
 
-    /**
-     * Calculate the TVQ of an order with the price
-     *
-     * @param  Order $order
-     */
-    public function calculateTVQ($order)
-    {
-        return ($order->getPrice() * 0.09975);
-    }
+			$this->calculatePrice($order);
+			$parametersOrders = 
+			[
+				"id_order" => $order->getId(),
+				":id_client" => $order->getClient()->getId(),
+				":tps" => $this->calculateTPS($order),
+				":tvq" => $this->calculateTVQ($order),
+				":total" => $order->getTotal(),
+			];
 
-    /**
-     * Makes a payment using the stripe API
-     *
-     * @param $tokenId the token id created by the user
-     * @param $price Price to charge
-     */
+			if(!$this->query_engine->executeQuery($query2, $parametersClient)) {
+				echo "Erreur lors de la modification du client";
+			}			
 
+			if(!$this->query_engine->executeQuery($query, $parametersOrders)) {
+				echo "Erreur lors de la modification de la commande";
+			}
+			$this->insertProducts($order);
+		}
+
+
+		/**
+		 * Calculate the price of an order (via the products' prices)
+		 *
+		 * @param  Order $order
+		 */
+		public function calculatePrice($order)
+		{
+			$order->setPrice(0);
+			$total = 0;
+			$i = 0;
+			foreach ($order->getProducts() as $p) {
+				$total .= ($p->getPrice()*$order->getQuantities()[$i]);
+			}
+			$order->setPrice($total);
+			$this->calculateTaxes($order);
+		}
+
+		/**
+		 * Calculate the taxes of an order with the price
+		 *
+		 * @param  Order $order
+		 */
+		public function calculateTaxes($order)
+		{
+			$taxes1 = $this->calculateTPS($order);
+			$taxes2 = $this->calculateTVQ($order);
+
+			$order->setTotal($order->getPrice() + $taxes1 + $taxes2);
+			return ($taxes1+$taxes2);
+		}
+
+		/**
+		 * Calculate the TPS of an order with the price
+		 *
+		 * @param  Order $order
+		 */
+		public function calculateTPS($order)
+		{
+			return ($order->getPrice() *  0.05);
+		}
+
+		/**
+		 * Calculate the TVQ of an order with the price
+		 *
+		 * @param  Order $order
+		 */
+		public function calculateTVQ($order)
+		{
+			return ($order->getPrice() * 0.09975);
+		}
+
+		public function getProductsQty($id_order)
+		{
+			$query = "SELECT quantity FROM `ta_order_product` WHERE id_order = " . $id_order;
+
+			$parametersOrders = 
+			[
+				"id" => $id_order,
+			];
+
+			$resultSet = $this->query_engine->executeQuery($query);
+			$qty = [];
+			foreach ($resultSet as $row) {
+				array_push($qty, $row['quantity']);
+			}
+
+			return $qty;
+		}
+
+
+		public function getProductsId($id_order)
+		{
+			$query = "SELECT id_product FROM `ta_order_product` WHERE id_order = " . $id_order;
+
+			$parametersOrders = 
+			[
+				"id" => $id_order,
+			];
+
+			$resultSet = $this->query_engine->executeQuery($query);
+			$products= [];
+			foreach ($resultSet as $row) {
+				$this->mgrProduct->getProductById($row['id_product']);
+				$pro = $this->mgrProduct->getProduct();
+				array_push($products, $pro);
+			}
+			return $products;
+		}
+		
     public function makePayment($tokenId, $price)
     {
 
