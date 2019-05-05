@@ -76,7 +76,7 @@ class CtrlCategory
         $html .= "<option title=\"" . $category->getDescription() . "\" ";
         $html .= "id=\"" . $category->getId() . "\" ";
         $html .= "class=\"product-category\" ";
-        $html .= "value=\"" . $category->getName() . "\">";
+        $html .= "value=\"" . $category->getId() . "\">";
         $html .= $category->getName() . "</div>";
     }
 
