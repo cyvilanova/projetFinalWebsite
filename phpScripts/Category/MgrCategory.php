@@ -72,7 +72,7 @@ class MgrCategory{
       echo "Error in the query\n";
     }
   }
-
+/*
   public function deleteCategory($category){
     $queryEngine = new QueryEngine();
     $parameters =
@@ -87,7 +87,7 @@ class MgrCategory{
       echo "Error in the query\n";
     }
   }
-
+*/
   /**
    * Fetches the categories from the database
    * @param int $active Filter the active categories

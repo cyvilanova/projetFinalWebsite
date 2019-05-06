@@ -1,24 +1,21 @@
 var currentCategory;
 
-/**Adds the event listenenr to the add and edit buttons*/
+/**Adds the event listenenr to the add, edit and delete buttons*/
 function addListeners(){
-  let addBtn=document.getElementById("addCategorySaveBtn");
+  var addBtn=document.getElementById("addCategorySaveBtn");
   addBtn.addEventListener ("click", function(e){
-    e.preventDefault();
     addCategory();
   });
 
-  let saveBtn=document.getElementById("editCategorySaveBtn");
+  var saveBtn=document.getElementById("editCategorySaveBtn");
   saveBtn.addEventListener ("click", function(e){
-    e.preventDefault();
     modifyCategory();
   });
-
-  let deleteBtn=document.getElementById("deleteCategorySaveBtn");
+/*
+  var deleteBtn=document.getElementById("deleteCategoryBtn");
   deleteBtn.addEventListener ("click", function(e){
-    e.preventDefault();
     deleteCategory();
-  });
+  });*/
 }
 
 /**Modal to edit the category*/
@@ -62,6 +59,7 @@ function addCategory(){
       },
       url: "phpScripts/Category/categoryHandler.php",
       success: function(data){
+          console.log(data);
         $('#addModal').modal('hide');
       },
     });
@@ -84,12 +82,12 @@ function modifyCategory(){
     url: "phpScripts/Category/categoryHandler.php",
     success: function(data){
       $('#editModal').modal('hide');
+        console.log(data);
     },
   });
+  }
 
-}
-
-/** Deletes an existing class with the updated information*/
+/** Deletes an existing class with the updated information
 function deleteCategory(){
 
   $.ajax({
@@ -103,8 +101,9 @@ function deleteCategory(){
     },
     url: "phpScripts/Category/categoryHandler.php",
     success: function(data){
+      console.log(data);
       $('#editModal').modal('hide');
     },
   });
 
-}
+}*/

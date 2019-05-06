@@ -73,7 +73,7 @@ if($_SESSION["username"]!="admin"){
                     <form>
                         <div class="form-group">
                             <label for="category-name" class="col-form-label">Nom de la catégorie</label>
-                            <input type="text" class="form-control" id="edit-category-name" required disabled>
+                            <input type="text" class="form-control" id="edit-category-name"  disabled>
                         </div>
                         <div class="form-group">
                             <label for="category-activity" class="col-form-label">État d'activité de la catégorie</label>
@@ -84,13 +84,13 @@ if($_SESSION["username"]!="admin"){
                         </div>
                         <div class="form-group">
                             <label for="category-description" class="col-form-label">Description de la catégorie</label>
-                            <textarea class="form-control" id="edit-category-description" required disabled></textarea>
+                            <textarea class="form-control" id="edit-category-description"  disabled></textarea>
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-                    <button type="button" class="btn btn-quintessentiel" id= "deleteCategorySaveBtn">Supprimer</button>
+    
                     <button type="button" class="btn btn-quintessentiel" onclick="enableEditing()">Modifier</button>
                     <button type="button" class="btn btn-quintessentiel" id="editCategorySaveBtn">Sauvegarder</button>
                 </div>
@@ -112,11 +112,11 @@ if($_SESSION["username"]!="admin"){
                     <form>
                         <div class="form-group">
                             <label for="category-name" class="col-form-label">Nom de la categorie</label>
-                            <input type="text" class="form-control" id="add-category-name" required>
+                            <input type="text" class="form-control" id="add-category-name" >
                         </div>
                         <div class="form-group">
                             <label for="category-description" class="col-form-label">Description de la catégorie</label>
-                            <input type="text" class="form-control" id="add-category-description" required>
+                            <input type="text" class="form-control" id="add-category-description" >
                         </div>
                     </form>
                 </div>
