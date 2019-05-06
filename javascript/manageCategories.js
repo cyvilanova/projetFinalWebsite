@@ -13,6 +13,10 @@ function addListeners(){
     modifyCategory();
   });
 
+  let deleteBtn=document.getElementById("deleteCategorySaveBtn");
+  deleteBtn.addEventListener ("click", function(e){
+    deleteCategory();
+  });
 }
 
 /**Modal to edit the category*/
@@ -59,6 +63,8 @@ function addCategory(){
         $('#addModal').modal('hide');
       },
     });
+
+
 	}
 
 /** Modifies an existing class with the updated information*/
@@ -75,8 +81,28 @@ function modifyCategory(){
     },
     url: "phpScripts/Category/categoryHandler.php",
     success: function(data){
-      console.log(data);
       $('#editModal').modal('hide');
     },
   });
+
+}
+
+/** Deletes an existing class with the updated information*/
+function deleteCategory(){
+
+  $.ajax({
+    type: "POST",
+    data: {
+      action: "delete",
+      id: currentCategory.cId,
+      name: $('#edit-category-name').val(),
+      activity: $('#edit-category-activity').val(),
+      description:$('#edit-category-description').val(),
+    },
+    url: "phpScripts/Category/categoryHandler.php",
+    success: function(data){
+      $('#editModal').modal('hide');
+    },
+  });
+
 }

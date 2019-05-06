@@ -32,6 +32,17 @@ if (isset($_POST['action'])){
       $newCtrl->editCategory($id,$name,$activity,$description);
       break;
   }
+
+  //Delete a category from the database
+  case 'delete':
+    $id = $_POST['id'];
+    $name = $_POST['name'];
+    $description = $_POST['description'];
+
+    $newCtrl = new CtrlCategory();
+
+    $newCtrl->deleteCategory($id,$name,$description);
+    break;
 }
 else{
   echo "Error in the requested action";

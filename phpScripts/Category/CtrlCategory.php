@@ -102,5 +102,16 @@ include_once "mgrCategory.php";
 
       echo $html;
     }
+
+    /**
+    * Deletes a category to the database
+    * @param $id the id of the category to delete
+    * @param $name the name of the category to delete
+    * @param $description the description of the category to delete
+    */
+    public function deleteCategory($id,$name,$description){
+      $newCategory = new Category($id,$name, 0, $description);
+      $this->mgrCategory->deleteCategory($newCategory);
+    }
   }
 ?>
