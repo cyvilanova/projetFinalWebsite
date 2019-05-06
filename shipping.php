@@ -1,5 +1,17 @@
 <?php
-
+/****************************************
+Fichier : NOMDUFICHIER.php
+Auteur : NOM DE L’AUTEUR
+Fonctionnalité : CODE LA FONCTIONNALITÉ TRAITÉE DANS CE FICHIER ET NOM DE LA
+FONCTIONNALITÉ
+Date : DATE DE LA PREMIERE VERSION
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+****************************************/
   include_once "phpScripts/Shipping/CtrlShipping.php";
 
 ?>

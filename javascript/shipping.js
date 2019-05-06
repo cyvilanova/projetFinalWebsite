@@ -1,3 +1,17 @@
+/****************************************
+Fichier : shipping.js
+Auteur : Catherine Bronsard
+Fonctionnalité : W9 - Livraisons
+Date : 30-04 CB 
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+03-05 CB Vérifications form + reload
+=========================================================
+****************************************/
+
 let newShip = false; // Adding a new shipping ?
 let currentShip;
 
@@ -23,6 +37,10 @@ function shipOnLoad() {
 	});
 }
 
+function reload() {
+	location.reload();
+}
+
 function editShip() {
 	validForm();
 	$.ajax({
@@ -37,7 +55,10 @@ function editShip() {
 		},
     	error : function(msg) {
     		alert("Erreur lors de la modification");
-    	}
+    	},
+    	success : function() {
+    		reload();
+    	},
 	});
 }
 
@@ -59,6 +80,7 @@ function addShip() {
 	},
 	success: function(data) {
     	alert("Livraison ajoutée"); 
+    	reload();
 	},
 });
 }

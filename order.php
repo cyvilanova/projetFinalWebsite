@@ -1,4 +1,19 @@
 <?php
+/****************************************
+Fichier : order.php
+Auteur : Catherine Bronsard
+Fonctionnalité : Commandes clients
+Date : 2019-04-17
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+04-24 CB ajout modal add
+04-28 CB modification modal 
+05-04 CB nav admin vs nav invité
+=========================================================
+****************************************/
   include_once ("phpScripts/Order/CtrlOrder.php");
   include_once ("phpScripts/Product/CtrlProduct.php");
   include_once ("phpScripts/Shipping/CtrlShipping.php");
@@ -145,24 +160,8 @@
     	</table>
 
 </div>
-    <!-- Deletion confirmation modal -->
-    <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title">Êtes-vous certain de vouloir effectuer cette action ?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-quintessentiel" onclick="confirmation()">Oui</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Non</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

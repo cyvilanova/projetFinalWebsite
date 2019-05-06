@@ -9,6 +9,8 @@
 	 =========================================================
 	 Historique de modifications :
 	 Date Nom Description
+	 enlever CalculerTaxes, et prix
+	 03-05 CB JSonSerializable
 	 =========================================================
 	****************************************/
 
