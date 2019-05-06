@@ -1,15 +1,9 @@
 <?php
 /****************************************
- Fichier : MGRCategory.php
- Auteur : Philippe Audit-Allaire
- Fonctionnalité : Gestion de categorie
- Date : 2019-04-15
- Vérification :
- Date Nom Approuvé
- =========================================================
- Historique de modifications :
- Date Nom Description
- =========================================================
+Fichier : MgrCategory.php
+Auteur : Philippe Audit-Allaire
+Fonctionnalité : W6- Gestion de categorie
+Date : 2019-04-19
 ****************************************/
 require_once 'Category.php';
 require_once __DIR__ . '/../QueryEngine.php';

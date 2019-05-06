@@ -1,15 +1,9 @@
 <?php
 /****************************************
- Fichier : CtrlCategory.php
- Auteur : Philippe Audit-Allaire
- Fonctionnalité : Gestion de categorie
- Date : 2019-04-15
- Vérification :
- Date Nom Approuvé
- =========================================================
- Historique de modifications :
- Date Nom Description
- =========================================================
+Fichier : CtrlCategory.php
+Auteur : Philippe Audit-Allaire
+Fonctionnalité : W6- Gestion de categorie
+Date : 2019-04-19
 ****************************************/
 
 include_once "MgrCategory.php";

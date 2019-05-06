@@ -45,7 +45,7 @@ $ctrl = new CtrlProduct();
 			 		}
 			 	?>
 				<script type="text/javascript">
-					magnify('picture', 2);
+					zoomGlass('picture', 2);
 				</script>
 			 </section>
 			 <footer class="classic-footer">

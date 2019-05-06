@@ -1,3 +1,17 @@
+<?php
+/****************************************
+Fichier : Login.php
+Auteur : Philippe Audit-Allaire
+Fonctionnalité : W1- Authentification
+Date : 2019-05-01
+****************************************/
+session_start();
+
+if(isset($_SESSION["username"])){
+    $_SESSION = array();
+    session_destroy();
+}
+?>
 <!doctype html>
 <html lang="en">
 

@@ -1,4 +1,10 @@
 <?php
+/****************************************
+Fichier : categoryHandler.php
+Auteur : Philippe Audit-Allaire
+Fonctionnalité : W6- Gestion de categorie
+Date : 2019-04-19
+****************************************/
 require_once 'CtrlCategory.php';
 
 //Check if the action is set

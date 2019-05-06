@@ -1,4 +1,11 @@
-function magnify(imageID, zoom) {
+/****************************************
+Fichier : zoombox.js
+Auteur : Philippe Audit-Allaire
+Fonctionnalité : Zoom sur image style amazon
+Date : 05-05
+******************************************/
+
+function zoomGlass(imageID, zoom) {
   let img; //image to zoom in
   let zoombox; //zoombox
   let w;  //width of the image

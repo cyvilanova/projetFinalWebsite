@@ -1,4 +1,9 @@
-var currentCategory;
+/****************************************
+Fichier : manageCategories.js
+Auteur : Philippe Audit-Allaire
+Fonctionnalité : w6- gestion de categorie
+Date : 04-31
+******************************************/
 
 /**Adds the event listenenr to the add, edit and delete buttons*/
 function addListeners(){

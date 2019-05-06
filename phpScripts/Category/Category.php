@@ -1,15 +1,9 @@
 <?php
 /****************************************
- Fichier : Category.php
- Auteur : Philippe Audit-Allaire
- Fonctionnalité : Gestion de categorie
- Date : 2019-04-15
- Vérification :
- Date Nom Approuvé
- =========================================================
- Historique de modifications :
- Date Nom Description
- =========================================================
+Fichier : Category.php
+Auteur : Philippe Audit-Allaire
+Fonctionnalité : W6- Gestion de categorie
+Date : 2019-04-19
 ****************************************/
   class Category implements JsonSerializable{
     private $id; //Identification umber of the category
