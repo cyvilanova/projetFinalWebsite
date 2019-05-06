@@ -136,7 +136,7 @@ Date Nom Description
 
  <div class="recipes-wrapper table-responsive">
 
-  <button type="button" class="btn" id="new-order">Nouvelle commande</button>
+  <button type="button" class="btn btn-quintessentiel" id="new-order">Nouvelle commande</button>
     	<table class="table table-bordered table-hover">
     		<thead class="thead-light">
     			<tr>

@@ -80,7 +80,7 @@ Date Nom Description
 
  <div class="recipes-wrapper table-responsive">
 
-  <button type="button" class="btn" id="new-ship">Nouvelle livraison</button>
+  <button type="button" class="btn btn-quintessentiel" id="new-ship">Nouvelle livraison</button>
       <table class="table table-bordered table-hover">
         <thead class="thead-light">
           <tr>

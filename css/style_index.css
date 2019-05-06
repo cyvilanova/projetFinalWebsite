@@ -652,6 +652,10 @@ input:checked + .slider:before {
 }
 
 /* Product section */
+.col-xs-12 label, col-sm-6 label {
+    padding: 5px 0;
+}
+
 .page{
     position: relative;
     min-height:100vh;
