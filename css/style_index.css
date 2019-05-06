@@ -534,12 +534,12 @@ input:checked + .slider:before {
 }
 
 /************** Estimation modal style *****************/
-/*
+
 .disabled-input {
     border: none !important;
     background-color: #fff !important;
 }
-*/
+
 /************** CSS style navigation bar + links **************/
 
 .img-logo-nav {
