@@ -9,6 +9,7 @@ Date Nom Approuvé
 =========================================================
 Historique de modifications :
 Date Nom Description
+2019-04-19 Cynthia Vilanova JsonSerialize + volumeUsed
 =========================================================
  ****************************************/
 

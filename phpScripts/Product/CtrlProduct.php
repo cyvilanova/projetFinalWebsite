@@ -291,6 +291,7 @@ class CtrlProduct
             
             $html .= "<option ";
             $html .= "id=\"" . $product->getId() . "\" ";
+            $html .= "price=\"" . $product->getPrice() . "\" ";
             $html .= "value=\"" . $product->getName() . "\">";
             $html .= $product->getName() . "</div>";
         }
