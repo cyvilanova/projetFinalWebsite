@@ -9,10 +9,11 @@
 	 =========================================================
 	 Historique de modifications :
 	 Date Nom Description
+   05-03 Catherine Bronsard - JSonSerializable
 	 =========================================================
  ****************************************/
 
-class Client{
+class Client implements JsonSerializable {
 
   private $address; //Client's street address
   private $city;  //Client's city name
@@ -40,6 +41,17 @@ class Client{
     $this->id = $id;
   }
 
+
+  public function jsonSerialize() {
+    return array(
+        'id'=>$this->id,
+        'address'=>$this->address,
+        'name'=>$this->name,
+        'postalCode'=>$this->postalCode,
+        'province'=>$this->province,
+        'city'=>$this->city
+    );
+  }
 
   /**
   * Gets the street address of the client
@@ -136,5 +148,5 @@ class Client{
   public function setId($newId){
     $this->id = $newId;
   }
-
+}
 ?>

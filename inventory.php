@@ -286,13 +286,13 @@
             $prod->setId($id);
             $MgrProd->updateProduct($prod);
             $MgrProd->delCategories($id);
-            $MgrProd->addIngredients($id, $formattedCategoriesData);
+            $MgrProd->addProductCategories($id, $formattedCategoriesData);
         }
         else if($action == "add")
         {
             $prod = $MgrProd->insertProduct($prod);
 
-            $MgrProd->addIngredients($prod->getId(), $formattedCategoriesData);
+            $MgrProd->addProductCategories($prod->getId(), $formattedCategoriesData);
         }
         else if($action == "delete")
         {

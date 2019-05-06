@@ -52,50 +52,6 @@ if(!empty($_GET["orderId"]) && $ctrl->isIdValid($_GET["orderId"]))
 
 		 		<div id="card-errors" role="alert"></div>
 		 	</div>
-		 	<div class="form-row">
-		 		<input type="text" name="firstName" id="firstName"/>
-		 		<label for="firstName">
-		 			Prénom
-		 		</label>
-		 	</div>
-		 	<div class="form-row">
-		 		<input type="text" name="lastName" id="lastName"/>
-		 		<label for="lastName">
-		 			Nom
-		 		</label>
-		 	</div>
-		 	<div class="form-row">
-		 		<input type="text" name="address" id="address"/>
-		 		<label for="address">
-		 			Adresse
-		 		</label>
-		 	</div>
-		 	<div class="form-row">
-		 		<input type="text" name="city" id="city"/>
-		 		<label for="city">
-		 			Ville
-		 		</label>
-		 	</div>
-		 	<div class="form-row">
-		 		<select id="province">
-		 			<option selected disabled hidden></option>
-		 			<option value="qc">Québec</option>
-		 			<option value="on">Ontario</option>
-		 			<option value="ma">Manitoba</option>
-		 			<option value="sa">Saskatchewan</option>
-		 			<option value="al">Alberta</option>
-		 			<option value="cb">Colombie Britanique</option>
-		 		</select>
-		 		<label for="province">
-		 			Province
-		 		</label>
-		 	</div>
-		 	<div class="form-row">
-		 		<input type="text" id="postalCode"/>
-		 		<label for="postalCode">
-		 			Code postal
-		 		</label>
-		 	</div>
 
 
 		 	<button id="btnConfirm">Soumettre le paiement</button>
