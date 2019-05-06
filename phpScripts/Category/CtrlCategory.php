@@ -12,7 +12,7 @@
  =========================================================
 ****************************************/
 
-include_once "mgrCategory.php";
+include_once "MgrCategory.php";
 
   class CtrlCategory{
     private $mgrCategory;
