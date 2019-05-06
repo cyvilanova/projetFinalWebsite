@@ -9,7 +9,7 @@ include_once("MgrUser.php");
   $pwd; //Password of the user
   $mgrUser; //new user manager
 
-  $_SESSION= array(); //Initializes the array of session variables
+  $_SESSION = array(); //Initializes the array of session variables
 
   /**If the username is already set in the session variables,
   redirects to the catalog, otherwise, do the verification of the credentials
@@ -25,15 +25,23 @@ include_once("MgrUser.php");
     $pwd = $_POST['pwd']; //Fetches from the form
     $user = new User($uname,$pwd);  //Creates a new user with the username and password
 
+    if(isset($_COOKIE["username"])) {
+      $_SESSION["username"] = $_COOKIE["username"];
+    }
+    if(isset($_COOKIE["password"])) {
+      $_SESSION["password"] = $_COOKIE["password"];
+    }
     /**Verify the credentials provided by the user, if correct, sets the session variables,
     else, redirect to the login page and shows a message*/
     if($mgrUser->connection($user)){
       $_SESSION["username"] = $uname;
       $_SESSION["password"] = $pwd;
+      setcookie("username", $uname, time() + (86400 * 30), "/"); // 86400 = 1 day
+      setcookie("password", $pwd, time() + (86400 * 30), "/"); // 86400 = 1 day
       echo "<script> location.href='../../Catalog.php'</script>";
     }
     else{
-      $message = "Vous avez entrés de mauvaises informations.";
+      $message = "Vous avez entré de mauvaises informations.";
       echo "<script type='text/javascript'>alert('$message');</script>";
       echo "<script> location.href='../../login.php'</script>";
     }
