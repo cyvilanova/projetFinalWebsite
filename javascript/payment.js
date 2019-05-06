@@ -41,12 +41,6 @@ function tokenCreated(result){
 		data: {
 			tokenId: result.token.id,
 			orderId: orderId,
-			firstName: document.getElementById("firstName").value,
-			lastName: document.getElementById("lastName").value,
-			address: document.getElementById("address").value,
-			city: document.getElementById("city").value,
-			province: document.getElementById("province").value,
-			postalCode: document.getElementById("postalCode").value,
 		},
 		success: function(output) {
             displayFormMessage(output);
@@ -65,37 +59,9 @@ function tokenCreated(result){
 /* Detects the click on the confirm button */
 document.getElementById("btnConfirm").addEventListener("click",function(e){
 	e.preventDefault();
-	if(formNotEmpty()){
-		stripe.createToken(card).then(tokenCreated);
-	}
-	else{
-		displayFormMessage("<span class='payment-error'>Veuillez remplir tout les champs</span>");
-	}
+	stripe.createToken(card).then(tokenCreated);
 });
 
-/*
-	Check if the form is empty
-	and returns a bool
-*/
-function formNotEmpty(){
-
-	let form = document.getElementsByTagName("form")[0];
-	let input = form.getElementsByTagName("input");
-	let select = document.getElementById("province");
-
-	if(select.options[select.selectedIndex].value == ""){
-		return false;
-	}
-
-	for(let i = 1;i < input.length;i++) //Starts at 1 because of Stripe input
-	{
-		if(input[i].value == ""){
-			return false;
-		}
-	}
-
-	return true;
-}
 
 /*
 	Displays a message in the form message area

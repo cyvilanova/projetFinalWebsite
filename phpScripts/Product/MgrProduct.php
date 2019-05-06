@@ -138,7 +138,6 @@ class MgrProduct
         $parameters =
             [
                 ":name" => "%" . $name . "%",
-
             ];
 
         if ($filter != null) {
@@ -267,7 +266,6 @@ class MgrProduct
             $this->resultToArray($resultSet);
         }
     }
-
 
     /**
      * Send to the QueryEngine a prepared statement in string form
