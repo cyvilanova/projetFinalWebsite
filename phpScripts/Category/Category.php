@@ -2,10 +2,19 @@
 /****************************************
 Fichier : Category.php
 Auteur : Philippe Audit-Allaire
-Fonctionnalité : W6- Gestion de categorie
-Date : 2019-04-19
+Fonctionnalité : W - Category
+Date : 2019-04-15
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+2019-04-19 Cynthia Vilanova JsonSerialize
+=========================================================
 ****************************************/
-  class Category implements JsonSerializable{
+
+ class Category implements JsonSerializable
+ {
     private $id; //Identification umber of the category
     private $name;  //Name of the category
     private $active;  //If the category is active

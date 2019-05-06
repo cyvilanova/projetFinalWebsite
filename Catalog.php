@@ -64,9 +64,6 @@ $ctrl = new CtrlProduct();
 				$_SESSION["ctrlProduct"] = serialize($ctrl);
 				?>
 		 	</section>
-		 	<footer class="classic-footer">
-		 		<p>Insérez du texte ici</p>
-		 	</footer>
 		 </section>
 		</div>
 

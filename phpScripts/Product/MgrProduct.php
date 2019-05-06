@@ -9,8 +9,9 @@ Date Nom Approuvé
 =========================================================
 Historique de modifications :
 Date Nom Description
-2019-04-22 CV Changer array product pour products
-2019-05-01 CV PHPDoc
+2019-04-22 Cynthia Vilanova Changer array product pour products
+2019-05-01 Cynthia Vilanova PHPDoc
+2019-05-04 Cynthia Vilanova Get ingredients for recipe
 =========================================================
  ****************************************/
 
@@ -20,9 +21,9 @@ require_once __DIR__ . '/../Category/MgrCategory.php';
 
 class MgrProduct
 {
-    private $products; //Product object list array
-    private $ingredientsQuantities; //Product object list array
-    private $mgrCategory; //MgrCategory object
+    private $products; // Product object list array
+    private $ingredientsQuantities; // Product object list array
+    private $mgrCategory; // MgrCategory object
 
     /**
      * Constructor for MgrProduct

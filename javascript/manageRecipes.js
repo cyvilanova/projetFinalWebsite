@@ -1,3 +1,16 @@
+/****************************************
+Fichier : manageRecipes.js
+Auteur : Cynthia Vilanova
+Fonctionnalité : W3 - Gestion des recettes
+Date : 2019-04-17
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
+
 let currentRecipe;
 
 /** Reset the borders color of editModal */
@@ -122,15 +135,62 @@ function editRecipeAddIngredientModal(select) {
   addIngredient(select, '#editModal');
 }
 
+/** Adds the ingredients when selected and adds the listeners */
+function estimatePriceAddIngredientModal(select) {
+
+  addIngredient(select, '#estimationModal');
+  $('#estimationModal').find('.input-volume').change(() => {
+    calculatePrice(select);
+  });
+
+  $('#estimationModal').find('#profit-margin').change(() => {
+    calculatePrice(select);
+  });
+
+  $('#estimationModal').find('#ingredients').click(() => {
+    calculatePrice(select);
+  });
+}
+
+/** Gets all the products' prices and their volume to estimate price */
+function getPrices(modalId) {
+  const prices = [];
+
+  $(modalId).find('.ingredient-item').each((_, value) => {
+    prices.push([parseFloat($(value).attr('price')), parseInt($(value).find('.input-volume').val())]);
+  });
+
+  return prices;
+}
+
+/**  Calculates and updates the prices displayed */
+function calculatePrice(select) {
+  const prices = getPrices('#estimationModal');
+
+  let cost = 0;
+  for(let i = 0; i < prices.length; i++) {
+    cost += prices[i][0] * prices[i][1];
+  }
+
+  $('#estimationModal').find('#cost-price').val(parseFloat(cost).toFixed(2) + ' $');
+
+  const profitMargin = $('#estimationModal').find('#profit-margin').val();
+  const suggestedPrice = cost * (1 + profitMargin / 100);
+
+  $('#estimationModal').find('#suggested-price').val((parseFloat(suggestedPrice).toFixed(2)) + ' $');
+}
+
 /** Update the list of ingredients used for the recipe in the modal. */
 function addIngredient(select, modalId) {
 
   const ingredientId = $($('#recipe-ingredients').find("option")[select.selectedIndex]).attr("id");
-  let html1 = '<div class=\"ingredient-item\" data-ingredient-id=\"' + ingredientId + '\" id="ingredient-item-' + ingredientId + '"></div>';
+  const ingredientPrice = $($('#recipe-ingredients').find("option")[select.selectedIndex]).attr('price');
+
+  let html1 = '<div class=\"ingredient-item\" price=\"' + ingredientPrice + '\" data-ingredient-id=\"' + ingredientId + '\" id="ingredient-item-' + ingredientId + '"></div>';
   const html2 = '<label for=\"ingredient\" class=\"col-form-label\">' + $(modalId).find('#recipe-ingredients').val() + '</label>';
   const html4 = '<input type=\"number\" step=\"1\" min=\"0\" max="9999" lang=\"en\" class=\"form-control input-volume\" value=0>';
   const html5 = '<label class=\"col-form-label label-volume\"> mL </label>';
-  const deleteBtn = '<button type="button" class="btn btn-light btn-remove" id="removeIng" onclick="removeIngredient(' + ingredientId + ')">X</button>';
+  const deleteBtn = '<button type="button" class="btn btn-light btn-remove" onclick="removeIngredient(' + ingredientId + ')">X</button>';
 
   html1 = $(html1).append(html2, html4, html5, deleteBtn);
   $(modalId).find('#ingredients').append(html1);

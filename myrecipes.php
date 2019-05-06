@@ -14,9 +14,15 @@ Date Nom Description
 ?>
 
 <?php
+session_start();
+
 include_once "phpScripts/Recipe/CtrlRecipe.php";
 include_once "phpScripts/Product/CtrlProduct.php";
 include_once "phpScripts/Category/CtrlCategory.php";
+
+if($_SESSION["username"]!="admin"){
+    echo "<script> location.href='Catalog.php'</script>";
+}
 ?>
 
 <!DOCTYPE html>
@@ -37,7 +43,10 @@ include_once "phpScripts/Category/CtrlCategory.php";
     </div>
 
     <div class="recipes-wrapper table-responsive">
-        <button type="button" class="btn btn-quintessentiel" data-toggle="modal" data-target="#addModal">Ajouter une recette</button>
+        <div class="recipe-btn-wrapper">
+            <button type="button" class="btn btn-quintessentiel" data-toggle="modal" data-target="#addModal">Ajouter une recette</button>
+            <button type="button" class="btn btn-quintessentiel" data-toggle="modal" data-target="#estimationModal">Estimation d'un prix</button>
+        </div>
 
         <table class="table table-bordered table-hover">
             <thead class="thead-light">
@@ -201,15 +210,69 @@ include_once "phpScripts/Category/CtrlCategory.php";
         </div>
     </div>
 
+    <!-- Estimation modal -->
+    <div class="modal fade" id="estimationModal" tabindex="-1" role="dialog" aria-labelledby="estimationPriceModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="estimationPriceModal">Estimation du prix d'un produit</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipe-ingredients" class="col-form-label">Ingrédients</label>
+                            <select class="form-control selectpicker" data-live-search="true" onchange="estimatePriceAddIngredientModal(this)" id="recipe-ingredients">
+                                <?php
+                                $ctrlP = new CtrlProduct();
+                                $ctrlP->loadIngredientsOptions();
+                                ?>
+                            </select>
+                            <div class="invalid-input" id="invalid-recipe-ingredients"></div>
+                            <div id="ingredients" class="ingredients-list">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label for="cost-price" class="col-form-label">Prix coûtant</label>
+                                <input type="text" class="form-control disabled-input" id="cost-price" value="0.00 $" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label for="profit-margin" class="col-form-label">Marge de profit (%)</label>
+                                <input type="number" step="1" min="0" max="100" class="form-control" id="profit-margin" value="0">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-3">
+                                <label for="suggested-price" class="col-form-label">Prix suggéré</label>
+                                <input type="text" class="form-control disabled-input" id="suggested-price" value="0.00 $" disabled>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Deletion confirmation modal -->
     <div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h6 class="modal-title">Êtes-vous certain de vouloir supprimer cette recette?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-quintessentiel" onclick="proceedWithRecipeDeletion('#confirmationModal', 'deleteRecipe')">Oui</button>

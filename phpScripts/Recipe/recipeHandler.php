@@ -1,4 +1,17 @@
 <?php
+/****************************************
+Fichier : recipeHandler.php
+Auteur : Cynthia Vilanova
+Fonctionnalité : W3 - Gestion des recettes
+Date : 2019-04-25
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+=========================================================
+ ****************************************/
+
 
 include_once "CtrlRecipe.php";
 $ctrlRecipe = new CtrlRecipe();

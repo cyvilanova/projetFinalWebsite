@@ -9,6 +9,7 @@ Date Nom Approuvé
 =========================================================
 Historique de modifications :
 Date Nom Description
+2019-03-19 Cynthia Vilanova executeQuery method
 04-24 CB avoir l'id du dernier inséré
 =========================================================
  ****************************************/
