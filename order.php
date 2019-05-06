@@ -31,8 +31,7 @@ Date Nom Description
   <script type="text/javascript" src="javascript/order.js"></script>
        <?php
       if(!isset($_SESSION["username"])||$_SESSION["username"]!="admin"){
-          include("nav_admin.html");
-          
+          include("nav_admin.html");  
       }
       else{
         include("nav_inv.html");
