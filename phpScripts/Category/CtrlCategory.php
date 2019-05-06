@@ -109,10 +109,10 @@ include_once "MgrCategory.php";
     * @param $name the name of the category to delete
     * @param $description the description of the category to delete
     */
-  //  public function deleteCategory($id,$name,$description){
-  //    $newCategory = new Category($id,$name, 0, $description);
-  //    $this->mgrCategory->deleteCategory($newCategory);
-    //}
+    public function deleteCategory($id,$name,$description){
+      $newCategory = new Category($id,$name, 0, $description);
+      $this->mgrCategory->deleteCategory($newCategory);
+    }
 
   }
 ?>

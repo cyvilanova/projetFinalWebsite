@@ -11,11 +11,11 @@ function addListeners(){
   saveBtn.addEventListener ("click", function(e){
     modifyCategory();
   });
-/*
+
   var deleteBtn=document.getElementById("deleteCategoryBtn");
   deleteBtn.addEventListener ("click", function(e){
     deleteCategory();
-  });*/
+  });
 }
 
 /**Modal to edit the category*/
@@ -87,7 +87,7 @@ function modifyCategory(){
   });
   }
 
-/** Deletes an existing class with the updated information
+/** Deletes an existing class with the updated information*/
 function deleteCategory(){
 
   $.ajax({
@@ -106,4 +106,4 @@ function deleteCategory(){
     },
   });
 
-}*/
+}

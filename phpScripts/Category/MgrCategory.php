@@ -72,27 +72,32 @@ class MgrCategory{
       echo "Error in the query\n";
     }
   }
-/*
+
+  /**
+  * Deletes a category from the database
+  * @param $category the category to delete
+  *
+  */
   public function deleteCategory($category){
     $queryEngine = new QueryEngine();
     $parameters =
       [
-        ":id" =>$updatedCategory->getId(),
-        ":name" => $updatedCategory->getName(),
+        ":id" =>$category->getId(),
+        ":name" => $category->getName(),
       ];
 
-    $query = "DELETE FROM category WHERE id_category=:id AND name=:':name'";
+    $query = "DELETE FROM category WHERE id_category=:id AND name=:name";
 
     if (!$queryEngine->executeQuery($query, $parameters)) {
       echo "Error in the query\n";
     }
   }
-*/
+
   /**
-   * Fetches the categories from the database
-   * @param int $active Filter the active categories
-   *
-   */
+  * Fetches the categories from the database
+  * @param int $active Filter the active categories
+  *
+  */
   public function selectAllCategories($active = null)
   {
     $queryEngine = new QueryEngine();

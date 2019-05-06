@@ -1105,49 +1105,47 @@ input:checked + .slider:before {
 }
 	/* ========Login========*/
 .login-container{
-  padding-top: 10%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    padding-top: 10%;
+    height: 100%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
 }
   .loginConnect {
-	  max-width: 350px;
-	  height: 150px;
+     height: fit-content;
+     max-width: 350px;
+     background-color: #ffefd5;
+     padding-top: 5%;
+     border-radius: 5%;
 
 	}
   .loginConnect form{
     text-align:center;
   }
 
-	.loginConnect .input {
+	.loginConnect input {
+    margin-bottom: 5%;
+    padding: 3%;
 	  width:75%;
 	  max-width:250px;
 	}
-  .loginConnect .loginlbl:after {
-    display:block;
-    white-space: pre;
-    content: "\a";
-	}
 
-	.loginConnect .input[type=submit] {
-	  width:75%;
-	  max-width:200px;
-	}
-
-
-  .loginConnect .loginInput:after {
-    display:block;
-    white-space: pre;
-    content: "\a";
-	}
-
-	.loginConnect .loginSub {
+	.loginConnect input[type=submit] {
 	  width:75%;
 	  max-width:150px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding-bottom:4%;
 	}
 
-  .loginConnect .label ::before{
-    content: "\a";
-    white-space: pre;
-  }
+	.loginConnect label {
+    color: #000;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+    padding-bottom:5%;
+	}
