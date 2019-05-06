@@ -1,4 +1,19 @@
 <?php
+/****************************************
+Fichier : order.php
+Auteur : Catherine Bronsard
+Fonctionnalité : Commandes clients
+Date : 2019-04-17
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+04-24 CB ajout modal add
+04-28 CB modification modal 
+05-04 CB nav admin vs nav invité
+=========================================================
+****************************************/
   include_once ("phpScripts/Order/CtrlOrder.php");
   include_once ("phpScripts/Product/CtrlProduct.php");
   include_once ("phpScripts/Shipping/CtrlShipping.php");
@@ -16,8 +31,7 @@
   <script type="text/javascript" src="javascript/order.js"></script>
        <?php
       if(!isset($_SESSION["username"])||$_SESSION["username"]!="admin"){
-          include("nav_admin.html");
-          
+          include("nav_admin.html");  
       }
       else{
         include("nav_inv.html");
@@ -145,8 +159,8 @@
     	</table>
 
 </div>
-
 </body>
+
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

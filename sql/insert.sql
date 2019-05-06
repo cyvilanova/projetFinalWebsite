@@ -221,4 +221,3 @@ VALUES (1, 2);
 
 INSERT INTO ta_product_category(id_category, id_product) 
 VALUES (4, 3);
-

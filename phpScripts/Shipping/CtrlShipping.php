@@ -10,6 +10,7 @@ Date Nom Approuvé
 Historique de modifications :
 Date Nom Description
 2019-04-31 CB Afficher livraison dans un select
+2019-05-01 CB Afficher livraison dans un tableau
 =========================================================
  ****************************************/
 

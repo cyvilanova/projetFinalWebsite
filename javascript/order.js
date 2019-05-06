@@ -1,3 +1,19 @@
+/****************************************
+Fichier : order.js
+Auteur : Catherine Bronsard
+Fonctionnalité : Commandes clients
+Date : 04-31
+Vérification :
+Date Nom Approuvé
+=========================================================
+Historique de modifications :
+Date Nom Description
+05-01 CB add an delete order
+05-02 CB edit order
+05-03 CB refaire avec Jsonserialize
+05-03 CB add button paye
+=========================================================
+****************************************/
 let id_products_order = new Array();
 let qty_products_order = new Array();
 let method;
@@ -58,13 +74,11 @@ function getProductsId(id_order) {
 }
 
 function editOrder(order) {
-	
-	//getProductsId(order.cells[0].innerHTML);
-	
-
 	productsQty();
 
 	edit(order);
+
+	reload();
 }
 
 function edit(order) {
@@ -93,7 +107,12 @@ function edit(order) {
 	}
 }
 
+function reload() {
+	location.reload();
+}
+
 function deleteOrder(id) {
+
 	$.ajax({
 			url: "phpScripts\\Order\\CtrlOrder.php",
 			type : 'POST',
@@ -102,6 +121,7 @@ function deleteOrder(id) {
 				id_order : id,
 			},
 		});
+	reload();
 }
 
 function methodId(selected) {
@@ -153,6 +173,7 @@ function addOrder() {
 				methodId : method,
 			},
 		});
+		reload();
 	}
 	else {
 		alert("Il y a des erreurs dans le formulaire.");
