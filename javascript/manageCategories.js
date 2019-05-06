@@ -10,11 +10,13 @@ function addListeners(){
 
   let saveBtn=document.getElementById("editCategorySaveBtn");
   saveBtn.addEventListener ("click", function(e){
+    e.preventDefault();
     modifyCategory();
   });
 
   let deleteBtn=document.getElementById("deleteCategorySaveBtn");
   deleteBtn.addEventListener ("click", function(e){
+    e.preventDefault();
     deleteCategory();
   });
 }
