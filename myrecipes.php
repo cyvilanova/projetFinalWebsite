@@ -14,9 +14,15 @@ Date Nom Description
 ?>
 
 <?php
+session_start();
+
 include_once "phpScripts/Recipe/CtrlRecipe.php";
 include_once "phpScripts/Product/CtrlProduct.php";
 include_once "phpScripts/Category/CtrlCategory.php";
+
+if($_SESSION["username"]!="admin"){
+    echo "<script> location.href='Catalog.php'</script>";
+}
 ?>
 
 <!DOCTYPE html>
